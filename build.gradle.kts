@@ -3,6 +3,7 @@ plugins {
     kotlin("jvm")
     // A Gradle plugin that forces semantic versioning and relies on git to detect the project state
     id("org.danilopianini.git-sensitive-semantic-versioning")
+    jacoco
     application
 }
 
@@ -32,6 +33,13 @@ tasks.withType<Test> {
         showStandardStreams = true
         events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+        html.isEnabled = true
     }
 }
 
