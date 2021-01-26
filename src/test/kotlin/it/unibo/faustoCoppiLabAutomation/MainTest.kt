@@ -23,7 +23,20 @@ class MainTest : FreeSpec({
         }
     }
 
+    fun GradleRunner.withJaCoCo(): GradleRunner {
+        javaClass.classLoader.getResourceAsStream("testkit-gradle.properties").toFile(File(projectDir, "gradle.properties"))
+        return this
+    }
+
+    fun testSetup(buildFile: () -> String) = projectSetup(buildFile).let { testFolder ->
+        GradleRunner.create()
+            .withProjectDir(testFolder.root)
+            .withArguments()
+            .withJaCoCo()
+    }
+
     "Nothing to print" - {
         assert(true)
     }
+
 })
