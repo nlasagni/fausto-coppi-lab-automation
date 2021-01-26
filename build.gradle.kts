@@ -16,8 +16,23 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+
+    testImplementation(gradleTestKit())
+    testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
+    testImplementation("io.kotest:kotest-assertions-core:4.2.5")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform() // Use JUnit 5 engine
+    testLogging.showStandardStreams = true
+    testLogging {
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = true
+        events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
 }
 
 application {
