@@ -1,11 +1,8 @@
-package faustoCoppiLabAutomation
+package it.unibo.faustoCoppiLabAutomation
 
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.string.shouldContain
 import org.gradle.internal.impldep.org.junit.rules.TemporaryFolder
 import org.gradle.testkit.runner.GradleRunner
-import org.gradle.testkit.runner.TaskOutcome
 import java.io.File
 import java.io.InputStream
 
@@ -38,5 +35,4 @@ class MainTest : FreeSpec({
     "Nothing to print" - {
         assert(true)
     }
-
 })

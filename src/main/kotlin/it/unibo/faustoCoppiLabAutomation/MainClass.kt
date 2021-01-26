@@ -1,4 +1,4 @@
-package faustoCoppiLabAutomation
+package it.unibo.faustoCoppiLabAutomation
 
 class MainClass {
     val hello: String
