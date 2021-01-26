@@ -4,6 +4,8 @@ plugins {
     // A Gradle plugin that forces semantic versioning and relies on git to detect the project state
     id("org.danilopianini.git-sensitive-semantic-versioning")
     jacoco
+    id("org.jlleitschuh.gradle.ktlint")
+    id("io.gitlab.arturbosch.detekt")
     application
 }
 
@@ -12,7 +14,9 @@ gitSemVer {
 }
 
 repositories {
-    jcenter()
+    jcenter{
+        content { onlyForConfigurations("detekt") }
+    }
 }
 
 dependencies {
@@ -22,6 +26,13 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
     testImplementation("io.kotest:kotest-assertions-core:4.2.5")
     testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
+}
+
+detekt {
+    failFast = true // fail build on any finding
+    buildUponDefaultConfig = true // preconfigure defaults
 }
 
 tasks.withType<Test> {
