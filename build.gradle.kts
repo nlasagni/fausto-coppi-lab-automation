@@ -43,6 +43,10 @@ tasks.jacocoTestReport {
     }
 }
 
+tasks.register("generateVersionFile") {
+    File("$buildDir/version").writeText(version.toString())
+}
+
 application {
     // Define the main class for the application
     mainClass.set("faustoCoppiLabAutomation.MainClassKt")
