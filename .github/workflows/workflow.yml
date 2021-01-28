@@ -14,9 +14,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 15.0.2
+      - name: Chmode gradlew
+        run: chmod +x ./gradlew
       - name: Compile
-        run: sudo ./gradlew compileKotlin
+        run: ./gradlew compileKotlin
       - name: Build
-        run: sudo ./gradlew build
+        run: ./gradlew build
       - name: Test
-        run: sudo ./gradlew test
+        run: ./gradlew test
