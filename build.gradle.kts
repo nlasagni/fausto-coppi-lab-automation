@@ -36,8 +36,8 @@ dependencies {
 }
 
 detekt {
-    failFast = true // fail build on any finding
-    buildUponDefaultConfig = true // preconfigure defaults
+    failFast = true
+    buildUponDefaultConfig = true
 }
 
 tasks.withType<Test> {
