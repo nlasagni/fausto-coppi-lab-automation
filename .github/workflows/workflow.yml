@@ -1,0 +1,24 @@
+name: workflow
+on: 
+  push
+jobs:
+  Build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 15.0.2
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15.0.2
+      - name: Chmode gradlew
+        run: chmod +x ./gradlew
+      - name: Compile
+        run: ./gradlew compileKotlin
+      - name: Build
+        run: ./gradlew build
+      - name: Test
+        run: ./gradlew test
