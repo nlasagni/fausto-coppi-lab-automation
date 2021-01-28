@@ -7,16 +7,17 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-20.04, ubuntu-latest, ubuntu-16.04, macos-11.0, macos-latest]
+        java: [ 1.8, 11, 12, 13, 14, 15 ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set up JDK 15.0.2
+      - name: Set up JDK 
         uses: actions/setup-java@v1
         with:
-          java-version: 15.0.2
+          java-version: ${{ matrix.java }}
       - name: Chmode gradlew
         run: chmod +x ./gradlew
       - name: Compile
