@@ -7,6 +7,6 @@ class MainClass {
         }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     println(MainClass().hello)
 }
