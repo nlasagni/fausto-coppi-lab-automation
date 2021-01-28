@@ -11,8 +11,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: Compile
-        run: ./gradlew compileKotlin
+        run: sudo ./gradlew compileKotlin
       - name: Build
-        run: ./gradlew build
+        run: sudo ./gradlew build
       - name: Test
-        run: ./gradlew test
+        run: sudo ./gradlew test
