@@ -6,6 +6,7 @@ plugins {
     jacoco
     id("org.jlleitschuh.gradle.ktlint")
     id("io.gitlab.arturbosch.detekt")
+    id("org.jetbrains.dokka") version "1.4.10"
     application
 }
 
@@ -15,6 +16,12 @@ gitSemVer {
 
 repositories {
     jcenter()
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        allWarningsAsErrors = true
+    }
 }
 
 dependencies {
