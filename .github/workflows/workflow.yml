@@ -6,8 +6,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: CodeQuality
-        run: ./gradlew ktlinCheck 
       - name: Compile
         run: ./gradlew compileKotlin
       - name: Build
