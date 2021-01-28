@@ -18,6 +18,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: Compile
         run: ./gradlew compileKotlin
+      - name: Kotlin style check
+        run: ./gradlew ktlintCheck
       - name: Build
         run: ./gradlew build
       - name: Test
