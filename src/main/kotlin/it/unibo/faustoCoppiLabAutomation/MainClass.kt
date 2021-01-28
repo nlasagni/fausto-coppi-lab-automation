@@ -1,4 +1,4 @@
-package faustoCoppiLabAutomation
+package it.unibo.faustoCoppiLabAutomation
 
 class MainClass {
     val hello: String
@@ -7,6 +7,6 @@ class MainClass {
         }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     println(MainClass().hello)
 }
