@@ -6,7 +6,7 @@ plugins {
     jacoco
     id("org.jlleitschuh.gradle.ktlint")
     id("io.gitlab.arturbosch.detekt")
-    id("org.jetbrains.dokka") version "1.4.10"
+    id("org.jetbrains.dokka")
     application
 }
 
