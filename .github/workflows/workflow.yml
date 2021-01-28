@@ -15,8 +15,8 @@ jobs:
         with:
           java-version: 15.0.2
       - name: Compile
-        run: ./gradlew compileKotlin
+        run: sudo ./gradlew compileKotlin
       - name: Build
-        run: ./gradlew build
+        run: sudo ./gradlew build
       - name: Test
-        run: ./gradlew test
+        run: sudo ./gradlew test
