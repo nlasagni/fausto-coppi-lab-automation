@@ -1,5 +1,5 @@
 name: workflow
-on: 
+on:
   push:
   pull_request:
     branches:
@@ -14,7 +14,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
         java: [ 1.8, 15 ]
     runs-on: ${{ matrix.os }}
-    steps: &steplist
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -42,4 +42,23 @@ jobs:
         os: [windows-latest, ubuntu-20.04, ubuntu-latest, ubuntu-16.04, macos-latest]
         java: [ 1.8, 11, 12, 13, 14, 15 ]
     runs-on: ${{ matrix.os }}
-    <<: *steplist
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Chmode gradlew
+        if: ${{ ! contains(matrix.os, 'windows') }}
+        run: chmod +x ./gradlew
+      - name: Compile
+        run: ./gradlew compileKotlin
+      - name: Kotlin style check
+        run: ./gradlew ktlintCheck
+      - name: Build
+        run: ./gradlew build
+      - name: Test
+        run: ./gradlew test
