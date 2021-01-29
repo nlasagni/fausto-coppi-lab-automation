@@ -1,4 +1,4 @@
-_steps: &ref_steps
+_step_def: &ref_steps
   - name: Checkout
     uses: actions/checkout@v2
     with:
