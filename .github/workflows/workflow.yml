@@ -30,7 +30,7 @@ jobs:
         uses: ./.github/actions
   BuildOnPullRequest:
     name: BuildOnPullRequest
-    if: ${{ contains(github.event_name, 'pull-request') }}
+    if: ${{ contains(github.event_name, 'pull_request') }}
     strategy:
       matrix:
         os: [windows-latest, ubuntu-20.04, ubuntu-latest, ubuntu-16.04, macos-latest]
