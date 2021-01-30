@@ -72,5 +72,5 @@ tasks.register("generateVersionFile") {
 
 application {
     // Define the main class for the application
-    mainClass.set("faustoCoppiLabAutomation.MainClassKt")
+    mainClass.set("it.unibo.faustoCoppiLabAutomation.MainClassKt")
 }
