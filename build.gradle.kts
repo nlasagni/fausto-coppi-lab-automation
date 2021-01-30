@@ -4,6 +4,7 @@ plugins {
     // A Gradle plugin that forces semantic versioning and relies on git to detect the project state
     id("org.danilopianini.git-sensitive-semantic-versioning")
     jacoco
+    id("pl.droidsonroids.jacoco.testkit")
     id("org.jlleitschuh.gradle.ktlint")
     id("io.gitlab.arturbosch.detekt")
     id("org.jetbrains.dokka")
