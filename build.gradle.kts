@@ -64,9 +64,9 @@ tasks.register("generateVersionFile") {
     val readme = File("$projectDir/README.md")
     val text = readme.readText()
     if(reg.containsMatchIn(text)) {
-        readme.writeText(text.replace(reg, "Version: [ $version ]"))
+        readme.writeText(text.replace(reg, "Version: [$version]"))
     } else {
-        readme.appendText("Version: [ $version ]\n")
+        readme.appendText("Version: [$version]\n")
     }
 }
 
