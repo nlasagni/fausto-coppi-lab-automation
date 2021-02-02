@@ -60,7 +60,7 @@ tasks.jacocoTestReport {
 }
 
 tasks.register("generateVersionFile") {
-    File("$buildDir/version").writeText(version.toString())
+    File("$projectDir/README.md").appendText("Version: [ $version ]\n")
 }
 
 application {
