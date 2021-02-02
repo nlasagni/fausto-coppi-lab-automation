@@ -7,7 +7,7 @@ class ReservationConsulting(
     override val member: Member,
     val professional: Professional,
     val name: Consulting
-): Reservation(date, member) {
+) : Reservation(date, member) {
 
     override fun updateDate(newDate: Date): Reservation {
         return ReservationConsulting(newDate, member, professional, name)
