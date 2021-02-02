@@ -7,7 +7,8 @@ class Desk {
     val reservation: MutableList<Reservation> = mutableListOf()
 
     fun createGymRes(date: Date, member: Member, machine: Machine?) {
-        TODO()
+        val res = ReservationGym(date,member,machine)
+        reservation.add(res)
     }
 
     fun createConsRes(date:Date, member: Member, professional: Professional, consulting: Consulting) {
