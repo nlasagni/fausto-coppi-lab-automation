@@ -5,5 +5,5 @@ data class Member(
         val lastName: String,
         val membershipCard: MembershipCard
 ) {
-    override fun toString(): String = "This member is $firstName $lastName"
+    override fun toString(): String = "Member $firstName $lastName"
 }
