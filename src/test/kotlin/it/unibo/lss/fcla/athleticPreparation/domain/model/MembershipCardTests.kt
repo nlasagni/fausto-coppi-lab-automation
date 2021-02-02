@@ -6,7 +6,7 @@ import java.util.Date
 class MembershipCardTests : FreeSpec({
 
     "test card is active" - {
-        val membershipCard = MembershipCard("1234", Date())
+        val membershipCard = MembershipCard("1234", Date(), CardType("type1"))
         assert(!membershipCard.isActive())
     }
 })

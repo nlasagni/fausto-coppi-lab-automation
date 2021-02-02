@@ -16,11 +16,6 @@ data class YouthSectorAthlete(val firstName: String = "", val lastName: String =
 /**
  *
  */
-data class CardType(val type: String = "")
-
-/**
- *
- */
 class AthleteProfile(val firstName: String, val lastName: String, val birthDate: Date) {
 
     private val youthSectorAthlete: YouthSectorAthlete = YouthSectorAthlete(firstName, lastName, birthDate)
