@@ -13,13 +13,6 @@ class AthleteProfileTests : FreeSpec({
         athleteProfile = AthleteProfile("john", "petrucci", Date())
     }
 
-    "test renewal medical certificate" - {
-        val medicalCertificate = MedicalCertificate(Date(), "competitive")
-        athleteProfile.renewMedicalCertificate(Date(), "competitive")
-
-        assert(athleteProfile.getMedicalCertificate() == medicalCertificate)
-    }
-
     "test no multiple plan id was given" - {
         athleteProfile.createWorkoutPlan("plan1", 2, StrenghteningPlanType())
         shouldThrow<WorkoutPlanException> {
