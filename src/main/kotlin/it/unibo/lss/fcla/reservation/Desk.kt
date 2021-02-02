@@ -12,7 +12,8 @@ class Desk {
     }
 
     fun createConsRes(date:Date, member: Member, professional: Professional, consulting: Consulting) {
-        TODO()
+        val res = ReservationConsulting(date,member,professional,consulting)
+        reservation.add(res)
     }
 
     fun read(member: Member?, date: Date?) {
