@@ -61,9 +61,6 @@ tasks.jacocoTestReport {
 
 tasks.register("generateVersionFile") {
     val reg = Regex("Version: \\[([0-9]+\\.){2}[0-9]+(-[0-9a-zA-Z\\-]*)?]")
-    // File("$buildDir/version").writeText(version.toString())
-    // File("$projectDir/version").writeText(version.toString())
-    // File("$projectDir/README.md").appendText("Version: [ $version ]\n")
     val readme = File("$projectDir/README.md")
     val text = readme.readText()
     if(reg.containsMatchIn(text)) {
