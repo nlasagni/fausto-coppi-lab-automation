@@ -4,6 +4,8 @@ import java.util.*
 
 class Desk {
 
+    val reservation: MutableList<Reservation> = mutableListOf()
+
     fun createGymRes(date: Date, member: Member, machine: Machine?) {
         TODO()
     }
