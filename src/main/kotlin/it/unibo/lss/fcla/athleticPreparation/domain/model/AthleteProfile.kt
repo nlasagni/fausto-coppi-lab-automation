@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.athleticPreparation.domain.model
 
 import it.unibo.lss.fcla.athleticPreparation.domain.exceptions.WorkoutPlanException
+import sun.net.www.content.text.Generic
 import java.util.Date
 
 /**
@@ -20,6 +21,7 @@ class AthleteProfile(val firstName: String, val lastName: String, val birthDate:
 
     private val youthSectorAthlete: YouthSectorAthlete = YouthSectorAthlete(firstName, lastName, birthDate)
     private var medicalCertificate: MedicalCertificate = MedicalCertificate()
+    private val athleteInformations = mutableListOf<AthleteInformation>()
 
     private val planList = HashMap<String, WorkoutPlan>()
 
@@ -39,4 +41,16 @@ class AthleteProfile(val firstName: String, val lastName: String, val birthDate:
     fun getMedicalCertificate(): MedicalCertificate {
         return medicalCertificate.copy()
     }
+
+    fun createHealthInformation(type: String, information: String) {
+        athleteInformations.add(HealthInformation(type, information))
+    }
+
+    fun createGenericInformation(information: String) {
+        athleteInformations.add(GenericInformation(information))
+    }
+
+    fun getHealthInformations(): List<AthleteInformation> = athleteInformations.filterIsInstance<HealthInformation>().toList()
+
+    fun getGenericInformations(): List<AthleteInformation> = athleteInformations.filterIsInstance<GenericInformation>().toList()
 }
