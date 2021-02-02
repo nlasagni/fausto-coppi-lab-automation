@@ -9,7 +9,7 @@ class ReservationConsulting(
     val name: Consulting
 ) : Reservation(date, member) {
 
-    override fun updateDate(newDate: Date): Reservation {
+    override fun updateDate(newDate: Date): ReservationConsulting {
         return ReservationConsulting(newDate, member, professional, name)
     }
 

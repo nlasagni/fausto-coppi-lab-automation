@@ -8,7 +8,7 @@ class ReservationGym(
     val machine: Machine?
 ) : Reservation(date, member) {
 
-    override fun updateDate(newDate: Date): Reservation {
+    override fun updateDate(newDate: Date): ReservationGym {
         return ReservationGym(newDate, member, machine)
     }
 
