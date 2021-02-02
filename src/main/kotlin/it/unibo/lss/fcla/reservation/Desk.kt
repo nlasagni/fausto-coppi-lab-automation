@@ -16,8 +16,10 @@ class Desk {
         reservation.add(res)
     }
 
-    fun read(member: Member?, date: Date?) {
-        TODO()
+    fun read(member: Member?, date: Date?): List<Reservation> {
+        return reservation
+                .filter { member?.equals(it.member)?:true }
+                .filter { date?.equals(it.date)?:true }
     }
 
     fun update(reservation: Reservation, date: Date) {
