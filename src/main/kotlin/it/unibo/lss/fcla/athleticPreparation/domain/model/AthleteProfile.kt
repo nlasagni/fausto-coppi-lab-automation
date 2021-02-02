@@ -27,9 +27,12 @@ class AthleteProfile(val firstName: String, val lastName: String, val birthDate:
     /**
      *
      */
-    fun createWorkoutPlan(planId: String, duration: Int, type: WorkoutPlanType) {
+    fun createWorkoutPlan(planId: String, duration: Int, type: WorkoutPlanType): WorkoutPlan {
         if (planList.containsKey(planId)) throw WorkoutPlanException("A workout plan with id $planId already exist")
-        planList[planId] = WorkoutPlan(planId, duration, type)
+        val workout = WorkoutPlan(planId, duration, type)
+        planList[planId] = workout
+
+        return workout
     }
 
     /**
@@ -77,19 +80,23 @@ class AthleteProfile(val firstName: String, val lastName: String, val birthDate:
     /**
      *
      */
-    fun getNutritionHealthInformations(): List<AthleteInformation> = athleteInformations.filterIsInstance<HealthInformation>()
-        .filter { it.type == HealthInformationType.NUTRITION }
-        .toList()
+    fun getNutritionHealthInformations(): List<AthleteInformation> =
+        athleteInformations.filterIsInstance<HealthInformation>()
+            .filter { it.type == HealthInformationType.NUTRITION }
+            .toList()
 
     /**
      *
      */
-    fun getPhysiotherapyHealthInformations(): List<AthleteInformation> = athleteInformations.filterIsInstance<HealthInformation>()
-        .filter { it.type == HealthInformationType.PHYSIOTHERAPY }
-        .toList()
+    fun getPhysiotherapyHealthInformations(): List<AthleteInformation> =
+        athleteInformations.filterIsInstance<HealthInformation>()
+            .filter { it.type == HealthInformationType.PHYSIOTHERAPY }
+            .toList()
 
     /**
      *
      */
-    fun getGenericInformations(): List<AthleteInformation> = athleteInformations.filterIsInstance<GenericInformation>().toList()
+    fun getGenericInformations(): List<AthleteInformation> =
+        athleteInformations.filterIsInstance<GenericInformation>()
+            .toList()
 }

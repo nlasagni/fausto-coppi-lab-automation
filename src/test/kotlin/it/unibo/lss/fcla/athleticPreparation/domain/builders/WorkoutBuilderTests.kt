@@ -14,7 +14,6 @@ class WorkoutBuilderTests : FreeSpec({
             duration = 2
             intensity = 1
         }
-
         val conf2 = WorkoutConfiguration(2, 1)
 
         assert(conf == conf2)

@@ -29,24 +29,47 @@ class WorkoutPlan(val planId: String, val durationInMonths: Int, val type: Worko
 
     private val configurations: MutableMap<String, WorkoutConfiguration> = HashMap()
 
+    /**
+     *
+     */
     fun isActive() = state == WorkoutPlanStatus.ACTIVE
 
+    /**
+     *
+     */
     fun addConfiguration(name: String, duration: Int, intensity: Int) {
         configurations[name] = WorkoutConfiguration(duration, intensity)
     }
 
+    /**
+     *
+     */
+    fun getConfigurations(): List<WorkoutConfiguration> = configurations.values.toList()
+
+    /**
+     *
+     */
     fun getConfiguration(name: String): WorkoutConfiguration? {
         return configurations[name]?.copy()
     }
 
+    /**
+     *
+     */
     fun removeConfiguration(name: String) {
         configurations.remove(name)
     }
 
+    /**
+     *
+     */
     fun disable() {
         state = WorkoutPlanStatus.DISABLED
     }
 
+    /**
+     *
+     */
     fun enable() {
         state = WorkoutPlanStatus.ACTIVE
     }

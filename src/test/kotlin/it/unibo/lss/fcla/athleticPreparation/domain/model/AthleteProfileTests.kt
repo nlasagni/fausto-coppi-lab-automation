@@ -3,12 +3,11 @@ package it.unibo.lss.fcla.athleticPreparation.domain.model
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athleticPreparation.domain.exceptions.WorkoutPlanException
-import it.unibo.lss.fcla.athleticPreparation.domain.model.AthleteInformation
 import java.util.Date
 
 class AthleteProfileTests : FreeSpec({
 
-    lateinit var athleteProfile: AthleteProfile;
+    lateinit var athleteProfile: AthleteProfile
 
     beforeAny() {
         athleteProfile = AthleteProfile("john", "petrucci", Date())
@@ -35,9 +34,10 @@ class AthleteProfileTests : FreeSpec({
         athleteProfile.createNutritionHealthInformation("nutrition information 1")
         athleteProfile.createPhysiotherapyHealthInformation("physio information 2")
         athleteProfile.createPhysiotherapyHealthInformation("physio information 3")
-        assert(athleteProfile.getGenericInformations().count() == 3 &&
+        val result = athleteProfile.getGenericInformations().count() == 3 &&
             athleteProfile.getNutritionHealthInformations().count() == 1 &&
-            athleteProfile.getPhysiotherapyHealthInformations().count() == 2)
+            athleteProfile.getPhysiotherapyHealthInformations().count() == 2
+        assert(result)
     }
 
     "test athlete nutrition informations" - {
