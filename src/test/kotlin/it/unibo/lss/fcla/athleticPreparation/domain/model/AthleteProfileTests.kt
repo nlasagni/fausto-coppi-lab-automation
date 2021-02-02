@@ -8,7 +8,11 @@ import java.util.Date
 
 class AthleteProfileTests : FreeSpec({
 
-    val athleteProfile = AthleteProfile("john", "petrucci", Date())
+    lateinit var athleteProfile: AthleteProfile;
+
+    beforeAny() {
+        athleteProfile = AthleteProfile("john", "petrucci", Date())
+    }
 
     "test renewal medical certificate" - {
         val medicalCertificate = MedicalCertificate(Date(), "competitive")
@@ -34,5 +38,24 @@ class AthleteProfileTests : FreeSpec({
         assert(athleteProfile.getGenericInformations().count() == 3 &&
             athleteProfile.getNutritionHealthInformations().count() == 1 &&
             athleteProfile.getPhysiotherapyHealthInformations().count() == 2)
+    }
+
+    "test athlete nutrition informations" - {
+        athleteProfile.createNutritionHealthInformation("info1")
+        val nutritionInfo = HealthInformation(HealthInformationType.NUTRITION, "info1")
+        assert(athleteProfile.getNutritionHealthInformations().first() == nutritionInfo)
+    }
+
+    "test athlete physiotherapy informations" - {
+        athleteProfile.createPhysiotherapyHealthInformation("info1")
+        println(athleteProfile.getPhysiotherapyHealthInformations().first())
+        val physioInfo = HealthInformation(HealthInformationType.PHYSIOTHERAPY, "info1")
+        assert(athleteProfile.getPhysiotherapyHealthInformations().first() == physioInfo)
+    }
+
+    "test athlete generic informations" - {
+        athleteProfile.createGenericInformation("info1")
+        val genericInfo = GenericInformation("info1")
+        assert(athleteProfile.getGenericInformations().first() == genericInfo)
     }
 })
