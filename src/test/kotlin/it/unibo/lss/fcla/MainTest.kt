@@ -1,4 +1,4 @@
-package it.unibo.faustoCoppiLabAutomation
+package it.unibo.lss.fcla
 
 import io.kotest.core.spec.style.FreeSpec
 
