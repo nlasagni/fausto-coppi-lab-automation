@@ -2,13 +2,29 @@ package it.unibo.lss.fcla.reservation
 
 import java.util.Date
 
+/**
+ * Class used to identify a ReservationConsulting
+ *
+ * @param date The date of a consulting
+ * @param member Who wants to take a reservation
+ * @param professional The professional figure requested
+ * @param name The name of the requested consulting
+ *
+ * @return A new reservation
+ */
 class ReservationConsulting(
     override val date: Date,
     override val member: Member,
     val professional: Professional,
     val name: Consulting
 ) : Reservation(date, member) {
-
+    /**
+     * Method used to update a reservationConsulting
+     *
+     * @param newDate The new date of the reservation
+     *
+     * @return A new reservationConsulting
+     */
     override fun updateDate(newDate: Date): ReservationConsulting {
         return ReservationConsulting(newDate, member, professional, name)
     }
