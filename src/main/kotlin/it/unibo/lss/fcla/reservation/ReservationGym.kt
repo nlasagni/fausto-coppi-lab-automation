@@ -13,4 +13,15 @@ class ReservationGym(
     }
 
     override fun toString(): String = "This reservation is for $machine the $date for $member"
+
+    override fun equals(other: Any?): Boolean {
+        return if (other == null && other !is ReservationGym) false else other.hashCode() == hashCode()
+    }
+
+    override fun hashCode(): Int {
+        var result = date.hashCode()
+        result = 31 * result + member.hashCode()
+        result = 31 * result + (machine?.hashCode() ?: 0)
+        return result
+    }
 }
