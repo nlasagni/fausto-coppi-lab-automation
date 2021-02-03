@@ -10,12 +10,12 @@ class Desk {
     private var reservation: MutableList<Reservation> = mutableListOf()
 
     /**
-    * Method used to create a new Gym Reservation.
+     * Method used to create a new Gym Reservation.
      *
      * @param date The date of the reservation
      * @param member Who wants to take a reservation
      * @param machine Optionally, the gym equipment to be reserved
-    */
+     */
     fun createGymRes(date: Date, member: Member, machine: Machine?) {
         val res = ReservationGym(date, member, machine)
         reservation.add(res)

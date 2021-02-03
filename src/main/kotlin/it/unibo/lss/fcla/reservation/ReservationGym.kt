@@ -2,7 +2,6 @@ package it.unibo.lss.fcla.reservation
 
 import java.util.Date
 
-
 /**
  * Class used to identify a ReservationGym
  *
