@@ -42,7 +42,7 @@ class Desk {
      *
      * @return A list of reservations with the specific member and/or date
      */
-    fun read(member: Member?, date: Date?): List<Reservation> {
+    fun read(member: Member? = null, date: Date? = null): List<Reservation> {
         return reservation
             .filter { member?.equals(it.member) ?: true }
             .filter { date?.equals(it.date) ?: true }
