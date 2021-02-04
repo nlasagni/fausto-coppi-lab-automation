@@ -16,9 +16,10 @@ class Desk {
      * @param member Who wants to take a reservation
      * @param machine Optionally, the gym equipment to be reserved
      */
-    fun createGymRes(date: Date, member: Member, machine: Machine?) {
+    fun createGymReservation(date: Date, member: Member, machine: Machine?): ReservationGym {
         val res = ReservationGym(date, member, machine)
         reservation.add(res)
+        return res
     }
 
     /**
@@ -29,10 +30,12 @@ class Desk {
      * @param professional The professional figure requested into the reservation
      * @param consulting The specific consulting requested
      */
-    fun createConsRes(date: Date, member: Member, professional: Professional, consulting: Consulting) {
-        val res = ReservationConsulting(date, member, professional, consulting)
-        reservation.add(res)
-    }
+    fun createConsultingReservation(date: Date, member: Member, professional: Professional, consulting: Consulting):
+        ReservationConsulting {
+            val res = ReservationConsulting(date, member, professional, consulting)
+            reservation.add(res)
+            return res
+        }
 
     /**
      * Method used to research a specific reservation or a list of reservations
