@@ -5,14 +5,19 @@ import java.util.Calendar
 import java.util.Date
 
 class DeskTest : FreeSpec({
+    val year = 2021
+    val feb = 2
+    val day = 13
+    val cardCode = "0111"
+
     val cal = Calendar.getInstance()
-    cal.set(2021, 2, 13)
+    cal.set(year, feb, day)
     val date: Date = cal.time
 
     val member = Member(
         "Mario",
         "Rossi",
-        MembershipCard("0111")
+        MembershipCard(cardCode)
     )
 
     val machine = Machine("Rullo")
@@ -27,7 +32,7 @@ class DeskTest : FreeSpec({
                 machine
             )
 
-            desk.createGymRes(date, member, machine)
+            desk.createGymReservation(date, member, machine)
             val regRes = desk.read(
                 member,
                 null
@@ -48,7 +53,7 @@ class DeskTest : FreeSpec({
                 professional,
                 nameCons
             )
-            desk.createConsRes(date, member, professional, nameCons)
+            desk.createConsultingReservation(date, member, professional, nameCons)
 
             val regRes = desk.read(
                 member,
@@ -57,9 +62,12 @@ class DeskTest : FreeSpec({
             assert(regRes.contains(res))
         }
         "Update reservation date" - {
-            cal.set(2021, 3, 13)
+            val march = 3
+            val april = 4
+            val day2 = 23
+            cal.set(year, march, day)
             val oldDate: Date = cal.time
-            cal.set(2021, 4, 23)
+            cal.set(year, april, day2)
             val newDate: Date = cal.time
 
             val res = ReservationGym(
@@ -74,7 +82,7 @@ class DeskTest : FreeSpec({
                 machine
             )
 
-            desk.createGymRes(
+            desk.createGymReservation(
                 oldDate,
                 member,
                 machine
@@ -89,7 +97,9 @@ class DeskTest : FreeSpec({
             assert(regRes.contains(newRes))
         }
         "Delete reservation date" - {
-            cal.set(2021, 5, 3)
+            val may = 5
+            val day3 = 3
+            cal.set(year, may, day3)
             val delDate: Date = cal.time
 
             val res = ReservationGym(
@@ -98,7 +108,7 @@ class DeskTest : FreeSpec({
                 machine
             )
 
-            desk.createGymRes(
+            desk.createGymReservation(
                 delDate,
                 member,
                 machine
