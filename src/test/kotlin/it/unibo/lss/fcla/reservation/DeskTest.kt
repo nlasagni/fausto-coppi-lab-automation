@@ -33,10 +33,7 @@ class DeskTest : FreeSpec({
             )
 
             desk.createGymReservation(date, member, machine)
-            val regRes = desk.read(
-                member,
-                null
-            )
+            val regRes = desk.read(member)
             assert(regRes.contains(res))
         }
         "Create new consulting reservation" - {
@@ -55,10 +52,7 @@ class DeskTest : FreeSpec({
             )
             desk.createConsultingReservation(date, member, professional, nameCons)
 
-            val regRes = desk.read(
-                member,
-                null
-            )
+            val regRes = desk.read(member)
             assert(regRes.contains(res))
         }
         "Update reservation date" - {
@@ -90,10 +84,7 @@ class DeskTest : FreeSpec({
 
             desk.update(res, newDate)
 
-            val regRes = desk.read(
-                null,
-                newDate
-            )
+            val regRes = desk.read(date = newDate)
             assert(regRes.contains(newRes))
         }
         "Delete reservation date" - {
@@ -116,10 +107,7 @@ class DeskTest : FreeSpec({
 
             desk.delete(res)
 
-            val regRes = desk.read(
-                null,
-                null
-            )
+            val regRes = desk.read()
 
             assert(!regRes.contains(res))
         }
