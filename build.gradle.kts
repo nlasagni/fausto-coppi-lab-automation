@@ -92,17 +92,6 @@ tasks.jacocoTestReport {
     }
 }
 
-tasks.register("computeVersion") {
-    val reg = Regex("Version: \\[([0-9]+\\.){2}[0-9]+(-[0-9a-zA-Z-+]*)?]")
-    val readme = File("$projectDir/README.md")
-    val text = readme.readText()
-    if (reg.containsMatchIn(text)) {
-        readme.writeText(text.replace(reg, "Version: [$version]"))
-    } else {
-        readme.appendText("Version: [$version]\n")
-    }
-}
-
 application {
     // Define the main class for the application
     mainClass.set(myMainClass)
