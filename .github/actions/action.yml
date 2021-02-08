@@ -6,12 +6,6 @@ runs:
     - name: Compile
       run: ./gradlew compileKotlin
       shell: bash
-    - name: Kotlin style check
-      run: ./gradlew ktlintCheck
-      shell: bash
-    - name: Build
-      run: ./gradlew build
-      shell: bash
-    - name: Test
-      run: ./gradlew test
+    - name: Run all checks
+      run: ./gradlew check
       shell: bash
