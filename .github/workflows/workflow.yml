@@ -6,8 +6,8 @@ on:
       - main
       - develop
 jobs:
-  BuildOnPush:
-    name: BuildOnPush
+  CompileAndCheckOnPush:
+    name: CompileAndCheckOnPush
     if: ${{ contains(github.event_name, 'push') }}
     strategy:
       matrix:
@@ -28,8 +28,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: ActionChecks
         uses: ./.github/actions
-  BuildOnPullRequest:
-    name: BuildOnPullRequest
+  CompileAndCheckOnPullRequest:
+    name: CompileAndCheckOnPullRequest
     if: ${{ contains(github.event_name, 'pull_request') }}
     strategy:
       matrix:
