@@ -1,0 +1,80 @@
+name: workflow
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  CompileAndCheckOnPush:
+    name: CompileAndCheckOnPush
+    if: ${{ contains(github.event_name, 'push') }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        java: [ 1.8, 15 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Chmode gradlew
+        if: ${{ ! contains(matrix.os, 'windows') }}
+        run: chmod +x ./gradlew
+      - name: ActionChecks
+        uses: ./.github/actions
+  CompileAndCheckOnPullRequest:
+    name: CompileAndCheckOnPullRequest
+    if: ${{ contains(github.event_name, 'pull_request') }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-20.04, ubuntu-latest, ubuntu-16.04, macos-latest]
+        java: [ 1.8, 11, 12, 13, 14, 15 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Chmode gradlew
+        if: ${{ ! contains(matrix.os, 'windows') }}
+        run: chmod +x ./gradlew
+      - name: ActionChecks
+        uses: ./.github/actions
+  Release:
+    needs: CompileAndCheckOnPush
+    if: ${{ contains(github.ref, 'refs/tags/') }}
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      - name: re-fetch all tags to get annotations
+        run: git fetch --force --tags
+      - name: Chmode gradlew
+        run: chmod +x ./gradlew
+      - name: Assemble dist
+        run: ./gradlew assembleDist
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            LICENSE
+            ./build/distributions/*.zip
+            ./build/distributions/*.tar

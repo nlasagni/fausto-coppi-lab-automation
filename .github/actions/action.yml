@@ -1,0 +1,11 @@
+name: 'basic-check'
+description: 'action for compile, check, build and test'
+runs:
+  using: "composite"
+  steps:
+    - name: Compile
+      run: ./gradlew compileKotlin
+      shell: bash
+    - name: Run all checks
+      run: ./gradlew check
+      shell: bash
