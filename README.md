@@ -1,6 +1,7 @@
 # Badges
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/nlasagni/fausto-coppi-lab-automation)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nlasagni/fausto-coppi-lab-automation/workflow)
+[![codecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation)
 ![GitHub](https://img.shields.io/github/license/nlasagni/fausto-coppi-lab-automation)
 
 # fausto-coppi-lab-automation
