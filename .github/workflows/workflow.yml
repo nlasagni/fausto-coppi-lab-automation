@@ -30,7 +30,7 @@ jobs:
         uses: ./.github/actions
   generate-and-deploy-doc:
     name: generate-and-deploy-doc
-    if: ${{ contains(github.event_name, 'push') } && github.ref == 'refs/heads/develop' }
+    if: ${{ contains(github.event_name, 'push') && github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
