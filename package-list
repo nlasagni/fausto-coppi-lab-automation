@@ -1,0 +1,10 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+
+it.unibo.lss.fcla
+it.unibo.lss.fcla.athleticPreparation.domain
+it.unibo.lss.fcla.athleticPreparation.domain.builders
+it.unibo.lss.fcla.athleticPreparation.domain.exceptions
+it.unibo.lss.fcla.athleticPreparation.domain.model
+it.unibo.lss.fcla.reservation
+
