@@ -48,8 +48,6 @@ jobs:
         with:
           branch: gh-pages
           folder: build/dokka/html
-      - name: Remove local docs
-        run: rm -rf docs    
   CompileAndCheckOnPullRequest:
     name: CompileAndCheckOnPullRequest
     if: ${{ contains(github.event_name, 'pull_request') }}
