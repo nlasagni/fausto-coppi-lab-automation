@@ -28,6 +28,33 @@ jobs:
         run: chmod +x ./gradlew
       - name: ActionChecks
         uses: ./.github/actions
+  GenerateProjectDocsAndDeployToGithubPages:
+    name: GenerateProjectDocsAndDeployToGithubPages
+    if: ${{ contains(github.event_name, 'push') && github.ref == 'refs/heads/develop' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up JDK 
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      - name: Chmode gradlew
+        run: chmod +x ./gradlew
+      - name: Create empty folder for gh-pages branch
+        run: mkdir empty-gh-pages
+      - name: Empty gh-pages branch
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: gh-pages
+          folder: empty-gh-pages
+      - name: Generate Dokka docs
+        run: ./gradlew dokkaJavadoc
+      - name: Deploy Dokka docs to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: gh-pages
+          folder: build/dokka/javadoc
   CompileAndCheckOnPullRequest:
     name: CompileAndCheckOnPullRequest
     if: ${{ contains(github.event_name, 'pull_request') }}
