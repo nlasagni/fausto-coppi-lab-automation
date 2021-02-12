@@ -51,6 +51,7 @@ jobs:
       - name: ActionChecks
         uses: ./.github/actions
   GenerateProjectDocsAndDeployToGithubPages:
+    needs: CompileAndCheckOnPush
     name: GenerateProjectDocsAndDeployToGithubPages
     if: ${{ contains(github.event_name, 'push') && github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-latest
