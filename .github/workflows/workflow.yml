@@ -46,7 +46,6 @@ jobs:
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: build/dokka/html
       - name: Remove local docs
