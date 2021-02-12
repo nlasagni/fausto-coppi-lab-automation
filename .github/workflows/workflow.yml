@@ -49,12 +49,12 @@ jobs:
           branch: gh-pages
           folder: empty-gh-pages
       - name: Generate Dokka docs
-        run: ./gradlew dokkaHtml
+        run: ./gradlew dokkaJavadoc
       - name: Deploy Dokka docs to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
           branch: gh-pages
-          folder: build/dokka/html
+          folder: build/dokka/javadoc
   CompileAndCheckOnPullRequest:
     name: CompileAndCheckOnPullRequest
     if: ${{ contains(github.event_name, 'pull_request') }}
