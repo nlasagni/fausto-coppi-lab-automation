@@ -28,8 +28,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: ActionChecks
         uses: ./.github/actions
-  generate-and-deploy-doc:
-    name: generate-and-deploy-doc
+  GenerateProjectDocsAndDeployToGithubPages:
+    name: GenerateProjectDocsAndDeployToGithubPages
     if: ${{ contains(github.event_name, 'push') && github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-latest
     steps:
@@ -41,16 +41,16 @@ jobs:
           java-version: 15
       - name: Chmode gradlew
         run: chmod +x ./gradlew
-      - name: Create empty folder for gh-pages
+      - name: Create empty folder for gh-pages branch
         run: mkdir empty-gh-pages
-      - name: Empty gh-pages
+      - name: Empty gh-pages branch
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
           branch: gh-pages
           folder: empty-gh-pages
       - name: Generate Dokka docs
         run: ./gradlew dokkaHtml
-      - name: Deploy Dokka docs
+      - name: Deploy Dokka docs to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
           branch: gh-pages
