@@ -44,12 +44,12 @@ jobs:
       - name: Chmode gradlew
         run: chmod +x ./gradlew
       - name: Generate docs
-        run: ./gradlew javadoc
+        run: ./gradlew dokkaHtml
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
           branch: gh-pages
-          folder: docs
+          folder: build/dokka/html
       - name: Remove local docs
         run: rm -rf docs    
   CompileAndCheckOnPullRequest:
