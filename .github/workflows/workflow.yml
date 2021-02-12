@@ -41,6 +41,13 @@ jobs:
           java-version: 15
       - name: Chmode gradlew
         run: chmod +x ./gradlew
+      - name: Create empty folder for gh-pages
+        run: mkdir empty-gh-pages
+      - name: Empty gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: gh-pages
+          folder: empty-gh-pages
       - name: Generate docs
         run: ./gradlew dokkaHtml
       - name: Deploy docs
