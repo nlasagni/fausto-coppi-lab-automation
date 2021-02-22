@@ -12,4 +12,6 @@ class Freelancer(val firstName: String, val lastName: String, val role: Freelanc
         if(firstName == "" || lastName == "")
             throw ConsultingException("A freelancer must have a first name and a last name")
     }
+
+    fun addAvailability()
 }
