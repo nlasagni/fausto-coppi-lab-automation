@@ -1,6 +1,11 @@
 package it.unibo.lss.fcla.consulting
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
+import it.unibo.lss.fcla.consulting.exceptions.ConsultingException
+import it.unibo.lss.fcla.consulting.models.Freelancer
+import it.unibo.lss.fcla.consulting.models.FreelancerRole
+import org.junit.jupiter.api.assertThrows
 
 class ConsultingTest : FreeSpec( {
 
@@ -16,5 +21,11 @@ class ConsultingTest : FreeSpec( {
         val secondNutritionist = FreelancerRole.Nutritionist()
 
         assert(firstNutritionist.equals(secondNutritionist))
+    }
+
+    "test freelancer bad creation throw exception" - {
+        shouldThrow<ConsultingException> {
+            Freelancer(firstName = "mario", lastName = "")
+        }
     }
 })
