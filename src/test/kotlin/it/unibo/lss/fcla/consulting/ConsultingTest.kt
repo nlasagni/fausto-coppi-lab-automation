@@ -5,9 +5,8 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.models.Freelancer
 import it.unibo.lss.fcla.consulting.models.FreelancerRole
-import org.junit.jupiter.api.assertThrows
 
-class ConsultingTest : FreeSpec( {
+class ConsultingTest : FreeSpec({
 
     "test freelancer role inequality" - {
         val physiotherapist = FreelancerRole.Physiotherapist()
@@ -25,7 +24,7 @@ class ConsultingTest : FreeSpec( {
 
     "test freelancer bad creation throw exception" - {
         shouldThrow<ConsultingException> {
-            Freelancer(firstName = "mario", lastName = "")
+            Freelancer(firstName = "mario", lastName = "", FreelancerRole.AthleticTrainer())
         }
     }
 })
