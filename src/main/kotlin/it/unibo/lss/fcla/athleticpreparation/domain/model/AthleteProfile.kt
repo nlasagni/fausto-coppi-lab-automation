@@ -1,6 +1,6 @@
-package it.unibo.lss.fcla.athleticPreparation.domain.model
+package it.unibo.lss.fcla.athleticpreparation.domain.model
 
-import it.unibo.lss.fcla.athleticPreparation.domain.exceptions.WorkoutPlanException
+import it.unibo.lss.fcla.athleticpreparation.domain.exceptions.WorkoutPlanException
 import java.util.Date
 
 /**

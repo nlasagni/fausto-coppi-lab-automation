@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athleticPreparation.domain
+package it.unibo.lss.fcla.athleticpreparation.domain
 
 fun main() {
     println("Creating new AthleteProfile")

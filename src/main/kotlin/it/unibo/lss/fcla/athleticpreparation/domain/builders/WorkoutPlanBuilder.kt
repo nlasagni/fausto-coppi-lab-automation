@@ -1,8 +1,8 @@
-package it.unibo.lss.fcla.athleticPreparation.domain.builders
+package it.unibo.lss.fcla.athleticpreparation.domain.builders
 
-import it.unibo.lss.fcla.athleticPreparation.domain.model.PostInjuryPlanType
-import it.unibo.lss.fcla.athleticPreparation.domain.model.WorkoutConfiguration
-import it.unibo.lss.fcla.athleticPreparation.domain.model.WorkoutPlanType
+import it.unibo.lss.fcla.athleticpreparation.domain.model.PostInjuryPlanType
+import it.unibo.lss.fcla.athleticpreparation.domain.model.WorkoutConfiguration
+import it.unibo.lss.fcla.athleticpreparation.domain.model.WorkoutPlanType
 
 class WorkoutConfigurationBuilder {
     var duration: Int = 0

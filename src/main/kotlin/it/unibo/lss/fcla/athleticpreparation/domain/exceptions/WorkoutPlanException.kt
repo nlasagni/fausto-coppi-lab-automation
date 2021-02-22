@@ -1,3 +1,3 @@
-package it.unibo.lss.fcla.athleticPreparation.domain.exceptions
+package it.unibo.lss.fcla.athleticpreparation.domain.exceptions
 
 class WorkoutPlanException(message: String) : Exception(message)

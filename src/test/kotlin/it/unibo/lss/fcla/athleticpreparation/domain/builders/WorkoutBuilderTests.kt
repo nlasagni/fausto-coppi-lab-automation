@@ -1,7 +1,7 @@
-package it.unibo.lss.fcla.athleticPreparation.domain.builders
+package it.unibo.lss.fcla.athleticpreparation.domain.builders
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athleticPreparation.domain.model.WorkoutConfiguration
+import it.unibo.lss.fcla.athleticpreparation.domain.model.WorkoutConfiguration
 
 class WorkoutBuilderTests : FreeSpec({
 
