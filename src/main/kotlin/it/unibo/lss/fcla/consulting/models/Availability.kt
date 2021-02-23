@@ -11,17 +11,24 @@ class Availability(val availabilityDate: Date, val fromTime: LocalTime, val toTi
 
     private var availabilityHours: AvailabilityHours = AvailabilityHours(fromTime, toTime)
 
-    init {
-        if(DateTimeValidation.isAvailabilityTimeValid(availabilityHours.fromTime, availabilityHours.toTime))
-            throw IllegalArgumentException("Availability end time must be greater than start time")
-    }
-
+    /**
+     * Get the availability fromHours
+     */
     fun getAvailabilityFromHours(): LocalTime = availabilityHours.fromTime
 
+    /**
+     * Get the availability toHours
+     */
     fun getAvailabilityToHours(): LocalTime = availabilityHours.toTime
 
+    /**
+     * Update the availability with given [fromTime] and [toTime]
+     *
+     */
     fun updateAvailability(fromTime: LocalTime, toTime: LocalTime){
-        if()
+        require(fromTime.isBefore(toTime))
+
+        availabilityHours = AvailabilityHours(fromTime, toTime)
     }
 
 }

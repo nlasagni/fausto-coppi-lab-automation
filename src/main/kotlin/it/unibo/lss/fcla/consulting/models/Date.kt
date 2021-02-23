@@ -13,9 +13,16 @@ data class Date(val year: Int, val month: Int, val day: Int){
         require(day in 1..31)
     }
 
+    /**
+     * Check if the current date is equal to [other]
+     */
     override fun equals(other: Any?): Boolean {
-        //TODO fixme
-        return true
+        if(this === other) return true
+        if(other !is Date) return false
+
+        return other.year == year &&
+                other.month == month &&
+                other.day == day;
     }
 
 }
