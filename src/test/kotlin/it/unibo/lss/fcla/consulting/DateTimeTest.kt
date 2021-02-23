@@ -3,7 +3,7 @@ package it.unibo.lss.fcla.consulting
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.models.Date
 
-class DateTimeTest: FreeSpec({
+class DateTimeTest : FreeSpec({
 
     "test date equality" - {
         val date1 = Date(2021, 1, 1)
@@ -12,5 +12,4 @@ class DateTimeTest: FreeSpec({
 
         assert((date1 == date2) && (date2 != date3))
     }
-
 })

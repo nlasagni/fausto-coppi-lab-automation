@@ -24,8 +24,9 @@ class Freelancer(val firstName: String, val lastName: String, val role: Freelanc
         require(fromTime.isBefore(toTime))
 
         val exist = availabilities.firstOrNull { it.availabilityDate == newAvailabilityDate } != null
-        if (exist)
+        if (exist) {
             throw ConsultingException("An availability already exists for date $newAvailabilityDate")
+        }
 
         val availability = Availability(newAvailabilityDate, fromTime, toTime)
         availabilities.add(availability)

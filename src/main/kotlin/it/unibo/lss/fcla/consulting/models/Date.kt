@@ -29,7 +29,7 @@ data class Date(val year: Int, val month: Int, val day: Int) {
         if (other !is Date) return false
 
         return other.year == year &&
-                other.month == month &&
-                other.day == day
+            other.month == month &&
+            other.day == day
     }
 }
