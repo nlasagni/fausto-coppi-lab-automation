@@ -1,7 +1,5 @@
 package it.unibo.lss.fcla.consulting.models
 
-import it.unibo.lss.fcla.consulting.validation.DateTimeValidation
-
 /**
  * @author Stefano Braggion
  *
@@ -10,7 +8,9 @@ import it.unibo.lss.fcla.consulting.validation.DateTimeValidation
 data class Date(val year: Int, val month: Int, val day: Int){
 
     init {
-        DateTimeValidation.isDateValid(this)
+        require(year > 1900)
+        require(month in 1..12)
+        require(day in 1..31)
     }
 
     override fun equals(other: Any?): Boolean {
