@@ -1,7 +1,6 @@
 package it.unibo.lss.fcla.consulting.validation
 
 import it.unibo.lss.fcla.consulting.models.Date
-import it.unibo.lss.fcla.consulting.models.Time
 
 class DateTimeValidation {
 
