@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athleticpreparation.domain.exceptions
+package it.unibo.lss.fcla.athleticpreparation.domain.exception
 
 /**
  * @author Nicola Lasagni on 22/02/2021.

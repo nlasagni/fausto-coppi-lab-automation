@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.model
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athleticpreparation.domain.exceptions.BeginningOfPreparationCannotBeAfterEnd
-import it.unibo.lss.fcla.athleticpreparation.domain.exceptions.PeriodOfPreparationDoesNotMeetMinimumDuration
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.BeginningOfPreparationCannotBeAfterEnd
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.PeriodOfPreparationDoesNotMeetMinimumDuration
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows

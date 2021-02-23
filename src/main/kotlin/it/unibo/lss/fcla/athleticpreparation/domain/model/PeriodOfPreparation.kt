@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.model
 
-import it.unibo.lss.fcla.athleticpreparation.domain.exceptions.BeginningOfPreparationCannotBeAfterEnd
-import it.unibo.lss.fcla.athleticpreparation.domain.exceptions.PeriodOfPreparationDoesNotMeetMinimumDuration
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.BeginningOfPreparationCannotBeAfterEnd
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.PeriodOfPreparationDoesNotMeetMinimumDuration
 import java.time.LocalDate
 import java.time.Period
 
