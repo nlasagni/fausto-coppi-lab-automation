@@ -10,18 +10,24 @@ import it.unibo.lss.fcla.consultingContext.interfaces.EventStore
  */
 class InMemoryEventStore : EventStore {
 
+    private val events = mutableListOf<DomainEvent>()
+
     /**
-     *
+     * Add the given [event] to the event store
      */
-    override fun save(event: DomainEvent) {
-        TODO("Not yet implemented")
+    override fun save(domainEvent: DomainEvent) {
+        events.add(domainEvent)
     }
 
-    override fun saveAll(events: List<DomainEvent>) {
-        TODO("Not yet implemented")
+    /**
+     * Add a list of [events] to the event store
+     */
+    override fun saveAll(domainEvents: List<DomainEvent>) {
+        events.addAll(domainEvents)
     }
 
-    override fun readAll(): List<DomainEvent> {
-        TODO("Not yet implemented")
-    }
+    /**
+     * Get all the domain events stored in the event store
+     */
+    override fun readAll(): List<DomainEvent> = events
 }
