@@ -9,7 +9,7 @@ import it.unibo.lss.fcla.consultingContext.freelancer.Freelancer
  */
 class Consulting(val consultingType: String, val description: String, val consultingDate: Date, val freelancer: Freelancer) {
 
-    private lateinit var consultingSummary: ConsultingSummary
+    private var consultingSummary: ConsultingSummary
 
     init {
         require(!description.isNullOrEmpty())
