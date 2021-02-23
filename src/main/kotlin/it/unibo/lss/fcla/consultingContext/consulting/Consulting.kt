@@ -1,4 +1,6 @@
-package it.unibo.lss.fcla.consulting.models
+package it.unibo.lss.fcla.consultingContext.consulting
+
+import it.unibo.lss.fcla.consultingContext.freelancer.Freelancer
 
 /**
  * @author Stefano Braggion

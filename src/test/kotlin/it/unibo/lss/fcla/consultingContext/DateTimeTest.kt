@@ -1,7 +1,7 @@
-package it.unibo.lss.fcla.consulting
+package it.unibo.lss.fcla.consultingContext
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.models.Date
+import it.unibo.lss.fcla.consultingContext.consulting.Date
 
 class DateTimeTest : FreeSpec({
 

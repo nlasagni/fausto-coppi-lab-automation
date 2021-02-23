@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.exceptions
+package it.unibo.lss.fcla.consultingContext.exceptions
 
 /**
  * @author Stefano Braggion

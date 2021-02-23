@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.models
+package it.unibo.lss.fcla.consultingContext.freelancer
 
 import java.time.LocalTime
 
