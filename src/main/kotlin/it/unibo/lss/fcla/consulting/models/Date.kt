@@ -15,6 +15,9 @@ data class Date(val year: Int, val month: Int, val day: Int) {
         const val MAX_DAY: Int = 31
     }
 
+    /**
+     * Validation of date
+     */
     init {
         require(year > MIN_YEAR)
         require(month in MIN_MONTH..MAX_MONTH)

@@ -1,15 +1,18 @@
 package it.unibo.lss.fcla.consulting.models
 
-import it.unibo.lss.fcla.consulting.exceptions.ConsultingException
-
 /**
  * @author Stefano Braggion
  *
- *
+ * Value object representing a consulting summary
+ * with [consultingType], executed by a [freelancer] at a [consultingDate]
+ * and containing a [description]
  */
-class ConsultingSummary(val consultingType: String, val freelancer: Freelancer, val description: String) {
+data class ConsultingSummary(val consultingType: String, val description: String, val consultingDate: Date) {
 
-    init {
-        require(!description.isNullOrEmpty())
+    /**
+     * String representation of a consulting summary
+     */
+    override fun toString(): String {
+        return "ConsultingSummary(type=$consultingType, description=$description, at date $consultingDate)"
     }
 }

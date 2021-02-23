@@ -50,4 +50,5 @@ class Freelancer(val firstName: String, val lastName: String, val role: Freelanc
      */
     fun getAvailabilityToHours(availabilityDate: Date): LocalTime? =
         availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.toTime
+
 }
