@@ -7,7 +7,7 @@ import java.time.LocalTime
  *
  * Represents the freelancer availability based on days and hours
  */
-class Availability(val availabilityDate: Date, val fromTime: LocalTime, val toTime: LocalTime){
+class Availability(val availabilityDate: Date, val fromTime: LocalTime, val toTime: LocalTime) {
 
     private var availabilityHours: AvailabilityHours = AvailabilityHours(fromTime, toTime)
 
@@ -25,10 +25,9 @@ class Availability(val availabilityDate: Date, val fromTime: LocalTime, val toTi
      * Update the availability with given [fromTime] and [toTime]
      *
      */
-    fun updateAvailability(fromTime: LocalTime, toTime: LocalTime){
+    fun updateAvailability(fromTime: LocalTime, toTime: LocalTime) {
         require(fromTime.isBefore(toTime))
 
         availabilityHours = AvailabilityHours(fromTime, toTime)
     }
-
 }

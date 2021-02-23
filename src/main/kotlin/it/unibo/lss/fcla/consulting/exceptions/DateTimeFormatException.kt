@@ -5,4 +5,4 @@ package it.unibo.lss.fcla.consulting.exceptions
  *
  * Exception for date and time format
  */
-class DateTimeFormatException(message: String): ConsultingException(message)
+class DateTimeFormatException(message: String) : ConsultingException(message)

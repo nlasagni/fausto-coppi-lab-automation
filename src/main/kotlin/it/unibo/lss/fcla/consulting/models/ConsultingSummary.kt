@@ -7,11 +7,10 @@ import it.unibo.lss.fcla.consulting.exceptions.ConsultingException
  *
  *
  */
-class ConsultingSummary(val consultingType: String, val freelancer: Freelancer, val description: String){
+class ConsultingSummary(val consultingType: String, val freelancer: Freelancer, val description: String) {
 
     init {
-        if(description.isNullOrEmpty())
+        if (description.isNullOrEmpty())
             throw ConsultingException("A consulting summary with no description is not valid")
     }
-
 }
