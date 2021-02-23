@@ -31,6 +31,11 @@ class Freelancer(val firstName: String, val lastName: String, val role: Freelanc
         availabilities.add(availability)
     }
 
-    
+    /**
+     * Delete [availabilityDate] from freelancer availabilities
+     */
+    fun deleteAvailability(availabilityDate: Date){
+        availabilities.removeIf{ it.availabilityDate == availabilityDate }
+    }
 
 }
