@@ -1,4 +1,3 @@
-package it.unibo.lss.fcla.reservation.application.interfaces
+package it.unibo.lss.fcla.reservation.application
 
-class Controller {
-}
+class Controller

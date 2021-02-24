@@ -1,4 +1,3 @@
 package it.unibo.lss.fcla.reservation.application.interfaces
 
-interface Repository {
-}
+interface Repository

@@ -11,12 +11,12 @@ import java.util.Date
 class OpenConsultingReservation(
     override val date: Date,
     override val freelancerId: String
-    ): ConsultingReservation {
-        private val id: String
-        init {
-            if (freelancerId.isEmpty()) throw ConsultingReservationMustHaveFreelancer()
-            id = "$freelancerId-${date.time}"
-        }
+) : ConsultingReservation {
+    private val id: String
+    init {
+        if (freelancerId.isEmpty()) throw ConsultingReservationMustHaveFreelancer()
+        id = "$freelancerId-${date.time}"
+    }
 
     /**
      * Method used to update the date of the consulting with a [newDate]

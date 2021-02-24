@@ -8,6 +8,6 @@ import java.util.Date
  * @param freelancerId The freelancer who will make the consulting
  */
 interface ConsultingReservation {
-    val date:Date
+    val date: Date
     val freelancerId: String
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 
-class OpenConsultingReservationTest: FreeSpec ({
+class OpenConsultingReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()
     val year = 2021
     val feb = 2
@@ -19,10 +19,10 @@ class OpenConsultingReservationTest: FreeSpec ({
     var reservation: OpenConsultingReservation
 
     "An Open consulting reservation should" - {
-        "have a freelancer that make a consulence and a valid date"- {
+        "have a freelancer that make a consulence and a valid date" - {
             Assertions.assertDoesNotThrow {
-                reservation = OpenConsultingReservation(validDateOfConsulting,freelancerId)
-                println(OpenConsultingReservation(validDateOfConsulting,freelancerId))
+                reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
+                println(OpenConsultingReservation(validDateOfConsulting, freelancerId))
             }
 
             assertThrows<ConsultingReservationMustHaveFreelancer> {
@@ -37,24 +37,24 @@ class OpenConsultingReservationTest: FreeSpec ({
             "be able to update correctly the date of a reservation" - {
                 calendar.set(year, feb, 26)
                 val newDateOfReservation = calendar.time
-                reservation = OpenConsultingReservation(validDateOfConsulting,freelancerId)
+                reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
                 reservation.updateDateOfConsulting(newDateOfReservation)
             }
             "not to be able to update a reservation with an invalid date" - {
                 calendar.set(year, feb, invalidDay)
                 val invalidDateOfConsulting = calendar.time
-                reservation = OpenConsultingReservation(validDateOfConsulting,freelancerId)
+                reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
                 assertThrows<ChooseAnotherDateForTheConsulting> {
                     reservation.updateDateOfConsulting(invalidDateOfConsulting)
                 }
             }
             "be able to update the freelancer of a reservation" - {
-                reservation = OpenConsultingReservation(validDateOfConsulting,freelancerId)
+                reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
                 reservation.updateFreelancerOfConsulting("2222")
             }
             "not to be able to update a reservation with an invalid freelancer" - {
                 calendar.set(year, feb, invalidDay)
-                reservation = OpenConsultingReservation(validDateOfConsulting,freelancerId)
+                reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
                 assertThrows<ConsultingReservationMustHaveFreelancer> {
                     reservation.updateFreelancerOfConsulting("")
                 }
