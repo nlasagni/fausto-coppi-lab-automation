@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit
 /**
  * A value object representing a period of training during an athletic preparation.
  *
- * @see AthleticPreparation
+ * @see ActiveAthleticPreparation
  *
  * @author Nicola Lasagni on 22/02/2021.
  *
