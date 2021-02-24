@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.model
 
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.BeginningOfPreparationCannotBeAfterEnd
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.BeginningOfPeriodCannotBeAfterEnd
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.PeriodOfPreparationDoesNotMeetMinimumDuration
 import java.time.LocalDate
 import java.time.Period
@@ -23,7 +23,7 @@ data class PeriodOfPreparation(val beginning: LocalDate, val end: LocalDate) {
 
     init {
         if (end.isBefore(beginning)) {
-            throw BeginningOfPreparationCannotBeAfterEnd()
+            throw BeginningOfPeriodCannotBeAfterEnd()
         }
         if (doesNotMeetMinimumPreparationPeriodDuration()) {
             throw PeriodOfPreparationDoesNotMeetMinimumDuration()
