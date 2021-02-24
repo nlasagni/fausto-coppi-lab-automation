@@ -3,7 +3,6 @@ package it.unibo.lss.fcla.athleticpreparation.domain.model
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.BeginningOfPeriodCannotBeAfterEnd
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.PeriodOfTrainingDoesNotMeetMinimumDuration
 import java.time.LocalDate
-import java.time.Period
 import java.time.temporal.ChronoUnit
 
 /**

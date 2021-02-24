@@ -1,6 +1,5 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.exception
 
-import it.unibo.lss.fcla.athleticpreparation.domain.model.PeriodOfPreparation
 import it.unibo.lss.fcla.athleticpreparation.domain.model.PeriodOfTraining
 
 /**

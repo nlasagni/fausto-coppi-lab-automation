@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.athleticpreparation.domain.model
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athleticpreparation.domain.exceptions.WorkoutPlanException
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.WorkoutPlanException
 import java.util.Date
 
 class AthleteProfileTests : FreeSpec({

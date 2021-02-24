@@ -1,7 +1,14 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.model
 
-import it.unibo.lss.fcla.athleticpreparation.domain.exceptions.WorkoutPlanException
-import java.util.Date
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.WorkoutPlanException
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.collections.List
+import kotlin.collections.filter
+import kotlin.collections.filterIsInstance
+import kotlin.collections.mutableListOf
+import kotlin.collections.set
+import kotlin.collections.toList
 
 /**
  *
