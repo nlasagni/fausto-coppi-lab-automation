@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.CloseConsultingCannotBeUpdated
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.CloseReservationCannotBeUpdated
 import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 
@@ -21,10 +21,10 @@ class CloseConsultingReservationTest : FreeSpec({
     "A Member should not" - {
         "to be able to modify a closed reservation" - {
             val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId)
-            assertThrows<CloseConsultingCannotBeUpdated> {
+            assertThrows<CloseReservationCannotBeUpdated> {
                 reservation.updateDateOfConsulting(invalidDateOfConsulting)
             }
-            assertThrows<CloseConsultingCannotBeUpdated> {
+            assertThrows<CloseReservationCannotBeUpdated> {
                 reservation.updateFreelancerOfConsulting(freelancerIdUpdate)
             }
         }

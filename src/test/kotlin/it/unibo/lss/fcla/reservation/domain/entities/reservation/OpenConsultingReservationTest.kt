@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.NoPastDateForOpenReservation
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
@@ -44,7 +44,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 calendar.set(year, feb, invalidDay)
                 val invalidDateOfConsulting = calendar.time
                 reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
-                assertThrows<NoPastDateForOpenReservation> {
+                assertThrows<OpenReservationMustNotHavePastDate> {
                     reservation.updateDateOfConsulting(invalidDateOfConsulting)
                 }
             }

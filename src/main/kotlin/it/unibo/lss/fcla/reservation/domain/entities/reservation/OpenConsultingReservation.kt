@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.NoPastDateForOpenReservation
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import java.util.Date
 
@@ -24,7 +24,7 @@ class OpenConsultingReservation(
      * @return A new OpenConsultingReservation with the new date
      */
     override fun updateDateOfConsulting(date: Date): OpenConsultingReservation {
-        if (date.before(this.date)) throw NoPastDateForOpenReservation()
+        if (date.before(this.date)) throw OpenReservationMustNotHavePastDate()
         else return OpenConsultingReservation(date, freelancerId)
     }
 
