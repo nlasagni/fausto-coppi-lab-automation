@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import java.util.Calendar
 
-class MemberRequestedConsultingReservationTest: FreeSpec({
+class MemberRequestedConsultingReservationTest : FreeSpec({
     var consultingReservationList = MemberRequestedConsultingReservation()
     val calendar = Calendar.getInstance()
     val year = 2021

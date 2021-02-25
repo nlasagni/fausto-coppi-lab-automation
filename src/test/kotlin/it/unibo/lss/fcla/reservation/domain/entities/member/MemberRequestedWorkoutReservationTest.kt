@@ -1,11 +1,10 @@
 package it.unibo.lss.fcla.reservation.domain.entities.member
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
-import java.util.*
+import java.util.Calendar
 
-class MemberRequestedWorkoutReservationTest:  FreeSpec({
+class MemberRequestedWorkoutReservationTest : FreeSpec({
     var workoutReservationList = MemberRequestedWorkoutReservation()
     val calendar = Calendar.getInstance()
     val year = 2021
@@ -13,7 +12,7 @@ class MemberRequestedWorkoutReservationTest:  FreeSpec({
     val day = 25
     val aim = "Recovery"
     calendar.set(year, feb, day)
-    val workout = OpenWorkoutReservation(aim, calendar.time)
+    val workout = OpenWorkoutReservation(aim, calendar.time, "workout")
     "It should" - {
         "be possible to make a reservation. It will be added to an internal list" - {
             workoutReservationList.addWorkoutReservation(workout)

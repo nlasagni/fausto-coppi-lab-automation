@@ -1,11 +1,11 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
+import java.util.Calendar
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
-import java.util.Calendar
 
 class OpenConsultingReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()
