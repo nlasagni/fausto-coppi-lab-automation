@@ -9,14 +9,14 @@ class MemberRequestedConsultingReservation {
      * This method is used to add a [consultingReservation] into the list of all member reservations
      */
     fun addConsultingReservation(consultingReservation: ConsultingReservation) {
-        this.consultingReservationList.add(consultingReservation)
+        consultingReservationList.add(consultingReservation)
     }
 
     /**
      * This method is used to remove a [consultingReservation] from the list of all member reservations
      */
-    fun deleteWorkoutReservation(consultingReservation: ConsultingReservation) {
-        this.consultingReservationList.remove(consultingReservation)
+    fun deleteConsultingReservation(consultingReservation: ConsultingReservation) {
+        consultingReservationList.remove(consultingReservation)
     }
 
     /**
