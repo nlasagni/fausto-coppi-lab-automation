@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ChooseAnotherDateForTheConsulting
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationMustHaveFreelancer
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.NoPastDateForOpenReservation
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
@@ -25,7 +25,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 println(OpenConsultingReservation(validDateOfConsulting, freelancerId))
             }
 
-            assertThrows<ConsultingReservationMustHaveFreelancer> {
+            assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
                 OpenConsultingReservation(
                     validDateOfConsulting,
                     ""
@@ -44,7 +44,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 calendar.set(year, feb, invalidDay)
                 val invalidDateOfConsulting = calendar.time
                 reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
-                assertThrows<ChooseAnotherDateForTheConsulting> {
+                assertThrows<NoPastDateForOpenReservation> {
                     reservation.updateDateOfConsulting(invalidDateOfConsulting)
                 }
             }
@@ -55,7 +55,7 @@ class OpenConsultingReservationTest : FreeSpec({
             "not to be able to update a reservation with an invalid freelancer" - {
                 calendar.set(year, feb, invalidDay)
                 reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
-                assertThrows<ConsultingReservationMustHaveFreelancer> {
+                assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
                     reservation.updateFreelancerOfConsulting("")
                 }
             }
