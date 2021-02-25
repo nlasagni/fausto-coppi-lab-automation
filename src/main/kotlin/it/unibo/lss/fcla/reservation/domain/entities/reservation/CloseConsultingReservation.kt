@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.CloseConsultingCannotBeUpdated
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationMustHaveFreelancer
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import java.util.Date
 
 /**
@@ -15,16 +15,19 @@ class CloseConsultingReservation(
 
     private val id: String
     init {
-        if (freelancerId.isEmpty()) {
-            throw ConsultingReservationMustHaveFreelancer()
-        }
+        if (freelancerId.isEmpty()) throw ConsultingReservationFreelancerCannotBeEmpty()
         id = "CloseConsultingReservation-$freelancerId-${date.time}"
     }
 
     override fun updateDateOfConsulting(date: Date): CloseConsultingReservation {
         throw CloseConsultingCannotBeUpdated()
     }
+
     override fun updateFreelancerOfConsulting(freelancerId: String): CloseConsultingReservation {
         throw CloseConsultingCannotBeUpdated()
+    }
+
+    fun getID(): String {
+        return this.id
     }
 }
