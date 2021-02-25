@@ -1,9 +1,9 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.exceptions.CloseConsultingCannotBeUpdated
-import it.unibo.lss.fcla.reservation.domain.exceptions.ConsultingReservationMustHaveFreelancer
-import java.util.*
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.CloseConsultingCannotBeUpdated
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationMustHaveFreelancer
+import java.util.Date
 
 /**
  * It is referred to a consulting that cannot be updated anymore
@@ -14,11 +14,11 @@ class CloseConsultingReservation(
 ) : ConsultingReservation {
 
     private val id: String
-    init{
+    init {
         if (freelancerId.isEmpty()) {
             throw ConsultingReservationMustHaveFreelancer()
         }
-        id = "CloseConsultingReservation-${freelancerId}-${date.time}"
+        id = "CloseConsultingReservation-$freelancerId-${date.time}"
     }
 
     override fun updateDateOfConsulting(date: Date): CloseConsultingReservation {

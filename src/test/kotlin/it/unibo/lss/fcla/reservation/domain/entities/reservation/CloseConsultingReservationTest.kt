@@ -1,9 +1,9 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.exceptions.CloseConsultingCannotBeUpdated
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.CloseConsultingCannotBeUpdated
 import org.junit.jupiter.api.assertThrows
-import java.util.*
+import java.util.Calendar
 
 class CloseConsultingReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()

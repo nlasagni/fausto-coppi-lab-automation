@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.exceptions.ChooseAnotherDateForTheConsulting
-import it.unibo.lss.fcla.reservation.domain.exceptions.ConsultingReservationMustHaveFreelancer
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ChooseAnotherDateForTheConsulting
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationMustHaveFreelancer
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
 import java.util.Calendar

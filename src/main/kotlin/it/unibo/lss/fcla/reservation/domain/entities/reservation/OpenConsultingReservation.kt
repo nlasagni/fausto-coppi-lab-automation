@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.exceptions.ChooseAnotherDateForTheConsulting
-import it.unibo.lss.fcla.reservation.domain.exceptions.ConsultingReservationMustHaveFreelancer
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ChooseAnotherDateForTheConsulting
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationMustHaveFreelancer
 import java.util.Date
 
 /**
@@ -15,7 +15,7 @@ class OpenConsultingReservation(
     private val id: String
     init {
         if (freelancerId.isEmpty()) throw ConsultingReservationMustHaveFreelancer()
-        id = "OpenConsultingReservation-${freelancerId}-${date.time}"
+        id = "OpenConsultingReservation-$freelancerId-${date.time}"
     }
 
     /**
