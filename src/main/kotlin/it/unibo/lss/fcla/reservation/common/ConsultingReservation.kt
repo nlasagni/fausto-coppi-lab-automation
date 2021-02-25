@@ -10,4 +10,7 @@ import java.util.Date
 interface ConsultingReservation {
     val date: Date
     val freelancerId: String
+
+    fun updateDateOfConsulting(date: Date): ConsultingReservation
+    fun updateFreelancerOfConsulting(freelancerId: String): ConsultingReservation
 }

@@ -15,7 +15,7 @@ class OpenConsultingReservation(
     private val id: String
     init {
         if (freelancerId.isEmpty()) throw ConsultingReservationMustHaveFreelancer()
-        id = "$freelancerId-${date.time}"
+        id = "OpenConsultingReservation-${freelancerId}-${date.time}"
     }
 
     /**
@@ -23,9 +23,9 @@ class OpenConsultingReservation(
      *
      * @return A new OpenConsultingReservation with the new date
      */
-    fun updateDateOfConsulting(newDate: Date): OpenConsultingReservation {
-        if (newDate.before(date)) throw ChooseAnotherDateForTheConsulting()
-        else return OpenConsultingReservation(newDate, freelancerId)
+    override fun updateDateOfConsulting(date: Date): OpenConsultingReservation {
+        if (date.before(this.date)) throw ChooseAnotherDateForTheConsulting()
+        else return OpenConsultingReservation(date, freelancerId)
     }
 
     /**
@@ -33,9 +33,9 @@ class OpenConsultingReservation(
      *
      * @return A new OpenConsultingReservation with a new freelancer
      */
-    fun updateFreelancerOfConsulting(newFreelancerId: String): OpenConsultingReservation {
-        if (newFreelancerId.isEmpty()) throw ConsultingReservationMustHaveFreelancer()
-        return OpenConsultingReservation(date, newFreelancerId)
+    override fun updateFreelancerOfConsulting(freelancerId: String): OpenConsultingReservation {
+        if (freelancerId.isEmpty()) throw ConsultingReservationMustHaveFreelancer()
+        return OpenConsultingReservation(date, freelancerId)
     }
 
     override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId"
