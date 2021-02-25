@@ -4,13 +4,8 @@ import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.MemberDataMustNotBeEmpty
 
-//TODO modifica doc
 /**
- * Class used to identify a member
- *
- * @param firstName The name of the member
- * @param lastName The surname of the member
- * @param id The code of member's card
+ * Class used to identify a member giving the [firstName], [lastName] and [id]
  */
 class Member(val firstName: String, val lastName: String, val id: String) {
     private val memberRequestedWorkoutReservation = MemberRequestedWorkoutReservation()
@@ -36,29 +31,53 @@ class Member(val firstName: String, val lastName: String, val id: String) {
         return memberRequestedConsultingReservation.getAllMemberConsulting()
     }
 
-    // metodi per gestire eventi
-
-    private fun addWorkoutReservation() {
-        TODO()
+    /**
+     * This method is used to add a [workoutReservation] into the list of member requested workout
+     */
+    private fun addWorkoutReservation(workoutReservation: WorkoutReservation) {
+        memberRequestedWorkoutReservation.addWorkoutReservation(workoutReservation)
     }
 
-    private fun addConsultingReservation() {
-        TODO()
+    /**
+     * This method is used to add a [consultingReservation] into the list of member requested consulting
+     */
+    private fun addConsultingReservation(consultingReservation: ConsultingReservation) {
+        memberRequestedConsultingReservation.addConsultingReservation(consultingReservation)
     }
 
-    private fun updateWorkoutReservation() {
-        TODO()
+    /**
+     * This method update a workout reservation deleting a [oldWorkoutReservation] and adding a [newWorkoutReservation]
+     */
+    private fun updateWorkoutReservation(
+        oldWorkoutReservation: WorkoutReservation,
+        newWorkoutReservation: WorkoutReservation
+    ) {
+        memberRequestedWorkoutReservation.deleteWorkoutReservation(oldWorkoutReservation)
+        memberRequestedWorkoutReservation.addWorkoutReservation(newWorkoutReservation)
     }
 
-    private fun updateConsultingReservation() {
-        TODO()
+    /**
+     * This method update a workout reservation deleting a [oldConsultingReservation] and adding a [newConsultingReservation]
+     */
+    private fun updateConsultingReservation(
+        oldConsultingReservation: ConsultingReservation,
+        newConsultingReservation: ConsultingReservation
+    ) {
+        memberRequestedConsultingReservation.deleteConsultingReservation(oldConsultingReservation)
+        memberRequestedConsultingReservation.addConsultingReservation(newConsultingReservation)
     }
 
-    private fun deleteWorkoutReservation() {
-        TODO()
+    /**
+     * This method is used to add a [workoutReservation] into the list of member requested workout
+     */
+    private fun deleteWorkoutReservation(workoutReservation: WorkoutReservation) {
+        memberRequestedWorkoutReservation.deleteWorkoutReservation(workoutReservation)
     }
 
-    private fun deleteConsultingReservation() {
-        TODO()
+    /**
+     * This method is used to remove a [consultingReservation] into the list of member requested consulting
+     */
+    private fun deleteConsultingReservation(consultingReservation: ConsultingReservation) {
+        memberRequestedConsultingReservation.deleteConsultingReservation(consultingReservation)
     }
 }
