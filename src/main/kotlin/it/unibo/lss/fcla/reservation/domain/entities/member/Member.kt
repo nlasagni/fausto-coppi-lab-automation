@@ -57,7 +57,8 @@ class Member(val firstName: String, val lastName: String, val id: String) {
     }
 
     /**
-     * This method update a workout reservation deleting a [oldConsultingReservation] and adding a [newConsultingReservation]
+     * This method update a workout reservation deleting a [oldConsultingReservation]
+     * and adding a [newConsultingReservation]
      */
     private fun updateConsultingReservation(
         oldConsultingReservation: ConsultingReservation,
