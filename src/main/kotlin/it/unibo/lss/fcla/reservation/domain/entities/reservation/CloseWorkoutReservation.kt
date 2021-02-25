@@ -14,4 +14,8 @@ class CloseWorkoutReservation(override val aim: String, override val date: Date)
     override fun updateWorkoutReservationDate(date: Date): WorkoutReservation {
         throw NoUpdateToAClosedReservation()
     }
+
+    override fun updateWorkoutReservationAim(aim: String): WorkoutReservation {
+        throw NoUpdateToAClosedReservation()
+    }
 }
