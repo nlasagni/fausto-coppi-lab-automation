@@ -7,4 +7,6 @@ interface WorkoutReservation {
     val date: Date
 
     fun updateWorkoutReservationDate(date: Date): WorkoutReservation
+
+    fun updateWorkoutReservationAim(aim: String): WorkoutReservation
 }
