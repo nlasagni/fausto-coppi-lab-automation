@@ -5,6 +5,7 @@ import java.util.Date
 interface WorkoutReservation {
     val aim: String
     val date: Date
+    val id: String
 
     fun updateWorkoutReservationDate(date: Date): WorkoutReservation
 

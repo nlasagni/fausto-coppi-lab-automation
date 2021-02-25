@@ -5,7 +5,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.exceptions.CloseReservation
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
 import java.util.Date
 
-class CloseWorkoutReservation(override val aim: String, override val date: Date) : WorkoutReservation {
+class CloseWorkoutReservation(
+    override val aim: String,
+    override val date: Date,
+    override val id: String
+) : WorkoutReservation {
 
     init {
         if (aim.isEmpty()) throw WorkoutReservationAimCannotBeEmpty()
