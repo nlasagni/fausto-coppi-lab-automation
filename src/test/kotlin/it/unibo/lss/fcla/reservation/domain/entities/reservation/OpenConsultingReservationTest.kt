@@ -9,10 +9,10 @@ import java.util.Calendar
 
 class OpenConsultingReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()
-    val year = 2021
+    val year = 2022
+    val invalidYear = 2021
     val feb = 2
     val day = 25
-    val invalidDay = 23
     val freelancerId = "0111"
     calendar.set(year, feb, day)
     val validDateOfConsulting = calendar.time
@@ -41,7 +41,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 reservation.updateDateOfConsulting(newDateOfReservation)
             }
             "not to be able to update a reservation with an invalid date" - {
-                calendar.set(year, feb, invalidDay)
+                calendar.set(invalidYear, feb, day)
                 val invalidDateOfConsulting = calendar.time
                 reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
                 assertThrows<OpenReservationMustNotHavePastDate> {
@@ -53,7 +53,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 reservation.updateFreelancerOfConsulting("2222")
             }
             "not to be able to update a reservation with an invalid freelancer" - {
-                calendar.set(year, feb, invalidDay)
+                calendar.set(year, feb, day)
                 reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
                 assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
                     reservation.updateFreelancerOfConsulting("")

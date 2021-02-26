@@ -22,6 +22,8 @@ class MemberRequestedWorkoutReservationTest : FreeSpec({
         "be possible to delete a reservation" - {
             workoutReservationList.deleteWorkoutReservation(workout)
             assert(workoutReservationList.getAllMemberWorkout().isEmpty())
+            workoutReservationList.addWorkoutReservation(workout)
+            assert(workoutReservationList.getAllMemberWorkout().isNotEmpty())
         }
     }
 })
