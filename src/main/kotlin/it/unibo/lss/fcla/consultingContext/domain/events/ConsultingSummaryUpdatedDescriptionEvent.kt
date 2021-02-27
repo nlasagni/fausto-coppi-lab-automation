@@ -11,4 +11,4 @@ import it.unibo.lss.fcla.consultingContext.contracts.DomainEvent
 data class ConsultingSummaryUpdatedDescriptionEvent(
     val consultingId: ConsultingId,
     val description: String
-) : DomainEvent
+): DomainEvent
