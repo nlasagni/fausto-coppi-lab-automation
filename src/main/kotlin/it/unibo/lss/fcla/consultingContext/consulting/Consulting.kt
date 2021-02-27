@@ -1,11 +1,10 @@
 package it.unibo.lss.fcla.consultingContext.consulting
 
 import it.unibo.lss.fcla.consultingContext.common.AbstractAggregate
-import it.unibo.lss.fcla.consultingContext.contracts.DomainEvent
 import it.unibo.lss.fcla.consultingContext.domain.events.ConsultingSummaryCreatedEvent
 import it.unibo.lss.fcla.consultingContext.domain.events.ConsultingSummaryUpdatedDescriptionEvent
-import it.unibo.lss.fcla.consultingContext.exceptions.ConsultingSummaryDescriptionCannotBeNull
-import it.unibo.lss.fcla.consultingContext.exceptions.ConsultingSummaryTypeCannotBeNull
+import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingSummaryDescriptionCannotBeNull
+import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingSummaryTypeCannotBeNull
 import it.unibo.lss.fcla.consultingContext.freelancer.Freelancer
 
 /**

@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.consultingContext.freelancer
 
-import it.unibo.lss.fcla.consultingContext.exceptions.ConsultingException
+import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consultingContext.consulting.Date
 import java.time.LocalTime
 

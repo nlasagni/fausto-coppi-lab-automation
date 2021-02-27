@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consultingContext.exceptions
+package it.unibo.lss.fcla.consultingContext.domain.exceptions
 
 /**
  * Exception that occur when a consulting summary is created without a type

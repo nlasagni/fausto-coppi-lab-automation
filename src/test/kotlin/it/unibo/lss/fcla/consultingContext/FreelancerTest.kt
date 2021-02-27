@@ -3,7 +3,7 @@ package it.unibo.lss.fcla.consultingContext
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consultingContext.consulting.Date
-import it.unibo.lss.fcla.consultingContext.exceptions.ConsultingException
+import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consultingContext.freelancer.Freelancer
 import it.unibo.lss.fcla.consultingContext.freelancer.FreelancerRole
 import java.time.LocalTime
