@@ -1,4 +1,6 @@
-package it.unibo.lss.fcla.consultingContext.interfaces
+package it.unibo.lss.fcla.consultingContext.contracts
+
+import it.unibo.lss.fcla.consultingContext.contracts.DomainEvent
 
 /**
  * @author Stefano Braggion

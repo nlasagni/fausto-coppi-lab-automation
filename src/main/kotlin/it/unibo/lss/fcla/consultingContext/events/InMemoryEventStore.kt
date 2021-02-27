@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.consultingContext.events
 
-import it.unibo.lss.fcla.consultingContext.interfaces.DomainEvent
-import it.unibo.lss.fcla.consultingContext.interfaces.EventStore
+import it.unibo.lss.fcla.consultingContext.contracts.DomainEvent
+import it.unibo.lss.fcla.consultingContext.contracts.EventStore
 
 /**
  * @author Stefano Braggion
