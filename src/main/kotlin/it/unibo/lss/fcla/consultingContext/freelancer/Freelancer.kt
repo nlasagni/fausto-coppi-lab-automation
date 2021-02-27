@@ -4,6 +4,7 @@ import it.unibo.lss.fcla.consultingContext.common.AbstractAggregate
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consultingContext.consulting.Date
 import it.unibo.lss.fcla.consultingContext.domain.events.FreelancerAvailabilityCreatedEvent
+import it.unibo.lss.fcla.consultingContext.domain.events.FreelancerAvailabilityDeletedEvent
 import it.unibo.lss.fcla.consultingContext.domain.events.FreelancerAvailabilityUpdatedEvent
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.FreelancerAvailabilityNotValidTime
@@ -28,6 +29,7 @@ class Freelancer(
         //register event handlers
         this.register<FreelancerAvailabilityCreatedEvent>(this::applyEvent)
         this.register<FreelancerAvailabilityUpdatedEvent>(this::applyEvent)
+        this.register<FreelancerAvailabilityDeletedEvent>(this::applyEvent)
     }
 
     /**
@@ -48,7 +50,7 @@ class Freelancer(
      * Delete [availabilityDate] from freelancer availabilities
      */
     fun deleteAvailability(availabilityDate: Date) {
-        availabilities.removeIf { it.availabilityDate == availabilityDate }
+        raiseEvent(FreelancerAvailabilityDeletedEvent(freelancerId, availabilityDate))
     }
 
     /**
@@ -66,15 +68,25 @@ class Freelancer(
     //event handlers
 
     /**
-     * Event handler
+     * Event handler for create
      */
     private fun applyEvent(event: FreelancerAvailabilityCreatedEvent) {
         val availability = Availability(event.availabilityDate, event.fromTime, event.toTime)
         availabilities.add(availability)
     }
 
+    /**
+     * Event handler for update
+     */
     private fun applyEvent(event: FreelancerAvailabilityUpdatedEvent) {
 
+    }
+
+    /**
+     * Event handler for delete
+     */
+    private fun applyEvent(event: FreelancerAvailabilityDeletedEvent) {
+        availabilities.removeIf { it.availabilityDate == event.availabilityDate }
     }
 
 }
