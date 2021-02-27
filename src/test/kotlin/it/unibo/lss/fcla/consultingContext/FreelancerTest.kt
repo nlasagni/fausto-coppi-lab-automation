@@ -5,6 +5,7 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consultingContext.consulting.Date
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consultingContext.freelancer.Freelancer
+import it.unibo.lss.fcla.consultingContext.freelancer.FreelancerId
 import it.unibo.lss.fcla.consultingContext.freelancer.FreelancerRole
 import java.time.LocalTime
 
@@ -12,7 +13,12 @@ class FreelancerTest : FreeSpec({
 
     "creation freelancer with empty first name should throw exception" - {
         shouldThrow<IllegalArgumentException> {
-            Freelancer(firstName = "", lastName = "turing", FreelancerRole.AthleticTrainer())
+            Freelancer(
+                freelancerId = FreelancerId("F12345"),
+                firstName = "",
+                lastName = "turing",
+                FreelancerRole.AthleticTrainer()
+            )
         }
     }
 
@@ -30,23 +36,13 @@ class FreelancerTest : FreeSpec({
         assert(firstNutritionist.equals(secondNutritionist))
     }
 
-    "test adding an availability date and time to freelancer" - {
-        val freelancer = Freelancer(firstName = "Mario", lastName = "Rossi", role = FreelancerRole.Biomechanical())
-        val date = Date(2021, 1, 1)
-        freelancer.addAvailability(
-            newAvailabilityDate = date,
-            fromTime = LocalTime.MIN,
-            toTime = LocalTime.MAX
-        )
-
-        val result = freelancer.getAvailabilityFromHours(availabilityDate = date)?.equals(LocalTime.MIN) == true &&
-            freelancer.getAvailabilityToHours(availabilityDate = date)?.equals(LocalTime.MAX)!!
-
-        assert(result)
-    }
-
     "test no duplicate availability on the same date for freelancer" - {
-        val freelancer = Freelancer(firstName = "Mario", lastName = "Rossi", role = FreelancerRole.Biomechanical())
+        val freelancer = Freelancer(
+            freelancerId = FreelancerId("F12345"),
+            firstName = "Mario",
+            lastName = "Rossi",
+            role = FreelancerRole.Biomechanical()
+        )
         val date = Date(2021, 1, 1)
 
         freelancer.addAvailability(newAvailabilityDate = date, fromTime = LocalTime.MIN, toTime = LocalTime.MAX)

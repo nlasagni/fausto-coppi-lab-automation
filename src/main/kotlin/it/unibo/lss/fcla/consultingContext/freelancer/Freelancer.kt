@@ -4,6 +4,7 @@ import it.unibo.lss.fcla.consultingContext.common.AbstractAggregate
 import it.unibo.lss.fcla.consultingContext.consulting.Date
 import it.unibo.lss.fcla.consultingContext.domain.events.FreelancerAvailabilityCreatedEvent
 import it.unibo.lss.fcla.consultingContext.domain.events.FreelancerAvailabilityDeletedEvent
+import it.unibo.lss.fcla.consultingContext.domain.events.FreelancerCreatedEvent
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.FreelancerAvailabilityNotValidTime
 import java.time.LocalTime
@@ -23,16 +24,15 @@ class Freelancer(
     private lateinit var role: FreelancerRole
 
     constructor (freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) :
-            this(freelancerId) {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.role = role
-    }
+        this(freelancerId) {
+            raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName, role))
+        }
 
     init {
         // register event handlers
         this.register<FreelancerAvailabilityCreatedEvent>(this::applyEvent)
         this.register<FreelancerAvailabilityDeletedEvent>(this::applyEvent)
+        this.register<FreelancerCreatedEvent>(this::applyEvent)
     }
 
     /**
@@ -93,6 +93,15 @@ class Freelancer(
         availabilities.removeIf { it.availabilityDate == event.availabilityDate }
     }
 
+    private fun applyEvent(event: FreelancerCreatedEvent) {
+        firstName = event.firstName
+        lastName = event.lastName
+        role = event.role
+    }
+
+    /**
+     *
+     */
     override fun toString(): String {
         return "Freelancer(id=$freelancerId, firstName=$firstName, lastName=$lastName, role=$role"
     }
