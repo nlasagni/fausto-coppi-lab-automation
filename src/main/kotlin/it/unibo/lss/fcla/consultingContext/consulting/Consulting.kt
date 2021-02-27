@@ -19,4 +19,16 @@ class Consulting(val consultingType: String, val description: String, val consul
 
         consultingSummary = ConsultingSummary(consultingType, description, consultingDate)
     }
+
+    /**
+     * Update the description of the summary
+     */
+    fun updateDescriptionOfConsulting(newDescription: String) {
+        if(newDescription.isEmpty())
+            throw ConsultingSummaryDescriptionCannotBeNull()
+
+        consultingSummary = ConsultingSummary(consultingSummary.consultingType,
+            newDescription, consultingSummary.consultingDate)
+    }
+
 }
