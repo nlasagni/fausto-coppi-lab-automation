@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consultingContext.events
+package it.unibo.lss.fcla.consultingContext.domain.events
 
 import it.unibo.lss.fcla.consultingContext.consulting.ConsultingId
 import it.unibo.lss.fcla.consultingContext.consulting.Date
