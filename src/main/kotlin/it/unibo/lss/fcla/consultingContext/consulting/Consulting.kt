@@ -5,7 +5,7 @@ import it.unibo.lss.fcla.consultingContext.domain.events.ConsultingSummaryCreate
 import it.unibo.lss.fcla.consultingContext.domain.events.ConsultingSummaryUpdatedDescriptionEvent
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingSummaryDescriptionCannotBeNull
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingSummaryTypeCannotBeNull
-import it.unibo.lss.fcla.consultingContext.freelancer.Freelancer
+import it.unibo.lss.fcla.consultingContext.freelancer.FreelancerId
 
 /**
  * @author Stefano Braggion
@@ -19,8 +19,8 @@ class Consulting(
     private lateinit var consultingSummary: ConsultingSummary
 
     constructor(consultingId: ConsultingId, consultingType: String, description: String,
-                consultingDate: Date, freelancer: Freelancer) : this(consultingId) {
-        this.raiseEvent(ConsultingSummaryCreatedEvent(consultingId, consultingType, consultingDate, description, freelancer))
+                consultingDate: Date, freelancerId: FreelancerId) : this(consultingId) {
+        this.raiseEvent(ConsultingSummaryCreatedEvent(consultingId, consultingType, consultingDate, description, freelancerId))
     }
 
     init {

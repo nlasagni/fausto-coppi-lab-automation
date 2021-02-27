@@ -27,9 +27,6 @@ abstract class AbstractAggregate : IAggregate {
      * //TODO add event store
      */
     override fun applyEvent(event: DomainEvent) {
-        if(event == null)
-            throw NullPointerException("Event $event must not be null")
-
         var eventHandler = handlers[event::class.java] ?:
             throw NullPointerException("Handler must not be null")
 
