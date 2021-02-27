@@ -1,7 +1,5 @@
 package it.unibo.lss.fcla.consultingContext.contracts
 
-import it.unibo.lss.fcla.consultingContext.contracts.DomainEvent
-
 /**
  * @author Stefano Braggion
  *
@@ -9,9 +7,9 @@ import it.unibo.lss.fcla.consultingContext.contracts.DomainEvent
  */
 interface EventStore {
 
-    fun save(event: DomainEvent)
+    fun save(domainEvent: DomainEvent)
 
-    fun saveAll(events: List<DomainEvent>)
+    fun saveAll(domainEvents: List<DomainEvent>)
 
-    fun readAll() : List<DomainEvent>
+    fun readAll(): List<DomainEvent>
 }

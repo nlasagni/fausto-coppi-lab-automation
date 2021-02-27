@@ -7,4 +7,4 @@ import it.unibo.lss.fcla.consultingContext.freelancer.FreelancerId
 data class FreelancerAvailabilityDeletedEvent(
     val freelancerId: FreelancerId,
     val availabilityDate: Date
-): DomainEvent
+) : DomainEvent

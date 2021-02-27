@@ -33,11 +33,14 @@ class FreelancerTest : FreeSpec({
     "test adding an availability date and time to freelancer" - {
         val freelancer = Freelancer(firstName = "Mario", lastName = "Rossi", role = FreelancerRole.Biomechanical())
         val date = Date(2021, 1, 1)
-        freelancer.addAvailability(newAvailabilityDate = date,
-            fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
+        freelancer.addAvailability(
+            newAvailabilityDate = date,
+            fromTime = LocalTime.MIN,
+            toTime = LocalTime.MAX
+        )
 
         val result = freelancer.getAvailabilityFromHours(availabilityDate = date)?.equals(LocalTime.MIN) == true &&
-                freelancer.getAvailabilityToHours(availabilityDate = date)?.equals(LocalTime.MAX)!!
+            freelancer.getAvailabilityToHours(availabilityDate = date)?.equals(LocalTime.MAX)!!
 
         assert(result)
     }

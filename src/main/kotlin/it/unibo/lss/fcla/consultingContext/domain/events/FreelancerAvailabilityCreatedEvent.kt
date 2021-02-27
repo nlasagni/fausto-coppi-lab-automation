@@ -15,4 +15,4 @@ data class FreelancerAvailabilityCreatedEvent(
     val availabilityDate: Date,
     val fromTime: LocalTime,
     val toTime: LocalTime
-): DomainEvent
+) : DomainEvent

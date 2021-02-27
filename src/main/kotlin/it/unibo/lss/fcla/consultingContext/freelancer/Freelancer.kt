@@ -15,16 +15,22 @@ import java.time.LocalTime
  */
 class Freelancer(
     val freelancerId: FreelancerId
-    ): AbstractAggregate() {
+) : AbstractAggregate() {
 
     private val availabilities = mutableListOf<Availability>()
+    private lateinit var firstName: String
+    private lateinit var lastName: String
+    private lateinit var role: FreelancerRole
 
-    constructor(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole): this(freelancerId) {
-
+    constructor (freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) :
+            this(freelancerId) {
+        this.firstName = firstName
+        this.lastName = lastName
+        this.role = role
     }
 
     init {
-        //register event handlers
+        // register event handlers
         this.register<FreelancerAvailabilityCreatedEvent>(this::applyEvent)
         this.register<FreelancerAvailabilityDeletedEvent>(this::applyEvent)
     }
@@ -33,23 +39,19 @@ class Freelancer(
      * Add an availability day and hours with given [newAvailabilityDate], [fromTime], [toTime]
      */
     fun addAvailability(newAvailabilityDate: Date, fromTime: LocalTime, toTime: LocalTime) {
-        if(!fromTime.isBefore(toTime))
-            throw FreelancerAvailabilityNotValidTime()
+        if (!fromTime.isBefore(toTime)) throw FreelancerAvailabilityNotValidTime()
 
         val exist = availabilities.firstOrNull { it.availabilityDate == newAvailabilityDate } != null
-        if (exist)
-            throw FreelancerAvailabilityAlreadyExist()
+        if (exist) throw FreelancerAvailabilityAlreadyExist()
 
         raiseEvent(FreelancerAvailabilityCreatedEvent(freelancerId, newAvailabilityDate, fromTime, toTime))
     }
 
     fun updateAvailability(availabilityDate: Date, fromTime: LocalTime, toTime: LocalTime) {
-        if(!fromTime.isBefore(toTime))
-            throw FreelancerAvailabilityNotValidTime()
+        if (!fromTime.isBefore(toTime)) throw FreelancerAvailabilityNotValidTime()
 
         val exist = availabilities.firstOrNull { it.availabilityDate == availabilityDate } != null
-        if (exist)
-            throw FreelancerAvailabilityAlreadyExist()
+        if (exist) throw FreelancerAvailabilityAlreadyExist()
 
         raiseEvent(FreelancerAvailabilityDeletedEvent(freelancerId, availabilityDate))
         raiseEvent(FreelancerAvailabilityCreatedEvent(freelancerId, availabilityDate, fromTime, toTime))
@@ -74,7 +76,7 @@ class Freelancer(
     fun getAvailabilityToHours(availabilityDate: Date): LocalTime? =
         availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.toTime
 
-    //event handlers
+    // event handlers
 
     /**
      * Event handler for create
@@ -91,4 +93,7 @@ class Freelancer(
         availabilities.removeIf { it.availabilityDate == event.availabilityDate }
     }
 
+    override fun toString(): String {
+        return "Freelancer(id=$freelancerId, firstName=$firstName, lastName=$lastName, role=$role"
+    }
 }

@@ -21,5 +21,4 @@ data class FreelancerId(val freelancerId: String) {
     override fun toString(): String {
         return "FreelancerId($freelancerId)"
     }
-
 }
