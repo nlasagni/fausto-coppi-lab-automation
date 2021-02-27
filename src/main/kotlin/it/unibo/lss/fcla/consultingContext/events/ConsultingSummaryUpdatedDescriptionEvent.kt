@@ -9,8 +9,7 @@ import it.unibo.lss.fcla.consultingContext.interfaces.DomainEvent
  *
  * Event representing an updated consulting summary
  */
-data class ConsultingSummaryUpdatedEvent(
+data class ConsultingSummaryUpdatedDescriptionEvent(
     val consultingId: ConsultingId,
-    val consultingType: String,
-    val consultingDate: Date
+    val description: String
 ) : DomainEvent
