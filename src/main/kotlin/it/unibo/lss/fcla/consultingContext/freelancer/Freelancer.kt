@@ -4,6 +4,9 @@ import it.unibo.lss.fcla.consultingContext.common.AbstractAggregate
 import it.unibo.lss.fcla.consultingContext.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consultingContext.consulting.Date
 import it.unibo.lss.fcla.consultingContext.domain.events.FreelancerAvailabilityCreatedEvent
+import it.unibo.lss.fcla.consultingContext.domain.events.FreelancerAvailabilityUpdatedEvent
+import it.unibo.lss.fcla.consultingContext.domain.exceptions.FreelancerAvailabilityAlreadyExist
+import it.unibo.lss.fcla.consultingContext.domain.exceptions.FreelancerAvailabilityNotValidTime
 import java.time.LocalTime
 
 /**
@@ -24,21 +27,21 @@ class Freelancer(
     init {
         //register event handlers
         this.register<FreelancerAvailabilityCreatedEvent>(this::applyEvent)
+        this.register<FreelancerAvailabilityUpdatedEvent>(this::applyEvent)
     }
 
     /**
      * Add an availability day and hours with given [newAvailabilityDate], [fromTime], [toTime]
      */
     fun addAvailability(newAvailabilityDate: Date, fromTime: LocalTime, toTime: LocalTime) {
-        require(fromTime.isBefore(toTime))
+        if(!fromTime.isBefore(toTime))
+            throw FreelancerAvailabilityNotValidTime()
 
         val exist = availabilities.firstOrNull { it.availabilityDate == newAvailabilityDate } != null
-        if (exist) {
-            throw ConsultingException("An availability already exists for date $newAvailabilityDate")
-        }
+        if (exist)
+            throw FreelancerAvailabilityAlreadyExist()
 
-        val availability = Availability(newAvailabilityDate, fromTime, toTime)
-        availabilities.add(availability)
+        raiseEvent(FreelancerAvailabilityCreatedEvent(freelancerId, newAvailabilityDate, fromTime, toTime))
     }
 
     /**
@@ -62,7 +65,15 @@ class Freelancer(
 
     //event handlers
 
+    /**
+     * Event handler
+     */
     private fun applyEvent(event: FreelancerAvailabilityCreatedEvent) {
+        val availability = Availability(event.availabilityDate, event.fromTime, event.toTime)
+        availabilities.add(availability)
+    }
+
+    private fun applyEvent(event: FreelancerAvailabilityUpdatedEvent) {
 
     }
 
