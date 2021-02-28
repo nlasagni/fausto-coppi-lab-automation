@@ -54,11 +54,11 @@ class OpenWorkoutReservationTest : FreeSpec({
             }
         }
         "not to be empty" - {
-            assert(reservation.value().toString().isNotEmpty())
+            assert(reservation.id.toString().isNotEmpty())
         }
         "have correct UUID" - {
-            assert(reservation.value().toString().isNotEmpty())
-            assert(reservation.value() == openWorkoutReservationId)
+            assert(reservation.id.toString().isNotEmpty())
+            assert(reservation.id == openWorkoutReservationId)
         }
         "be named as requested" - {
             assert(

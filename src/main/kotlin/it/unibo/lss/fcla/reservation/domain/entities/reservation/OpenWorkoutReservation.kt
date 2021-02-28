@@ -31,12 +31,5 @@ class OpenWorkoutReservation(
         return OpenWorkoutReservation(aim, date, id)
     }
 
-    /**
-     * Returns the [UUID] of the workout reservation
-     */
-    fun value(): UUID {
-        return id
-    }
-
     override fun toString(): String = "Reservation consulting {$id} with aim: $aim in date $date"
 }
