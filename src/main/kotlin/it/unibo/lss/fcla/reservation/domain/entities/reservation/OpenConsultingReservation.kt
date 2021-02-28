@@ -17,6 +17,7 @@ class OpenConsultingReservation(
 
     init {
         if (freelancerId.isEmpty()) throw ConsultingReservationFreelancerCannotBeEmpty()
+        if (date.before(Date())) throw OpenReservationMustNotHavePastDate()
     }
 
     /**

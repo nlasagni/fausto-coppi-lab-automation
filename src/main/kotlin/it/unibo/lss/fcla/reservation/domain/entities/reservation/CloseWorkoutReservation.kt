@@ -25,4 +25,5 @@ class CloseWorkoutReservation(
         return id
     }
 
+    override fun toString(): String = "Reservation workout {$id} with aim: $aim in date $date"
 }
