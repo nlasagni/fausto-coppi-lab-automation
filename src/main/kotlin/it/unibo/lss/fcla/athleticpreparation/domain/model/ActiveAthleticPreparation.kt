@@ -15,13 +15,14 @@ import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparatio
  * @author Nicola Lasagni on 22/02/2021.
  */
 class ActiveAthleticPreparation(
-        val athleticTrainerId: String,
-        val memberId: String,
-        val periodOfPreparation: PeriodOfPreparation
+        private val athleticTrainerId: String,
+        private val memberId: String,
+        private val periodOfPreparation: PeriodOfPreparation
 ) {
 
     /** The id of the athletic preparation. */
     private val id: String
+    private var trainingPlans: List<TrainingPlan> = listOf()
 
     init {
         if (athleticTrainerId.isEmpty()) {
@@ -39,5 +40,21 @@ class ActiveAthleticPreparation(
      */
     private fun generateId(): String =
             "$athleticTrainerId-$memberId-${periodOfPreparation.beginning.dayOfYear}"
+
+    /**
+     *
+     */
+    fun prepareTrainingPlan(trainingPlan: TrainingPlan) {
+
+    }
+
+    /**
+     *
+     */
+    private fun trainingPlanOverlaps(trainingPlan: TrainingPlan): Boolean {
+        return false
+    }
+
+
 
 }
