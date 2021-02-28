@@ -2,29 +2,58 @@ package it.unibo.lss.fcla.reservation.domain.entities.member
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.MemberDataMustNotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import org.junit.jupiter.api.assertThrows
+import java.util.Calendar
+import java.util.UUID
 
 class MemberTest : FreeSpec({
-    var member: Member
+    val memberId = UUID.randomUUID()
+    var member = Member("Mario", "Rossi", memberId)
+    val calendar = Calendar.getInstance()
+    val year = 2021
+    val feb = 2
+    val day = 25
+    val freelancerId = "0111"
+    val aim = "recovery"
+    calendar.set(year, feb, day)
+    //val memberConsultingList = MemberConsultingReservation()
+    //val memberWorkoutList = MemberWorkoutReservation()
+    val consulting = OpenConsultingReservation(calendar.time, freelancerId, UUID.randomUUID())
+    val consultingWorkout = OpenWorkoutReservation(aim, calendar.time, UUID.randomUUID())
+
     "A member should" - {
         "have all data" - {
             assertThrows<MemberDataMustNotBeEmpty> {
-                member = Member("", "Rossi", "0001")
+                member = Member("", "Rossi", memberId)
                 println(member)
             }
             assertThrows<MemberDataMustNotBeEmpty> {
-                member = Member("Mario", "", "0001")
-            }
-            assertThrows<MemberDataMustNotBeEmpty> {
-                member = Member("Mario", "Rossi", "")
+                member = Member("Mario", "", memberId)
             }
         }
+        "add a consulting reservation" - {
+            val newMember = member.addConsultingReservation(consulting)
+            assert(newMember.retrieveConsultingReservation().contains(consulting))
+        }
+        "add a workout reservation" - {
+            val newMember = member.addWorkoutReservation(consultingWorkout)
+            assert(newMember.retrieveWorkoutReservation().contains(consultingWorkout))
+        }
+        "delete a consulting reservation" - {
+            val newMember = member.addConsultingReservation(consulting)
+            val deleteConsulting = newMember.deleteConsultingReservation(consulting)
+            assert(deleteConsulting.retrieveConsultingReservation().isEmpty())
+        }
+        "delete a workout reservation" - {
+            val newMember = member.addWorkoutReservation(consultingWorkout)
+            val deleteConsulting = newMember.deleteWorkoutReservation(consultingWorkout)
+            assert(deleteConsulting.retrieveWorkoutReservation().isEmpty())
+        }
         "ask for reservation list" - {
-            member = Member("Mario", "Rossi", "0111")
-            println("REQUESTED WORKOUT - " + member.getAllMemberRequestedWorkoutReservation())
-            println("REQUESTED CONSULTING - " + member.getAllMemberRequestedConsultingReservation())
-            assert(member.getAllMemberRequestedWorkoutReservation().isEmpty())
-            assert(member.getAllMemberRequestedConsultingReservation().isEmpty())
+            val newMember = member.addWorkoutReservation(consultingWorkout)
+            assert(newMember.retrieveWorkoutReservation().isNotEmpty())
         }
     }
 })
