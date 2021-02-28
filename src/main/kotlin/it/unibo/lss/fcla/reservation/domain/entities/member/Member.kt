@@ -32,7 +32,7 @@ class Member(
     /**
      * Returns a [Member] adding a [workoutReservation] into the list of member requested consulting
      */
-    private fun addWorkoutReservation(workoutReservation: WorkoutReservation): Member {
+    fun addWorkoutReservation(workoutReservation: WorkoutReservation): Member {
         return Member(
             firstName,
             lastName,
@@ -45,7 +45,7 @@ class Member(
     /**
      * Returns a [Member] adding a [consultingReservation] into the list of member requested consulting
      */
-    private fun addConsultingReservation(consultingReservation: ConsultingReservation): Member {
+    fun addConsultingReservation(consultingReservation: ConsultingReservation): Member {
         return Member(
             firstName,
             lastName,
@@ -58,7 +58,7 @@ class Member(
     /**
      * Returns a new [Member] deleting a [workoutReservation] from the list of memberRequestedConsulting list
      */
-    private fun deleteWorkoutReservation(workoutReservation: WorkoutReservation): Member {
+    fun deleteWorkoutReservation(workoutReservation: WorkoutReservation): Member {
         return Member(
             firstName,
             lastName,
@@ -71,7 +71,7 @@ class Member(
     /**
      * Returns a new [Member] deleting a [consultingReservation] from the list of memberRequestedConsulting list
      */
-    private fun deleteConsultingReservation(consultingReservation: ConsultingReservation): Member {
+    fun deleteConsultingReservation(consultingReservation: ConsultingReservation): Member {
         return Member(
             firstName,
             lastName,
@@ -93,12 +93,5 @@ class Member(
      */
     fun retrieveWorkoutReservation(): List<WorkoutReservation> {
         return memberWorkoutReservation.workoutReservationList
-    }
-
-    /**
-     * This methods return the [UUID] of the workout reservation
-     */
-    fun value(): UUID {
-        return id
     }
 }
