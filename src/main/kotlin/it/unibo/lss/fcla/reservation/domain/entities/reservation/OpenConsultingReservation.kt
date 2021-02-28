@@ -38,9 +38,5 @@ class OpenConsultingReservation(
         return OpenConsultingReservation(date, freelancerId, id)
     }
 
-    fun value(): UUID {
-        return id
-    }
-
     override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId in date $date"
 }
