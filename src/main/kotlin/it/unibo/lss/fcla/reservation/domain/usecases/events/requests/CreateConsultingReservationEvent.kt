@@ -7,4 +7,5 @@ import java.util.UUID
 data class CreateConsultingReservationEvent(
     override val id: UUID,
     val freelancer: String,
-    val date: Date) : Event
+    val date: Date
+) : Event

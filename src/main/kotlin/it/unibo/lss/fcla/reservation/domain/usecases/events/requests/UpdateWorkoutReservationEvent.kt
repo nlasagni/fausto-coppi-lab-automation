@@ -5,7 +5,8 @@ import java.util.Date
 import java.util.UUID
 
 data class UpdateWorkoutReservationEvent(
-        override val id: UUID,
-        val reservationId: UUID,
-        val aim: String,
-        val date: Date) : Event
+    override val id: UUID,
+    val reservationId: UUID,
+    val aim: String,
+    val date: Date
+) : Event
