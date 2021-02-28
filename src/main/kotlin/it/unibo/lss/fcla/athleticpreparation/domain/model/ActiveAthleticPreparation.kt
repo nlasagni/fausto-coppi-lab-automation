@@ -8,11 +8,11 @@ import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparatio
  *
  * This entity encapsulates all information which belongs to an athletic preparation.
  *
- * @author Nicola Lasagni on 22/02/2021.
+ * @property athleticTrainerId The id reference of the athletic trainer who is planning the athletic preparation.
+ * @property memberId The id reference of the member for whom the athletic preparation is being planned.
+ * @property periodOfPreparation The period of athletic preparation. See [PeriodOfPreparation].
  *
- * @param athleticTrainerId The id reference of the athletic trainer who is planning the athletic preparation.
- * @param memberId The id reference of the member for whom the athletic preparation is being planned.
- * @param periodOfPreparation The period of athletic preparation.
+ * @author Nicola Lasagni on 22/02/2021.
  */
 class ActiveAthleticPreparation(
         val athleticTrainerId: String,
@@ -20,6 +20,7 @@ class ActiveAthleticPreparation(
         val periodOfPreparation: PeriodOfPreparation
 ) {
 
+    /** The id of the athletic preparation. */
     private val id: String
 
     init {
@@ -32,6 +33,10 @@ class ActiveAthleticPreparation(
         id = generateId()
     }
 
+    /**
+     * Returns a unique id of the athletic preparation which will be stored
+     * into the [id] private property.
+     */
     private fun generateId(): String =
             "$athleticTrainerId-$memberId-${periodOfPreparation.beginning.dayOfYear}"
 

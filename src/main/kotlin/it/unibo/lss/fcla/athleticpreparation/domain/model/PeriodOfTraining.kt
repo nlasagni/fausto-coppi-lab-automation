@@ -8,12 +8,12 @@ import java.time.temporal.ChronoUnit
 /**
  * A value object representing a period of training during an athletic preparation.
  *
- * @see ActiveAthleticPreparation
+ * @property [beginning] A [LocalDate] which represents the beginning of a period.
+ * @property [end] A [LocalDate] which represents the end of a period.
+ *
+ * @see [ActiveAthleticPreparation]
  *
  * @author Nicola Lasagni on 22/02/2021.
- *
- * @property beginning
- * @property end
  */
 data class PeriodOfTraining(val beginning: LocalDate, val end: LocalDate) {
 
