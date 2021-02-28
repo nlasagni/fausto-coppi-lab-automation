@@ -28,7 +28,7 @@ class MemberConsultingReservation(val consultingReservationList: List<Consulting
     /**
      * This method is used to return the list of [ConsultingReservation] of this member
      */
-    fun getAllMemberConsulting(): List<ConsultingReservation> {
+    fun retrieveAllMemberConsulting(): List<ConsultingReservation> {
         return consultingReservationList.toList()
     }
 }
