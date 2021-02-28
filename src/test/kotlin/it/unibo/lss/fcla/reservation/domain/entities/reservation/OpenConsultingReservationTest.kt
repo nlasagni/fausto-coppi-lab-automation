@@ -32,6 +32,11 @@ class OpenConsultingReservationTest : FreeSpec({
                 )
             }
         }
+        "not to be empty" - {
+            reservation = OpenConsultingReservation(validDateOfConsulting, freelancerId)
+            assert(reservation.getID().isNotEmpty())
+            assert(reservation.getID() == "OpenConsultingReservation-$freelancerId-${validDateOfConsulting.time}")
+        }
 
         "A Member should" - {
             "be able to update correctly the date of a reservation" - {

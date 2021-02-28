@@ -2,6 +2,8 @@ package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.CloseReservationCannotBeUpdated
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 
@@ -26,6 +28,19 @@ class CloseConsultingReservationTest : FreeSpec({
             }
             assertThrows<CloseReservationCannotBeUpdated> {
                 reservation.updateFreelancerOfConsulting(freelancerIdUpdate)
+            }
+        }
+    }
+    "A CloseConsultingReservation should" - {
+        "not to be empty" - {
+            val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId)
+            assert(reservation.getID().isNotEmpty())
+            assert(reservation.getID() == "CloseConsultingReservation-$freelancerId-${validDateOfConsulting.time}")
+
+        }
+        "have a freelancer that made a consulting" - {
+            assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
+                CloseConsultingReservation(validDateOfConsulting, "")
             }
         }
     }
