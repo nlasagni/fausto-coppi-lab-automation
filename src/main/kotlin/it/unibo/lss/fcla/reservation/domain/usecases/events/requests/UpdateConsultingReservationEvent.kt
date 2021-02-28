@@ -6,5 +6,6 @@ import java.util.UUID
 
 data class UpdateConsultingReservationEvent(
     override val id: UUID,
+    val reservationId: UUID,
     val freelancer: String,
     val date: Date) : Event
