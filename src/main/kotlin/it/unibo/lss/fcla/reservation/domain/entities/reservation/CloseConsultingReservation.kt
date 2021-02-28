@@ -18,12 +18,5 @@ class CloseConsultingReservation(
         if (freelancerId.isEmpty()) throw ConsultingReservationFreelancerCannotBeEmpty()
     }
 
-    /**
-     * This methods return the [UUID] of the consulting reservation
-     */
-    fun value(): UUID {
-        return id
-    }
-
     override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId in date $date"
 }
