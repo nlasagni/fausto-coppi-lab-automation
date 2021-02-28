@@ -4,18 +4,19 @@ import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import java.util.Date
+import java.util.UUID
 
 /**
  * It is referred to a reservation which can still be updated expressing [date] and [freelancerId]
  */
 class OpenConsultingReservation(
     override val date: Date,
-    override val freelancerId: String
+    override val freelancerId: String,
+    override val id: UUID
 ) : ConsultingReservation {
-    private val id: String
+
     init {
         if (freelancerId.isEmpty()) throw ConsultingReservationFreelancerCannotBeEmpty()
-        id = "OpenConsultingReservation-$freelancerId-${date.time}"
     }
 
     /**
@@ -23,9 +24,9 @@ class OpenConsultingReservation(
      *
      * @return A new OpenConsultingReservation with the new date
      */
-    override fun updateDateOfConsulting(date: Date): OpenConsultingReservation {
+    fun updateDateOfConsulting(date: Date): OpenConsultingReservation {
         if (date.before(this.date)) throw OpenReservationMustNotHavePastDate()
-        else return OpenConsultingReservation(date, freelancerId)
+        else return OpenConsultingReservation(date, freelancerId, id)
     }
 
     /**
@@ -33,14 +34,14 @@ class OpenConsultingReservation(
      *
      * @return A new OpenConsultingReservation with a new freelancer
      */
-    override fun updateFreelancerOfConsulting(freelancerId: String): OpenConsultingReservation {
+    fun updateFreelancerOfConsulting(freelancerId: String): OpenConsultingReservation {
         if (freelancerId.isEmpty()) throw ConsultingReservationFreelancerCannotBeEmpty()
-        return OpenConsultingReservation(date, freelancerId)
+        return OpenConsultingReservation(date, freelancerId, id)
     }
 
-    fun getID(): String {
-        return this.id
+    fun getID(): UUID {
+        return id
     }
 
-    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId"
+    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId in date $date"
 }
