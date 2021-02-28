@@ -3,82 +3,102 @@ package it.unibo.lss.fcla.reservation.domain.entities.member
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.MemberDataMustNotBeEmpty
+import java.util.UUID
 
 /**
  * Class used to identify a member giving the [firstName], [lastName] and [id]
  */
-class Member(val firstName: String, val lastName: String, val id: String) {
-    private val memberRequestedWorkoutReservation = MemberRequestedWorkoutReservation()
-    private val memberRequestedConsultingReservation = MemberRequestedConsultingReservation()
+class Member(
+    val firstName: String,
+    val lastName: String,
+    val id: UUID,
+    private val memberWorkoutReservation: MemberWorkoutReservation,
+    private val memberConsultingReservation: MemberConsultingReservation
+) {
+
+    constructor(firstName: String, lastName: String, id: UUID) : this(
+        firstName,
+        lastName,
+        id,
+        MemberWorkoutReservation(),
+        MemberConsultingReservation()
+    )
 
     init {
         if (lastName.isEmpty()) throw MemberDataMustNotBeEmpty()
         if (firstName.isEmpty()) throw MemberDataMustNotBeEmpty()
-        if (id.isEmpty()) throw MemberDataMustNotBeEmpty()
     }
 
     /**
-     * This method will return a list of all member requested workout reservation.
+     * Returns a [Member] adding a [workoutReservation] into the list of member requested consulting
      */
-    fun getAllMemberRequestedWorkoutReservation(): List<WorkoutReservation> {
-        return memberRequestedWorkoutReservation.getAllMemberWorkout()
+    private fun addWorkoutReservation(workoutReservation: WorkoutReservation): Member {
+        return Member(
+            firstName,
+            lastName,
+            id,
+            memberWorkoutReservation.addWorkoutReservation(workoutReservation),
+            memberConsultingReservation
+        )
     }
 
     /**
-     * This method will return a list of all member requested consulting reservation.
+     * Returns a [Member] adding a [consultingReservation] into the list of member requested consulting
      */
-    fun getAllMemberRequestedConsultingReservation(): List<ConsultingReservation> {
-        return memberRequestedConsultingReservation.getAllMemberConsulting()
+    private fun addConsultingReservation(consultingReservation: ConsultingReservation): Member {
+        return Member(
+            firstName,
+            lastName,
+            id,
+            memberWorkoutReservation,
+            memberConsultingReservation.addConsultingReservation(consultingReservation)
+        )
     }
 
     /**
-     * This method is used to add a [workoutReservation] into the list of member requested workout
+     * Returns a new [Member] deleting a [workoutReservation] from the list of memberRequestedConsulting list
      */
-    private fun addWorkoutReservation(workoutReservation: WorkoutReservation) {
-        memberRequestedWorkoutReservation.addWorkoutReservation(workoutReservation)
+    private fun deleteWorkoutReservation(workoutReservation: WorkoutReservation): Member {
+        return Member(
+            firstName,
+            lastName,
+            id,
+            memberWorkoutReservation.deleteWorkoutReservation(workoutReservation),
+            memberConsultingReservation
+        )
     }
 
     /**
-     * This method is used to add a [consultingReservation] into the list of member requested consulting
+     * Returns a new [Member] deleting a [consultingReservation] from the list of memberRequestedConsulting list
      */
-    private fun addConsultingReservation(consultingReservation: ConsultingReservation) {
-        memberRequestedConsultingReservation.addConsultingReservation(consultingReservation)
+    private fun deleteConsultingReservation(consultingReservation: ConsultingReservation): Member {
+        return Member(
+            firstName,
+            lastName,
+            id,
+            memberWorkoutReservation,
+            memberConsultingReservation.deleteConsultingReservation(consultingReservation)
+        )
     }
 
     /**
-     * This method update a workout reservation deleting a [oldWorkoutReservation] and adding a [newWorkoutReservation]
+     * Returns a list of [ConsultingReservation]
      */
-    private fun updateWorkoutReservation(
-        oldWorkoutReservation: WorkoutReservation,
-        newWorkoutReservation: WorkoutReservation
-    ) {
-        memberRequestedWorkoutReservation.deleteWorkoutReservation(oldWorkoutReservation)
-        memberRequestedWorkoutReservation.addWorkoutReservation(newWorkoutReservation)
+    fun retrieveConsultingReservation(): List<ConsultingReservation> {
+        return memberConsultingReservation.consultingReservationList
     }
 
     /**
-     * This method update a workout reservation deleting a [oldConsultingReservation]
-     * and adding a [newConsultingReservation]
+     * Returns a list of [WorkoutReservation]
      */
-    private fun updateConsultingReservation(
-        oldConsultingReservation: ConsultingReservation,
-        newConsultingReservation: ConsultingReservation
-    ) {
-        memberRequestedConsultingReservation.deleteConsultingReservation(oldConsultingReservation)
-        memberRequestedConsultingReservation.addConsultingReservation(newConsultingReservation)
+    fun retrieveWorkoutReservation(): List<WorkoutReservation> {
+        return memberWorkoutReservation.workoutReservationList
     }
 
     /**
-     * This method is used to add a [workoutReservation] into the list of member requested workout
+     * This methods return the [UUID] of the workout reservation
      */
-    private fun deleteWorkoutReservation(workoutReservation: WorkoutReservation) {
-        memberRequestedWorkoutReservation.deleteWorkoutReservation(workoutReservation)
-    }
-
-    /**
-     * This method is used to remove a [consultingReservation] into the list of member requested consulting
-     */
-    private fun deleteConsultingReservation(consultingReservation: ConsultingReservation) {
-        memberRequestedConsultingReservation.deleteConsultingReservation(consultingReservation)
+    fun value(): UUID {
+        return id
     }
 }
