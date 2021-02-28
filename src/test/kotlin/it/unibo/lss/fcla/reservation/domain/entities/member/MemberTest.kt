@@ -18,8 +18,6 @@ class MemberTest : FreeSpec({
     val freelancerId = "0111"
     val aim = "recovery"
     calendar.set(year, feb, day)
-    //val memberConsultingList = MemberConsultingReservation()
-    //val memberWorkoutList = MemberWorkoutReservation()
     val consulting = OpenConsultingReservation(calendar.time, freelancerId, UUID.randomUUID())
     val consultingWorkout = OpenWorkoutReservation(aim, calendar.time, UUID.randomUUID())
 
