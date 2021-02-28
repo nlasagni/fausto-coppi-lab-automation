@@ -8,7 +8,7 @@ class Agenda(
     private val agendaConsultingReservation: AgendaConsultingReservation
 ) {
 
-    constructor() : this(AgendaWorkoutReservation(),AgendaConsultingReservation())
+    constructor() : this(AgendaWorkoutReservation(), AgendaConsultingReservation())
 
     fun addConsultingReservation(reservation: ConsultingReservation): Agenda {
         return Agenda(agendaWorkoutReservation, agendaConsultingReservation.addConsultingReservation(reservation))

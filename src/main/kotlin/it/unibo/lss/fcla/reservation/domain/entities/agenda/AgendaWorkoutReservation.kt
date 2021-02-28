@@ -4,7 +4,7 @@ import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 
 class AgendaWorkoutReservation(val workoutReservationList: List<WorkoutReservation>) {
 
-    constructor(): this(listOf<WorkoutReservation>())
+    constructor() : this(listOf<WorkoutReservation>())
 
     /**
      * This method is used to add a [WorkoutReservation] into the list of all member reservations

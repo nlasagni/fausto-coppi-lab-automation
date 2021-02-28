@@ -4,7 +4,7 @@ import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 
 class AgendaConsultingReservation(val consultingReservationList: List<ConsultingReservation>) {
 
-    constructor(): this(listOf<ConsultingReservation>())
+    constructor() : this(listOf<ConsultingReservation>())
 
     /**
      * This method is used to add a [ConsultingReservation] into the list of all member reservations
