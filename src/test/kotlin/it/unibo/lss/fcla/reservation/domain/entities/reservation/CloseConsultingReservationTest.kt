@@ -1,46 +1,38 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.CloseReservationCannotBeUpdated
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
+import java.util.UUID
 
 class CloseConsultingReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()
     val year = 2021
     val feb = 2
     val day = 25
-    val invalidDay = 23
-    val freelancerId = "0111"
-    val freelancerIdUpdate = "0110"
     calendar.set(year, feb, day)
     val validDateOfConsulting = calendar.time
-    calendar.set(year, feb, invalidDay)
-    val invalidDateOfConsulting = calendar.time
+    val freelancerId = "0111"
+    val closeConsultingId = UUID.randomUUID()
 
-    "A Member should not" - {
-        "to be able to modify a closed reservation" - {
-            val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId)
-            assertThrows<CloseReservationCannotBeUpdated> {
-                reservation.updateDateOfConsulting(invalidDateOfConsulting)
-            }
-            assertThrows<CloseReservationCannotBeUpdated> {
-                reservation.updateFreelancerOfConsulting(freelancerIdUpdate)
-            }
-        }
-    }
     "A CloseConsultingReservation should" - {
         "not to be empty" - {
-            val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId)
-            assert(reservation.getID().isNotEmpty())
-            assert(reservation.getID() == "CloseConsultingReservation-$freelancerId-${validDateOfConsulting.time}")
+            val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId, closeConsultingId)
+            assert(reservation.value().toString().isNotEmpty())
+            assert(reservation.value() == closeConsultingId)
 
         }
+        "be named as requested" - {
+            val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId, closeConsultingId)
+            assert(reservation.toString() ==
+                    "Reservation consulting {$closeConsultingId} with freelancerId: " +
+                    "$freelancerId in date $validDateOfConsulting")
+        }
+
         "have a freelancer that made a consulting" - {
             assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
-                CloseConsultingReservation(validDateOfConsulting, "")
+                CloseConsultingReservation(validDateOfConsulting, "", closeConsultingId)
             }
         }
     }

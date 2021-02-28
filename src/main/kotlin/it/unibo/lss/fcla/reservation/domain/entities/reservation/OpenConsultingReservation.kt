@@ -26,7 +26,7 @@ class OpenConsultingReservation(
      */
     fun updateDateOfConsulting(date: Date): OpenConsultingReservation {
         if (date.before(this.date)) throw OpenReservationMustNotHavePastDate()
-        else return OpenConsultingReservation(date, freelancerId, id)
+        return OpenConsultingReservation(date, freelancerId, id)
     }
 
     /**
@@ -39,7 +39,7 @@ class OpenConsultingReservation(
         return OpenConsultingReservation(date, freelancerId, id)
     }
 
-    fun getID(): UUID {
+    fun value(): UUID {
         return id
     }
 
