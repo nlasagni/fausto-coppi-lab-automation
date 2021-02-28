@@ -12,7 +12,7 @@ class OpenConsultingReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()
     val year = 2022
     val invalidYear = 2021
-    val feb = 2
+    val feb = Calendar.FEBRUARY
     val day = 25
     val freelancerId = "0111"
     calendar.set(year, feb, day)
@@ -25,9 +25,10 @@ class OpenConsultingReservationTest : FreeSpec({
         openConsultingReservationId
     )
 
-
     "An Open consulting reservation should" - {
         "have a freelancer that make a consulting and a valid date" - {
+            calendar.set(invalidYear, feb, day)
+            val invalidDateOfConsulting = calendar.time
             Assertions.assertDoesNotThrow {
                 reservation = OpenConsultingReservation(
                     validDateOfConsulting,
@@ -43,6 +44,13 @@ class OpenConsultingReservationTest : FreeSpec({
                     openConsultingReservationId
                 )
             }
+            assertThrows<OpenReservationMustNotHavePastDate> {
+                OpenConsultingReservation(
+                    invalidDateOfConsulting,
+                    freelancerId,
+                    openConsultingReservationId
+                )
+            }
         }
         "not to be empty" - {
             assert(reservation.value().toString().isNotEmpty())
@@ -52,9 +60,11 @@ class OpenConsultingReservationTest : FreeSpec({
             assert(reservation.value() == openConsultingReservationId)
         }
         "be named as requested" - {
-            assert(reservation.toString() ==
+            assert(
+                reservation.toString() ==
                     "Reservation consulting {$openConsultingReservationId} with freelancerId: " +
-                    "$freelancerId in date $validDateOfConsulting")
+                    "$freelancerId in date $validDateOfConsulting"
+            )
         }
 
         "A Member should" - {
