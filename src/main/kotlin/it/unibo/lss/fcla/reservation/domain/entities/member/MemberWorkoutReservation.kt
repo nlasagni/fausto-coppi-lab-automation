@@ -1,6 +1,5 @@
 package it.unibo.lss.fcla.reservation.domain.entities.member
 
-import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 
 class MemberWorkoutReservation(val workoutReservationList: List<WorkoutReservation>) {
@@ -20,7 +19,6 @@ class MemberWorkoutReservation(val workoutReservationList: List<WorkoutReservati
     fun deleteWorkoutReservation(workoutReservation: WorkoutReservation): MemberWorkoutReservation {
         return MemberWorkoutReservation(workoutReservationList - workoutReservation)
     }
-
 
     /**
      * This method is used to return the list of [WorkoutReservation] of this member
