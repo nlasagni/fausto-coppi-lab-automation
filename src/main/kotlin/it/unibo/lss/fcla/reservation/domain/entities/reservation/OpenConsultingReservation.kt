@@ -21,9 +21,7 @@ class OpenConsultingReservation(
     }
 
     /**
-     * Method used to update the date of the consulting with a [newDate]
-     *
-     * @return A new OpenConsultingReservation with the new date
+     * Returns an [OpenConsultingReservation] updating the date of the consulting with a [newDate]
      */
     fun updateDateOfConsulting(date: Date): OpenConsultingReservation {
         if (date.before(this.date)) throw OpenReservationMustNotHavePastDate()
