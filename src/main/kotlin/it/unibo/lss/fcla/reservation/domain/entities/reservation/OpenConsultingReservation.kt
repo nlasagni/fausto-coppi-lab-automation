@@ -29,9 +29,7 @@ class OpenConsultingReservation(
     }
 
     /**
-     * Method used to update the freelancer of a consulting with the [newFreelancerId]
-     *
-     * @return A new OpenConsultingReservation with a new freelancer
+     * Returns a new [OpenConsultingReservation] updating the [freelancerId] of a consulting
      */
     fun updateFreelancerOfConsulting(freelancerId: String): OpenConsultingReservation {
         if (freelancerId.isEmpty()) throw ConsultingReservationFreelancerCannotBeEmpty()
