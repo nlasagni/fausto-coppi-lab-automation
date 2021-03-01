@@ -19,11 +19,4 @@ class MemberWorkoutReservation(val workoutReservationList: List<WorkoutReservati
     fun deleteWorkoutReservation(workoutReservation: WorkoutReservation): MemberWorkoutReservation {
         return MemberWorkoutReservation(workoutReservationList - workoutReservation)
     }
-
-    /**
-     * This method is used to return the list of [WorkoutReservation] of this member
-     */
-    fun retrieveAllMemberWorkout(): List<WorkoutReservation> {
-        return workoutReservationList.toList()
-    }
 }

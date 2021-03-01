@@ -18,17 +18,9 @@ class MemberConsultingReservation(val consultingReservationList: List<Consulting
     /**
      * This method is used to remove a [consultingReservation] from the list of all member reservations
      */
-    fun deleteConsultingReservation(consultingReservation: ConsultingReservation):
-        MemberConsultingReservation {
-            return MemberConsultingReservation(
-                consultingReservationList - consultingReservation
-            )
-        }
-
-    /**
-     * This method is used to return the list of [ConsultingReservation] of this member
-     */
-    fun retrieveAllMemberConsulting(): List<ConsultingReservation> {
-        return consultingReservationList.toList()
+    fun deleteConsultingReservation(consultingReservation: ConsultingReservation): MemberConsultingReservation {
+        return MemberConsultingReservation(
+            consultingReservationList - consultingReservation
+        )
     }
 }
