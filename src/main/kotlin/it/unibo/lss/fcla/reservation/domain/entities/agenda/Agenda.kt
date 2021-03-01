@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.reservation.domain.entities.agenda
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
-import java.util.*
+import java.util.UUID
 
 class Agenda(
     private val agendaWorkoutReservation: AgendaWorkoutReservation,
