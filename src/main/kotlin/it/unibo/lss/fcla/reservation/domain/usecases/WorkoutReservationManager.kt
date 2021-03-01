@@ -8,27 +8,45 @@ import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateWorko
 
 class WorkoutReservationManager() : Producer {
 
-    private fun closeWorkoutReservation(): List<Event> {
+    private fun closeWorkoutReservation(event: CloseWorkoutReservationEvent): List<Event> {
+        /* TODO
+        - retrieve res
+        - create closedRes
+        - remove oldRes from agenda and member
+        - add newRes to agenda and member
+         */
         return listOf()
     }
 
-    private fun createWorkoutReservation(): List<Event> {
+    private fun createWorkoutReservation(event: CreateWorkoutReservationEvent): List<Event> {
+        /* TODO
+        - create res
+        - add newRes to agenda and member
+         */
         return listOf()
     }
 
-    private fun deleteWorkoutReservation(): List<Event> {
+    private fun deleteWorkoutReservation(event: DeleteWorkoutReservationEvent): List<Event> {
+        /* TODO
+        - retrieve res
+        - remove res from agenda and member
+         */
         return listOf()
     }
 
-    private fun updateWorkoutReservation(): List<Event> {
+    private fun updateWorkoutReservation(event: UpdateWorkoutReservationEvent): List<Event> {
+        /* TODO
+        - retrieve consulting
+        - update cons
+         */
         return listOf()
     }
 
     override fun produce(event: Event): List<Event> = when (event) {
-        is CloseWorkoutReservationEvent -> closeWorkoutReservation()
-        is CreateWorkoutReservationEvent -> createWorkoutReservation()
-        is DeleteWorkoutReservationEvent -> deleteWorkoutReservation()
-        is UpdateWorkoutReservationEvent -> updateWorkoutReservation()
+        is CloseWorkoutReservationEvent -> closeWorkoutReservation(event)
+        is CreateWorkoutReservationEvent -> createWorkoutReservation(event)
+        is DeleteWorkoutReservationEvent -> deleteWorkoutReservation(event)
+        is UpdateWorkoutReservationEvent -> updateWorkoutReservation(event)
         else -> listOf()
     }
 }
