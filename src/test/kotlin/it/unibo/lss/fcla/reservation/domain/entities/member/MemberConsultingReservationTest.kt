@@ -17,14 +17,14 @@ class MemberConsultingReservationTest : FreeSpec({
     "It should" - {
         "be possible to make a reservation. It will be added to an internal list" - {
             val newConsultingReservationList = consultingReservationList.addConsultingReservation(consulting)
-            assert(newConsultingReservationList.retrieveAllMemberConsulting().isNotEmpty())
-            assert(newConsultingReservationList.retrieveAllMemberConsulting().contains(consulting))
+            assert(newConsultingReservationList.consultingReservationList.isNotEmpty())
+            assert(newConsultingReservationList.consultingReservationList.contains(consulting))
         }
         "be possible to delete a reservation" - {
             val newConsultingReservationList = consultingReservationList.addConsultingReservation(consulting)
             val deletionConsultingReservationList =
                 newConsultingReservationList.deleteConsultingReservation(consulting)
-            assert(deletionConsultingReservationList.retrieveAllMemberConsulting().isEmpty())
+            assert(deletionConsultingReservationList.consultingReservationList.isEmpty())
         }
     }
 })

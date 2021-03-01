@@ -24,6 +24,7 @@ class AgendaTest : FreeSpec({
     "A member should" - {
         "add a consulting reservation" - {
             val newAgenda = agenda.addConsultingReservation(consulting)
+            assert(newAgenda.id == agenda.id)
             assert(newAgenda.retrieveConsultingReservation().contains(consulting))
         }
         "add a workout reservation" - {

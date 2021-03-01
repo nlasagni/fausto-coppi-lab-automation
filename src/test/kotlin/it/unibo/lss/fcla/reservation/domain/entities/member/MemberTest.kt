@@ -33,6 +33,9 @@ class MemberTest : FreeSpec({
         }
         "add a consulting reservation" - {
             val newMember = member.addConsultingReservation(consulting)
+            assert(newMember.firstName == member.firstName)
+            assert(newMember.lastName == member.lastName)
+            assert(newMember.id == member.id)
             assert(newMember.retrieveConsultingReservation().contains(consulting))
         }
         "add a workout reservation" - {
@@ -46,12 +49,16 @@ class MemberTest : FreeSpec({
         }
         "delete a workout reservation" - {
             val newMember = member.addWorkoutReservation(consultingWorkout)
-            val deleteConsulting = newMember.deleteWorkoutReservation(consultingWorkout)
-            assert(deleteConsulting.retrieveWorkoutReservation().isEmpty())
+            val deleteWorkout = newMember.deleteWorkoutReservation(consultingWorkout)
+            assert(deleteWorkout.retrieveWorkoutReservation().isEmpty())
         }
-        "ask for reservation list" - {
+        "ask for reservation workout list" - {
             val newMember = member.addWorkoutReservation(consultingWorkout)
             assert(newMember.retrieveWorkoutReservation().isNotEmpty())
+        }
+        "ask for reservation consulting list" - {
+            val newMember = member.addConsultingReservation(consulting)
+            assert(newMember.retrieveConsultingReservation().isNotEmpty())
         }
     }
 })

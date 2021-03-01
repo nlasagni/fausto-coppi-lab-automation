@@ -18,13 +18,13 @@ class MemberWorkoutReservationTest : FreeSpec({
     "It should" - {
         "be possible to make a reservation. It will be added to an internal list" - {
             val newWorkoutReservation = workoutReservationList.addWorkoutReservation(workout)
-            assert(newWorkoutReservation.retrieveAllMemberWorkout().isNotEmpty())
-            assert(newWorkoutReservation.retrieveAllMemberWorkout().contains(workout))
+            assert(newWorkoutReservation.workoutReservationList.isNotEmpty())
+            assert(newWorkoutReservation.workoutReservationList.contains(workout))
         }
         "be possible to delete a reservation" - {
             val newWorkoutReservation = workoutReservationList.addWorkoutReservation(workout)
             val newDeletedWorkoutReservation = newWorkoutReservation.deleteWorkoutReservation(workout)
-            assert(newDeletedWorkoutReservation.retrieveAllMemberWorkout().isEmpty())
+            assert(newDeletedWorkoutReservation.workoutReservationList.isEmpty())
         }
     }
 })
