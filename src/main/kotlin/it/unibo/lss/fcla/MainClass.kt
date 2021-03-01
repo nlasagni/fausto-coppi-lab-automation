@@ -1,7 +1,5 @@
 package it.unibo.lss.fcla
 
-import java.util.Calendar
-
 class MainClass {
 
     /* companion object MainClass {

@@ -1,12 +1,10 @@
 package it.unibo.lss.fcla.reservation.domain.entities.agenda
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.MemberDataMustNotBeEmpty
-import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
-import org.junit.jupiter.api.assertThrows
-import java.util.*
+import java.util.Calendar
+import java.util.UUID
 
 class AgendaTest : FreeSpec({
     val agendaId = UUID.randomUUID()

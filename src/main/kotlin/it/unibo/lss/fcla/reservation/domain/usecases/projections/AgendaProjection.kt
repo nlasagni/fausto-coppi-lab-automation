@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.reservation.domain.usecases.projections
 
 import it.unibo.lss.fcla.reservation.common.Event
 import it.unibo.lss.fcla.reservation.domain.entities.agenda.Agenda
-import java.util.*
+import java.util.UUID
 
 class AgendaProjection(val init: Agenda) {
 

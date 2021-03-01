@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.reservation.domain.entities.member
 
-import java.util.*
+import java.util.UUID
 
 class MemberLedger(private val members: List<Member>, val id: UUID) {
 

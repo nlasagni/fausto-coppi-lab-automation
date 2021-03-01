@@ -4,7 +4,6 @@ import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
-
 /**
  * [Event] representing a deleted consulting reservation to the Agenda
  */
