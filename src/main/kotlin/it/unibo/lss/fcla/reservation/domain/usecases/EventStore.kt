@@ -17,11 +17,11 @@ class EventStore(private var events: List<Event>) {
         return events.toList()
     }
 
-    private fun append(aggregate: UUID, events: List<Event>): Unit {
+    private fun append(aggregate: UUID, events: List<Event>) {
         this.events = this.events + events
     }
 
-    fun evolve(aggregate: UUID, event: Event): Unit {
+    fun evolve(aggregate: UUID, event: Event) {
         // TODO producer generates events
     }
 }

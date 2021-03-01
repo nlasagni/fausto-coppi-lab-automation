@@ -2,7 +2,6 @@ package it.unibo.lss.fcla.reservation.domain.entities.agenda
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
-import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 
 class Agenda(
     private val agendaWorkoutReservation: AgendaWorkoutReservation,
