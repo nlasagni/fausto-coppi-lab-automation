@@ -2,6 +2,7 @@ package it.unibo.lss.fcla.athleticpreparation.domain.model
 
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationMustHaveMember
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustNotOverlap
 
 /**
  * The AthleticPreparation domain entity.
@@ -22,7 +23,7 @@ class ActiveAthleticPreparation(
 
     /** The id of the athletic preparation. */
     private val id: String
-    private var trainingPlans: List<TrainingPlan> = listOf()
+    private var trainingPlans: List<TrainingPlan> = emptyList()
 
     init {
         if (athleticTrainerId.isEmpty()) {
@@ -45,7 +46,10 @@ class ActiveAthleticPreparation(
      *
      */
     fun prepareTrainingPlan(trainingPlan: TrainingPlan) {
-
+        if (trainingPlanOverlaps(trainingPlan)) {
+            throw TrainingPlanMustNotOverlap()
+        }
+        trainingPlans = trainingPlans + trainingPlan
     }
 
     /**
@@ -54,7 +58,5 @@ class ActiveAthleticPreparation(
     private fun trainingPlanOverlaps(trainingPlan: TrainingPlan): Boolean {
         return false
     }
-
-
 
 }
