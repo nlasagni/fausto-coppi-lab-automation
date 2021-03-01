@@ -8,27 +8,27 @@ import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsu
 
 class ConsultingReservationManager() : Producer {
 
-    private fun closeConsultingReservation(): List<Event> {
+    private fun closeConsultingReservation(event: CloseConsultingReservationEvent): List<Event> {
         return listOf()
     }
 
-    private fun createConsultingReservation(): List<Event> {
+    private fun createConsultingReservation(event: CreateConsultingReservationEvent): List<Event> {
         return listOf()
     }
 
-    private fun deleteConsultingReservation(): List<Event> {
+    private fun deleteConsultingReservation(event: DeleteConsultingReservationEvent): List<Event> {
         return listOf()
     }
 
-    private fun updateConsultingReservation(): List<Event> {
+    private fun updateConsultingReservation(event: UpdateConsultingReservationEvent): List<Event> {
         return listOf()
     }
 
     override fun produce(event: Event): List<Event> = when (event) {
-        is CloseConsultingReservationEvent -> closeConsultingReservation()
-        is CreateConsultingReservationEvent -> createConsultingReservation()
-        is DeleteConsultingReservationEvent -> deleteConsultingReservation()
-        is UpdateConsultingReservationEvent -> updateConsultingReservation()
+        is CloseConsultingReservationEvent -> closeConsultingReservation(event)
+        is CreateConsultingReservationEvent -> createConsultingReservation(event)
+        is DeleteConsultingReservationEvent -> deleteConsultingReservation(event)
+        is UpdateConsultingReservationEvent -> updateConsultingReservation(event)
         else -> listOf()
     }
 }
