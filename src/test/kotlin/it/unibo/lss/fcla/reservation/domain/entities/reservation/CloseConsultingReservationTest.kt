@@ -19,8 +19,8 @@ class CloseConsultingReservationTest : FreeSpec({
     "A CloseConsultingReservation should" - {
         "not to be empty" - {
             val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId, closeConsultingId)
-            assert(reservation.value().toString().isNotEmpty())
-            assert(reservation.value() == closeConsultingId)
+            assert(reservation.id.toString().isNotEmpty())
+            assert(reservation.id == closeConsultingId)
         }
         "be named as requested" - {
             val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId, closeConsultingId)
