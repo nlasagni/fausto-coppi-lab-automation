@@ -7,7 +7,7 @@ import java.util.Date
 import java.util.UUID
 
 /**
- * It is referred to a reservation which can still be updated expressing [date] and [freelancerId]
+ * It is referred to a reservation which can still be updated expressing [date], [freelancerId] and [id]
  */
 class OpenConsultingReservation(
     override val date: Date,

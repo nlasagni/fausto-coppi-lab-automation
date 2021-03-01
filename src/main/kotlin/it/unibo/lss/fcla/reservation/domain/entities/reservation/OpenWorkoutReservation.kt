@@ -6,6 +6,9 @@ import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservati
 import java.util.Date
 import java.util.UUID
 
+/**
+ * It is referred to a reservation which can still be updated expressing [aim], [date] and [id]
+ */
 class OpenWorkoutReservation(
     override val aim: String,
     override val date: Date,
