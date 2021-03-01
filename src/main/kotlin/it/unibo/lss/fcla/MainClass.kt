@@ -1,17 +1,10 @@
 package it.unibo.lss.fcla
 
-import it.unibo.lss.fcla.reservation.Consulting
-import it.unibo.lss.fcla.reservation.Desk
-import it.unibo.lss.fcla.reservation.Machine
-import it.unibo.lss.fcla.reservation.Member
-import it.unibo.lss.fcla.reservation.MembershipCard
-import it.unibo.lss.fcla.reservation.Professional
-import it.unibo.lss.fcla.reservation.ProfessionalType
 import java.util.Calendar
 
 class MainClass {
 
-    companion object MainClass {
+    /* companion object MainClass {
         const val YEAR = 2021
         const val DAY = 25
         const val HOUR = 11
@@ -42,10 +35,13 @@ class MainClass {
         cal.set(YEAR, Calendar.MARCH, DAY, HOUR, MINUTE)
         desk.createConsultingReservation(cal.time, member, professional, Consulting.ATHLETIC_TRAINING)
         println("Reservation created: ${desk.read()}")
-    }
+    } */
 }
 
 fun main() {
+    /*
     MainClass().basicGymReservation()
     MainClass().basicConsultingReservation()
+    */
+    println("Main Class")
 }
