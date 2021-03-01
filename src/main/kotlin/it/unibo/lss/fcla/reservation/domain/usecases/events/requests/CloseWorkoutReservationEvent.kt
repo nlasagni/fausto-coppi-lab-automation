@@ -5,5 +5,6 @@ import java.util.UUID
 
 data class CloseWorkoutReservationEvent(
     override val id: UUID,
-    val reservationId: UUID
+    val reservationId: UUID,
+    val memberId: UUID
 ) : Event
