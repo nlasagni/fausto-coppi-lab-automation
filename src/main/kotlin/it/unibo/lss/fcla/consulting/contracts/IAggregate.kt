@@ -8,4 +8,6 @@ package it.unibo.lss.fcla.consulting.contracts
 interface IAggregate {
 
     fun applyEvent(event: DomainEvent)
+    fun getUncommittedEvents() : List<DomainEvent>
+    fun clearUncommittedEvents()
 }
