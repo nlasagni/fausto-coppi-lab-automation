@@ -35,9 +35,7 @@ abstract class AbstractAggregate : IAggregate {
      * Raise an event
      * //TODO add event store
      */
-    fun raiseEvent(event: DomainEvent) {
-        applyEvent(event)
-    }
+    fun raiseEvent(event: DomainEvent) = applyEvent(event)
 
     /**
      *
