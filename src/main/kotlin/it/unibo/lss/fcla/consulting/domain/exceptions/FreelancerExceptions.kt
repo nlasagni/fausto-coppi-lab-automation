@@ -20,3 +20,8 @@ class FreelancerAvailabilityNotValidTime :
  *
  */
 class FreelancerAvailabilityAlreadyExist : ConsultingException("An availability already exists for the given date")
+
+/**
+ *
+ */
+class FreelancerAvailabilityDoesNotExist : ConsultingException("An availability does not exist for the given date")

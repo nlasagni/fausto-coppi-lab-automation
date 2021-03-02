@@ -2,10 +2,7 @@ package it.unibo.lss.fcla.consulting.domain.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityNotValidTime
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
+import it.unibo.lss.fcla.consulting.domain.exceptions.*
 import java.time.LocalTime
 
 /**
@@ -49,7 +46,7 @@ class Freelancer(
         if (!fromTime.isBefore(toTime)) throw FreelancerAvailabilityNotValidTime()
 
         val exist = availabilities.firstOrNull { it.availabilityDate == availabilityDate } != null
-        if (exist) throw FreelancerAvailabilityAlreadyExist()
+        if (!exist) throw FreelancerAvailabilityDoesNotExist()
 
         raiseEvent(FreelancerAvailabilityDeletedEvent(freelancerId, availabilityDate))
         raiseEvent(FreelancerAvailabilityCreatedEvent(freelancerId, availabilityDate, fromTime, toTime))
