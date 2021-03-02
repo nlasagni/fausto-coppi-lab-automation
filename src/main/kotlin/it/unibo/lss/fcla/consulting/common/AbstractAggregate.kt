@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.consulting.common
 
-import it.unibo.lss.fcla.consulting.contracts.DomainEvent
-import it.unibo.lss.fcla.consulting.contracts.IAggregate
+import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
+import it.unibo.lss.fcla.consulting.domain.contracts.IAggregate
 
 /**
  * @author Stefano Braggion
