@@ -1,11 +1,13 @@
 package it.unibo.lss.fcla.consulting.domain.member
 
+import it.unibo.lss.fcla.consulting.domain.contracts.AggregateId
+
 /**
  * @author Stefano Braggion
  *
  * Represent the Id of a member
  */
-data class MemberId(val memberId: String) {
+data class MemberId(val memberId: String) : AggregateId {
     private val memberIdFormat = Regex("M-[0-9]{5}")
 
     init {

@@ -3,7 +3,6 @@ package it.unibo.lss.fcla.consulting.domain.member
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingSummary
-import it.unibo.lss.fcla.consulting.domain.events.MemberReceivedConsultingEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.MemberConsultingAlreadyExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.MemberFirstNameCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.exceptions.MemberLastNameCannotBeNull
@@ -36,10 +35,15 @@ class Member(
     fun receiveConsulting(consultingId: ConsultingId, consultingSummary: ConsultingSummary) {
         if(memberConsultings.containsKey(consultingId))
             throw MemberConsultingAlreadyExist()
-        memberConsultings[consultingId] = consultingSummary
+        raiseEvent(MemberReceivedConsultingEvent(consultingId, consultingSummary))
     }
 
     // events handler
 
-
+    /**
+     * Event handler for manage [event] of type [MemberReceivedConsultingEvent]
+     */
+    private fun applyEvent(event: MemberReceivedConsultingEvent) {
+        memberConsultings[event.consultingId] = event.consultingSummary
+    }
 }

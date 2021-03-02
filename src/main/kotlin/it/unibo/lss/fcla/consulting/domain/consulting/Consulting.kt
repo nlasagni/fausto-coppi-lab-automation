@@ -1,8 +1,6 @@
 package it.unibo.lss.fcla.consulting.domain.consulting
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
-import it.unibo.lss.fcla.consulting.domain.events.ConsultingSummaryCreatedEvent
-import it.unibo.lss.fcla.consulting.domain.events.ConsultingSummaryUpdatedDescriptionEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryTypeCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId

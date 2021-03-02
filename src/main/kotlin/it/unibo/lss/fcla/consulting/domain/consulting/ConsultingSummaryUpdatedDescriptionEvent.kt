@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.domain.events
+package it.unibo.lss.fcla.consulting.domain.consulting
 
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
