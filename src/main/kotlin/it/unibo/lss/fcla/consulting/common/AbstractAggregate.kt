@@ -9,6 +9,7 @@ import it.unibo.lss.fcla.consulting.contracts.IAggregate
 abstract class AbstractAggregate : IAggregate {
 
     private val handlers = (emptyMap<Class<*>?, (Any) -> Unit>()).toMutableMap()
+    private val uncommittedEvents : HashSet<DomainEvent> = hashSetOf()
 
     /**
      * Register a new handler for event
@@ -37,4 +38,14 @@ abstract class AbstractAggregate : IAggregate {
     fun raiseEvent(event: DomainEvent) {
         applyEvent(event)
     }
+
+    /**
+     *
+     */
+    override fun getUncommittedEvents() : List<DomainEvent> = uncommittedEvents.toList()
+
+    /**
+     *
+     */
+    override fun clearUncommittedEvents() = uncommittedEvents.clear()
 }
