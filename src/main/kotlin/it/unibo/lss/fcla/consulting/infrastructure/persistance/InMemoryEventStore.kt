@@ -16,14 +16,14 @@ class InMemoryEventStore : IEventStore {
     /**
      *
      */
-    override fun save(id: AggregateId, domainEvent: DomainEvent) {
+    override fun save(id: AggregateId, domainEvent: DomainEvent, version: Int) {
         TODO("Not yet implemented")
     }
 
     /**
      *
      */
-    override fun saveAll(id: AggregateId, domainEvents: List<DomainEvent>) {
+    override fun saveAll(id: AggregateId, domainEvents: List<DomainEvent>, version: Int) {
         TODO("Not yet implemented")
     }
 
