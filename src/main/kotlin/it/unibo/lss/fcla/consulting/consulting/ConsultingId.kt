@@ -1,11 +1,13 @@
 package it.unibo.lss.fcla.consulting.consulting
 
+import it.unibo.lss.fcla.consulting.domain.contracts.AggregateId
+
 /**
  * @author Stefano Braggion
  *
- * Value object representing a consulting id
+ * Represent an Id for a consulting in the form of CS-00000
  */
-data class ConsultingId(val consultingId: String) {
+data class ConsultingId(val consultingId: String) : AggregateId {
 
     private val consultingIdFormat = Regex("CS-[0-9]{5}")
 
