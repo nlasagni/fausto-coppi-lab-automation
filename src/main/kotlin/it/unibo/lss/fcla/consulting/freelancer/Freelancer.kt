@@ -17,18 +17,13 @@ import java.time.LocalTime
  * Represents a freelancer
  */
 class Freelancer(
-    val freelancerId: FreelancerId
+    val freelancerId: FreelancerId,
+    val firstName: String,
+    val lastName: String,
+    val role: FreelancerRole
 ) : AbstractAggregate() {
 
     private val availabilities = mutableListOf<Availability>()
-    private lateinit var firstName: String
-    private lateinit var lastName: String
-    private lateinit var role: FreelancerRole
-
-    constructor (freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) :
-        this(freelancerId) {
-            raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName, role))
-        }
 
     init {
 
@@ -39,7 +34,6 @@ class Freelancer(
 
         this.register<FreelancerAvailabilityCreatedEvent>(this::applyEvent)
         this.register<FreelancerAvailabilityDeletedEvent>(this::applyEvent)
-        this.register<FreelancerCreatedEvent>(this::applyEvent)
     }
 
     /**
@@ -98,12 +92,6 @@ class Freelancer(
      */
     private fun applyEvent(event: FreelancerAvailabilityDeletedEvent) {
         availabilities.removeIf { it.availabilityDate == event.availabilityDate }
-    }
-
-    private fun applyEvent(event: FreelancerCreatedEvent) {
-        firstName = event.firstName
-        lastName = event.lastName
-        role = event.role
     }
 
     /**
