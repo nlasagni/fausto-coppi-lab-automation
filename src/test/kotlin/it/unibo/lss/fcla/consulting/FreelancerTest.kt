@@ -6,9 +6,9 @@ import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
-import it.unibo.lss.fcla.consulting.freelancer.Freelancer
-import it.unibo.lss.fcla.consulting.freelancer.FreelancerId
-import it.unibo.lss.fcla.consulting.freelancer.FreelancerRole
+import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
+import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
 import java.time.LocalTime
 
 class FreelancerTest : FreeSpec({

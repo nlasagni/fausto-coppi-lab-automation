@@ -5,7 +5,7 @@ import it.unibo.lss.fcla.consulting.domain.events.ConsultingSummaryCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.events.ConsultingSummaryUpdatedDescriptionEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryTypeCannotBeNull
-import it.unibo.lss.fcla.consulting.freelancer.FreelancerId
+import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
 /**
  * @author Stefano Braggion

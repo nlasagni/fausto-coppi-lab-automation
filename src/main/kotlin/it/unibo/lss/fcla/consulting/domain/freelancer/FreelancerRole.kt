@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.freelancer
+package it.unibo.lss.fcla.consulting.domain.freelancer
 
 /**
  * Freelancer role as enumeration

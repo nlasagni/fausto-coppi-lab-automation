@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.freelancer
+package it.unibo.lss.fcla.consulting.domain.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
