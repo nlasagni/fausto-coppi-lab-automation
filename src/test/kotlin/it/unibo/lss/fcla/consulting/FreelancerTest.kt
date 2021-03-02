@@ -4,6 +4,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
@@ -13,7 +14,7 @@ import java.time.LocalTime
 
 class FreelancerTest : FreeSpec({
 
-    "creation freelancer with empty first name should throw exception" - {
+    "A freelancer should not be created without a firstname " - {
         shouldThrow<FreelancerFirstNameCannotBeNull> {
             Freelancer(
                 freelancerId = FreelancerId("F-12345"),
@@ -24,7 +25,7 @@ class FreelancerTest : FreeSpec({
         }
     }
 
-    "creation freelancer with empty last name should throw exception" - {
+    "A freelancer should not be created without a lastname" - {
         shouldThrow<FreelancerLastNameCannotBeNull> {
             Freelancer(
                 freelancerId = FreelancerId("F-12345"),
@@ -35,21 +36,32 @@ class FreelancerTest : FreeSpec({
         }
     }
 
-    "test freelancer role inequality" - {
+    "A freelancer should have a valid id" - {
+        shouldThrow<IllegalArgumentException> {
+            Freelancer(
+                freelancerId = FreelancerId("123"),
+                firstName = "alan",
+                lastName = "turing",
+                FreelancerRole.AthleticTrainer()
+            )
+        }
+    }
+
+    "Test freelancer role inequality" - {
         val physiotherapist = FreelancerRole.Physiotherapist()
         val nutritionist = FreelancerRole.Nutritionist()
 
         assert(!physiotherapist.equals(nutritionist))
     }
 
-    "test freelancer role equalty" - {
+    "Test freelancer role equality" - {
         val firstNutritionist = FreelancerRole.Nutritionist()
         val secondNutritionist = FreelancerRole.Nutritionist()
 
         assert(firstNutritionist == secondNutritionist)
     }
 
-    "test no duplicate availability on the same date for freelancer" - {
+    "A freelancer cannot have more than one availability per day" - {
         val freelancer = Freelancer(
             freelancerId = FreelancerId("F-12345"),
             firstName = "Mario",
@@ -65,17 +77,34 @@ class FreelancerTest : FreeSpec({
         }
     }
 
-    "test update a day availability" - {
+    "Test freelancer correctly update the availability for the day" - {
         val freelancer = Freelancer(
             freelancerId = FreelancerId("F-12345"),
             firstName = "Mario",
             lastName = "Rossi",
             role = FreelancerRole.Biomechanical()
         )
+
         val date = Date(2021, 1, 1)
         freelancer.addAvailability(newAvailabilityDate = date, fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
         freelancer.updateAvailability(availabilityDate = date, fromTime = LocalTime.MIDNIGHT, toTime = LocalTime.MAX)
 
-        assert(true)
+        assert(freelancer.availabilityOfDay(date)?.fromTime == LocalTime.MIDNIGHT &&
+            freelancer.availabilityOfDay(date)?.toTime == LocalTime.MAX)
+    }
+
+    "Updating the availability for a day that not exist should throw error" - {
+        val freelancer = Freelancer(
+            freelancerId = FreelancerId("F-12345"),
+            firstName = "Mario",
+            lastName = "Rossi",
+            role = FreelancerRole.Biomechanical()
+        )
+
+        val date = Date(2021, 1, 1)
+
+        shouldThrow<FreelancerAvailabilityDoesNotExist> {
+            freelancer.updateAvailability(date, LocalTime.MIN, LocalTime.MAX)
+        }
     }
 })

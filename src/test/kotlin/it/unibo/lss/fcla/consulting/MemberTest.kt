@@ -18,7 +18,7 @@ class MemberTest : FreeSpec({
             Member(
                 memberId = MemberId("M-12345"),
                 firstName = "",
-                lastName = "touring"
+                lastName = "turing"
             )
         }
     }
@@ -38,7 +38,7 @@ class MemberTest : FreeSpec({
             Member(
                 memberId = MemberId("123"),
                 firstName = "",
-                lastName = "touring"
+                lastName = "turing"
             )
         }
     }
@@ -47,8 +47,9 @@ class MemberTest : FreeSpec({
         val member = Member(
             memberId = MemberId("M-12345"),
             firstName = "alan",
-            lastName = "touring"
+            lastName = "turing"
         )
+
         val consultingId = ConsultingId("CS-00001")
         member.receiveConsulting(consultingId, ConsultingSummary("Biomechanics",
             "description1", Date(2021, 1, 1)))

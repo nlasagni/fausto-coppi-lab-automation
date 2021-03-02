@@ -42,6 +42,9 @@ class Freelancer(
         raiseEvent(FreelancerAvailabilityCreatedEvent(freelancerId, newAvailabilityDate, fromTime, toTime))
     }
 
+    /**
+     *
+     */
     fun updateAvailability(availabilityDate: Date, fromTime: LocalTime, toTime: LocalTime) {
         if (!fromTime.isBefore(toTime)) throw FreelancerAvailabilityNotValidTime()
 
@@ -51,6 +54,11 @@ class Freelancer(
         raiseEvent(FreelancerAvailabilityDeletedEvent(freelancerId, availabilityDate))
         raiseEvent(FreelancerAvailabilityCreatedEvent(freelancerId, availabilityDate, fromTime, toTime))
     }
+
+    /**
+     *
+     */
+    fun availabilityOfDay(date: Date) = availabilities.firstOrNull { it.availabilityDate == date }
 
     /**
      * Delete [availabilityDate] from freelancer availabilities
