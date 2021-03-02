@@ -7,6 +7,8 @@ import it.unibo.lss.fcla.consulting.domain.events.FreelancerAvailabilityDeletedE
 import it.unibo.lss.fcla.consulting.domain.events.FreelancerCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityNotValidTime
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
 import java.time.LocalTime
 
 /**
@@ -29,7 +31,12 @@ class Freelancer(
         }
 
     init {
-        // register event handlers
+
+        if(firstName.isEmpty())
+            throw FreelancerFirstNameCannotBeNull()
+        if(lastName.isEmpty())
+            throw FreelancerLastNameCannotBeNull()
+
         this.register<FreelancerAvailabilityCreatedEvent>(this::applyEvent)
         this.register<FreelancerAvailabilityDeletedEvent>(this::applyEvent)
         this.register<FreelancerCreatedEvent>(this::applyEvent)
