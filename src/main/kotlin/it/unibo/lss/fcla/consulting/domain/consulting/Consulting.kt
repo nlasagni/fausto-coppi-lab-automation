@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.consulting
+package it.unibo.lss.fcla.consulting.domain.consulting
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.domain.events.ConsultingSummaryCreatedEvent

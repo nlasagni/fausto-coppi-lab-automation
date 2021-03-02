@@ -1,10 +1,9 @@
 package it.unibo.lss.fcla.consulting.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
-import it.unibo.lss.fcla.consulting.consulting.Date
+import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.events.FreelancerAvailabilityCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.events.FreelancerAvailabilityDeletedEvent
-import it.unibo.lss.fcla.consulting.domain.events.FreelancerCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityNotValidTime
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull

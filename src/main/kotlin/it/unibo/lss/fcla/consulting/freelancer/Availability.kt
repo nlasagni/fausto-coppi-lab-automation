@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.consulting.freelancer
 
-import it.unibo.lss.fcla.consulting.consulting.Date
+import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import java.time.LocalTime
 
 /**

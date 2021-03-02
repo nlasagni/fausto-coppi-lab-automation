@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.consulting
+package it.unibo.lss.fcla.consulting.domain.consulting
 
 /**
  * @author Stefano Braggion

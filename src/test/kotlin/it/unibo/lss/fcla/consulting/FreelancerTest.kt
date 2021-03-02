@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.consulting.Date
+import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
@@ -63,5 +63,19 @@ class FreelancerTest : FreeSpec({
         shouldThrow<ConsultingException> {
             freelancer.addAvailability(newAvailabilityDate = date, fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
         }
+    }
+
+    "test update a day availability" - {
+        val freelancer = Freelancer(
+            freelancerId = FreelancerId("F-12345"),
+            firstName = "Mario",
+            lastName = "Rossi",
+            role = FreelancerRole.Biomechanical()
+        )
+        val date = Date(2021, 1, 1)
+        freelancer.addAvailability(newAvailabilityDate = date, fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
+        freelancer.updateAvailability(availabilityDate = date, fromTime = LocalTime.MIDNIGHT, toTime = LocalTime.MAX)
+
+        assert(true)
     }
 })
