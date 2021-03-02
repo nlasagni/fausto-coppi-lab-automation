@@ -1,14 +1,14 @@
 package it.unibo.lss.fcla.consulting.domain.events
 
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
-import it.unibo.lss.fcla.consulting.domain.contracts.EventStore
+import it.unibo.lss.fcla.consulting.infrastructure.contracts.IEventStore
 
 /**
  * @author Stefano Braggion
  *
  * In memory implementation of an event store
  */
-class InMemoryEventStore : EventStore {
+class InMemoryIEventStore : IEventStore {
 
     private val events = mutableListOf<DomainEvent>()
 

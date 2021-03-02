@@ -1,6 +1,13 @@
 package it.unibo.lss.fcla.consulting.freelancer
 
-data class FreelancerId(val freelancerId: String) {
+import it.unibo.lss.fcla.consulting.domain.contracts.AggregateId
+
+/**
+ * @author Stefano Braggion
+ *
+ * Represent an Id for a freelancer in the form of F-00000
+ */
+data class FreelancerId(val freelancerId: String) : AggregateId {
 
     private val freelancerIdFormat = Regex("F-[0-9]{5}")
 

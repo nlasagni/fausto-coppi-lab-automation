@@ -1,11 +1,13 @@
-package it.unibo.lss.fcla.consulting.domain.contracts
+package it.unibo.lss.fcla.consulting.infrastructure.contracts
+
+import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 
 /**
  * @author Stefano Braggion
  *
  *
  */
-interface EventStore {
+interface IEventStore {
 
     fun save(domainEvent: DomainEvent)
 
