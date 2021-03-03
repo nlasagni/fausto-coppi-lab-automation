@@ -1,9 +1,6 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.model
 
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationAlreadyCompleted
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationMustHaveAthleticTrainer
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationMustHaveMember
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustNotOverlap
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.*
 
 /**
  * This is one of the main entities of the Athletic Preparation Bounded Context.
@@ -20,6 +17,10 @@ import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustNo
  *
  * The lifecycle of an AthleticPreparation ends when the athletic trainer
  * decides that it is completed.
+ *
+ * @property athleticTrainerId The id reference of the athletic trainer who is preparing the athletic preparation.
+ * @property memberId The id reference of the member for whom the athletic preparation is being prepared.
+ * @property periodOfPreparation The period of athletic preparation. See [PeriodOfPreparation].
  *
  * @author Nicola Lasagni on 22/02/2021.
  */
@@ -66,6 +67,9 @@ class AthleticPreparation(
         if (isAlreadyCompleted()) {
             throw AthleticPreparationAlreadyCompleted()
         }
+        if (isTrainingPlanOutOfPeriod(trainingPlan)) {
+            throw TrainingPlanMustBePreparedDuringPeriodOfPreparation()
+        }
         if (trainingPlanOverlaps(trainingPlan)) {
             throw TrainingPlanMustNotOverlap()
         }
@@ -73,27 +77,16 @@ class AthleticPreparation(
     }
 
     /**
-     * Completes this AthleticPreparation.
+     * Checks if the [trainingPlan] that is going to be scheduled is out of the
+     * [periodOfPreparation].
      */
-    fun completeAthleticPreparation() {
-        status = Status.COMPLETED
+    private fun isTrainingPlanOutOfPeriod(trainingPlan: TrainingPlan): Boolean {
+        val trainingPlanSnapshot = trainingPlan.snapshot()
+        val trainingPlanPeriodBeginning = trainingPlanSnapshot.periodOfTraining.beginning
+        val trainingPlanPeriodEnd = trainingPlanSnapshot.periodOfTraining.end
+        return trainingPlanPeriodBeginning.isBefore(periodOfPreparation.beginning) ||
+                trainingPlanPeriodEnd.isAfter(periodOfPreparation.end)
     }
-
-    /**
-     * Generates an [AthleticPreparationSnapshot] with the information about this AthleticPreparation.
-     */
-    fun snapshot() = AthleticPreparationSnapshot(
-            id,
-            athleticTrainerId,
-            memberId,
-            periodOfPreparation,
-            trainingPlans
-    )
-
-    /**
-     * Checks if this AthleticPreparation is completed.
-     */
-    private fun isAlreadyCompleted() = status == Status.COMPLETED
 
     /**
      * Checks if the [trainingPlan] that is going to be prepared overlaps
@@ -107,5 +100,28 @@ class AthleticPreparation(
                     snapshot.periodOfTraining.end.isAfter(trainingPlanSnapshot.periodOfTraining.beginning)
         }
     }
+
+    /**
+     * Completes this AthleticPreparation.
+     */
+    fun complete() {
+        status = Status.COMPLETED
+    }
+
+    /**
+     * Checks if this AthleticPreparation is completed.
+     */
+    private fun isAlreadyCompleted() = status == Status.COMPLETED
+
+    /**
+     * Generates an [AthleticPreparationSnapshot] with the information about this AthleticPreparation.
+     */
+    fun snapshot() = AthleticPreparationSnapshot(
+            id,
+            athleticTrainerId,
+            memberId,
+            periodOfPreparation,
+            trainingPlans
+    )
 
 }
