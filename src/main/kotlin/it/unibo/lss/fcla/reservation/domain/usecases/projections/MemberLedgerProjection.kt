@@ -11,7 +11,7 @@ class MemberLedgerProjection(val init: MemberLedger) {
     constructor(ledgerId: UUID) : this(MemberLedger(ledgerId))
 
     fun update(ledger: MemberLedger, event: Event): MemberLedger = when (event) {
-        is LedgerAddMemberEvent -> ledger.addMemberToLedger(Member(event.firstName, event.lastName, event.memberId))
+        is LedgerAddMemberEvent -> ledger.addMemberToLedger(event.member)
         else -> ledger
     }
 }
