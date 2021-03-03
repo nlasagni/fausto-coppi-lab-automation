@@ -5,6 +5,8 @@ import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.exceptions.*
 import java.time.LocalTime
 
+typealias FreelancerId = String
+
 /**
  * @author Stefano Braggion
  *
@@ -15,7 +17,7 @@ class Freelancer(
     val firstName: String,
     val lastName: String,
     val role: FreelancerRole
-) : AbstractAggregate() {
+) : AbstractAggregate(freelancerId) {
 
     private val availabilities = mutableListOf<Availability>()
 

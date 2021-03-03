@@ -5,6 +5,8 @@ import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescripti
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryTypeCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
+typealias ConsultingId = String
+
 /**
  * @author Stefano Braggion
  *
@@ -12,7 +14,7 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
  */
 class Consulting(
     val consultingId: ConsultingId
-) : AbstractAggregate() {
+) : AbstractAggregate(consultingId) {
 
     private lateinit var consultingSummary: ConsultingSummary
 
