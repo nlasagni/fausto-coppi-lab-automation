@@ -10,7 +10,7 @@ import java.time.LocalDate
 /**
  * @author Nicola Lasagni on 24/02/2021.
  */
-class ActiveAthleticPreparationTest : FreeSpec({
+class AthleticPreparationTest : FreeSpec({
     "An active athletic preparation should" - {
         "be planned for a member and by an athletic trainer and have a valid period" - {
             val fakeAthleticTrainerId = "1234"
