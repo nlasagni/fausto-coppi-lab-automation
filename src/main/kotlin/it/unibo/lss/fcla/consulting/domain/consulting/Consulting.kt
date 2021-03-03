@@ -2,8 +2,8 @@ package it.unibo.lss.fcla.consulting.domain.consulting
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeNull
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryTypeCannotBeNull
+import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
+import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryTypeCannotBeEmpty
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
 typealias ConsultingId = String
@@ -38,6 +38,14 @@ class Consulting(
             )
         }
 
+    companion object {
+        fun createConsulting(consultingId: ConsultingId, consultingType: String,
+            description: String, consultingDate: Date, freelancerId: FreelancerId) : Consulting {
+
+            return Consulting(consultingId, consultingType, description, consultingDate, freelancerId)
+        }
+    }
+
     init {
 
     }
@@ -46,7 +54,7 @@ class Consulting(
      * Raise the event for updating the description
      */
     fun updateDescription(newDescription: String) {
-        if (newDescription.isEmpty()) throw ConsultingSummaryDescriptionCannotBeNull()
+        if (newDescription.isEmpty()) throw ConsultingSummaryDescriptionCannotBeEmpty()
 
         raiseEvent(ConsultingSummaryUpdatedDescriptionEvent(consultingId, newDescription))
     }
@@ -66,8 +74,8 @@ class Consulting(
      * Apply the event: created a new consulting summary
      */
     private fun apply(event: ConsultingSummaryCreatedEvent) {
-        if (event.description.isEmpty()) throw ConsultingSummaryDescriptionCannotBeNull()
-        if (event.consultingType.isEmpty()) throw ConsultingSummaryTypeCannotBeNull()
+        if (event.description.isEmpty()) throw ConsultingSummaryDescriptionCannotBeEmpty()
+        if (event.consultingType.isEmpty()) throw ConsultingSummaryTypeCannotBeEmpty()
 
         consultingSummary = ConsultingSummary(event.consultingType, event.description, event.consultingDate)
     }
@@ -75,6 +83,7 @@ class Consulting(
     override fun applyEvent(event: DomainEvent) {
         when (event) {
             is ConsultingSummaryUpdatedDescriptionEvent -> apply(event)
+            is ConsultingSummaryCreatedEvent -> apply(event)
             else -> throw IllegalArgumentException() //TODO fixme
         }
     }

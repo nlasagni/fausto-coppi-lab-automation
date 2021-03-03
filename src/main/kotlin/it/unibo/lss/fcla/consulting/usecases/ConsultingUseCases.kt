@@ -13,7 +13,9 @@ class ConsultingUseCases {
          * FCLAC-1 Examine consulting summaries
          */
         fun examineConsultingSummaries() {
-
+            /**
+             *
+             */
         }
 
         /**
