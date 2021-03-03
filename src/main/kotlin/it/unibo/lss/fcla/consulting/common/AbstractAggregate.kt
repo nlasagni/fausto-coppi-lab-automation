@@ -9,7 +9,7 @@ import it.unibo.lss.fcla.consulting.domain.contracts.IAggregate
 abstract class AbstractAggregate : IAggregate {
 
     private val handlers = (emptyMap<Class<*>?, (Any) -> Unit>()).toMutableMap()
-    private val uncommittedEvents : HashSet<DomainEvent> = hashSetOf()
+    private val uncommittedEvents : MutableList<DomainEvent> = mutableListOf()
 
     /**
      * Register a new handler for event
@@ -22,28 +22,31 @@ abstract class AbstractAggregate : IAggregate {
 
     /**
      * Applies an event
-     * //TODO add event store
+     *
      */
     override fun applyEvent(event: DomainEvent) {
         var eventHandler = handlers[event::class.java]
             ?: throw NullPointerException("Handler must not be null")
+
+        uncommittedEvents + event
 
         eventHandler(event)
     }
 
     /**
      * Raise an event
-     * //TODO add event store
+     *
      */
     fun raiseEvent(event: DomainEvent) = applyEvent(event)
 
     /**
-     *
+     * Retrieve the list of uncommitted event, so an event store
+     * can persist them
      */
     override fun getUncommittedEvents() : List<DomainEvent> = uncommittedEvents.toList()
 
     /**
-     *
+     * Clear the list of uncommitted events
      */
     override fun clearUncommittedEvents() = uncommittedEvents.clear()
 }
