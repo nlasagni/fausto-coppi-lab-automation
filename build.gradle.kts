@@ -37,6 +37,7 @@ dependencies {
 detekt {
     failFast = true
     buildUponDefaultConfig = true
+    config = files("detektConfig.yml")
 }
 
 tasks.jar {
