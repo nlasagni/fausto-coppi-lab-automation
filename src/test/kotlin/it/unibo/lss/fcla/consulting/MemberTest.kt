@@ -16,7 +16,7 @@ class MemberTest : FreeSpec({
     "A member should not be created without a firstname" - {
         shouldThrow<MemberFirstNameCannotBeNull> {
             Member(
-                memberId = MemberId("M-12345"),
+                memberId = "12345",
                 firstName = "",
                 lastName = "turing"
             )
@@ -26,36 +26,26 @@ class MemberTest : FreeSpec({
     "A member should not be created without a lastname" - {
         shouldThrow<MemberLastNameCannotBeNull> {
             Member(
-                memberId = MemberId("M-12345"),
+                memberId = "12345",
                 firstName = "alan",
                 lastName = ""
             )
         }
     }
 
-    "A member should have a valid id" - {
-        shouldThrow<IllegalArgumentException> {
-            Member(
-                memberId = MemberId("123"),
-                firstName = "",
-                lastName = "turing"
-            )
-        }
-    }
-
     "A member cannot receive two times the same consulting" - {
         val member = Member(
-            memberId = MemberId("M-12345"),
+            memberId = "12345",
             firstName = "alan",
             lastName = "turing"
         )
 
-        val consultingId = ConsultingId("CS-00001")
-        member.receiveConsulting(consultingId, ConsultingSummary("Biomechanics",
+        val consultingId = "12345"
+        member.receiveConsulting(consultingId, ConsultingSummary("Biomechanical",
             "description1", Date(2021, 1, 1)))
 
         shouldThrow<MemberConsultingAlreadyExist> {
-            member.receiveConsulting(consultingId, ConsultingSummary("Biomechanics",
+            member.receiveConsulting(consultingId, ConsultingSummary("Biomechanical",
             "description2", Date(2021, 1, 2)))
         }
     }
