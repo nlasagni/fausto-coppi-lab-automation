@@ -4,6 +4,8 @@ import it.unibo.lss.fcla.consulting.domain.contracts.AggregateId
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.contracts.IAggregate
 
+typealias AggregateId = String
+
 /**
  * @author Stefano Braggion
  *
