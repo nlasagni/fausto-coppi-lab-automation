@@ -9,7 +9,7 @@ import java.time.Period
 /**
  * A value object representing the period of an athletic preparation.
  *
- * @see ActiveAthleticPreparation
+ * @see AthleticPreparation
  *
  * @author Nicola Lasagni on 22/02/2021.
  *

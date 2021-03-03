@@ -18,21 +18,21 @@ class ActiveAthleticPreparationTest : FreeSpec({
             val validBeginning = LocalDate.of(2020, 12, 1)
             val validEnd = LocalDate.of(2021, 2, 22)
             Assertions.assertDoesNotThrow {
-                ActiveAthleticPreparation(
+                AthleticPreparation(
                         fakeAthleticTrainerId,
                         fakeMemberId,
                         PeriodOfPreparation(validBeginning, validEnd)
                 )
             }
             assertThrows<AthleticPreparationMustHaveAthleticTrainer> {
-                ActiveAthleticPreparation(
+                AthleticPreparation(
                         "",
                         fakeMemberId,
                         PeriodOfPreparation(validBeginning, validEnd)
                 )
             }
             assertThrows<AthleticPreparationMustHaveMember> {
-                ActiveAthleticPreparation(
+                AthleticPreparation(
                         fakeAthleticTrainerId,
                         "",
                         PeriodOfPreparation(validBeginning, validEnd)

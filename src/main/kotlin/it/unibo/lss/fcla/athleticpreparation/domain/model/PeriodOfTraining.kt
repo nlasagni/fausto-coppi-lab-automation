@@ -12,7 +12,7 @@ import java.time.temporal.ChronoUnit
  * @property [beginning] A [LocalDate] which represents the beginning of a period.
  * @property [end] A [LocalDate] which represents the end of a period.
  *
- * @see [ActiveAthleticPreparation]
+ * @see [AthleticPreparation]
  *
  * @author Nicola Lasagni on 22/02/2021.
  */
