@@ -7,8 +7,8 @@ class EventStore(private var events: Map<UUID, List<Event>>) {
 
     constructor() : this(mapOf<UUID, List<Event>>())
 
-    fun get(): List<Event> {
-        return events.values.fold(listOf()) { acc, list -> acc + list }
+    fun get(): Map<UUID, List<Event>> {
+        return events.toMap()
     }
 
     fun getStream(aggregate: UUID): List<Event> {
@@ -20,6 +20,7 @@ class EventStore(private var events: Map<UUID, List<Event>>) {
     }
 
     fun evolve(aggregate: UUID, event: Event, producer: Producer) {
-        append(aggregate, producer.produce(event))
+        append(aggregate, listOf(event))
+        producer.produce(event).forEach { entry -> append(entry.key, entry.value) }
     }
 }
