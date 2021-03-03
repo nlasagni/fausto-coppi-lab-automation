@@ -28,7 +28,7 @@ abstract class AbstractAggregate(val aggregateId: AggregateId) {
      */
     fun raiseEvent(event: DomainEvent) {
         applyEvent(event)
-        uncommittedEvents + event
+        uncommittedEvents.add(event)
     }
 
     /**

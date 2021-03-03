@@ -1,5 +1,8 @@
 package it.unibo.lss.fcla.consulting.usecases
 
+import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
+import it.unibo.lss.fcla.consulting.domain.member.MemberId
+
 /**
  * @author Stefano Braggion
  *
@@ -12,9 +15,9 @@ class ConsultingUseCases {
         /**
          * FCLAC-1 Examine consulting summaries
          */
-        fun examineConsultingSummaries() {
+        fun examineConsultingSummaries(memberId: MemberId) {
             /**
-             *
+             * Retrieve all consulting summaries from the member
              */
         }
 
@@ -22,21 +25,28 @@ class ConsultingUseCases {
          * FCLAC-7 Receive Consulting
          */
         fun receiveConsulting() {
-
+            /**
+             * create a new consulting
+             * push the consulting to the member aggregate
+             */
         }
 
         /**
          * FCLAC-8 Manage Consulting Summaries (Update)
          */
         fun updateConsultingSummary() {
-
+            /**
+             * update the consulting with given id
+             */
         }
 
         /**
          * FCLAC-8 Manage Consulting Summaries (Delete)
          */
         fun deleteConsultingSummary() {
-
+            /**
+             * delete the consulting with given id from the member
+             */
         }
 
         /**
