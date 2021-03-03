@@ -25,14 +25,14 @@ class MemberLedger(private val members: List<Member>, val id: UUID) {
     /**
      * Returns the [Member] of a [consultingReservation]
      */
-    fun retrieveMemberWithConsultingReservation(consultingReservation: ConsultingReservation) : Member {
-        return members.first {member -> member.retrieveConsultingReservation().contains(consultingReservation) }
+    fun retrieveMemberWithConsultingReservation(consultingReservation: ConsultingReservation): Member {
+        return members.first { member -> member.retrieveConsultingReservation().contains(consultingReservation) }
     }
 
     /**
      * Returns the [Member] of a [workoutReservation]
      */
-    fun retrieveMemberWithWorkoutReservation(workoutReservation: WorkoutReservation) : Member {
-        return members.first {member -> member.retrieveWorkoutReservation().contains(workoutReservation) }
+    fun retrieveMemberWithWorkoutReservation(workoutReservation: WorkoutReservation): Member {
+        return members.first { member -> member.retrieveWorkoutReservation().contains(workoutReservation) }
     }
 }
