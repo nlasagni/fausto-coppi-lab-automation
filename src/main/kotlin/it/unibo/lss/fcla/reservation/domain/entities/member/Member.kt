@@ -6,7 +6,9 @@ import it.unibo.lss.fcla.reservation.domain.entities.exceptions.MemberDataMustNo
 import java.util.UUID
 
 /**
- * Class used to identify a member giving the [firstName], [lastName] and [id]
+ * Class used to identify a member giving the [firstName], [lastName] and [id].
+ *
+ * Throws [MemberDataMustNotBeEmpty] if a member is created with empty data
  */
 class Member(
     val firstName: String,

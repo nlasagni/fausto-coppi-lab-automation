@@ -8,6 +8,10 @@ import java.util.UUID
 
 /**
  * It is referred to a reservation which can still be updated expressing [aim], [date] and [id]
+ *
+ * Throws [WorkoutReservationAimCannotBeEmpty] if an OpenWorkoutReservation is created without aim
+ *
+ * Throws [OpenReservationMustNotHavePastDate] if an OpenWorkoutReservation is created with a past date
  */
 class OpenWorkoutReservation(
     override val aim: String,
