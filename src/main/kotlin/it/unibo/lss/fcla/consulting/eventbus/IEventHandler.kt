@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.common
+package it.unibo.lss.fcla.consulting.eventbus
 
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 

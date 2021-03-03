@@ -1,13 +1,16 @@
-package it.unibo.lss.fcla.consulting.common
+package it.unibo.lss.fcla.consulting.eventbus
 
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 
 class EventBus : IEventBus {
+
+    private val handlers: MutableList<IEventHandler> = mutableListOf()
+
     override fun publish(event: DomainEvent) {
-        TODO("Not yet implemented")
+        handlers.forEach { it.handle(event) }
     }
 
     override fun subscribe(eventHandler: IEventHandler) {
-        TODO("Not yet implemented")
+        handlers.add(eventHandler)
     }
 }
