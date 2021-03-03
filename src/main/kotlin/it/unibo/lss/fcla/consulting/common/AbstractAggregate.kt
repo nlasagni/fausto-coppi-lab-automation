@@ -41,4 +41,5 @@ abstract class AbstractAggregate(val aggregateId: AggregateId) {
      * Clear the list of uncommitted events
      */
     fun clearUncommittedEvents() = uncommittedEvents.clear()
+
 }
