@@ -50,7 +50,7 @@ abstract class AbstractAggregate(val aggregateId: AggregateId) : IAggregate {
      * Retrieve the list of uncommitted event, so an event store
      * can persist them
      */
-    override fun getUncommittedEvents() : List<DomainEvent> = uncommittedEvents.toList()
+    override fun getUncommittedEvents() : Iterable<DomainEvent> = uncommittedEvents.toList().asIterable()
 
     /**
      * Clear the list of uncommitted events
