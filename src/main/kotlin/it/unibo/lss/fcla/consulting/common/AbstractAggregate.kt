@@ -18,27 +18,17 @@ abstract class AbstractAggregate(val aggregateId: AggregateId) : IAggregate {
     private val handlers = (emptyMap<Class<*>?, (Any) -> Unit>()).toMutableMap()
     private val uncommittedEvents : MutableList<DomainEvent> = mutableListOf()
 
-    /**
-     * Register a new handler for event
-     */
-    internal inline fun <reified T> register(noinline eventHandler: ((T) -> Unit)?) {
-        if (eventHandler == null) throw NullPointerException("Handler must not be null")
-
-        handlers[T::class.java] = { eventHandler(it as T) }
+    protected fun <A: AbstractAggregate> applyAndQueueEvent(event: DomainEvent) : A {
+        applyEvent(event)
+        uncommittedEvents + event
+        return this as A
     }
 
     /**
      * Applies an event
      *
      */
-    override fun applyEvent(event: DomainEvent) {
-        var eventHandler = handlers[event::class.java]
-            ?: throw NullPointerException("Handler must not be null")
-
-        uncommittedEvents + event
-
-        eventHandler(event)
-    }
+    protected abstract fun applyEvent(event: DomainEvent)
 
     /**
      * Raise an event
