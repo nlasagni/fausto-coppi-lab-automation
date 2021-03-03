@@ -1,12 +1,17 @@
 package it.unibo.lss.fcla.consulting.common
 
+import it.unibo.lss.fcla.consulting.domain.contracts.AggregateId
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.contracts.IAggregate
 
 /**
  * @author Stefano Braggion
+ *
+ * Represents a super layer for all the aggregates and it is identified by
+ * an [aggregateId].
+ * Here are included all the operation needed to manage events.
  */
-abstract class AbstractAggregate : IAggregate {
+abstract class AbstractAggregate(val aggregateId: AggregateId) : IAggregate {
 
     private val handlers = (emptyMap<Class<*>?, (Any) -> Unit>()).toMutableMap()
     private val uncommittedEvents : MutableList<DomainEvent> = mutableListOf()
