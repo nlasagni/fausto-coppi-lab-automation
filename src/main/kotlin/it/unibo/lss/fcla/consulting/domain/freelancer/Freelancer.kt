@@ -2,8 +2,11 @@ package it.unibo.lss.fcla.consulting.domain.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
+import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.*
 import java.time.LocalTime
+
+typealias FreelancerId = String
 
 /**
  * @author Stefano Braggion
@@ -15,7 +18,7 @@ class Freelancer(
     val firstName: String,
     val lastName: String,
     val role: FreelancerRole
-) : AbstractAggregate() {
+) : AbstractAggregate(freelancerId) {
 
     private val availabilities = mutableListOf<Availability>()
 
@@ -25,9 +28,6 @@ class Freelancer(
             throw FreelancerFirstNameCannotBeNull()
         if(lastName.isEmpty())
             throw FreelancerLastNameCannotBeNull()
-
-        this.register<FreelancerAvailabilityCreatedEvent>(this::applyEvent)
-        this.register<FreelancerAvailabilityDeletedEvent>(this::applyEvent)
     }
 
     /**
@@ -84,7 +84,7 @@ class Freelancer(
     /**
      * Event handler for create
      */
-    private fun applyEvent(event: FreelancerAvailabilityCreatedEvent) {
+    private fun apply(event: FreelancerAvailabilityCreatedEvent) {
         val availability = Availability(event.availabilityDate, event.fromTime, event.toTime)
         availabilities.add(availability)
     }
@@ -92,8 +92,16 @@ class Freelancer(
     /**
      * Event handler for delete
      */
-    private fun applyEvent(event: FreelancerAvailabilityDeletedEvent) {
+    private fun apply(event: FreelancerAvailabilityDeletedEvent) {
         availabilities.removeIf { it.availabilityDate == event.availabilityDate }
+    }
+
+    override fun applyEvent(event: DomainEvent) {
+        when (event) {
+            is FreelancerAvailabilityCreatedEvent -> apply(event)
+            is FreelancerAvailabilityDeletedEvent -> apply(event)
+            else -> throw IllegalArgumentException() //TODO fixme
+        }
     }
 
     /**

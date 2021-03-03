@@ -17,7 +17,7 @@ class FreelancerTest : FreeSpec({
     "A freelancer should not be created without a firstname " - {
         shouldThrow<FreelancerFirstNameCannotBeNull> {
             Freelancer(
-                freelancerId = FreelancerId("F-12345"),
+                freelancerId = "12345",
                 firstName = "",
                 lastName = "turing",
                 FreelancerRole.AthleticTrainer()
@@ -28,20 +28,9 @@ class FreelancerTest : FreeSpec({
     "A freelancer should not be created without a lastname" - {
         shouldThrow<FreelancerLastNameCannotBeNull> {
             Freelancer(
-                freelancerId = FreelancerId("F-12345"),
+                freelancerId = "12345",
                 firstName = "alan",
                 lastName = "",
-                FreelancerRole.AthleticTrainer()
-            )
-        }
-    }
-
-    "A freelancer should have a valid id" - {
-        shouldThrow<IllegalArgumentException> {
-            Freelancer(
-                freelancerId = FreelancerId("123"),
-                firstName = "alan",
-                lastName = "turing",
                 FreelancerRole.AthleticTrainer()
             )
         }
@@ -63,7 +52,7 @@ class FreelancerTest : FreeSpec({
 
     "A freelancer cannot have more than one availability per day" - {
         val freelancer = Freelancer(
-            freelancerId = FreelancerId("F-12345"),
+            freelancerId = "12345",
             firstName = "Mario",
             lastName = "Rossi",
             role = FreelancerRole.Biomechanical()
@@ -79,7 +68,7 @@ class FreelancerTest : FreeSpec({
 
     "Test freelancer correctly update the availability for the day" - {
         val freelancer = Freelancer(
-            freelancerId = FreelancerId("F-12345"),
+            freelancerId = "12345",
             firstName = "Mario",
             lastName = "Rossi",
             role = FreelancerRole.Biomechanical()
@@ -95,7 +84,7 @@ class FreelancerTest : FreeSpec({
 
     "Updating the availability for a day that not exist should throw error" - {
         val freelancer = Freelancer(
-            freelancerId = FreelancerId("F-12345"),
+            freelancerId = "12345",
             firstName = "Mario",
             lastName = "Rossi",
             role = FreelancerRole.Biomechanical()
