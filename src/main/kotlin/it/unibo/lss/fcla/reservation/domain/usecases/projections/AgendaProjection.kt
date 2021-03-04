@@ -8,15 +8,15 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteC
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservationEvent
 import java.util.UUID
 
-class AgendaProjection(val init: Agenda) {
+class AgendaProjection(override val init: Agenda) : Projection<Agenda> {
 
     constructor(agendaId: UUID) : this(Agenda(agendaId))
 
-    fun update(agenda: Agenda, event: Event): Agenda = when (event) {
-        is AgendaAddConsultingReservationEvent -> agenda.addConsultingReservation(event.reservation)
-        is AgendaAddWorkoutReservationEvent -> agenda.addWorkoutReservation(event.reservation)
-        is AgendaDeleteConsultingReservationEvent -> agenda.deleteConsultingReservation(event.reservation)
-        is AgendaDeleteWorkoutReservationEvent -> agenda.deleteWorkoutReservation(event.reservation)
-        else -> agenda
+    override fun update(state: Agenda, event: Event): Agenda = when (event) {
+        is AgendaAddConsultingReservationEvent -> state.addConsultingReservation(event.reservation)
+        is AgendaAddWorkoutReservationEvent -> state.addWorkoutReservation(event.reservation)
+        is AgendaDeleteConsultingReservationEvent -> state.deleteConsultingReservation(event.reservation)
+        is AgendaDeleteWorkoutReservationEvent -> state.deleteWorkoutReservation(event.reservation)
+        else -> state
     }
 }

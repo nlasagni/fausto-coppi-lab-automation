@@ -5,11 +5,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutR
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateDateEvent
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 
-class OpenWorkoutReservationProjection(val init: OpenWorkoutReservation) {
+class OpenWorkoutReservationProjection(override val init: OpenWorkoutReservation) : Projection<OpenWorkoutReservation>{
 
-    fun update(openWorkoutReservation: OpenWorkoutReservation, event: Event) = when (event) {
-        is WorkoutReservationUpdateDateEvent -> openWorkoutReservation.updateWorkoutReservationDate(event.date)
-        is WorkoutReservationUpdateAimEvent -> openWorkoutReservation.updateWorkoutReservationAim(event.aim)
-        else -> openWorkoutReservation
+    override fun update(state: OpenWorkoutReservation, event: Event) = when (event) {
+        is WorkoutReservationUpdateDateEvent -> state.updateWorkoutReservationDate(event.date)
+        is WorkoutReservationUpdateAimEvent -> state.updateWorkoutReservationAim(event.aim)
+        else -> state
     }
 }

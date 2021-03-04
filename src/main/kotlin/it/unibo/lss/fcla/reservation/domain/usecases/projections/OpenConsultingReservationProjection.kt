@@ -5,12 +5,13 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.Consulti
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancerEvent
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 
-class OpenConsultingReservationProjection(val init: OpenConsultingReservation) {
+class OpenConsultingReservationProjection(override val init: OpenConsultingReservation) :
+        Projection<OpenConsultingReservation> {
 
-    fun update(openConsultingReservation: OpenConsultingReservation, event: Event) = when (event) {
-        is ConsultingReservationUpdateDateEvent -> openConsultingReservation.updateDateOfConsulting(event.date)
+    override fun update(state: OpenConsultingReservation, event: Event) = when (event) {
+        is ConsultingReservationUpdateDateEvent -> state.updateDateOfConsulting(event.date)
         is ConsultingReservationUpdateFreelancerEvent ->
-            openConsultingReservation.updateFreelancerOfConsulting(event.freelancer)
-        else -> openConsultingReservation
+            state.updateFreelancerOfConsulting(event.freelancer)
+        else -> state
     }
 }

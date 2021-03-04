@@ -5,12 +5,12 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMemb
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import java.util.UUID
 
-class MemberLedgerProjection(val init: MemberLedger) {
+class MemberLedgerProjection(override val init: MemberLedger) : Projection<MemberLedger>{
 
     constructor(ledgerId: UUID) : this(MemberLedger(ledgerId))
 
-    fun update(ledger: MemberLedger, event: Event): MemberLedger = when (event) {
-        is LedgerAddMemberEvent -> ledger.addMemberToLedger(event.member)
-        else -> ledger
+    override fun update(state: MemberLedger, event: Event): MemberLedger = when (event) {
+        is LedgerAddMemberEvent -> state.addMemberToLedger(event.member)
+        else -> state
     }
 }

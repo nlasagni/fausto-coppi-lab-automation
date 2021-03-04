@@ -8,7 +8,7 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteW
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import java.util.UUID
 
-class MemberProjection(val init: Member) {
+class MemberProjection(override val init: Member) : Projection<Member>{
 
     constructor(memberName: String, memberSurname: String, memberId: UUID) : this(
         Member(
@@ -18,11 +18,11 @@ class MemberProjection(val init: Member) {
         )
     )
 
-    fun update(member: Member, event: Event): Member = when (event) {
-        is MemberAddConsultingReservationEvent -> member.addConsultingReservation(event.reservation)
-        is MemberAddWorkoutReservationEvent -> member.addWorkoutReservation(event.reservation)
-        is MemberDeleteConsultingReservationEvent -> member.deleteConsultingReservation(event.reservation)
-        is MemberDeleteWorkoutReservationEvent -> member.deleteWorkoutReservation(event.reservation)
-        else -> member
+    override fun update(state: Member, event: Event): Member = when (event) {
+        is MemberAddConsultingReservationEvent -> state.addConsultingReservation(event.reservation)
+        is MemberAddWorkoutReservationEvent -> state.addWorkoutReservation(event.reservation)
+        is MemberDeleteConsultingReservationEvent -> state.deleteConsultingReservation(event.reservation)
+        is MemberDeleteWorkoutReservationEvent -> state.deleteWorkoutReservation(event.reservation)
+        else -> state
     }
 }
