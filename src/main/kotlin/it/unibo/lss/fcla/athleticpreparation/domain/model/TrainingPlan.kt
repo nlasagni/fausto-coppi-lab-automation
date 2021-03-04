@@ -5,12 +5,12 @@ import java.time.LocalDate
 
 /**
  * A TrainingPlan is a plan of [Workout] managed by an athletic trainer that a member has to follow
- * during a specific period period in order to reach his/her training purpose.
+ * during a specific period in order to reach his/her training purpose.
  *
  * A TrainingPlan must belong to an [AthleticPreparation], and have a name.
  *
- * During a TrainingPlan it is not possible to have two TrainingPlan
- * in the same PeriodOfTraining.
+ * During a TrainingPlan it is not possible to have two Workouts
+ * in the same day and time.
  *
  * The lifecycle of a TrainingPlan ends when its [PeriodOfTraining] ends, or when
  * the related [AthleticPreparation] is completed.
