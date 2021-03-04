@@ -20,6 +20,6 @@ class EventTests : FreeSpec ({
 
         aggregateRepository.save(member)
 
-        assert(eventStore.getEventsForAggregate(aggregateID).count() == 2)
+        assert(eventStore.getEventsForAggregate(aggregateID).count() == 1)
     }
 })
