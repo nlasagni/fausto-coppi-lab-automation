@@ -96,4 +96,8 @@ class Member(
     fun retrieveWorkoutReservation(): List<WorkoutReservation> {
         return memberWorkoutReservation.workoutReservationList
     }
+
+    override fun toString(): String {
+        return "Member $firstName, $lastName, $id"
+    }
 }
