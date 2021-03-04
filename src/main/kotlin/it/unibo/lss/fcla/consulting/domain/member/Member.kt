@@ -18,28 +18,32 @@ typealias MemberId = String
  *
  */
 class Member(
-    val memberId: MemberId
+    val memberId: MemberId,
+    val firstName: String,
+    val lastName: String
 ) : AbstractAggregate(memberId) {
 
     private val memberConsultings: HashMap<ConsultingId, ConsultingSummary> = hashMapOf()
-    private lateinit var firstName: String
-    private lateinit var lastName: String
 
     companion object {
         fun createMember(memberId: MemberId, firstName: String, lastName: String) : Member {
             return Member(memberId, firstName, lastName)
         }
 
-        fun hydrateMember(aggregateId: AggregateId, eventList: List<DomainEvent>) : Member {
-            var member = Member(aggregateId)
+        fun hydrateMember(aggregateId: AggregateId, firstName: String,
+                          lastName: String, eventList: List<DomainEvent>) : Member {
+            var member = Member(aggregateId, firstName, lastName)
             eventList.forEach { member.applyEvent(it) }
 
             return member
         }
     }
 
-    constructor(memberId: MemberId, firstName: String, lastName: String) : this(memberId) {
-        raiseEvent(MemberCreatedEvent(memberId, firstName, lastName))
+    init {
+        if(firstName.isEmpty())
+            throw MemberFirstNameCannotBeNull()
+        if(lastName.isEmpty())
+            throw MemberLastNameCannotBeNull()
     }
 
     /**
@@ -61,25 +65,11 @@ class Member(
     }
 
     /**
-     * Event handler for manage [event] of type [MemberCreatedEvent]
-     */
-    private fun apply(event: MemberCreatedEvent) {
-        if(firstName.isEmpty())
-            throw MemberFirstNameCannotBeNull()
-        if(lastName.isEmpty())
-            throw MemberLastNameCannotBeNull()
-
-        firstName = event.firstName
-        lastName = event.lastName
-    }
-
-    /**
      *
      */
     override fun applyEvent(event: DomainEvent) {
         when (event) {
             is MemberReceivedConsultingEvent -> apply(event)
-            is MemberCreatedEvent -> apply(event)
             else -> throw IllegalArgumentException() //TODO fixme
         }
     }
