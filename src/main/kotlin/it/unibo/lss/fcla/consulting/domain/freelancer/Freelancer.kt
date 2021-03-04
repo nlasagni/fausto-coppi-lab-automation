@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.consulting.domain.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
+import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.*
@@ -14,20 +15,29 @@ typealias FreelancerId = String
  * Represents a freelancer
  */
 class Freelancer(
-    val freelancerId: FreelancerId,
-    val firstName: String,
-    val lastName: String,
-    val role: FreelancerRole
+    val freelancerId: FreelancerId
 ) : AbstractAggregate(freelancerId) {
 
     private val availabilities = mutableListOf<Availability>()
+    private lateinit var firstName: String
+    private lateinit var lastName: String
+    private lateinit var role: FreelancerRole
 
-    init {
+    constructor(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) : this(freelancerId) {
+        raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName, role))
+    }
 
-        if(firstName.isEmpty())
-            throw FreelancerFirstNameCannotBeNull()
-        if(lastName.isEmpty())
-            throw FreelancerLastNameCannotBeNull()
+    companion object {
+        fun createFreelancer(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) : Freelancer {
+            return Freelancer(freelancerId, firstName, lastName, role)
+        }
+
+        fun hydrateFreelancer(aggregateId: AggregateId, eventList: List<DomainEvent>) : Freelancer {
+            var freelancer = Freelancer(aggregateId)
+            eventList.forEach { freelancer.applyEvent(it) }
+
+            return freelancer
+        }
     }
 
     /**
@@ -97,12 +107,27 @@ class Freelancer(
     }
 
     /**
-     * 
+     * Event handler for [event] of type [FreelancerCreatedEvent]
+     */
+    private fun apply(event: FreelancerCreatedEvent) {
+        if(firstName.isEmpty())
+            throw FreelancerFirstNameCannotBeNull()
+        if(lastName.isEmpty())
+            throw FreelancerLastNameCannotBeNull()
+
+        firstName = event.firstName
+        lastName = event.lastName
+        role = event.role
+    }
+
+    /**
+     *
      */
     override fun applyEvent(event: DomainEvent) {
         when (event) {
             is FreelancerAvailabilityCreatedEvent -> apply(event)
             is FreelancerAvailabilityDeletedEvent -> apply(event)
+            is FreelancerCreatedEvent -> apply(event)
             else -> throw IllegalArgumentException() //TODO fixme
         }
     }
