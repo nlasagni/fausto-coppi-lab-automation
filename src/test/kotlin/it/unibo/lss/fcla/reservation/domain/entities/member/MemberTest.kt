@@ -37,6 +37,7 @@ class MemberTest : FreeSpec({
             assert(newMember.lastName == member.lastName)
             assert(newMember.id == member.id)
             assert(newMember.retrieveConsultingReservation().contains(consulting))
+            assert(member.toString() == "Member ${newMember.firstName}, ${newMember.lastName}, ${newMember.id}")
         }
         "add a workout reservation" - {
             val newMember = member.addWorkoutReservation(consultingWorkout)
