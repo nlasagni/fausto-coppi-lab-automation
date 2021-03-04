@@ -15,16 +15,19 @@ typealias FreelancerId = String
  * Represents a freelancer
  */
 class Freelancer(
-    val freelancerId: FreelancerId
+    val freelancerId: FreelancerId,
+    val firstName: String,
+    val lastName: String,
+    val role: FreelancerRole
 ) : AbstractAggregate(freelancerId) {
 
     private val availabilities = mutableListOf<Availability>()
-    private lateinit var firstName: String
-    private lateinit var lastName: String
-    private lateinit var role: FreelancerRole
 
-    constructor(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) : this(freelancerId) {
-        raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName, role))
+    init {
+        if(firstName.isEmpty())
+            throw FreelancerFirstNameCannotBeNull()
+        if(lastName.isEmpty())
+            throw FreelancerLastNameCannotBeNull()
     }
 
     companion object {
@@ -32,8 +35,9 @@ class Freelancer(
             return Freelancer(freelancerId, firstName, lastName, role)
         }
 
-        fun hydrateFreelancer(aggregateId: AggregateId, eventList: List<DomainEvent>) : Freelancer {
-            var freelancer = Freelancer(aggregateId)
+        fun hydrateFreelancer(aggregateId: AggregateId, firstName: String, lastName: String, role: FreelancerRole,
+                              eventList: List<DomainEvent>) : Freelancer {
+            var freelancer = Freelancer(aggregateId, firstName, lastName, role)
             eventList.forEach { freelancer.applyEvent(it) }
 
             return freelancer
@@ -106,19 +110,6 @@ class Freelancer(
         availabilities.removeIf { it.availabilityDate == event.availabilityDate }
     }
 
-    /**
-     * Event handler for [event] of type [FreelancerCreatedEvent]
-     */
-    private fun apply(event: FreelancerCreatedEvent) {
-        if(firstName.isEmpty())
-            throw FreelancerFirstNameCannotBeNull()
-        if(lastName.isEmpty())
-            throw FreelancerLastNameCannotBeNull()
-
-        firstName = event.firstName
-        lastName = event.lastName
-        role = event.role
-    }
 
     /**
      *
@@ -127,7 +118,6 @@ class Freelancer(
         when (event) {
             is FreelancerAvailabilityCreatedEvent -> apply(event)
             is FreelancerAvailabilityDeletedEvent -> apply(event)
-            is FreelancerCreatedEvent -> apply(event)
             else -> throw IllegalArgumentException() //TODO fixme
         }
     }
