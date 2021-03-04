@@ -25,29 +25,13 @@ import java.util.Date
 import java.util.UUID
 
 class CommandReservationUseCase(
-    private val agendaId: UUID,
-    private val ledgerId: UUID,
-    private val events: Map<UUID,List<Event>>) {
+        private val agendaId: UUID,
+        private val ledgerId: UUID,
+        private val events: Map<UUID, List<Event>>) : ReservationUseCase() {
 
     constructor() : this(UUID.randomUUID(),UUID.randomUUID(), mapOf())
 
-    private val eventStore: EventStore = EventStore(events)
-
-    // Fake Id used to aggregate request event
-    private val headquarterId: UUID = UUID.randomUUID()
-
-    private fun handleRequestResult(event: Event, producer: Producer): String {
-        eventStore.evolve(headquarterId, event, producer)
-        when (val resultEvent = eventStore.getStream(event.id).first()) {
-            is RequestSucceededEvent -> return resultEvent.message
-            is RequestFailedEvent -> throw RequestFailedException(resultEvent.message)
-            else -> throw RequestFailedException()
-        }
-    }
-
-    private fun <T>computeAggregate(aggregateId: UUID, projection:Projection<T>): T {
-        return eventStore.getStream(aggregateId).fold(projection.init){state,event->projection.update(state,event)}
-    }
+    override val eventStore: EventStore = EventStore(events)
 
     fun requestCloseConsultingReservation(
             reservationId: UUID,
