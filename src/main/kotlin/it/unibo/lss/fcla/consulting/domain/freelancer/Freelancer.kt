@@ -96,6 +96,9 @@ class Freelancer(
         availabilities.removeIf { it.availabilityDate == event.availabilityDate }
     }
 
+    /**
+     * 
+     */
     override fun applyEvent(event: DomainEvent) {
         when (event) {
             is FreelancerAvailabilityCreatedEvent -> apply(event)

@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.consulting.domain.consulting
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
+import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryTypeCannotBeEmpty
@@ -43,6 +44,13 @@ class Consulting(
             description: String, consultingDate: Date, freelancerId: FreelancerId) : Consulting {
 
             return Consulting(consultingId, consultingType, description, consultingDate, freelancerId)
+        }
+
+        fun hydrateConsulting(aggregateId: AggregateId, eventList: List<DomainEvent>) : Consulting {
+            var consulting = Consulting(aggregateId);
+            eventList.forEach { consulting.applyEvent(it) }
+
+            return consulting
         }
     }
 

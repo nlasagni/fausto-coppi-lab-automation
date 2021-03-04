@@ -9,7 +9,7 @@ class EventStore(
 
     constructor() : this(hashMapOf())
 
-    override fun saveEvent(aggregateId: AggregateId, domainEvent: DomainEvent, version: Int) {
+    override fun saveEvent(aggregateId: AggregateId, domainEvent: DomainEvent) {
         events += (aggregateId to (events.getOrDefault(aggregateId, listOf())) + domainEvent)
     }
 
