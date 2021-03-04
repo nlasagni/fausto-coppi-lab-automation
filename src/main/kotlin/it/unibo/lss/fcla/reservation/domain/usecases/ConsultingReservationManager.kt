@@ -67,12 +67,11 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
             MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
         val memberAddReservationEvent =
             MemberAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
-        val ledgerAddMember =
-            LedgerAddMemberEvent(UUID.randomUUID(), member.addConsultingReservation(closedReservation))
+        //val ledgerAddMember = LedgerAddMemberEvent(UUID.randomUUID(), member.addConsultingReservation(closedReservation))
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
-            member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
-            ledger.id to listOf(ledgerAddMember)
+            member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent)
+            //ledger.id to listOf(ledgerAddMember)
         )
     }
 
@@ -131,6 +130,7 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
     private fun updateConsultingReservation(event: UpdateConsultingReservationEvent): Map<UUID, List<Event>> {
         retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
+        // TODO check parameters are valid and reservation is Open
         val updateConsultingFreelancerEvent =
             ConsultingReservationUpdateFreelancerEvent(UUID.randomUUID(), event.freelancer)
         val updateConsultingDateEvent =

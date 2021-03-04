@@ -67,11 +67,11 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         val member = ledger.retrieveMemberWithWorkoutReservation(retrievedReservation)
         val memberDeleteReservationEvent = MemberDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
         val memberAddReservationEvent = MemberAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
-        val ledgerAddMember = LedgerAddMemberEvent(UUID.randomUUID(), member.addWorkoutReservation(closedReservation))
+        // val ledgerAddMember = LedgerAddMemberEvent(UUID.randomUUID(), member.addWorkoutReservation(closedReservation))
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
-            member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
-            ledger.id to listOf(ledgerAddMember)
+            member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent)
+            //ledger.id to listOf(ledgerAddMember)
         )
     }
 
@@ -128,6 +128,7 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
     private fun updateWorkoutReservation(event: UpdateWorkoutReservationEvent): Map<UUID, List<Event>> {
         retrieveReservation(event.reservationId)
             ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
+        // TODO check parameters are valid and reservation is Open
         val reservationUpdateAimEvent = WorkoutReservationUpdateAimEvent(UUID.randomUUID(), event.aim)
         val reservationUpdateDateEvent = WorkoutReservationUpdateDateEvent(UUID.randomUUID(), event.date)
         return mapOf(event.reservationId to listOf(reservationUpdateAimEvent, reservationUpdateDateEvent))
