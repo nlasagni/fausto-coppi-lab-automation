@@ -24,7 +24,7 @@ import it.unibo.lss.fcla.reservation.domain.usecases.projections.Projection
 import java.util.Date
 import java.util.UUID
 
-class ReservationUseCase(
+class CommandReservationUseCase(
     private val agendaId: UUID,
     private val ledgerId: UUID,
     private val events: Map<UUID,List<Event>>) {
