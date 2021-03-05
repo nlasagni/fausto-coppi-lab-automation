@@ -8,8 +8,8 @@ import java.util.UUID
 class MemberConsultingReservationTest : FreeSpec({
     var consultingReservationList = MemberConsultingReservation()
     val calendar = Calendar.getInstance()
-    val year = 2021
-    val feb = 2
+    val year = 2022
+    val feb = Calendar.FEBRUARY
     val day = 25
     val freelancerId = "0111"
     calendar.set(year, feb, day)
