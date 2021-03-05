@@ -8,10 +8,16 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteC
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservationEvent
 import java.util.UUID
 
+/**
+ * Projection used to update the [Agenda] given its events
+ */
 class AgendaProjection(override val init: Agenda) : Projection<Agenda> {
 
     constructor(agendaId: UUID) : this(Agenda(agendaId))
 
+    /**
+     * Return an updated [Agenda] based on the given event.
+     */
     override fun update(state: Agenda, event: Event): Agenda = when (event) {
         is AgendaAddConsultingReservationEvent -> state.addConsultingReservation(event.reservation)
         is AgendaAddWorkoutReservationEvent -> state.addWorkoutReservation(event.reservation)

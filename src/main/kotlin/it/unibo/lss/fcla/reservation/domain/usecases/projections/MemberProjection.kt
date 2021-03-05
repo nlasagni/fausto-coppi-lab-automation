@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.reservation.domain.usecases.projections
 
 import it.unibo.lss.fcla.reservation.common.Event
+import it.unibo.lss.fcla.reservation.domain.entities.agenda.Agenda
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddWorkoutReservationEvent
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteConsultingReservationEvent
@@ -8,6 +9,9 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteW
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import java.util.UUID
 
+/**
+ * Projection used to update the [Member] given its events
+ */
 class MemberProjection(override val init: Member) : Projection<Member> {
 
     constructor(memberName: String, memberSurname: String, memberId: UUID) : this(
@@ -18,6 +22,9 @@ class MemberProjection(override val init: Member) : Projection<Member> {
         )
     )
 
+    /**
+     * Return an updated [Member] based on the given event.
+     */
     override fun update(state: Member, event: Event): Member = when (event) {
         is MemberAddConsultingReservationEvent -> state.addConsultingReservation(event.reservation)
         is MemberAddWorkoutReservationEvent -> state.addWorkoutReservation(event.reservation)
