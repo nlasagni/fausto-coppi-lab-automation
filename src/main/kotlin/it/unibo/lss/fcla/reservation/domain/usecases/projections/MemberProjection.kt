@@ -1,7 +1,6 @@
 package it.unibo.lss.fcla.reservation.domain.usecases.projections
 
 import it.unibo.lss.fcla.reservation.common.Event
-import it.unibo.lss.fcla.reservation.domain.entities.agenda.Agenda
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddWorkoutReservationEvent
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteConsultingReservationEvent

@@ -3,7 +3,6 @@ package it.unibo.lss.fcla.reservation.domain.usecases.projections
 import it.unibo.lss.fcla.reservation.common.Event
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateAimEvent
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateDateEvent
-import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 
 /**
