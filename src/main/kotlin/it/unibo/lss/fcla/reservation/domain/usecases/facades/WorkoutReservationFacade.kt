@@ -6,6 +6,12 @@ import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutRese
 import java.util.Date
 import java.util.UUID
 
+/**
+ * Facade class used to have access to all workout reservation information.
+ *
+ * The information are: the [date] of the reservation, the [aim] of the workout reservation,
+ * the [id] of the facade and [isOpen] which is used to know if a reservation is open or close.
+ */
 data class WorkoutReservationFacade(
     override val date: Date,
     override val aim: String,
