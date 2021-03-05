@@ -49,31 +49,32 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         }
     }
 
-    private fun closeWorkoutReservation(event: CloseWorkoutReservationEvent): Map<UUID, List<Event>> {
-        val retrievedReservation = retrieveReservation(event.reservationId)
-            ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
-        val closedReservation: CloseWorkoutReservation
-        try {
-            closedReservation = CloseWorkoutReservation(
-                retrievedReservation.aim,
-                retrievedReservation.date,
-                retrievedReservation.id
+    private fun closeWorkoutReservation(event: CloseWorkoutReservationEvent):
+        Map<UUID, List<Event>> {
+            val retrievedReservation = retrieveReservation(event.reservationId)
+                ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
+            val closedReservation: CloseWorkoutReservation
+            try {
+                closedReservation = CloseWorkoutReservation(
+                    retrievedReservation.aim,
+                    retrievedReservation.date,
+                    retrievedReservation.id
+                )
+            } catch (exception: WorkoutReservationAimCannotBeEmpty) {
+                return errorMap(event.id, RequestFailedMessages.emptyWorkoutAim)
+            }
+            val agendaDeleteReservationEvent =
+                AgendaDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
+            val agendaAddReservationEvent = AgendaAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
+            val member = ledger.retrieveMemberWithWorkoutReservation(retrievedReservation)
+            val memberDeleteReservationEvent =
+                MemberDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
+            val memberAddReservationEvent = MemberAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
+            return mapOf(
+                agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
+                member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent)
             )
-        } catch (exception: WorkoutReservationAimCannotBeEmpty) {
-            return errorMap(event.id, RequestFailedMessages.emptyWorkoutAim)
         }
-        val agendaDeleteReservationEvent = AgendaDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
-        val agendaAddReservationEvent = AgendaAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
-        val member = ledger.retrieveMemberWithWorkoutReservation(retrievedReservation)
-        val memberDeleteReservationEvent = MemberDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
-        val memberAddReservationEvent = MemberAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
-        // val ledgerAddMember = LedgerAddMemberEvent(UUID.randomUUID(), member.addWorkoutReservation(closedReservation))
-        return mapOf(
-            agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
-            member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent)
-            //ledger.id to listOf(ledgerAddMember)
-        )
-    }
 
     private fun createWorkoutReservation(event: CreateWorkoutReservationEvent): Map<UUID, List<Event>> {
         val workoutReservation: OpenWorkoutReservation
@@ -128,8 +129,9 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
     private fun updateWorkoutReservation(event: UpdateWorkoutReservationEvent): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
-        if(retrievedReservation is CloseWorkoutReservation)
+        if (retrievedReservation is CloseWorkoutReservation) {
             return errorMap(event.id, RequestFailedMessages.noUpdateToCloseReservation)
+        }
         try {
             OpenWorkoutReservation(retrievedReservation.aim, retrievedReservation.date, retrievedReservation.id)
         } catch (exception: WorkoutReservationAimCannotBeEmpty) {

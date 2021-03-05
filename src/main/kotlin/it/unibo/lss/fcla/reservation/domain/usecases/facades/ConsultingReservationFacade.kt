@@ -14,14 +14,16 @@ data class ConsultingReservationFacade(
 ) : ConsultingReservation {
 
     constructor(openConsultingReservation: OpenConsultingReservation) : this(
-            openConsultingReservation.date,
-            openConsultingReservation.freelancerId,
-            openConsultingReservation.id,
-            isOpen = true)
+        openConsultingReservation.date,
+        openConsultingReservation.freelancerId,
+        openConsultingReservation.id,
+        isOpen = true
+    )
 
     constructor(closeConsultingReservation: CloseConsultingReservation) : this(
-            closeConsultingReservation.date,
-            closeConsultingReservation.freelancerId,
-            closeConsultingReservation.id,
-            isOpen = false)
+        closeConsultingReservation.date,
+        closeConsultingReservation.freelancerId,
+        closeConsultingReservation.id,
+        isOpen = false
+    )
 }

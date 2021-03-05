@@ -5,7 +5,7 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMemb
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import java.util.UUID
 
-class MemberLedgerProjection(override val init: MemberLedger) : Projection<MemberLedger>{
+class MemberLedgerProjection(override val init: MemberLedger) : Projection<MemberLedger> {
 
     constructor(ledgerId: UUID) : this(MemberLedger(ledgerId))
 

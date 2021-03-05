@@ -12,13 +12,10 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.Consulti
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancerEvent
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservationEvent
@@ -48,35 +45,34 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         }
     }
 
-    private fun closeConsultingReservation(event: CloseConsultingReservationEvent): Map<UUID, List<Event>> {
-        val retrievedReservation = retrieveReservation(event.reservationId)
-            ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
-        val closedReservation: CloseConsultingReservation
-        try {
-            closedReservation = CloseConsultingReservation(
-                retrievedReservation.date,
-                retrievedReservation.freelancerId,
-                retrievedReservation.id
+    private fun closeConsultingReservation(event: CloseConsultingReservationEvent):
+        Map<UUID, List<Event>> {
+            val retrievedReservation = retrieveReservation(event.reservationId)
+                ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
+            val closedReservation: CloseConsultingReservation
+            try {
+                closedReservation = CloseConsultingReservation(
+                    retrievedReservation.date,
+                    retrievedReservation.freelancerId,
+                    retrievedReservation.id
+                )
+            } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
+                return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
+            }
+            val agendaDeleteReservationEvent =
+                AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
+            val agendaAddReservationEvent =
+                AgendaAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
+            val member = ledger.retrieveMemberWithConsultingReservation(retrievedReservation)
+            val memberDeleteReservationEvent =
+                MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
+            val memberAddReservationEvent =
+                MemberAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
+            return mapOf(
+                agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
+                member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent)
             )
-        } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
-            return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
         }
-        val agendaDeleteReservationEvent =
-            AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
-        val agendaAddReservationEvent =
-            AgendaAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
-        val member = ledger.retrieveMemberWithConsultingReservation(retrievedReservation)
-        val memberDeleteReservationEvent =
-            MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
-        val memberAddReservationEvent =
-            MemberAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
-        //val ledgerAddMember = LedgerAddMemberEvent(UUID.randomUUID(), member.addConsultingReservation(closedReservation))
-        return mapOf(
-            agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
-            member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent)
-            //ledger.id to listOf(ledgerAddMember)
-        )
-    }
 
     private fun createConsultingReservation(
         event: CreateConsultingReservationEvent
@@ -133,13 +129,15 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
     private fun updateConsultingReservation(event: UpdateConsultingReservationEvent): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
-        if(retrievedReservation is CloseConsultingReservation)
+        if (retrievedReservation is CloseConsultingReservation) {
             return errorInRequest(event.id, RequestFailedMessages.noUpdateToCloseReservation)
+        }
         try {
             OpenConsultingReservation(
                 retrievedReservation.date,
                 retrievedReservation.freelancerId,
-                retrievedReservation.id)
+                retrievedReservation.id
+            )
         } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
             return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
         } catch (exception: OpenReservationMustNotHavePastDate) {

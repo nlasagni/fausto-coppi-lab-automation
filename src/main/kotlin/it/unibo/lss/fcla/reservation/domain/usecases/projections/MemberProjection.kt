@@ -8,7 +8,7 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteW
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import java.util.UUID
 
-class MemberProjection(override val init: Member) : Projection<Member>{
+class MemberProjection(override val init: Member) : Projection<Member> {
 
     constructor(memberName: String, memberSurname: String, memberId: UUID) : this(
         Member(

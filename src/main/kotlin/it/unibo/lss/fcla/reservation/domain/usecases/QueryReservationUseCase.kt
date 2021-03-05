@@ -13,63 +13,70 @@ import it.unibo.lss.fcla.reservation.domain.usecases.facades.ConsultingReservati
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.ConsultingReservationFacade
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationDateFacade
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationFacade
-import it.unibo.lss.fcla.reservation.domain.usecases.projections.*
+import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjection
+import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
+import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberProjection
+import it.unibo.lss.fcla.reservation.domain.usecases.projections.OpenConsultingReservationProjection
+import it.unibo.lss.fcla.reservation.domain.usecases.projections.OpenWorkoutReservationProjection
 import java.util.UUID
 
 class QueryReservationUseCase(
-        private val agendaId: UUID,
-        private val ledgerId: UUID,
-        private val events: Map<UUID, List<Event>>) : ReservationUseCase() {
+    private val agendaId: UUID,
+    private val ledgerId: UUID,
+    private val events: Map<UUID, List<Event>>
+) : ReservationUseCase() {
 
-    constructor() : this(UUID.randomUUID(),UUID.randomUUID(), mapOf())
+    constructor() : this(UUID.randomUUID(), UUID.randomUUID(), mapOf())
 
     override val eventStore: EventStore = EventStore(events)
 
     private fun convertToConsultingFacades(reservations: List<ConsultingReservation>):
-            List<ConsultingReservationFacade>{
-        return reservations.map {
-            consultingReservation -> when(consultingReservation) {
-                is OpenConsultingReservation -> ConsultingReservationFacade(consultingReservation)
-                is CloseConsultingReservation -> ConsultingReservationFacade(consultingReservation)
-                else -> {
-                    // TODO Need tests and then remove
-                    // This should not happen
-                    throw RequestFailedException()
+        List<ConsultingReservationFacade> {
+            return reservations.map {
+                consultingReservation ->
+                when (consultingReservation) {
+                    is OpenConsultingReservation -> ConsultingReservationFacade(consultingReservation)
+                    is CloseConsultingReservation -> ConsultingReservationFacade(consultingReservation)
+                    else -> {
+                        // TODO Need tests and then remove
+                        // This should not happen
+                        throw RequestFailedException()
+                    }
                 }
             }
         }
-    }
 
     private fun convertToWorkoutFacades(reservations: List<WorkoutReservation>):
-            List<WorkoutReservationFacade>{
-        return reservations.map {
-            workoutReservation -> when(workoutReservation) {
-                is OpenWorkoutReservation -> WorkoutReservationFacade(workoutReservation)
-                is CloseWorkoutReservation -> WorkoutReservationFacade(workoutReservation)
-                else -> {
-                    // TODO Need tests and then remove
-                    // This should not happen
-                    throw RequestFailedException()
+        List<WorkoutReservationFacade> {
+            return reservations.map {
+                workoutReservation ->
+                when (workoutReservation) {
+                    is OpenWorkoutReservation -> WorkoutReservationFacade(workoutReservation)
+                    is CloseWorkoutReservation -> WorkoutReservationFacade(workoutReservation)
+                    else -> {
+                        // TODO Need tests and then remove
+                        // This should not happen
+                        throw RequestFailedException()
+                    }
                 }
             }
         }
-    }
 
     private fun convertToConsultingDateFacades(reservations: List<ConsultingReservation>):
-            List<ConsultingReservationDateFacade>{
-        return reservations.map {
-            consultingReservation ->
+        List<ConsultingReservationDateFacade> {
+            return reservations.map {
+                consultingReservation ->
                 ConsultingReservationDateFacade(consultingReservation.id, consultingReservation.date)
+            }
         }
-    }
 
     private fun convertToWorkoutDateFacades(reservations: List<WorkoutReservation>):
-            List<WorkoutReservationDateFacade>{
-        return reservations.map {
-            workoutReservation ->
+        List<WorkoutReservationDateFacade> {
+            return reservations.map {
+                workoutReservation ->
                 WorkoutReservationDateFacade(workoutReservation.id, workoutReservation.date)
+            }
         }
-    }
 
     fun retrieveAgendaConsultingReservation(): List<ConsultingReservationDateFacade> {
         val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
@@ -83,12 +90,15 @@ class QueryReservationUseCase(
 
     fun retrieveConsultingReservation(reservationId: UUID): ConsultingReservationFacade {
         val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
-        when (val consultingReservation = agenda.retrieveConsultingReservation()
-                .firstOrNull { consultingReservation -> reservationId == consultingReservation.id }) {
+        when (
+            val consultingReservation = agenda.retrieveConsultingReservation()
+                .firstOrNull { consultingReservation -> reservationId == consultingReservation.id }
+        ) {
             is OpenConsultingReservation -> {
                 val openConsultingReservation = computeAggregate(
-                        consultingReservation.id,
-                        OpenConsultingReservationProjection(consultingReservation))
+                    consultingReservation.id,
+                    OpenConsultingReservationProjection(consultingReservation)
+                )
                 return ConsultingReservationFacade(openConsultingReservation)
             }
             is CloseConsultingReservation -> {
@@ -107,12 +117,15 @@ class QueryReservationUseCase(
 
     fun retrieveWorkoutReservation(reservationId: UUID): WorkoutReservationFacade {
         val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
-        when (val workoutReservation = agenda.retrieveWorkoutReservation()
-                .firstOrNull { workoutReservation -> reservationId == workoutReservation.id }) {
+        when (
+            val workoutReservation = agenda.retrieveWorkoutReservation()
+                .firstOrNull { workoutReservation -> reservationId == workoutReservation.id }
+        ) {
             is OpenWorkoutReservation -> {
                 val openWorkoutReservation = computeAggregate(
-                        workoutReservation.id,
-                        OpenWorkoutReservationProjection(workoutReservation))
+                    workoutReservation.id,
+                    OpenWorkoutReservationProjection(workoutReservation)
+                )
                 return WorkoutReservationFacade(openWorkoutReservation)
             }
             is CloseWorkoutReservation -> {
@@ -131,10 +144,11 @@ class QueryReservationUseCase(
 
     fun retrieveMemberConsultingReservations(memberId: UUID): List<ConsultingReservationDateFacade> {
         val ledger = computeAggregate(ledgerId, MemberLedgerProjection(ledgerId))
-        when (val member = ledger.retrieveAllMembers().firstOrNull{member -> member.id == memberId}) {
+        when (val member = ledger.retrieveAllMembers().firstOrNull { member -> member.id == memberId }) {
             is Member ->
                 return convertToConsultingDateFacades(
-                    computeAggregate(memberId, MemberProjection(member)).retrieveConsultingReservation())
+                    computeAggregate(memberId, MemberProjection(member)).retrieveConsultingReservation()
+                )
             else -> {
                 // TODO Need tests and then remove
                 if (member != null) {
@@ -148,10 +162,11 @@ class QueryReservationUseCase(
 
     fun retrieveMemberWorkoutReservations(memberId: UUID): List<WorkoutReservationDateFacade> {
         val ledger = computeAggregate(ledgerId, MemberLedgerProjection(ledgerId))
-        when (val member = ledger.retrieveAllMembers().firstOrNull{member -> member.id == memberId}) {
+        when (val member = ledger.retrieveAllMembers().firstOrNull { member -> member.id == memberId }) {
             is Member ->
                 return convertToWorkoutDateFacades(
-                    computeAggregate(memberId, MemberProjection(member)).retrieveWorkoutReservation())
+                    computeAggregate(memberId, MemberProjection(member)).retrieveWorkoutReservation()
+                )
             else -> {
                 // TODO Need tests and then remove
                 if (member != null) {
