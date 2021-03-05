@@ -22,6 +22,7 @@ import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsu
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedMessages
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
 import java.util.UUID
@@ -70,7 +71,8 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
                 MemberAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
             return mapOf(
                 agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
-                member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent)
+                member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
+                event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
             )
         }
 
@@ -93,24 +95,24 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
             AgendaAddConsultingReservationEvent(UUID.randomUUID(), openConsulting)
         val memberAddReservationEvent =
             MemberAddConsultingReservationEvent(UUID.randomUUID(), openConsulting)
-        var resultMap: Map<UUID, List<Event>> = mapOf(
+        val resultMap: Map<UUID, List<Event>> = mapOf(
             agenda.id to listOf(agendaAddReservationEvent),
-            event.memberId to listOf(memberAddReservationEvent)
+            event.memberId to listOf(memberAddReservationEvent),
+            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
         )
-        try {
+        return try {
             ledger.retrieveAllMembers().first { member -> member.id == event.memberId }
+            resultMap
         } catch (exception: NoSuchElementException) {
-            resultMap = resultMap +
-                (
-                    ledger.id to listOf(
-                        LedgerAddMemberEvent(
-                            UUID.randomUUID(),
-                            Member(event.firstName, event.lastName, event.memberId)
-                        )
+            resultMap + (
+                ledger.id to listOf(
+                    LedgerAddMemberEvent(
+                        UUID.randomUUID(),
+                        Member(event.firstName, event.lastName, event.memberId)
                     )
-                    )
+                )
+                )
         }
-        return resultMap
     }
 
     private fun deleteConsultingReservation(event: DeleteConsultingReservationEvent): Map<UUID, List<Event>> {
@@ -122,7 +124,8 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
             MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent),
-            event.memberId to listOf(memberDeleteReservationEvent)
+            event.memberId to listOf(memberDeleteReservationEvent),
+            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
         )
     }
 
@@ -148,7 +151,8 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         val updateConsultingDateEvent =
             ConsultingReservationUpdateDateEvent(UUID.randomUUID(), event.date)
         return mapOf(
-            event.reservationId to listOf(updateConsultingFreelancerEvent, updateConsultingDateEvent)
+            event.reservationId to listOf(updateConsultingFreelancerEvent, updateConsultingDateEvent),
+            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
         )
     }
 

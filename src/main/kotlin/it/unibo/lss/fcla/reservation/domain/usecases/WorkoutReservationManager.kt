@@ -22,6 +22,7 @@ import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteWorko
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateWorkoutReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedMessages
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
 import java.util.UUID
@@ -72,7 +73,8 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
             val memberAddReservationEvent = MemberAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
             return mapOf(
                 agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
-                member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent)
+                member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
+                event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
             )
         }
 
@@ -93,24 +95,24 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
             AgendaAddWorkoutReservationEvent(UUID.randomUUID(), workoutReservation)
         val memberAddReservationEvent =
             MemberAddWorkoutReservationEvent(UUID.randomUUID(), workoutReservation)
-        var resultMap: Map<UUID, List<Event>> = mapOf(
+        val resultMap: Map<UUID, List<Event>> = mapOf(
             agenda.id to listOf(agendaAddReservationEvent),
-            event.memberId to listOf(memberAddReservationEvent)
+            event.memberId to listOf(memberAddReservationEvent),
+            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
         )
-        try {
+        return try {
             ledger.retrieveAllMembers().first { member -> member.id == event.memberId }
+            resultMap
         } catch (exception: NoSuchElementException) {
-            resultMap = resultMap +
-                (
-                    ledger.id to listOf(
-                        LedgerAddMemberEvent(
-                            UUID.randomUUID(),
-                            Member(event.firstName, event.lastName, event.memberId)
-                        )
+            resultMap + (
+                ledger.id to listOf(
+                    LedgerAddMemberEvent(
+                        UUID.randomUUID(),
+                        Member(event.firstName, event.lastName, event.memberId)
                     )
-                    )
+                )
+                )
         }
-        return resultMap
     }
 
     private fun deleteWorkoutReservation(event: DeleteWorkoutReservationEvent): Map<UUID, List<Event>> {
@@ -122,7 +124,8 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
             MemberDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent),
-            event.memberId to listOf(memberDeleteReservationEvent)
+            event.memberId to listOf(memberDeleteReservationEvent),
+            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
         )
     }
 
@@ -141,7 +144,10 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         }
         val reservationUpdateAimEvent = WorkoutReservationUpdateAimEvent(UUID.randomUUID(), event.aim)
         val reservationUpdateDateEvent = WorkoutReservationUpdateDateEvent(UUID.randomUUID(), event.date)
-        return mapOf(event.reservationId to listOf(reservationUpdateAimEvent, reservationUpdateDateEvent))
+        return mapOf(
+            event.reservationId to listOf(reservationUpdateAimEvent, reservationUpdateDateEvent),
+            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+        )
     }
 
     override fun produce(event: Event): Map<UUID, List<Event>> = when (event) {
