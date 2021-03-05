@@ -36,5 +36,5 @@ data class PeriodOfTraining(val beginning: LocalDate, val end: LocalDate) {
     }
 
     private fun doesNotMeetMinimumPreparationPeriodDuration(): Boolean =
-            ChronoUnit.WEEKS.between(beginning, end) < minimumPeriodDurationInWeeks
+        ChronoUnit.WEEKS.between(beginning, end) < minimumPeriodDurationInWeeks
 }

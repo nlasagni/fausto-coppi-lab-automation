@@ -36,5 +36,5 @@ data class PeriodOfPreparation(val beginning: LocalDate, val end: LocalDate) {
     }
 
     private fun doesNotMeetMinimumPreparationPeriodDuration(): Boolean =
-            Period.between(beginning, end).months < minimumPeriodDurationInMonth
+        Period.between(beginning, end).months < minimumPeriodDurationInMonth
 }

@@ -41,7 +41,7 @@ class PeriodOfPreparationTest : FreeSpec({
         }
         "last at least ${PeriodOfPreparation.minimumPeriodDurationInMonth} months" - {
             val invalidEnd = validBeginning.plusMonths(
-                    PeriodOfPreparation.minimumPeriodDurationInMonth.toLong() - 1
+                PeriodOfPreparation.minimumPeriodDurationInMonth.toLong() - 1
             )
             assertThrows<PeriodOfPreparationDoesNotMeetMinimumDuration> {
                 PeriodOfPreparation(validBeginning, invalidEnd)

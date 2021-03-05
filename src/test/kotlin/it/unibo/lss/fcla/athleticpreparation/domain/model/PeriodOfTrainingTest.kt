@@ -41,7 +41,7 @@ class PeriodOfTrainingTest : FreeSpec({
         }
         "last at least ${PeriodOfTraining.minimumPeriodDurationInWeeks} weeks" - {
             val invalidEnd = validBeginning.plusWeeks(
-                    PeriodOfTraining.minimumPeriodDurationInWeeks.toLong() - 1
+                PeriodOfTraining.minimumPeriodDurationInWeeks.toLong() - 1
             )
             assertThrows<PeriodOfTrainingDoesNotMeetMinimumDuration> {
                 PeriodOfTraining(validBeginning, invalidEnd)
