@@ -1,6 +1,8 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.model
 
 /**
+ * The purpose that an athletic trainer wants the member to reach through a [TrainingPlan].
+ *
  * @author Nicola Lasagni on 22/02/2021.
  */
 sealed class Purpose {
