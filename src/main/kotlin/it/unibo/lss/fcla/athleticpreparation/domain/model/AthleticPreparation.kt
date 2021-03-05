@@ -2,6 +2,7 @@ package it.unibo.lss.fcla.athleticpreparation.domain.model
 
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.*
 
+
 /**
  * This is one of the main entities of the Athletic Preparation Bounded Context.
  *
@@ -25,9 +26,9 @@ import it.unibo.lss.fcla.athleticpreparation.domain.exception.*
  * @author Nicola Lasagni on 22/02/2021.
  */
 class AthleticPreparation(
-        private val athleticTrainerId: String,
-        private val memberId: String,
-        private val periodOfPreparation: PeriodOfPreparation
+    private val athleticTrainerId: String,
+    private val memberId: String,
+    private val periodOfPreparation: PeriodOfPreparation
 ) {
 
     private enum class Status {
@@ -53,7 +54,7 @@ class AthleticPreparation(
      * into the [id] private property.
      */
     private fun generateId(): String =
-            "$athleticTrainerId-$memberId-${periodOfPreparation.beginning.dayOfYear}"
+        "$athleticTrainerId-$memberId-${periodOfPreparation.beginning.dayOfYear}"
 
     /**
      * Prepares a [TrainingPlan] for this AthleticPreparation.
@@ -85,7 +86,7 @@ class AthleticPreparation(
         val trainingPlanPeriodBeginning = trainingPlanSnapshot.periodOfTraining.beginning
         val trainingPlanPeriodEnd = trainingPlanSnapshot.periodOfTraining.end
         return trainingPlanPeriodBeginning.isBefore(periodOfPreparation.beginning) ||
-                trainingPlanPeriodEnd.isAfter(periodOfPreparation.end)
+            trainingPlanPeriodEnd.isAfter(periodOfPreparation.end)
     }
 
     /**
@@ -97,7 +98,7 @@ class AthleticPreparation(
         return trainingPlans.any {
             val snapshot = it.snapshot()
             snapshot.periodOfTraining.beginning.isBefore(trainingPlanSnapshot.periodOfTraining.end) &&
-                    snapshot.periodOfTraining.end.isAfter(trainingPlanSnapshot.periodOfTraining.beginning)
+                snapshot.periodOfTraining.end.isAfter(trainingPlanSnapshot.periodOfTraining.beginning)
         }
     }
 
@@ -117,11 +118,10 @@ class AthleticPreparation(
      * Generates an [AthleticPreparationSnapshot] with the information about this AthleticPreparation.
      */
     fun snapshot() = AthleticPreparationSnapshot(
-            id,
-            athleticTrainerId,
-            memberId,
-            periodOfPreparation,
-            trainingPlans
+        id,
+        athleticTrainerId,
+        memberId,
+        periodOfPreparation,
+        trainingPlans
     )
-
 }
