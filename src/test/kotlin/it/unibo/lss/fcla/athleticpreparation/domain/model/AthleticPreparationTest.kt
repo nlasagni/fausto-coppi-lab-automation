@@ -14,14 +14,13 @@ import java.time.LocalDate
  * @author Nicola Lasagni on 24/02/2021.
  */
 class AthleticPreparationTest : FreeSpec({
-
     lateinit var fakeAthleticTrainerId: String
     lateinit var fakeMemberId: String
     lateinit var validBeginning: LocalDate
     lateinit var validEnd: LocalDate
     lateinit var validPeriod: PeriodOfPreparation
 
-    beforeAny() {
+    beforeAny {
         fakeAthleticTrainerId = "1234"
         fakeMemberId = "1234"
         validBeginning = LocalDate.now()
@@ -33,31 +32,31 @@ class AthleticPreparationTest : FreeSpec({
         "be planned for a member, by an athletic trainer, and have a valid period" - {
             Assertions.assertDoesNotThrow {
                 AthleticPreparation(
-                        fakeAthleticTrainerId,
-                        fakeMemberId,
-                        validPeriod
+                    fakeAthleticTrainerId,
+                    fakeMemberId,
+                    validPeriod
                 )
             }
             assertThrows<AthleticPreparationMustHaveAthleticTrainer> {
                 AthleticPreparation(
-                        "",
-                        fakeMemberId,
-                        validPeriod
+                    "",
+                    fakeMemberId,
+                    validPeriod
                 )
             }
             assertThrows<AthleticPreparationMustHaveMember> {
                 AthleticPreparation(
-                        fakeAthleticTrainerId,
-                        "",
-                        validPeriod
+                    fakeAthleticTrainerId,
+                    "",
+                    validPeriod
                 )
             }
         }
         "offer a snapshot of itself" - {
-            val athleticPreparation =  AthleticPreparation(
-                    fakeAthleticTrainerId,
-                    fakeMemberId,
-                    validPeriod
+            val athleticPreparation = AthleticPreparation(
+                fakeAthleticTrainerId,
+                fakeMemberId,
+                validPeriod
             )
             val snapshot = athleticPreparation.snapshot()
             Assertions.assertEquals(fakeAthleticTrainerId, snapshot.athleticTrainerId)
@@ -65,57 +64,57 @@ class AthleticPreparationTest : FreeSpec({
             Assertions.assertEquals(validPeriod, snapshot.periodOfPreparation)
         }
         "allow the preparation of a TrainingPlan" - {
-            val athleticPreparation =  AthleticPreparation(
-                    fakeAthleticTrainerId,
-                    fakeMemberId,
-                    PeriodOfPreparation(validBeginning, validEnd)
+            val athleticPreparation = AthleticPreparation(
+                fakeAthleticTrainerId,
+                fakeMemberId,
+                PeriodOfPreparation(validBeginning, validEnd)
             )
             val snapshot = athleticPreparation.snapshot()
             val trainingPlan = TrainingPlan(
-                    "Strengthening Training Plan",
-                    snapshot.id,
-                    Purpose.Strengthening(),
-                    PeriodOfTraining(validBeginning, validEnd)
+                "Strengthening Training Plan",
+                snapshot.id,
+                Purpose.Strengthening(),
+                PeriodOfTraining(validBeginning, validEnd)
             )
             assertDoesNotThrow { athleticPreparation.prepareTrainingPlan(trainingPlan) }
         }
         "not allow the preparation of a TrainingPlan that overlaps with another" - {
-            val athleticPreparation =  AthleticPreparation(
-                    fakeAthleticTrainerId,
-                    fakeMemberId,
-                    PeriodOfPreparation(validBeginning, validEnd)
+            val athleticPreparation = AthleticPreparation(
+                fakeAthleticTrainerId,
+                fakeMemberId,
+                PeriodOfPreparation(validBeginning, validEnd)
             )
             val snapshot = athleticPreparation.snapshot()
             val trainingPlan = TrainingPlan(
-                    "Strengthening Training Plan",
-                    snapshot.id,
-                    Purpose.Strengthening(),
-                    PeriodOfTraining(validBeginning, validEnd)
+                "Strengthening Training Plan",
+                snapshot.id,
+                Purpose.Strengthening(),
+                PeriodOfTraining(validBeginning, validEnd)
             )
             athleticPreparation.prepareTrainingPlan(trainingPlan)
             val overlappingTrainingPlan = TrainingPlan(
-                    "Overlapping Training Plan",
-                    snapshot.id,
-                    Purpose.Strengthening(),
-                    PeriodOfTraining(validBeginning, validEnd)
+                "Overlapping Training Plan",
+                snapshot.id,
+                Purpose.Strengthening(),
+                PeriodOfTraining(validBeginning, validEnd)
             )
             assertThrows<TrainingPlanMustNotOverlap> {
                 athleticPreparation.prepareTrainingPlan(overlappingTrainingPlan)
             }
         }
         "not allow the preparation of a TrainingPlan when completed" - {
-            val athleticPreparation =  AthleticPreparation(
-                    fakeAthleticTrainerId,
-                    fakeMemberId,
-                    PeriodOfPreparation(validBeginning, validEnd)
+            val athleticPreparation = AthleticPreparation(
+                fakeAthleticTrainerId,
+                fakeMemberId,
+                PeriodOfPreparation(validBeginning, validEnd)
             )
             athleticPreparation.complete()
             val snapshot = athleticPreparation.snapshot()
             val trainingPlan = TrainingPlan(
-                    "Strengthening Training Plan",
-                    snapshot.id,
-                    Purpose.Strengthening(),
-                    PeriodOfTraining(validBeginning, validEnd)
+                "Strengthening Training Plan",
+                snapshot.id,
+                Purpose.Strengthening(),
+                PeriodOfTraining(validBeginning, validEnd)
             )
             assertThrows<AthleticPreparationAlreadyCompleted> {
                 athleticPreparation.prepareTrainingPlan(trainingPlan)

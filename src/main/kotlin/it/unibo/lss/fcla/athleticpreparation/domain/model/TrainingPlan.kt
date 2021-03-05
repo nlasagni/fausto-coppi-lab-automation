@@ -18,10 +18,10 @@ import java.time.LocalDate
  * @author Nicola Lasagni on 22/02/2021.
  */
 class TrainingPlan(
-        private val name: String,
-        private val athleticPreparationId: String,
-        private val purpose: Purpose,
-        private var periodOfTraining: PeriodOfTraining
+    private val athleticPreparationId: String,
+    private val name: String,
+    private val purpose: Purpose,
+    private var periodOfTraining: PeriodOfTraining
 ) {
 
     private var workouts: List<Workout> = emptyList()
@@ -39,19 +39,19 @@ class TrainingPlan(
      * Generates a [TrainingPlanSnapshot] with the information about this TrainingPlan.
      */
     fun snapshot() = TrainingPlanSnapshot(
-            name,
-            athleticPreparationId,
-            purpose,
-            periodOfTraining,
-            workouts,
+        name,
+        athleticPreparationId,
+        purpose,
+        periodOfTraining,
+        workouts,
     )
 
     /**
-     * Extends the [periodOfTraining] end.
+     * Postpones the [periodOfTraining] end.
      * If the [end] parameter is a date before the current end,
      * throws a [PeriodExtensionCannotEndBeforeCurrentPeriod].
      */
-    fun extendTrainingPeriodEnd(end: LocalDate) {
+    fun postponeTrainingPeriodEnd(end: LocalDate) {
         if (end.isBefore(periodOfTraining.end)) {
             throw PeriodExtensionCannotEndBeforeCurrentPeriod()
         }
@@ -82,7 +82,7 @@ class TrainingPlan(
     private fun isWorkoutOutOfPeriod(workout: Workout): Boolean {
         val workoutDay = workout.snapshot().day
         return workoutDay.isBefore(periodOfTraining.beginning) ||
-                workoutDay.isAfter(periodOfTraining.end)
+            workoutDay.isAfter(periodOfTraining.end)
     }
 
     /**
@@ -96,5 +96,4 @@ class TrainingPlan(
             snapshot.day == workoutSnapshot.day && snapshot.time == workoutSnapshot.time
         }
     }
-
 }
