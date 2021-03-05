@@ -126,9 +126,17 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
     }
 
     private fun updateWorkoutReservation(event: UpdateWorkoutReservationEvent): Map<UUID, List<Event>> {
-        retrieveReservation(event.reservationId)
+        val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
-        // TODO check parameters are valid and reservation is Open
+        if(retrievedReservation is CloseWorkoutReservation)
+            return errorMap(event.id, RequestFailedMessages.noUpdateToCloseReservation)
+        try {
+            OpenWorkoutReservation(retrievedReservation.aim, retrievedReservation.date, retrievedReservation.id)
+        } catch (exception: WorkoutReservationAimCannotBeEmpty) {
+            return errorMap(event.id, RequestFailedMessages.emptyWorkoutAim)
+        } catch (exception: OpenReservationMustNotHavePastDate) {
+            return errorMap(event.id, RequestFailedMessages.pastDateInReservation)
+        }
         val reservationUpdateAimEvent = WorkoutReservationUpdateAimEvent(UUID.randomUUID(), event.aim)
         val reservationUpdateDateEvent = WorkoutReservationUpdateDateEvent(UUID.randomUUID(), event.date)
         return mapOf(event.reservationId to listOf(reservationUpdateAimEvent, reservationUpdateDateEvent))

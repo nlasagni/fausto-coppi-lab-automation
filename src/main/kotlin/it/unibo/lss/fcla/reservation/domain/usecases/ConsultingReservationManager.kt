@@ -12,10 +12,13 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.Consulti
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancerEvent
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservationEvent
@@ -128,9 +131,20 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
     }
 
     private fun updateConsultingReservation(event: UpdateConsultingReservationEvent): Map<UUID, List<Event>> {
-        retrieveReservation(event.reservationId)
+        val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
-        // TODO check parameters are valid and reservation is Open
+        if(retrievedReservation is CloseConsultingReservation)
+            return errorInRequest(event.id, RequestFailedMessages.noUpdateToCloseReservation)
+        try {
+            OpenConsultingReservation(
+                retrievedReservation.date,
+                retrievedReservation.freelancerId,
+                retrievedReservation.id)
+        } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
+            return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
+        } catch (exception: OpenReservationMustNotHavePastDate) {
+            return errorInRequest(event.id, RequestFailedMessages.pastDateInReservation)
+        }
         val updateConsultingFreelancerEvent =
             ConsultingReservationUpdateFreelancerEvent(UUID.randomUUID(), event.freelancer)
         val updateConsultingDateEvent =
