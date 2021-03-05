@@ -32,6 +32,17 @@ class CommandReservationUseCase(
     constructor() : this(UUID.randomUUID(),UUID.randomUUID(), mapOf())
 
     override val eventStore: EventStore = EventStore(events)
+    // Fake Id used to aggregate request event
+    private val headquarterId: UUID = UUID.randomUUID()
+
+    private fun handleRequestResult(event: Event, producer: Producer): String {
+        eventStore.evolve(headquarterId, event, producer)
+        when (val resultEvent = eventStore.getStream(event.id).first()) {
+            is RequestSucceededEvent -> return resultEvent.message
+            is RequestFailedEvent -> throw RequestFailedException(resultEvent.message)
+            else -> throw RequestFailedException()
+        }
+    }
 
     fun requestCloseConsultingReservation(
             reservationId: UUID,
@@ -104,37 +115,5 @@ class CommandReservationUseCase(
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
         val event = UpdateWorkoutReservationEvent(UUID.randomUUID(), reservationId, aim, date)
         return handleRequestResult(event, producer)
-    }
-
-    fun retrieveConsultingReservation(reservationId: UUID): ConsultingReservationFacade {
-        val agenda = computeAggregate(agendaId,AgendaProjection(agendaId))
-        when (val consultingReservation = agenda.retrieveConsultingReservation()
-                .firstOrNull { consultingReservation -> reservationId == consultingReservation.id }) {
-            is OpenConsultingReservation -> {
-                val openConsultingReservation = computeAggregate(
-                        consultingReservation.id,
-                        OpenConsultingReservationProjection(consultingReservation))
-                return ConsultingReservationFacade(
-                    openConsultingReservation.date,
-                    openConsultingReservation.freelancerId,
-                    openConsultingReservation.id,
-                    isOpen = true)
-            }
-            is CloseConsultingReservation -> {
-                return ConsultingReservationFacade(
-                    consultingReservation.date,
-                    consultingReservation.freelancerId,
-                    consultingReservation.id,
-                    isOpen = false)
-            }
-            else -> {
-                // TODO Need tests and then remove
-                if (consultingReservation != null) {
-                    // This should not happen
-                    throw RequestFailedException()
-                }
-                throw RequestFailedException(RequestFailedMessages.reservationNotFound)
-            }
-        }
     }
 }
