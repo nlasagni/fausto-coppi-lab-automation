@@ -9,7 +9,9 @@ import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseWorkoutRes
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedMessages
+import it.unibo.lss.fcla.reservation.domain.usecases.facades.ConsultingReservationDateFacade
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.ConsultingReservationFacade
+import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationDateFacade
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationFacade
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.*
 import java.util.UUID
@@ -53,14 +55,30 @@ class QueryReservationUseCase(
         }
     }
 
-    fun retrieveAgendaConsultingReservation(): List<ConsultingReservationFacade> {
-        val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
-        return convertToConsultingFacades(agenda.retrieveConsultingReservation())
+    private fun convertToConsultingDateFacades(reservations: List<ConsultingReservation>):
+            List<ConsultingReservationDateFacade>{
+        return reservations.map {
+            consultingReservation ->
+                ConsultingReservationDateFacade(consultingReservation.id, consultingReservation.date)
+        }
     }
 
-    fun retrieveAgendaWorkoutReservation(): List<WorkoutReservation> {
+    private fun convertToWorkoutDateFacades(reservations: List<WorkoutReservation>):
+            List<WorkoutReservationDateFacade>{
+        return reservations.map {
+            workoutReservation ->
+                WorkoutReservationDateFacade(workoutReservation.id, workoutReservation.date)
+        }
+    }
+
+    fun retrieveAgendaConsultingReservation(): List<ConsultingReservationDateFacade> {
         val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
-        return convertToWorkoutFacades(agenda.retrieveWorkoutReservation())
+        return convertToConsultingDateFacades(agenda.retrieveConsultingReservation())
+    }
+
+    fun retrieveAgendaWorkoutReservation(): List<WorkoutReservationDateFacade> {
+        val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
+        return convertToWorkoutDateFacades(agenda.retrieveWorkoutReservation())
     }
 
     fun retrieveConsultingReservation(reservationId: UUID): ConsultingReservationFacade {
@@ -111,10 +129,12 @@ class QueryReservationUseCase(
         }
     }
 
-    fun retrieveMemberConsultingReservations(memberId: UUID): List<ConsultingReservation> {
+    fun retrieveMemberConsultingReservations(memberId: UUID): List<ConsultingReservationDateFacade> {
         val ledger = computeAggregate(ledgerId, MemberLedgerProjection(ledgerId))
         when (val member = ledger.retrieveAllMembers().firstOrNull{member -> member.id == memberId}) {
-            is Member -> return computeAggregate(memberId, MemberProjection(member)).retrieveConsultingReservation()
+            is Member ->
+                return convertToConsultingDateFacades(
+                    computeAggregate(memberId, MemberProjection(member)).retrieveConsultingReservation())
             else -> {
                 // TODO Need tests and then remove
                 if (member != null) {
@@ -126,10 +146,12 @@ class QueryReservationUseCase(
         }
     }
 
-    fun retrieveMemberWorkoutReservations(memberId: UUID): List<WorkoutReservation> {
+    fun retrieveMemberWorkoutReservations(memberId: UUID): List<WorkoutReservationDateFacade> {
         val ledger = computeAggregate(ledgerId, MemberLedgerProjection(ledgerId))
         when (val member = ledger.retrieveAllMembers().firstOrNull{member -> member.id == memberId}) {
-            is Member -> return computeAggregate(memberId, MemberProjection(member)).retrieveWorkoutReservation()
+            is Member ->
+                return convertToWorkoutDateFacades(
+                    computeAggregate(memberId, MemberProjection(member)).retrieveWorkoutReservation())
             else -> {
                 // TODO Need tests and then remove
                 if (member != null) {
