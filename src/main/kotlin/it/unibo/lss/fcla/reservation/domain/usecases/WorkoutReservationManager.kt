@@ -27,6 +27,9 @@ import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjectio
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
 import java.util.UUID
 
+/**
+ * An implementation of [Producer] that handle workout reservation
+ */
 class WorkoutReservationManager(private var agenda: Agenda, private var ledger: MemberLedger) : Producer {
 
     constructor(agendaId: UUID, ledgerId: UUID, events: Map<UUID, List<Event>>) :
@@ -50,6 +53,10 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         }
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate when [CloseWorkoutReservationEvent] occurs.
+     */
     private fun closeWorkoutReservation(event: CloseWorkoutReservationEvent):
         Map<UUID, List<Event>> {
             val retrievedReservation = retrieveReservation(event.reservationId)
@@ -78,6 +85,10 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
             )
         }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate when [CreateWorkoutReservationEvent] occurs.
+     */
     private fun createWorkoutReservation(event: CreateWorkoutReservationEvent): Map<UUID, List<Event>> {
         val workoutReservation: OpenWorkoutReservation
         try {
@@ -115,6 +126,10 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         }
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate when [DeleteWorkoutReservationEvent] occurs.
+     */
     private fun deleteWorkoutReservation(event: DeleteWorkoutReservationEvent): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
@@ -129,6 +144,10 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         )
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate when [UpdateWorkoutReservationEvent] occurs.
+     */
     private fun updateWorkoutReservation(event: UpdateWorkoutReservationEvent): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
@@ -150,6 +169,10 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         )
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate based on the specific occurred [event] which is related to the workout reservation.
+     */
     override fun produce(event: Event): Map<UUID, List<Event>> = when (event) {
         is CloseWorkoutReservationEvent -> closeWorkoutReservation(event)
         is CreateWorkoutReservationEvent -> createWorkoutReservation(event)
@@ -158,6 +181,10 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         else -> mapOf()
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the request event as key and a [List] of error
+     * [Event] as value, given the [requestId] and the [error] message.
+     */
     private fun errorMap(requestId: UUID, error: String): Map<UUID, List<Event>> {
         return mapOf(
             requestId to listOf(
@@ -170,6 +197,9 @@ class WorkoutReservationManager(private var agenda: Agenda, private var ledger: 
         )
     }
 
+    /**
+     * Return a nullable [WorkoutReservation] given its [reservationId]
+     */
     private fun retrieveReservation(reservationId: UUID): WorkoutReservation? {
         return agenda.retrieveWorkoutReservation()
             .firstOrNull { workoutReservation -> reservationId == workoutReservation.id }

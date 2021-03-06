@@ -27,6 +27,9 @@ import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjectio
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
 import java.util.UUID
 
+/**
+ * An implementation of [Producer] that handle consulting reservation
+ */
 class ConsultingReservationManager(private val agenda: Agenda, private val ledger: MemberLedger) : Producer {
 
     constructor(agendaId: UUID, ledgerId: UUID, events: Map<UUID, List<Event>>) :
@@ -46,6 +49,10 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         }
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate when [CloseConsultingReservationEvent] occurs.
+     */
     private fun closeConsultingReservation(event: CloseConsultingReservationEvent):
         Map<UUID, List<Event>> {
             val retrievedReservation = retrieveReservation(event.reservationId)
@@ -76,6 +83,10 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
             )
         }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate when [CreateConsultingReservationEvent] occurs.
+     */
     private fun createConsultingReservation(
         event: CreateConsultingReservationEvent
     ): Map<UUID, List<Event>> {
@@ -115,6 +126,10 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         }
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate when [DeleteConsultingReservationEvent] occurs.
+     */
     private fun deleteConsultingReservation(event: DeleteConsultingReservationEvent): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
@@ -129,6 +144,10 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         )
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate when [UpdateConsultingReservationEvent] occurs.
+     */
     private fun updateConsultingReservation(event: UpdateConsultingReservationEvent): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
@@ -156,6 +175,10 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         )
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
+     * the aggregate based on the specific occurred [event] which is related to the consulting reservation.
+     */
     override fun produce(event: Event): Map<UUID, List<Event>> = when (event) {
         is CloseConsultingReservationEvent -> closeConsultingReservation(event)
         is CreateConsultingReservationEvent -> createConsultingReservation(event)
@@ -164,6 +187,10 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         else -> mapOf()
     }
 
+    /**
+     * Returns a [Map] with the [UUID] of the request event as key and a [List] of error
+     * [Event] as value, given the [eventId] and the [error] message.
+     */
     private fun errorInRequest(eventId: UUID, error: String): Map<UUID, List<Event>> {
         return mapOf(
             eventId to listOf(
@@ -176,6 +203,9 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         )
     }
 
+    /**
+     * Return a nullable [ConsultingReservation] given its [reservationId]
+     */
     private fun retrieveReservation(reservationId: UUID): ConsultingReservation? {
         return agenda.retrieveConsultingReservation()
             .firstOrNull { consultingReservation -> reservationId == consultingReservation.id }
