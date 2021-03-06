@@ -19,4 +19,15 @@ class CloseWorkoutReservation(
     }
 
     override fun toString(): String = "Reservation workout {$id} with aim: $aim in date $date"
+
+    override fun equals(other: Any?): Boolean {
+        return (other is CloseWorkoutReservation) && other.id == this.id
+    }
+
+    override fun hashCode(): Int {
+        var result = aim.hashCode()
+        result = 31 * result + date.hashCode()
+        result = 31 * result + id.hashCode()
+        return result
+    }
 }

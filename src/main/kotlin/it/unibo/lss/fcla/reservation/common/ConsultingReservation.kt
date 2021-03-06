@@ -12,4 +12,6 @@ interface ConsultingReservation {
     val date: Date
     val freelancerId: String
     val id: UUID
+
+    override fun equals(other: Any?): Boolean
 }

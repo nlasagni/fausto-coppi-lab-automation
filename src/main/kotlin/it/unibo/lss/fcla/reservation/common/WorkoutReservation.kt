@@ -7,4 +7,6 @@ interface WorkoutReservation {
     val aim: String
     val date: Date
     val id: UUID
+
+    override fun equals(other: Any?): Boolean
 }

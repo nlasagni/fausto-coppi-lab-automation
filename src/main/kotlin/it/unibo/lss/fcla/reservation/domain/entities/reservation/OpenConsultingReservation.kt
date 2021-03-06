@@ -48,4 +48,15 @@ class OpenConsultingReservation(
     }
 
     override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId in date $date"
+
+    override fun equals(other: Any?): Boolean {
+        return (other is OpenConsultingReservation) && other.id == this.id
+    }
+
+    override fun hashCode(): Int {
+        var result = date.hashCode()
+        result = 31 * result + freelancerId.hashCode()
+        result = 31 * result + id.hashCode()
+        return result
+    }
 }
