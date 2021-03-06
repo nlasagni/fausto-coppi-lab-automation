@@ -25,17 +25,23 @@ import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFaile
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
+import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberProjection
+import it.unibo.lss.fcla.reservation.domain.usecases.projections.OpenConsultingReservationProjection
 import java.util.UUID
 
 /**
  * An implementation of [Producer] that handle consulting reservation
  */
-class ConsultingReservationManager(private val agenda: Agenda, private val ledger: MemberLedger) : Producer {
+class ConsultingReservationManager(
+        private val agenda: Agenda,
+        private val ledger: MemberLedger,
+        private val eventMap: Map<UUID, List<Event>>) : Producer {
 
     constructor(agendaId: UUID, ledgerId: UUID, events: Map<UUID, List<Event>>) :
         this(
             computeAgenda(agendaId, events.getOrDefault(agendaId, listOf())),
-            computeMemberLedger(ledgerId, events.getOrDefault(ledgerId, listOf()))
+            computeMemberLedger(ledgerId, events.getOrDefault(ledgerId, listOf())),
+            events
         )
 
     private companion object {
@@ -43,9 +49,9 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
             val agendaProjection = AgendaProjection(agendaId)
             return events.fold(agendaProjection.init) { agenda, event -> agendaProjection.update(agenda, event) }
         }
-        private fun computeMemberLedger(ledgerId: UUID, events: List<Event>): MemberLedger {
+        private fun computeMemberLedger(ledgerId: UUID, ledgerEvents: List<Event>): MemberLedger {
             val ledgerProjection = MemberLedgerProjection(ledgerId)
-            return events.fold(ledgerProjection.init) { ledger, event -> ledgerProjection.update(ledger, event) }
+            return ledgerEvents.fold(ledgerProjection.init) { ledger, event -> ledgerProjection.update(ledger, event) }
         }
     }
 
@@ -57,28 +63,30 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
         Map<UUID, List<Event>> {
             val retrievedReservation = retrieveReservation(event.reservationId)
                 ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
-            val closedReservation: CloseConsultingReservation
-            try {
-                closedReservation = CloseConsultingReservation(
-                    retrievedReservation.date,
-                    retrievedReservation.freelancerId,
-                    retrievedReservation.id
-                )
-            } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
-                return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
+            if (retrievedReservation is CloseConsultingReservation){
+                return errorInRequest(event.id, RequestFailedMessages.alreadyCloseReservation)
             }
+            val updatedReservation = computeConsultingReservation(retrievedReservation as OpenConsultingReservation)
+            val closedReservation = CloseConsultingReservation(
+                    updatedReservation.date,
+                    updatedReservation.freelancerId,
+                    updatedReservation.id
+            )
             val agendaDeleteReservationEvent =
                 AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
             val agendaAddReservationEvent =
                 AgendaAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
-            val member = ledger.retrieveMemberWithConsultingReservation(retrievedReservation)
+            if( !(memberOwnReservation(event.memberId,event.reservationId)
+                            ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound))) {
+                return errorInRequest(event.id, RequestFailedMessages.wrongMember)
+            }
             val memberDeleteReservationEvent =
                 MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
             val memberAddReservationEvent =
                 MemberAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
             return mapOf(
                 agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
-                member.id to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
+                event.memberId to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
                 event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
             )
         }
@@ -137,6 +145,10 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
             AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
         val memberDeleteReservationEvent =
             MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
+        if( !(memberOwnReservation(event.memberId,event.reservationId)
+                ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound))) {
+            return errorInRequest(event.id, RequestFailedMessages.wrongMember)
+        }
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent),
             event.memberId to listOf(memberDeleteReservationEvent),
@@ -209,5 +221,25 @@ class ConsultingReservationManager(private val agenda: Agenda, private val ledge
     private fun retrieveReservation(reservationId: UUID): ConsultingReservation? {
         return agenda.retrieveConsultingReservation()
             .firstOrNull { consultingReservation -> reservationId == consultingReservation.id }
+    }
+
+    private fun memberOwnReservation(memberId: UUID, reservationId: UUID): Boolean? {
+        val member = ledger.retrieveAllMembers()
+                .firstOrNull { member -> member.id == memberId }
+                ?: return null
+        return computeMember(member).retrieveConsultingReservation()
+                .any { reservation -> reservation.id == reservationId}
+    }
+
+    private fun computeMember(member: Member): Member {
+        val memberProj = MemberProjection(member)
+        return eventMap.getOrDefault(member.id, listOf())
+                .fold(memberProj.init){state,event->memberProj.update(state,event)}
+    }
+
+    private fun computeConsultingReservation(reservation: OpenConsultingReservation): ConsultingReservation {
+        val consultingProj = OpenConsultingReservationProjection(reservation)
+        return eventMap.getOrDefault(reservation.id, listOf())
+                .fold(consultingProj.init){state,event-> consultingProj.update(state,event)}
     }
 }
