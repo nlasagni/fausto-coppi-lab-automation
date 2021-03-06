@@ -18,7 +18,7 @@ import java.time.LocalDate
  * @author Nicola Lasagni on 22/02/2021.
  */
 class TrainingPlan(
-    private val athleticPreparationId: String,
+    private val athleticPreparationId: AthleticPreparationId,
     private val name: String,
     private val purpose: Purpose,
     private var periodOfTraining: PeriodOfTraining
@@ -27,7 +27,7 @@ class TrainingPlan(
     private var workouts: List<Workout> = emptyList()
 
     init {
-        if (athleticPreparationId.isEmpty()) {
+        if (athleticPreparationId.value.isEmpty()) {
             throw TrainingPlanMustBelongToAthleticPreparation()
         }
         if (name.isEmpty()) {

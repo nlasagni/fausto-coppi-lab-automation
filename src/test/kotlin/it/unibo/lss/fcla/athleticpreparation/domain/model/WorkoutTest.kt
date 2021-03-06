@@ -15,13 +15,13 @@ import java.time.LocalTime
  * @author Nicola Lasagni on 04/03/2021.
  */
 class WorkoutTest : FreeSpec({
-    lateinit var trainingPlanId: String
+    lateinit var trainingPlanId: TrainingPlanId
     lateinit var workoutName: String
     lateinit var today: LocalDate
     lateinit var todayTime: LocalTime
 
     beforeAny {
-        trainingPlanId = "1234"
+        trainingPlanId = TrainingPlanId("1234")
         workoutName = "Workout"
         today = LocalDate.now()
         todayTime = LocalTime.now()
@@ -30,7 +30,7 @@ class WorkoutTest : FreeSpec({
     "Workout should" - {
         "belong to a TrainingPlan" - {
             assertThrows<WorkoutMustBelongToATrainingPlan> {
-                Workout("", workoutName, today, todayTime)
+                Workout(TrainingPlanId(""), workoutName, today, todayTime)
             }
         }
         "have a name" - {

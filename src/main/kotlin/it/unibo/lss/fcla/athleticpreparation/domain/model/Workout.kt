@@ -11,7 +11,7 @@ import java.time.LocalTime
  * @author Nicola Lasagni on 25/02/2021.
  */
 class Workout(
-    private val trainingPlanId: String,
+    private val trainingPlanId: TrainingPlanId,
     private val name: String,
     private val day: LocalDate,
     private val time: LocalTime
@@ -19,11 +19,11 @@ class Workout(
 
     val maximumWorkoutDuration: Duration = Duration.ofHours(4)
 
-    private val id: String
+    private val id: WorkoutId
     private var exercises: List<Exercise> = emptyList()
 
     init {
-        if (trainingPlanId.isEmpty()) {
+        if (trainingPlanId.value.isEmpty()) {
             throw WorkoutMustBelongToATrainingPlan()
         }
         if (name.isEmpty()) {
@@ -32,7 +32,7 @@ class Workout(
         id = generateId()
     }
 
-    private fun generateId() = "$trainingPlanId-$name-$day-$time"
+    private fun generateId() = WorkoutId("$trainingPlanId-$name-$day-$time")
 
     fun snapshot(): WorkoutSnapshot = WorkoutSnapshot(name, day, time, exercises)
 

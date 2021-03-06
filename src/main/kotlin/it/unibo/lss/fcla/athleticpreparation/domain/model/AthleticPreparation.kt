@@ -35,7 +35,7 @@ class AthleticPreparation(
         ACTIVE, COMPLETED
     }
 
-    private val id: String
+    private val id: AthleticPreparationId
     private var trainingPlans: List<TrainingPlan> = emptyList()
     private var status: Status = Status.ACTIVE
 
@@ -53,8 +53,8 @@ class AthleticPreparation(
      * Returns a unique id of the athletic preparation which will be stored
      * into the [id] private property.
      */
-    private fun generateId(): String =
-        "$athleticTrainerId-$memberId-${periodOfPreparation.beginning.dayOfYear}"
+    private fun generateId(): AthleticPreparationId =
+        AthleticPreparationId("$athleticTrainerId-$memberId-${periodOfPreparation.beginning.dayOfYear}")
 
     /**
      * Prepares a [TrainingPlan] for this AthleticPreparation.

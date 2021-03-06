@@ -71,8 +71,8 @@ class AthleticPreparationTest : FreeSpec({
             )
             val snapshot = athleticPreparation.snapshot()
             val trainingPlan = TrainingPlan(
-                "Strengthening Training Plan",
                 snapshot.id,
+                "Strengthening Training Plan",
                 Purpose.Strengthening(),
                 PeriodOfTraining(validBeginning, validEnd)
             )
@@ -86,15 +86,15 @@ class AthleticPreparationTest : FreeSpec({
             )
             val snapshot = athleticPreparation.snapshot()
             val trainingPlan = TrainingPlan(
-                "Strengthening Training Plan",
                 snapshot.id,
+                "Strengthening Training Plan",
                 Purpose.Strengthening(),
                 PeriodOfTraining(validBeginning, validEnd)
             )
             athleticPreparation.prepareTrainingPlan(trainingPlan)
             val overlappingTrainingPlan = TrainingPlan(
-                "Overlapping Training Plan",
                 snapshot.id,
+                "Overlapping Training Plan",
                 Purpose.Strengthening(),
                 PeriodOfTraining(validBeginning, validEnd)
             )
@@ -111,8 +111,8 @@ class AthleticPreparationTest : FreeSpec({
             athleticPreparation.complete()
             val snapshot = athleticPreparation.snapshot()
             val trainingPlan = TrainingPlan(
-                "Strengthening Training Plan",
                 snapshot.id,
+                "Strengthening Training Plan",
                 Purpose.Strengthening(),
                 PeriodOfTraining(validBeginning, validEnd)
             )

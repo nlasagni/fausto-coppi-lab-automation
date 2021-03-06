@@ -15,14 +15,14 @@ import java.time.LocalTime
  * @author Nicola Lasagni on 04/03/2021.
  */
 class TrainingPlanTest : FreeSpec({
-    lateinit var athleticPreparationId: String
+    lateinit var athleticPreparationId: AthleticPreparationId
     lateinit var trainingPlanName: String
     lateinit var purpose: Purpose
     lateinit var periodOfTraining: PeriodOfTraining
     lateinit var validTrainingPlan: TrainingPlan
 
     beforeAny {
-        athleticPreparationId = "1234"
+        athleticPreparationId = AthleticPreparationId("1234")
         trainingPlanName = "Training Plan"
         purpose = Purpose.Strengthening()
         periodOfTraining = PeriodOfTraining(LocalDate.now(), LocalDate.now().plusWeeks(5))
@@ -38,7 +38,7 @@ class TrainingPlanTest : FreeSpec({
         "belong to an AthleticPreparation" - {
             assertThrows<TrainingPlanMustBelongToAthleticPreparation> {
                 TrainingPlan(
-                        "",
+                        AthleticPreparationId(""),
                         trainingPlanName,
                         purpose,
                         periodOfTraining
@@ -71,12 +71,12 @@ class TrainingPlanTest : FreeSpec({
             Assertions.assertEquals(postponedEnd, snapshot.periodOfTraining.end)
         }
         "allow scheduling of workouts" - {
-            val workout = Workout("1234", "Workout", LocalDate.now(), LocalTime.now())
+            val workout = Workout(TrainingPlanId("1234"), "Workout", LocalDate.now(), LocalTime.now())
             assertDoesNotThrow { validTrainingPlan.scheduleWorkout(workout) }
         }
         "not allow scheduling of workout out of the period of training" - {
             val outOfPeriodWorkout = Workout(
-                    "1234",
+                    TrainingPlanId("1234"),
                     "Workout",
                     LocalDate.now().minusDays(2),
                     LocalTime.now()
@@ -87,7 +87,7 @@ class TrainingPlanTest : FreeSpec({
         }
         "not allow scheduling of workouts with same date and time" - {
             val workout = Workout(
-                    "1234",
+                    TrainingPlanId("1234"),
                     "Workout",
                     LocalDate.now(),
                     LocalTime.now()

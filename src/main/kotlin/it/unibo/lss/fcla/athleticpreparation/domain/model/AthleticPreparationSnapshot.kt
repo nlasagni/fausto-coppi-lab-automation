@@ -6,7 +6,7 @@ package it.unibo.lss.fcla.athleticpreparation.domain.model
  * @author Nicola Lasagni on 03/03/2021.
  */
 data class AthleticPreparationSnapshot(
-    val id: String,
+    val id: AthleticPreparationId,
     val athleticTrainerId: String,
     val memberId: String,
     val periodOfPreparation: PeriodOfPreparation,
