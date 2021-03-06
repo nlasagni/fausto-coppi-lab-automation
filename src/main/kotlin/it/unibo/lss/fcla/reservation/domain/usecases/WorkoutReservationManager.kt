@@ -24,8 +24,8 @@ import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFaile
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedMessages
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjection
-import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
+import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.OpenWorkoutReservationProjection
 import java.util.UUID
 
@@ -33,9 +33,10 @@ import java.util.UUID
  * An implementation of [Producer] that handle workout reservation
  */
 class WorkoutReservationManager(
-        private var agenda: Agenda,
-        private var ledger: MemberLedger,
-        private val eventMap: Map<UUID, List<Event>>) : Producer {
+    private var agenda: Agenda,
+    private var ledger: MemberLedger,
+    private val eventMap: Map<UUID, List<Event>>
+) : Producer {
 
     constructor(agendaId: UUID, ledgerId: UUID, events: Map<UUID, List<Event>>) :
         this(
@@ -80,8 +81,11 @@ class WorkoutReservationManager(
             val agendaDeleteReservationEvent =
                 AgendaDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
             val agendaAddReservationEvent = AgendaAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
-            if( !(memberOwnReservation(event.memberId,event.reservationId)
-                            ?: return errorMap(event.id, RequestFailedMessages.memberNotFound))) {
+            if (!(
+                memberOwnReservation(event.memberId, event.reservationId)
+                    ?: return errorMap(event.id, RequestFailedMessages.memberNotFound)
+                )
+            ) {
                 return errorMap(event.id, RequestFailedMessages.wrongMember)
             }
             val memberDeleteReservationEvent =
@@ -146,8 +150,11 @@ class WorkoutReservationManager(
             AgendaDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
         val memberDeleteReservationEvent =
             MemberDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
-        if( !(memberOwnReservation(event.memberId,event.reservationId)
-                        ?: return errorMap(event.id, RequestFailedMessages.memberNotFound))) {
+        if (!(
+            memberOwnReservation(event.memberId, event.reservationId)
+                ?: return errorMap(event.id, RequestFailedMessages.memberNotFound)
+            )
+        ) {
             return errorMap(event.id, RequestFailedMessages.wrongMember)
         }
         return mapOf(
@@ -220,21 +227,21 @@ class WorkoutReservationManager(
 
     private fun memberOwnReservation(memberId: UUID, reservationId: UUID): Boolean? {
         val member = ledger.retrieveAllMembers()
-                .firstOrNull { member -> member.id == memberId }
-                ?: return null
+            .firstOrNull { member -> member.id == memberId }
+            ?: return null
         return computeMember(member).retrieveWorkoutReservation()
-                .any { reservation -> reservation.id == reservationId}
+            .any { reservation -> reservation.id == reservationId }
     }
 
     private fun computeMember(member: Member): Member {
         val memberProj = MemberProjection(member)
         return eventMap.getOrDefault(member.id, listOf())
-                .fold(memberProj.init){state,event->memberProj.update(state,event)}
+            .fold(memberProj.init) { state, event -> memberProj.update(state, event) }
     }
 
     private fun computeWorkoutReservation(reservation: OpenWorkoutReservation): WorkoutReservation {
         val workoutProj = OpenWorkoutReservationProjection(reservation)
         return eventMap.getOrDefault(reservation.id, listOf())
-                .fold(workoutProj.init){state,event-> workoutProj.update(state,event)}
+            .fold(workoutProj.init) { state, event -> workoutProj.update(state, event) }
     }
 }

@@ -33,9 +33,10 @@ import java.util.UUID
  * An implementation of [Producer] that handle consulting reservation
  */
 class ConsultingReservationManager(
-        private val agenda: Agenda,
-        private val ledger: MemberLedger,
-        private val eventMap: Map<UUID, List<Event>>) : Producer {
+    private val agenda: Agenda,
+    private val ledger: MemberLedger,
+    private val eventMap: Map<UUID, List<Event>>
+) : Producer {
 
     constructor(agendaId: UUID, ledgerId: UUID, events: Map<UUID, List<Event>>) :
         this(
@@ -63,21 +64,24 @@ class ConsultingReservationManager(
         Map<UUID, List<Event>> {
             val retrievedReservation = retrieveReservation(event.reservationId)
                 ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
-            if (retrievedReservation is CloseConsultingReservation){
+            if (retrievedReservation is CloseConsultingReservation) {
                 return errorInRequest(event.id, RequestFailedMessages.alreadyCloseReservation)
             }
             val updatedReservation = computeConsultingReservation(retrievedReservation as OpenConsultingReservation)
             val closedReservation = CloseConsultingReservation(
-                    updatedReservation.date,
-                    updatedReservation.freelancerId,
-                    updatedReservation.id
+                updatedReservation.date,
+                updatedReservation.freelancerId,
+                updatedReservation.id
             )
             val agendaDeleteReservationEvent =
                 AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
             val agendaAddReservationEvent =
                 AgendaAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
-            if( !(memberOwnReservation(event.memberId,event.reservationId)
-                            ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound))) {
+            if (!(
+                memberOwnReservation(event.memberId, event.reservationId)
+                    ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound)
+                )
+            ) {
                 return errorInRequest(event.id, RequestFailedMessages.wrongMember)
             }
             val memberDeleteReservationEvent =
@@ -145,8 +149,11 @@ class ConsultingReservationManager(
             AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
         val memberDeleteReservationEvent =
             MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
-        if( !(memberOwnReservation(event.memberId,event.reservationId)
-                ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound))) {
+        if (!(
+            memberOwnReservation(event.memberId, event.reservationId)
+                ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound)
+            )
+        ) {
             return errorInRequest(event.id, RequestFailedMessages.wrongMember)
         }
         return mapOf(
@@ -225,21 +232,21 @@ class ConsultingReservationManager(
 
     private fun memberOwnReservation(memberId: UUID, reservationId: UUID): Boolean? {
         val member = ledger.retrieveAllMembers()
-                .firstOrNull { member -> member.id == memberId }
-                ?: return null
+            .firstOrNull { member -> member.id == memberId }
+            ?: return null
         return computeMember(member).retrieveConsultingReservation()
-                .any { reservation -> reservation.id == reservationId}
+            .any { reservation -> reservation.id == reservationId }
     }
 
     private fun computeMember(member: Member): Member {
         val memberProj = MemberProjection(member)
         return eventMap.getOrDefault(member.id, listOf())
-                .fold(memberProj.init){state,event->memberProj.update(state,event)}
+            .fold(memberProj.init) { state, event -> memberProj.update(state, event) }
     }
 
     private fun computeConsultingReservation(reservation: OpenConsultingReservation): ConsultingReservation {
         val consultingProj = OpenConsultingReservationProjection(reservation)
         return eventMap.getOrDefault(reservation.id, listOf())
-                .fold(consultingProj.init){state,event-> consultingProj.update(state,event)}
+            .fold(consultingProj.init) { state, event -> consultingProj.update(state, event) }
     }
 }
