@@ -20,6 +20,9 @@ import it.unibo.lss.fcla.reservation.domain.usecases.projections.OpenConsultingR
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.OpenWorkoutReservationProjection
 import java.util.UUID
 
+/**
+ * A query [ReservationUseCase] which handles the query requests
+ */
 class QueryReservationUseCase(
     private val agendaId: UUID,
     private val ledgerId: UUID,
@@ -30,6 +33,9 @@ class QueryReservationUseCase(
 
     override val eventStore: EventStore = EventStore(events)
 
+    /**
+     * Convert a list of [ConsultingReservation] to a list of [ConsultingReservationFacade]
+     */
     private fun convertToConsultingFacades(reservations: List<ConsultingReservation>):
         List<ConsultingReservationFacade> {
             return reservations.map {
@@ -46,6 +52,9 @@ class QueryReservationUseCase(
             }
         }
 
+    /**
+     * Convert a list of [WorkoutReservation] to a list of [WorkoutReservationFacade]
+     */
     private fun convertToWorkoutFacades(reservations: List<WorkoutReservation>):
         List<WorkoutReservationFacade> {
             return reservations.map {
@@ -62,6 +71,9 @@ class QueryReservationUseCase(
             }
         }
 
+    /**
+     * Convert a list of [ConsultingReservation] to a list of [ConsultingReservationDateFacade]
+     */
     private fun convertToConsultingDateFacades(reservations: List<ConsultingReservation>):
         List<ConsultingReservationDateFacade> {
             return reservations.map {
@@ -70,6 +82,9 @@ class QueryReservationUseCase(
             }
         }
 
+    /**
+     * Convert a list of [WorkoutReservation] to a list of [WorkoutReservationDateFacade]
+     */
     private fun convertToWorkoutDateFacades(reservations: List<WorkoutReservation>):
         List<WorkoutReservationDateFacade> {
             return reservations.map {
@@ -78,16 +93,25 @@ class QueryReservationUseCase(
             }
         }
 
+    /**
+     * Return the list of [ConsultingReservationDateFacade] stored into the agenda
+     */
     fun retrieveAgendaConsultingReservation(): List<ConsultingReservationDateFacade> {
         val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
         return convertToConsultingDateFacades(agenda.retrieveConsultingReservation())
     }
 
+    /**
+     * Return the list of [WorkoutReservationDateFacade] stored into the agenda
+     */
     fun retrieveAgendaWorkoutReservation(): List<WorkoutReservationDateFacade> {
         val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
         return convertToWorkoutDateFacades(agenda.retrieveWorkoutReservation())
     }
 
+    /**
+     * Return the [ConsultingReservationFacade] given its [reservationId]
+     */
     fun retrieveConsultingReservation(reservationId: UUID): ConsultingReservationFacade {
         val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
         when (
@@ -115,6 +139,9 @@ class QueryReservationUseCase(
         }
     }
 
+    /**
+     * Return the [WorkoutReservationFacade] given its [reservationId]
+     */
     fun retrieveWorkoutReservation(reservationId: UUID): WorkoutReservationFacade {
         val agenda = computeAggregate(agendaId, AgendaProjection(agendaId))
         when (
@@ -142,6 +169,9 @@ class QueryReservationUseCase(
         }
     }
 
+    /**
+     * Return the list of [ConsultingReservationDateFacade] stored into the member
+     */
     fun retrieveMemberConsultingReservations(memberId: UUID): List<ConsultingReservationDateFacade> {
         val ledger = computeAggregate(ledgerId, MemberLedgerProjection(ledgerId))
         when (val member = ledger.retrieveAllMembers().firstOrNull { member -> member.id == memberId }) {
@@ -160,6 +190,9 @@ class QueryReservationUseCase(
         }
     }
 
+    /**
+     * Return the list of [WorkoutReservationDateFacade] stored into the member
+     */
     fun retrieveMemberWorkoutReservations(memberId: UUID): List<WorkoutReservationDateFacade> {
         val ledger = computeAggregate(ledgerId, MemberLedgerProjection(ledgerId))
         when (val member = ledger.retrieveAllMembers().firstOrNull { member -> member.id == memberId }) {

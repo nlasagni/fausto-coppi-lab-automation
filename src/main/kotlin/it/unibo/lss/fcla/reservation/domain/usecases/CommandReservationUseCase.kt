@@ -14,6 +14,9 @@ import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucce
 import java.util.Date
 import java.util.UUID
 
+/**
+ * A command [ReservationUseCase] which handles the command requests
+ */
 class CommandReservationUseCase(
     private val agendaId: UUID,
     private val ledgerId: UUID,
@@ -26,6 +29,9 @@ class CommandReservationUseCase(
     // Fake Id used to aggregate request event
     private val headquarterId: UUID = UUID.randomUUID()
 
+    /**
+     * Return a [String] expressing the result of a request given the occurred [event] and its [producer].
+     */
     private fun handleRequestResult(event: Event, producer: Producer): String {
         eventStore.evolve(headquarterId, event, producer)
         when (val resultEvent = eventStore.getStream(event.id).first()) {
@@ -35,6 +41,10 @@ class CommandReservationUseCase(
         }
     }
 
+    /**
+     * Return a [String] expressing the result of the close consulting request given the
+     * [reservationId] and the [memberId].
+     */
     fun requestCloseConsultingReservation(
         reservationId: UUID,
         memberId: UUID
@@ -44,6 +54,10 @@ class CommandReservationUseCase(
         return handleRequestResult(event, producer)
     }
 
+    /**
+     * Return a [String] expressing the result of the close workout request given the
+     * [reservationId] and the [memberId].
+     */
     fun requestCloseWorkoutReservation(
         reservationId: UUID,
         memberId: UUID
@@ -53,6 +67,11 @@ class CommandReservationUseCase(
         return handleRequestResult(event, producer)
     }
 
+    /**
+     * Return a [String] expressing the result of the create consulting request given the
+     * [freelancer], the [date] of the consulting, the [firstName] of the member,
+     * the [lastName] of the member and the [memberId].
+     */
     fun requestCreateConsultingReservation(
         freelancer: String,
         date: Date,
@@ -66,6 +85,11 @@ class CommandReservationUseCase(
         return handleRequestResult(event, producer)
     }
 
+    /**
+     * Return a [String] expressing the result of the create workout request given the
+     * [aim], the [date] of the consulting, the [firstName] of the member,
+     * the [lastName] of the member and the [memberId].
+     */
     fun requestCreateWorkoutReservation(
         aim: String,
         date: Date,
@@ -78,6 +102,10 @@ class CommandReservationUseCase(
         return handleRequestResult(event, producer)
     }
 
+    /**
+     * Return a [String] expressing the result of the delete consulting request given the
+     * [reservationId] and the [memberId].
+     */
     fun requestDeleteConsultingReservation(
         reservationId: UUID,
         memberId: UUID
@@ -87,6 +115,10 @@ class CommandReservationUseCase(
         return handleRequestResult(event, producer)
     }
 
+    /**
+     * Return a [String] expressing the result of the delete workout request given the
+     * [reservationId] and the [memberId].
+     */
     fun requestDeleteWorkoutReservation(
         reservationId: UUID,
         memberId: UUID
@@ -96,6 +128,10 @@ class CommandReservationUseCase(
         return handleRequestResult(event, producer)
     }
 
+    /**
+     * Return a [String] expressing the result of the update consulting request given the
+     * [reservationId],the new [freelancer] and the new [date].
+     */
     fun requestUpdateConsultingReservation(
         reservationId: UUID,
         freelancer: String,
@@ -106,6 +142,10 @@ class CommandReservationUseCase(
         return handleRequestResult(event, producer)
     }
 
+    /**
+     * Return a [String] expressing the result of the update workout request given the
+     * [reservationId],the new [aim] and the new [date].
+     */
     fun requestUpdateWorkoutReservation(
         reservationId: UUID,
         aim: String,
