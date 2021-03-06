@@ -230,6 +230,13 @@ class ConsultingReservationManager(
             .firstOrNull { consultingReservation -> reservationId == consultingReservation.id }
     }
 
+    /**
+     * Check if the member with the given [memberId] is present and if him/her
+     * is the owner of the reservation with the given [reservationId]
+     * Return null if member is not found
+     * Return false if the member is present but not the owner of the reservation
+     * Return true if the member is present and is the owner of the reservation
+     */
     private fun memberOwnReservation(memberId: UUID, reservationId: UUID): Boolean? {
         val member = ledger.retrieveAllMembers()
             .firstOrNull { member -> member.id == memberId }
@@ -238,12 +245,20 @@ class ConsultingReservationManager(
             .any { reservation -> reservation.id == reservationId }
     }
 
+    /**
+     * compute the [Member] based on the events occurred and the given [member]
+     * Return the updated [Member]
+     */
     private fun computeMember(member: Member): Member {
         val memberProj = MemberProjection(member)
         return eventMap.getOrDefault(member.id, listOf())
             .fold(memberProj.init) { state, event -> memberProj.update(state, event) }
     }
 
+    /**
+     * compute the [ConsultingReservation] based on the events occurred and the given [reservation]
+     * Return the updated [ConsultingReservation]
+     */
     private fun computeConsultingReservation(reservation: OpenConsultingReservation): ConsultingReservation {
         val consultingProj = OpenConsultingReservationProjection(reservation)
         return eventMap.getOrDefault(reservation.id, listOf())
