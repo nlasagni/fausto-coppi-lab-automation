@@ -14,6 +14,5 @@ data class ConsultingSummaryCreatedEvent(
     val consultingId: ConsultingId,
     val consultingType: String,
     val consultingDate: Date,
-    val description: String,
-    val freelancer: FreelancerId
+    val description: String
 ) : DomainEvent

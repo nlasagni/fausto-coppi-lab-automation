@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.consulting.domain.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
+import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.*
@@ -23,11 +24,24 @@ class Freelancer(
     private val availabilities = mutableListOf<Availability>()
 
     init {
-
         if(firstName.isEmpty())
             throw FreelancerFirstNameCannotBeNull()
         if(lastName.isEmpty())
             throw FreelancerLastNameCannotBeNull()
+    }
+
+    companion object {
+        fun createFreelancer(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) : Freelancer {
+            return Freelancer(freelancerId, firstName, lastName, role)
+        }
+
+        fun hydrateFreelancer(aggregateId: AggregateId, firstName: String, lastName: String, role: FreelancerRole,
+                              eventList: List<DomainEvent>) : Freelancer {
+            var freelancer = Freelancer(aggregateId, firstName, lastName, role)
+            eventList.forEach { freelancer.applyEvent(it) }
+
+            return freelancer
+        }
     }
 
     /**
@@ -96,6 +110,10 @@ class Freelancer(
         availabilities.removeIf { it.availabilityDate == event.availabilityDate }
     }
 
+
+    /**
+     *
+     */
     override fun applyEvent(event: DomainEvent) {
         when (event) {
             is FreelancerAvailabilityCreatedEvent -> apply(event)

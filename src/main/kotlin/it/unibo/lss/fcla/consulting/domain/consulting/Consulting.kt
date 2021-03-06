@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.consulting.domain.consulting
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
+import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryTypeCannotBeEmpty
@@ -12,37 +13,27 @@ typealias ConsultingId = String
  * @author Stefano Braggion
  *
  * Representing a consulting
+ * TODO da tenere consulting summary???
  */
 class Consulting(
-    val consultingId: ConsultingId
+    val consultingId: ConsultingId,
+    val freelancerId: FreelancerId
 ) : AbstractAggregate(consultingId) {
 
     private lateinit var consultingSummary: ConsultingSummary
 
-    constructor(
-        consultingId: ConsultingId,
-        consultingType: String,
-        description: String,
-        consultingDate: Date,
-        freelancerId: FreelancerId
-    ) :
-        this(consultingId) {
-            this.raiseEvent(
-                ConsultingSummaryCreatedEvent(
-                    consultingId,
-                    consultingType,
-                    consultingDate,
-                    description,
-                    freelancerId
-                )
-            )
-        }
 
     companion object {
-        fun createConsulting(consultingId: ConsultingId, consultingType: String,
-            description: String, consultingDate: Date, freelancerId: FreelancerId) : Consulting {
+        fun createConsulting(consultingId: ConsultingId, freelancerId: FreelancerId) : Consulting {
 
-            return Consulting(consultingId, consultingType, description, consultingDate, freelancerId)
+            return Consulting(consultingId, freelancerId)
+        }
+
+        fun hydrateConsulting(aggregateId: AggregateId, freelancerId: FreelancerId, eventList: List<DomainEvent>) : Consulting {
+            var consulting = Consulting.createConsulting(aggregateId, freelancerId)
+            eventList.forEach { consulting.applyEvent(it) }
+
+            return consulting
         }
     }
 
@@ -72,6 +63,7 @@ class Consulting(
 
     /**
      * Apply the event: created a new consulting summary
+     * TODO add validation for data
      */
     private fun apply(event: ConsultingSummaryCreatedEvent) {
         if (event.description.isEmpty()) throw ConsultingSummaryDescriptionCannotBeEmpty()
@@ -83,7 +75,6 @@ class Consulting(
     override fun applyEvent(event: DomainEvent) {
         when (event) {
             is ConsultingSummaryUpdatedDescriptionEvent -> apply(event)
-            is ConsultingSummaryCreatedEvent -> apply(event)
             else -> throw IllegalArgumentException() //TODO fixme
         }
     }
