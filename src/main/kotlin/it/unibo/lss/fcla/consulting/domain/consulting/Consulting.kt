@@ -13,6 +13,7 @@ typealias ConsultingId = String
  * @author Stefano Braggion
  *
  * Representing a consulting
+ * TODO da tenere consulting summary???
  */
 class Consulting(
     val consultingId: ConsultingId,

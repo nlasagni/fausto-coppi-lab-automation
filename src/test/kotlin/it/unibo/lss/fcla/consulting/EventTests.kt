@@ -2,6 +2,7 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.common.EventStore
+import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingSummary
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
@@ -49,5 +50,14 @@ class EventTests : FreeSpec ({
 
         assert(eventStore.getEventsForAggregate(aggregateID).count() == expectedEvents &&
             freelancer.getUncommittedEvents().count() == 0)
+    }
+
+    "Consulting event store accumulation test" - {
+        var eventStore = EventStore()
+        var aggregateRepository = ConsultingMockRepository(eventStore)
+        val aggregateID = "123"
+        val freelancerID = "F123"
+
+        val consulting = Consulting(aggregateID, freelancerID)
     }
 })
