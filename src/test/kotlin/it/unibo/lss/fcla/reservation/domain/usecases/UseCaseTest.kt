@@ -24,7 +24,7 @@ class UseCaseTest : FreeSpec({
     val successMessage = "Everything fine"
 
     "Command and Query use case, given valid data, should" - {
-        "create, close, update and delete reservations" - {
+        "create, close, update and delete consulting reservations" - {
             val eventStore = EventStore()
             val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
             val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
@@ -46,9 +46,13 @@ class UseCaseTest : FreeSpec({
             assert(resultCUp == successMessage)
             val resultCDel = commandUseCase.requestDeleteConsultingReservation(reservationOConsId, memberId)
             assert(resultCDel == successMessage)
-
+        }
+        "create, close, update and delete workout reservations" - {
+            val eventStore = EventStore()
+            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
+            val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
             val resultWCre = commandUseCase
-                .requestCreateWorkoutReservation(validAim, validDate, firstName, lastName, memberId)
+                    .requestCreateWorkoutReservation(validAim, validDate, firstName, lastName, memberId)
             assert(resultWCre == successMessage)
             val reservationWorkId = queryUseCase.retrieveAgendaWorkoutReservation().first().reservationId
             val resMemberWList = queryUseCase.retrieveMemberWorkoutReservations(memberId)
@@ -56,12 +60,12 @@ class UseCaseTest : FreeSpec({
             val resultW = commandUseCase.requestCloseWorkoutReservation(reservationWorkId, memberId)
             assert(resultW == successMessage)
             commandUseCase
-                .requestCreateWorkoutReservation(validAim, validDate, firstName, lastName, memberId)
+                    .requestCreateWorkoutReservation(validAim, validDate, firstName, lastName, memberId)
             val reservationOWorkId = queryUseCase.retrieveAgendaWorkoutReservation()
-                .first { resDate -> queryUseCase.retrieveWorkoutReservation(resDate.reservationId).isOpen }
-                .reservationId
+                    .first { resDate -> queryUseCase.retrieveWorkoutReservation(resDate.reservationId).isOpen }
+                    .reservationId
             val resultWUp = commandUseCase
-                .requestUpdateWorkoutReservation(reservationOWorkId, "newAim", validDateLate)
+                    .requestUpdateWorkoutReservation(reservationOWorkId, "newAim", validDateLate)
             assert(resultWUp == successMessage)
             val resultWDel = commandUseCase.requestDeleteWorkoutReservation(reservationOWorkId, memberId)
             assert(resultWDel == successMessage)
