@@ -1,7 +1,6 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
-import it.unibo.lss.fcla.reservation.common.Event
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseConsultingReservation
