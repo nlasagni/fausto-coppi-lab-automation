@@ -5,12 +5,13 @@ import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
-import java.util.*
+import java.util.Calendar
+import java.util.UUID
 
 class EventStoreTest : FreeSpec({
     val reservationId = UUID.randomUUID()
     val agendaID = UUID.randomUUID()
-    val freelancerID = ""+UUID.randomUUID()
+    val freelancerID = "" + UUID.randomUUID()
     val member = Member("Mario", "Rossi", UUID.randomUUID())
 
     val calendar = Calendar.getInstance()
@@ -71,5 +72,4 @@ class EventStoreTest : FreeSpec({
             assert(eventStore.getStream(reservationId).size == 2)
         }
     }
-
 })
