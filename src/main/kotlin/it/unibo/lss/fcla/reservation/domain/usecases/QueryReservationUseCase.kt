@@ -29,44 +29,6 @@ class QueryReservationUseCase(
 ) : ReservationUseCase() {
 
     /**
-     * Convert a list of [ConsultingReservation] to a list of [ConsultingReservationFacade]
-     */
-    private fun convertToConsultingFacades(reservations: List<ConsultingReservation>):
-        List<ConsultingReservationFacade> {
-            return reservations.map {
-                consultingReservation ->
-                when (consultingReservation) {
-                    is OpenConsultingReservation -> ConsultingReservationFacade(consultingReservation)
-                    is CloseConsultingReservation -> ConsultingReservationFacade(consultingReservation)
-                    else -> {
-                        // TODO Need tests and then remove
-                        // This should not happen
-                        throw RequestFailedException()
-                    }
-                }
-            }
-        }
-
-    /**
-     * Convert a list of [WorkoutReservation] to a list of [WorkoutReservationFacade]
-     */
-    private fun convertToWorkoutFacades(reservations: List<WorkoutReservation>):
-        List<WorkoutReservationFacade> {
-            return reservations.map {
-                workoutReservation ->
-                when (workoutReservation) {
-                    is OpenWorkoutReservation -> WorkoutReservationFacade(workoutReservation)
-                    is CloseWorkoutReservation -> WorkoutReservationFacade(workoutReservation)
-                    else -> {
-                        // TODO Need tests and then remove
-                        // This should not happen
-                        throw RequestFailedException()
-                    }
-                }
-            }
-        }
-
-    /**
      * Convert a list of [ConsultingReservation] to a list of [ConsultingReservationDateFacade]
      */
     private fun convertToConsultingDateFacades(reservations: List<ConsultingReservation>):
@@ -124,9 +86,7 @@ class QueryReservationUseCase(
                 return ConsultingReservationFacade(consultingReservation)
             }
             else -> {
-                // TODO Need tests and then remove
                 if (consultingReservation != null) {
-                    // This should not happen
                     throw RequestFailedException()
                 }
                 throw RequestFailedException(RequestFailedMessages.reservationNotFound)
@@ -154,9 +114,7 @@ class QueryReservationUseCase(
                 return WorkoutReservationFacade(workoutReservation)
             }
             else -> {
-                // TODO Need tests and then remove
                 if (workoutReservation != null) {
-                    // This should not happen
                     throw RequestFailedException()
                 }
                 throw RequestFailedException(RequestFailedMessages.reservationNotFound)
@@ -175,9 +133,7 @@ class QueryReservationUseCase(
                     computeAggregate(memberId, MemberProjection(member)).retrieveConsultingReservation()
                 )
             else -> {
-                // TODO Need tests and then remove
                 if (member != null) {
-                    // This should not happen
                     throw RequestFailedException()
                 }
                 throw RequestFailedException(RequestFailedMessages.reservationNotFound)
@@ -196,9 +152,7 @@ class QueryReservationUseCase(
                     computeAggregate(memberId, MemberProjection(member)).retrieveWorkoutReservation()
                 )
             else -> {
-                // TODO Need tests and then remove
                 if (member != null) {
-                    // This should not happen
                     throw RequestFailedException()
                 }
                 throw RequestFailedException(RequestFailedMessages.reservationNotFound)

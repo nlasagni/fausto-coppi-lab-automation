@@ -36,7 +36,6 @@ class UseCaseTest : FreeSpec({
             assert(resMemberList.isNotEmpty())
             val resultCClose = commandUseCase.requestCloseConsultingReservation(reservationConsId, memberId)
             assert(resultCClose == successMessage)
-
             commandUseCase
                 .requestCreateConsultingReservation(validFreelancer, validDate, firstName, lastName, memberId)
             val reservationOConsId = queryUseCase.retrieveAgendaConsultingReservation()
@@ -52,6 +51,8 @@ class UseCaseTest : FreeSpec({
                 .requestCreateWorkoutReservation(validAim, validDate, firstName, lastName, memberId)
             assert(resultWCre == successMessage)
             val reservationWorkId = queryUseCase.retrieveAgendaWorkoutReservation().first().reservationId
+            val resMemberWList = queryUseCase.retrieveMemberWorkoutReservations(memberId)
+            assert(resMemberWList.isNotEmpty())
             val resultW = commandUseCase.requestCloseWorkoutReservation(reservationWorkId, memberId)
             assert(resultW == successMessage)
             commandUseCase
