@@ -94,10 +94,14 @@ class ConsultingReservationManagerTest : FreeSpec({
             val memberList = requestConsultingMap[member.id] ?: fail("Member events not found")
             assert(memberList.any { event -> event is MemberDeleteConsultingReservationEvent })
             assert(memberList.any { event -> event is MemberAddConsultingReservationEvent })
+
+            val closeResult = requestConsultingMap[closeConsulting.id]?.first() ?: fail("Success event not found")
+            assert(closeResult is RequestSucceededEvent)
+
             val consultingFullManager = ConsultingReservationManager(agendaId, ledgerId, requestConsultingMap)
             val resOldMemberMap = consultingFullManager.produce(closeConsulting)
-            resOldMemberMap[closeConsulting.id]?.first() ?: fail("Success event not found")
-            resOldMemberMap[ledgerId] ?: success()
+            val closeFail = resOldMemberMap[closeConsulting.id]?.first() ?: fail("Success event not found")
+            assert(closeFail is RequestFailedEvent)
         }
     }
     "A CreateConsultingReservationEvent occurring in ConsultingReservationManager should" - {
