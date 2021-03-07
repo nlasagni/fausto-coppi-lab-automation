@@ -174,7 +174,7 @@ class WorkoutReservationManager(
             return errorMap(event.id, RequestFailedMessages.noUpdateToCloseReservation)
         }
         try {
-            OpenWorkoutReservation(retrievedReservation.aim, retrievedReservation.date, retrievedReservation.id)
+            OpenWorkoutReservation(event.aim, event.date, event.id)
         } catch (exception: WorkoutReservationAimCannotBeEmpty) {
             return errorMap(event.id, RequestFailedMessages.emptyWorkoutAim)
         } catch (exception: OpenReservationMustNotHavePastDate) {

@@ -174,11 +174,7 @@ class ConsultingReservationManager(
             return errorInRequest(event.id, RequestFailedMessages.noUpdateToCloseReservation)
         }
         try {
-            OpenConsultingReservation(
-                retrievedReservation.date,
-                retrievedReservation.freelancerId,
-                retrievedReservation.id
-            )
+            OpenConsultingReservation(event.date, event.freelancer, event.id)
         } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
             return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
         } catch (exception: OpenReservationMustNotHavePastDate) {
