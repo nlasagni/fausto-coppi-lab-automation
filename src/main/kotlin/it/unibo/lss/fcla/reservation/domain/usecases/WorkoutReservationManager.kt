@@ -107,7 +107,7 @@ class WorkoutReservationManager(
             workoutReservation = OpenWorkoutReservation(
                 event.aim,
                 event.date,
-                event.memberId
+                UUID.randomUUID()
             )
         } catch (exception: WorkoutReservationAimCannotBeEmpty) {
             return errorMap(event.id, RequestFailedMessages.emptyWorkoutAim)

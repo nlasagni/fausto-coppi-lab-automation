@@ -107,7 +107,7 @@ class ConsultingReservationManager(
             openConsulting = OpenConsultingReservation(
                 event.date,
                 event.freelancer,
-                event.memberId
+                UUID.randomUUID()
             )
         } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
             return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
