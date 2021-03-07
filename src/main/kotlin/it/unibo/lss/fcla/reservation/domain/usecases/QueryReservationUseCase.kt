@@ -26,12 +26,8 @@ import java.util.UUID
 class QueryReservationUseCase(
     private val agendaId: UUID,
     private val ledgerId: UUID,
-    private val events: Map<UUID, List<Event>>
+    override val eventStore: EventStore
 ) : ReservationUseCase() {
-
-    constructor() : this(UUID.randomUUID(), UUID.randomUUID(), mapOf())
-
-    override val eventStore: EventStore = EventStore(events)
 
     /**
      * Convert a list of [ConsultingReservation] to a list of [ConsultingReservationFacade]
