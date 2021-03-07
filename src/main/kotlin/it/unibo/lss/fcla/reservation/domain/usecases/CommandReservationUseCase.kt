@@ -20,12 +20,9 @@ import java.util.UUID
 class CommandReservationUseCase(
     private val agendaId: UUID,
     private val ledgerId: UUID,
-    private val events: Map<UUID, List<Event>>
+    override val eventStore: EventStore
 ) : ReservationUseCase() {
 
-    constructor() : this(UUID.randomUUID(), UUID.randomUUID(), mapOf())
-
-    override val eventStore: EventStore = EventStore(events)
     // Fake Id used to aggregate request event
     private val headquarterId: UUID = UUID.randomUUID()
 
@@ -49,7 +46,7 @@ class CommandReservationUseCase(
         reservationId: UUID,
         memberId: UUID
     ): String {
-        val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
+        val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
         val event = CloseConsultingReservationEvent(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
@@ -110,7 +107,7 @@ class CommandReservationUseCase(
         reservationId: UUID,
         memberId: UUID
     ): String {
-        val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
+        val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
         val event = DeleteConsultingReservationEvent(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
@@ -137,7 +134,7 @@ class CommandReservationUseCase(
         freelancer: String,
         date: Date
     ): String {
-        val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
+        val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
         val event = UpdateConsultingReservationEvent(UUID.randomUUID(), reservationId, freelancer, date)
         return handleRequestResult(event, producer)
     }
