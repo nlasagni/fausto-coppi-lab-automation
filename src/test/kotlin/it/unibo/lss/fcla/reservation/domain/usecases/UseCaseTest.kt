@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
 import io.kotest.core.spec.style.FreeSpec
+import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 import java.util.UUID
 
@@ -8,11 +9,14 @@ class UseCaseTest : FreeSpec({
     val agendaId = UUID.randomUUID()
     val ledgerId = UUID.randomUUID()
     val validFreelancer = "freelancer"
+    val invalidFreelancer = ""
     val validAim = "Aim"
+    val invalidAim = ""
     val firstName = "Mario"
     val lastName = "Rossi"
     val memberId = UUID.randomUUID()
     val calendar = Calendar.getInstance()
+    val invalidYear = 2020
     val validYear = 2022
     val validYearLate = 2028
     val feb = Calendar.FEBRUARY
@@ -21,6 +25,8 @@ class UseCaseTest : FreeSpec({
     val validDate = calendar.time
     calendar.set(validYearLate, feb, day)
     val validDateLate = calendar.time
+    calendar.set(invalidYear, feb, day)
+    val invalidDate = calendar.time
     val successMessage = "Everything fine"
 
     "Command and Query use case, given valid data, should" - {
@@ -69,6 +75,49 @@ class UseCaseTest : FreeSpec({
             assert(resultWUp == successMessage)
             val resultWDel = commandUseCase.requestDeleteWorkoutReservation(reservationOWorkId, memberId)
             assert(resultWDel == successMessage)
+        }
+    }
+    "Command and Query use case, given invalid data, should" - {
+        "fail giving the specific error for consulting reservation" - {
+            val eventStore = EventStore()
+            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
+            assertThrows<RequestFailedException> {  commandUseCase
+                    .requestCreateConsultingReservation(invalidFreelancer, validDate, firstName, lastName, memberId) }
+            assertThrows<RequestFailedException> {  commandUseCase
+                    .requestCreateConsultingReservation(validFreelancer, invalidDate, firstName, lastName, memberId) }
+            assertThrows<RequestFailedException> { commandUseCase
+                    .requestCloseConsultingReservation(UUID.randomUUID(), memberId) }
+            assertThrows<RequestFailedException> { commandUseCase
+                    .requestUpdateConsultingReservation(UUID.randomUUID(), validFreelancer, validDateLate) }
+            assertThrows<RequestFailedException> { commandUseCase
+                    .requestDeleteConsultingReservation(UUID.randomUUID(), memberId)}
+
+            val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
+            assert(queryUseCase.retrieveAgendaConsultingReservation().isEmpty())
+            assertThrows<RequestFailedException> { queryUseCase
+                    .retrieveMemberConsultingReservations(UUID.randomUUID()) }
+            assertThrows<RequestFailedException> { queryUseCase
+                    .retrieveConsultingReservation(UUID.randomUUID()) }
+        }
+        "fail giving the specific error for workout reservation" - {
+            val eventStore = EventStore()
+            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
+            assertThrows<RequestFailedException> { commandUseCase
+                    .requestCreateWorkoutReservation(invalidAim, validDate, firstName, lastName, memberId) }
+            assertThrows<RequestFailedException> { commandUseCase
+                    .requestCreateWorkoutReservation(validAim, invalidDate, firstName, lastName, memberId) }
+            assertThrows<RequestFailedException> { commandUseCase
+                    .requestCloseWorkoutReservation(UUID.randomUUID(), memberId) }
+            assertThrows<RequestFailedException> { commandUseCase
+                    .requestUpdateWorkoutReservation(UUID.randomUUID(), validAim, validDateLate) }
+            assertThrows<RequestFailedException> { commandUseCase
+                    .requestDeleteWorkoutReservation(UUID.randomUUID(), memberId)}
+            val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
+            assert(queryUseCase.retrieveAgendaWorkoutReservation().isEmpty())
+            assertThrows<RequestFailedException> { queryUseCase
+                    .retrieveMemberWorkoutReservations(UUID.randomUUID()) }
+            assertThrows<RequestFailedException> { queryUseCase
+                    .retrieveWorkoutReservation(UUID.randomUUID()) }
         }
     }
 })
