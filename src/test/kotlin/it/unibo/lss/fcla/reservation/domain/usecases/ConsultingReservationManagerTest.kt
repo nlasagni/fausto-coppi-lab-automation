@@ -12,7 +12,10 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.Consulti
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancerEvent
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.*
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservationEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservationEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedEvent
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedMessages
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
@@ -96,8 +99,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 member1.id
             )
             val mapWithAnotherReservations = managerWithReservation.produce(createValidConsultingReservationMember1)
-            val mapWith2Reservation = mapWithAnotherReservations.entries.fold(consultingManagerMap){
-                    map,entries ->
+            val mapWith2Reservation = mapWithAnotherReservations.entries.fold(consultingManagerMap) {
+                map, entries ->
                 val list = map.getOrDefault(entries.key, listOf()) + entries.value
                 map + (entries.key to list)
             }
@@ -212,7 +215,7 @@ class ConsultingReservationManagerTest : FreeSpec({
                 member.id
             )
             val mapWithExistingMember = consultingFullManager.produce(createSecondValidConsultingReservation)
-            mapWithExistingMember[ledgerId]?.first()?: success()
+            mapWithExistingMember[ledgerId]?.first() ?: success()
         }
     }
     "An UpdateConsultingReservationEvent occurring in ConsultingReservationManager should" - {
@@ -390,8 +393,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 member1.id
             )
             val mapWithAnotherReservations = manager.produce(createValidConsultingReservationMember1)
-            val mapWith2Reservation = mapWithAnotherReservations.entries.fold(consultingManagerMap){
-                    map,entries ->
+            val mapWith2Reservation = mapWithAnotherReservations.entries.fold(consultingManagerMap) {
+                map, entries ->
                 val list = map.getOrDefault(entries.key, listOf()) + entries.value
                 map + (entries.key to list)
             }

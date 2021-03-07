@@ -101,8 +101,8 @@ class WorkoutReservationManagerTest : FreeSpec({
                 member1.id
             )
             val mapWithAnotherReservations = managerWithReservation.produce(createValidWorkoutReservationMember1)
-            val mapWith2Reservation = mapWithAnotherReservations.entries.fold(workoutManagerMap){
-                    map,entries ->
+            val mapWith2Reservation = mapWithAnotherReservations.entries.fold(workoutManagerMap) {
+                map, entries ->
                 val list = map.getOrDefault(entries.key, listOf()) + entries.value
                 map + (entries.key to list)
             }
@@ -214,7 +214,7 @@ class WorkoutReservationManagerTest : FreeSpec({
                 member.id
             )
             val mapWithExistingMember = workoutFullManager.produce(createSecondValidWorkoutReservation)
-            mapWithExistingMember[ledgerId]?.first()?: success()
+            mapWithExistingMember[ledgerId]?.first() ?: success()
         }
     }
     "An UpdateWorkoutReservationEvent occurring in WorkoutReservationManager should" - {
@@ -257,7 +257,7 @@ class WorkoutReservationManagerTest : FreeSpec({
 
             val failUpdate =
                 requestFailAimWorkoutMap[updateInvalidWorkoutDueToEmptyAimRequest.id]
-                ?.first() ?: fail("Success event not found")
+                    ?.first() ?: fail("Success event not found")
             assert(failUpdate is RequestFailedEvent)
             val failEvent = failUpdate as RequestFailedEvent
             assert(failEvent.requestId == updateInvalidWorkoutDueToEmptyAimRequest.id)
@@ -392,10 +392,10 @@ class WorkoutReservationManagerTest : FreeSpec({
                 member1.id
             )
             val mapWithAnotherReservations = managerWithReservation.produce(createValidWorkoutReservationMember1)
-            val mapWith2Reservation = mapWithAnotherReservations.entries.fold(workoutManagerMap){
-                map,entries ->
-                    val list = map.getOrDefault(entries.key, listOf()) + entries.value
-                    map + (entries.key to list)
+            val mapWith2Reservation = mapWithAnotherReservations.entries.fold(workoutManagerMap) {
+                map, entries ->
+                val list = map.getOrDefault(entries.key, listOf()) + entries.value
+                map + (entries.key to list)
             }
             val managerWith2Reservations = WorkoutReservationManager(agendaId, ledgerId, mapWith2Reservation)
 
