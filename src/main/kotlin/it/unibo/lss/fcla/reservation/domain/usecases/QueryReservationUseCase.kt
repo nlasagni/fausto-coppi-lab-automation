@@ -86,9 +86,6 @@ class QueryReservationUseCase(
                 return ConsultingReservationFacade(consultingReservation)
             }
             else -> {
-                if (consultingReservation != null) {
-                    throw RequestFailedException()
-                }
                 throw RequestFailedException(RequestFailedMessages.reservationNotFound)
             }
         }
@@ -114,9 +111,6 @@ class QueryReservationUseCase(
                 return WorkoutReservationFacade(workoutReservation)
             }
             else -> {
-                if (workoutReservation != null) {
-                    throw RequestFailedException()
-                }
                 throw RequestFailedException(RequestFailedMessages.reservationNotFound)
             }
         }
@@ -133,9 +127,6 @@ class QueryReservationUseCase(
                     computeAggregate(memberId, MemberProjection(member)).retrieveConsultingReservation()
                 )
             else -> {
-                if (member != null) {
-                    throw RequestFailedException()
-                }
                 throw RequestFailedException(RequestFailedMessages.reservationNotFound)
             }
         }
@@ -152,9 +143,6 @@ class QueryReservationUseCase(
                     computeAggregate(memberId, MemberProjection(member)).retrieveWorkoutReservation()
                 )
             else -> {
-                if (member != null) {
-                    throw RequestFailedException()
-                }
                 throw RequestFailedException(RequestFailedMessages.reservationNotFound)
             }
         }
