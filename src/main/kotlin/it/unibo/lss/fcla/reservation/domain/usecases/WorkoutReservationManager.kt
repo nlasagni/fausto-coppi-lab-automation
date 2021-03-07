@@ -68,6 +68,9 @@ class WorkoutReservationManager(
         Map<UUID, List<Event>> {
             val retrievedReservation = retrieveReservation(event.reservationId)
                 ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
+            if (retrievedReservation is CloseWorkoutReservation) {
+                return errorMap(event.id, RequestFailedMessages.alreadyCloseReservation)
+            }
             val updatedReservation = computeWorkoutReservation(retrievedReservation as OpenWorkoutReservation)
             val closedReservation = CloseWorkoutReservation(
                 updatedReservation.aim,
