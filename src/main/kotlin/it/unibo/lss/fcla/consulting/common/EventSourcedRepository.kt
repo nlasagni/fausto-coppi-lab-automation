@@ -1,5 +1,6 @@
 package it.unibo.lss.fcla.consulting.common
 
+import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 
 /**
@@ -29,6 +30,10 @@ abstract class EventSourcedRepository<A: AbstractAggregate>(eventStore: EventSto
         uncommittedEvents.forEach { store.saveEvent(aggregateId = aggregate.aggregateId, it) }
 
         aggregate.clearUncommittedEvents()
+    }
+
+    override fun getAllEvents(): HashMap<AggregateId, List<DomainEvent>> {
+        return store.getAllEvents()
     }
 
 }

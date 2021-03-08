@@ -57,8 +57,38 @@ class EventTests : FreeSpec ({
         assert(eventStore.getEventsForAggregate(aggregateId).count() == expectedEvents)
         assert(consulting.getUncommittedEvents().count() == 0)
 
-        val rehydratedAggregate = Consulting.rehydrateConsulting(aggregateId, eventStore.getEventsForAggregate(aggregateId))
+        val rehydratedAggregate = Consulting.rehydrateConsulting(aggregateId, memberId = "M001",
+            eventStore.getEventsForAggregate(aggregateId))
         assert(rehydratedAggregate.getSummaryDescription() == "third description")
+    }
+
+    "Consulting event store and rehydrating with multiple aggregates" - {
+        var eventStore = EventStore()
+        var aggregateRepository = ConsultingMockRepository(eventStore)
+        val firstAggregateId = "C001"
+        val secondAggregateId = "C002"
+        val thirdAggregateId = "C003"
+        val date = Date(year = 2021, month = 1, day = 1)
+
+        val firstConsulting = Consulting.createConsulting(firstAggregateId, memberId = "M001",
+            consultingDate = date, freelancerId = "F001", consultingType = ConsultingType.PhysioterapyConsulting(),
+            description = "first description")
+
+        val secondConsulting = Consulting.createConsulting(secondAggregateId, memberId = "M001",
+            consultingDate = date, freelancerId = "F001", consultingType = ConsultingType.PhysioterapyConsulting(),
+            description = "first description")
+
+        val thirdConsulting = Consulting.createConsulting(thirdAggregateId, memberId = "M002",
+            consultingDate = date, freelancerId = "F001", consultingType = ConsultingType.PhysioterapyConsulting(),
+            description = "first description")
+
+        firstConsulting.updateSummaryDescription("updated description of first consulting")
+        secondConsulting.updateSummaryDescription("updated description of second consulting")
+        thirdConsulting.updateSummaryDescription("updated description of third consulting")
+
+        aggregateRepository.save(firstConsulting)
+        aggregateRepository.save(secondConsulting)
+        aggregateRepository.save(thirdConsulting)
 
     }
 })

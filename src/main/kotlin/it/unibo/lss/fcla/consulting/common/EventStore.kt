@@ -16,4 +16,6 @@ class EventStore(
     override fun getEventsForAggregate(aggregateId: AggregateId): List<DomainEvent> {
         return events.getOrDefault(aggregateId, listOf())
     }
+
+    override fun getAllEvents(): HashMap<AggregateId, List<DomainEvent>> = events
 }

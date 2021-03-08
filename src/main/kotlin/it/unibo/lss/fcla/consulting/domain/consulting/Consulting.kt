@@ -21,7 +21,8 @@ typealias MemberId = String
  *
  */
 class Consulting private constructor(
-    private val consultingId: ConsultingId
+    private val consultingId: ConsultingId,
+    private val memberId: MemberId
 ) : AbstractAggregate(consultingId) {
 
     private lateinit var consultingSummary: ConsultingSummary
@@ -29,6 +30,10 @@ class Consulting private constructor(
     init {
         if(consultingId.isEmpty()) {
             throw ConsultingMustHaveAValidId()
+        }
+
+        if(memberId.isEmpty()) {
+            throw ConsultingMustHaveAValidMember()
         }
     }
 
@@ -40,11 +45,7 @@ class Consulting private constructor(
         consultingDate: Date, freelancerId: FreelancerId, consultingType: ConsultingType,
         description: String) : Consulting {
 
-            val consultingAggregate = Consulting(consultingId)
-
-            if(memberId.isEmpty()) {
-                throw ConsultingMustHaveAValidMember()
-            }
+            val consultingAggregate = Consulting(consultingId, memberId)
 
             consultingAggregate.raiseEvent(ConsultingCreatedEvent(consultingId, memberId,
                 consultingDate, freelancerId, consultingType, description))
@@ -52,8 +53,8 @@ class Consulting private constructor(
             return consultingAggregate
         }
 
-        fun rehydrateConsulting(aggregateId: AggregateId, eventList: List<DomainEvent>) : Consulting {
-            val consulting = Consulting(aggregateId)
+        fun rehydrateConsulting(aggregateId: AggregateId, memberId: MemberId, eventList: List<DomainEvent>) : Consulting {
+            val consulting = Consulting(aggregateId, memberId)
             eventList.forEach { consulting.applyEvent(it) }
 
             return consulting

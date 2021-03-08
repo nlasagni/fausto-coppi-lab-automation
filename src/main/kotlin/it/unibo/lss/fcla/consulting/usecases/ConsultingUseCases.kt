@@ -1,9 +1,8 @@
 package it.unibo.lss.fcla.consulting.usecases
 
 import it.unibo.lss.fcla.consulting.common.IRepository
-import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
-import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingSummary
-import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
+import it.unibo.lss.fcla.consulting.domain.consulting.*
+import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
 /**
  * @author Stefano Braggion
@@ -17,20 +16,81 @@ class ConsultingUseCases {
         /**
          * FCLAC-1 Examine consulting summaries
          */
-        fun examineConsultingSummaries() {
-            /**
-             * Retrieve all consulting summaries from the member
-             */
+        fun examineConsultingSummaries(consultingId: ConsultingId, memberId: MemberId,
+                                       repository: IRepository<Consulting>) {
+            val consulting = Consulting.rehydrateConsulting(consultingId, memberId, repository.getById(consultingId))
         }
 
         /**
          * FCLAC-7 Receive Consulting
          */
-        fun receiveConsulting() {
+        fun receivePhysiotherapyConsulting(consultingId: ConsultingId, memberId: MemberId,
+                                           consultingDate: Date, freelancerId: FreelancerId,
+                                           description: String, repository: IRepository<Consulting>) {
             /**
-             * create a new consulting
-             * push the consulting to the member aggregate
+             * create a new physiotherapy consulting
              */
+            if(repository.getById(consultingId).count() > 0) {
+                throw ConsultingShouldHaveAUniqueId()
+            }
+            val consulting = Consulting.createConsulting(consultingId, memberId, consultingDate,
+            freelancerId, ConsultingType.PhysioterapyConsulting(), description)
+
+            repository.save(consulting)
+        }
+
+        /**
+         * FCLAC-7 Receive Consulting
+         */
+        fun receiveNutritionistConsulting(consultingId: ConsultingId, memberId: MemberId,
+                                           consultingDate: Date, freelancerId: FreelancerId,
+                                           description: String, repository: IRepository<Consulting>) {
+            /**
+             * create a new nutritionist consulting
+             */
+            if(repository.getById(consultingId).count() > 0) {
+                throw ConsultingShouldHaveAUniqueId()
+            }
+            val consulting = Consulting.createConsulting(consultingId, memberId, consultingDate,
+                freelancerId, ConsultingType.NutritionConsulting(), description)
+
+            repository.save(consulting)
+        }
+
+        /**
+         * FCLAC-7 Receive Consulting
+         */
+        fun receiveBiomechanicsConsulting(consultingId: ConsultingId, memberId: MemberId,
+                                          consultingDate: Date, freelancerId: FreelancerId,
+                                          description: String, repository: IRepository<Consulting>) {
+            /**
+             * create a new biomechanics consulting
+             */
+            if(repository.getById(consultingId).count() > 0) {
+                throw ConsultingShouldHaveAUniqueId()
+            }
+            val consulting = Consulting.createConsulting(consultingId, memberId, consultingDate,
+                freelancerId, ConsultingType.BiomechanicsConsulting(), description)
+
+            repository.save(consulting)
+        }
+
+        /**
+         * FCLAC-7 Receive Consulting
+         */
+        fun receiveAthleticTrainerConsulting(consultingId: ConsultingId, memberId: MemberId,
+                                          consultingDate: Date, freelancerId: FreelancerId,
+                                          description: String, repository: IRepository<Consulting>) {
+            /**
+             * create a new athletic trainer consulting
+             */
+            if(repository.getById(consultingId).count() > 0) {
+                throw ConsultingShouldHaveAUniqueId()
+            }
+            val consulting = Consulting.createConsulting(consultingId, memberId, consultingDate,
+                freelancerId, ConsultingType.AthleticTrainerConsulting(), description)
+
+            repository.save(consulting)
         }
 
         /**
@@ -76,6 +136,13 @@ class ConsultingUseCases {
          *
          */
         fun deleteFreelancerAvailabilityForDay() {
+
+        }
+
+        /**
+         *
+         */
+        fun getFreelancerAvailabilityForDay() {
 
         }
     }
