@@ -11,3 +11,13 @@ class ConsultingShouldHaveAUniqueId : ConsultingException("A consulting with the
  *
  */
 class ConsultingWithGivenIdDoesNotExist : ConsultingException("A consulting with the given Id does not exist")
+
+/**
+ *
+ */
+class FreelancerShouldHaveAUniqueId : ConsultingException("A freelancer with the same Id already exist")
+
+/**
+ *
+ */
+class FreelancerWithGivenIdDoesNotExist : ConsultingException("A freelancer with the given Id does not exist")
