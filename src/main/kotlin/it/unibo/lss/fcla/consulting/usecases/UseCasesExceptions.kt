@@ -5,4 +5,9 @@ import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 /**
  *
  */
-class ConsultingShouldHaveAUniqueId : ConsultingException("A consulting with the same is already exist")
+class ConsultingShouldHaveAUniqueId : ConsultingException("A consulting with the same Id already exist")
+
+/**
+ *
+ */
+class ConsultingWithGivenIdDoesNotExist : ConsultingException("A consulting with the given Id does not exist")
