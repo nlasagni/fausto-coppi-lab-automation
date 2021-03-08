@@ -23,13 +23,6 @@ class Freelancer(
 
     private val availabilities = mutableListOf<Availability>()
 
-    init {
-        if(firstName.isEmpty())
-            throw FreelancerFirstNameCannotBeNull()
-        if(lastName.isEmpty())
-            throw FreelancerLastNameCannotBeNull()
-    }
-
     companion object {
         fun createFreelancer(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) : Freelancer {
             return Freelancer(freelancerId, firstName, lastName, role)

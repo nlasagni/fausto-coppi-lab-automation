@@ -27,8 +27,6 @@ class Availability(val availabilityDate: Date, val fromTime: LocalTime, val toTi
      *
      */
     fun updateAvailability(fromTime: LocalTime, toTime: LocalTime) {
-        require(fromTime.isBefore(toTime))
-
         availabilityHours = AvailabilityHours(fromTime, toTime)
     }
 }

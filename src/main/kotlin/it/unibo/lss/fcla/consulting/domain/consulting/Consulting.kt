@@ -30,8 +30,9 @@ class Consulting(
         }
 
         fun hydrateConsulting(aggregateId: AggregateId, freelancerId: FreelancerId,
-                              eventList: List<DomainEvent>, consultingType: ConsultingType) : Consulting {
-            var consulting = Consulting.createConsulting(aggregateId, freelancerId)
+                              eventList: List<DomainEvent>, consultingDate: Date,
+                              consultingType: ConsultingType) : Consulting {
+            var consulting = Consulting.createConsulting(aggregateId, freelancerId, consultingDate, consultingType)
             eventList.forEach { consulting.applyEvent(it) }
 
             return consulting
@@ -42,8 +43,6 @@ class Consulting(
      * Raise the event for updating the description
      */
     fun updateDescription(newDescription: String) {
-        if (newDescription.isEmpty()) throw ConsultingSummaryDescriptionCannotBeEmpty()
-
         raiseEvent(ConsultingSummaryUpdatedDescriptionEvent(consultingId, newDescription))
     }
 
@@ -61,8 +60,6 @@ class Consulting(
      * Apply the event: created a new consulting summary
      */
     private fun apply(event: ConsultingSummaryCreatedEvent) {
-        if (event.description.isEmpty()) throw ConsultingSummaryDescriptionCannotBeEmpty()
-
         consultingSummary = ConsultingSummary(event.consultingType, event.description)
     }
 
