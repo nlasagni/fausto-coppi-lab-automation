@@ -96,4 +96,17 @@ class FreelancerTest : FreeSpec({
             freelancer.updateAvailability(date, LocalTime.MIN, LocalTime.MAX)
         }
     }
+
+    "Retrieve the availability for a non-existing day should throw error" - {
+        val freelancer = Freelancer.createFreelancer(
+            freelancerId = "12345",
+            firstName = "Mario",
+            lastName = "Rossi",
+            role = FreelancerRole.Biomechanical()
+        )
+
+        shouldThrow<FreelancerAvailabilityDoesNotExist> {
+            freelancer.getAvailabilityForDay(Date(2021, 1, 1))
+        }
+    }
 })

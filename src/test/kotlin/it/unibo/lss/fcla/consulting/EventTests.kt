@@ -5,6 +5,7 @@ import it.unibo.lss.fcla.consulting.common.EventStore
 import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingType
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
+import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
 import java.time.LocalTime
@@ -34,8 +35,8 @@ class EventTests : FreeSpec ({
         assert(freelancer.getUncommittedEvents().count() == 0)
 
         val rehydratedAggregate = Freelancer.rehydrateFreelancer(aggregateID, eventStore.getEventsForAggregate(aggregateID))
-        assert(rehydratedAggregate.getAvailabilityFromHours(date) == LocalTime.MIN)
-        assert(rehydratedAggregate.getAvailabilityToHours(date) == LocalTime.MAX)
+        assert(rehydratedAggregate.getAvailabilityForDay(date) ==
+                AvailabilityHours(fromTime = LocalTime.MIN, toTime = LocalTime.MAX))
     }
 
     "Consulting event store and rehydrating test" - {

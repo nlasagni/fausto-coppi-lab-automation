@@ -91,16 +91,18 @@ class Freelancer private constructor(
     }
 
     /**
-     * Get the fromHours of the given [availabilityDate]
+     *
      */
-    fun getAvailabilityFromHours(availabilityDate: Date): LocalTime? =
-        availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.fromTime
+    fun getAvailabilityForDay(availabilityDate: Date) : AvailabilityHours {
+        val fromTime = availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.fromTime
+        val toTime = availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.toTime
 
-    /**
-     * Get the toHours of the given [availabilityDate]
-     */
-    fun getAvailabilityToHours(availabilityDate: Date): LocalTime? =
-        availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.toTime
+        if(fromTime == null || toTime == null) {
+            throw FreelancerAvailabilityDoesNotExist()
+        }
+
+        return AvailabilityHours(fromTime, toTime)
+    }
 
     // event handlers
 
