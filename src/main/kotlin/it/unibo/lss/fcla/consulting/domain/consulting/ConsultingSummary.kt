@@ -20,6 +20,6 @@ data class ConsultingSummary(val consultingType: ConsultingType, val description
      * String representation of a consulting summary
      */
     override fun toString(): String {
-        return "ConsultingSummary(type=$consultingType, description=$description)"
+        return "ConsultingSummary(type=${consultingType.toString()}, description=$description)"
     }
 }

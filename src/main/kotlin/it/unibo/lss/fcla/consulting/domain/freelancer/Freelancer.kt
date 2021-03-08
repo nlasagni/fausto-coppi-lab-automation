@@ -22,6 +22,7 @@ class Freelancer(
 ) : AbstractAggregate(freelancerId) {
 
     private val availabilities = mutableListOf<Availability>()
+    private val personalData: FreelancerPersonalData = FreelancerPersonalData(firstName, lastName, role)
 
     companion object {
         fun createFreelancer(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) : Freelancer {
