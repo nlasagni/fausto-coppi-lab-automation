@@ -2,6 +2,8 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.common.EventStore
+import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
+import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingType
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
@@ -30,5 +32,29 @@ class EventTests : FreeSpec ({
 
         assert(eventStore.getEventsForAggregate(aggregateID).count() == expectedEvents &&
             freelancer.getUncommittedEvents().count() == 0)
+    }
+
+    "Consulting rehydrating test" - {
+        var eventStore = EventStore()
+        var aggregateRepository = ConsultingMockRepository(eventStore)
+        val aggregateId = "C001"
+        val date = Date(year = 2021, month = 1, day = 1)
+        val expectedEvents = 3
+
+        val consulting = Consulting.createConsulting(aggregateId, memberId = "M001",
+        consultingDate = date, freelancerId = "F001", consultingType = ConsultingType.PhysioterapyConsulting(),
+        description = "first description")
+
+        consulting.updateSummaryDescription("second description")
+        consulting.updateSummaryDescription("third description")
+
+        aggregateRepository.save(consulting)
+
+        assert(eventStore.getEventsForAggregate(aggregateId).count() == expectedEvents)
+        assert(consulting.getUncommittedEvents().count() == 0)
+
+        val rehydratedAggregate = Consulting.rehydrateConsulting(aggregateId, eventStore.getEventsForAggregate(aggregateId))
+        assert(rehydratedAggregate.getSummaryDescription() == "third description")
+
     }
 })

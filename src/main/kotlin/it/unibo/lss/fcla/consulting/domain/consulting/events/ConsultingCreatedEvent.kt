@@ -12,9 +12,11 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
  *
  * Event representing a created consulting summary
  */
-data class ConsultingSummaryCreatedEvent(
-    val freelancerId: FreelancerId,
+data class ConsultingCreatedEvent(
+    val consultingId: ConsultingId,
+    val memberId: MemberId,
     val consultingDate: Date,
+    val freelancerId: FreelancerId,
     val consultingType: ConsultingType,
-    val consultingDescription: String
+    val description: String
 ) : DomainEvent
