@@ -16,8 +16,8 @@ class ConsultingUseCases(
     /**
      * FCLAC-1 Examine consulting summaries
      */
-    fun examineConsultingSummaries(consultingId: ConsultingId, memberId: MemberId) {
-        val consulting = Consulting.rehydrateConsulting(consultingId, memberId, repository.getById(consultingId))
+    fun examineConsultingSummaries(consultingId: ConsultingId, memberId: MemberId) : Consulting {
+        return Consulting.rehydrateConsulting(consultingId, memberId, repository.getById(consultingId))
     }
 
     /**
@@ -25,7 +25,7 @@ class ConsultingUseCases(
      */
     fun receivePhysiotherapyConsulting(consultingId: ConsultingId, memberId: MemberId,
                                        consultingDate: Date, freelancerId: FreelancerId,
-                                       description: String) {
+                                       description: String) : Consulting {
         /**
          * create a new physiotherapy consulting
          */
@@ -36,6 +36,8 @@ class ConsultingUseCases(
         description, ConsultingType.PhysioterapyConsulting())
 
         repository.save(consulting)
+
+        return consulting
     }
 
     /**
@@ -43,7 +45,7 @@ class ConsultingUseCases(
      */
     fun receiveNutritionistConsulting(consultingId: ConsultingId, memberId: MemberId,
                                       consultingDate: Date, freelancerId: FreelancerId,
-                                      description: String) {
+                                      description: String) : Consulting {
         /**
          * create a new nutritionist consulting
          */
@@ -54,6 +56,8 @@ class ConsultingUseCases(
             description, ConsultingType.NutritionConsulting())
 
         repository.save(consulting)
+
+        return consulting
     }
 
     /**
@@ -61,7 +65,7 @@ class ConsultingUseCases(
      */
     fun receiveBiomechanicsConsulting(consultingId: ConsultingId, memberId: MemberId,
                                       consultingDate: Date, freelancerId: FreelancerId,
-                                      description: String) {
+                                      description: String) : Consulting {
         /**
          * create a new biomechanics consulting
          */
@@ -73,6 +77,8 @@ class ConsultingUseCases(
             description, ConsultingType.BiomechanicsConsulting())
 
         repository.save(consulting)
+
+        return consulting
     }
 
     /**
@@ -80,7 +86,7 @@ class ConsultingUseCases(
      */
     fun receiveAthleticTrainerConsulting(consultingId: ConsultingId, memberId: MemberId,
                                          consultingDate: Date, freelancerId: FreelancerId,
-                                         description: String) {
+                                         description: String) : Consulting {
         /**
          * create a new athletic trainer consulting
          */
@@ -91,13 +97,15 @@ class ConsultingUseCases(
             freelancerId, ConsultingType.AthleticTrainerConsulting(), description)
 
         repository.save(consulting)
+
+        return consulting
     }
 
 
     /**
      * FCLAC-8 Manage Consulting Summaries (Update)
      */
-    fun updateConsultingSummary(consultingId: ConsultingId, memberId: MemberId, description: String) {
+    fun updateConsultingSummary(consultingId: ConsultingId, memberId: MemberId, description: String) : Consulting {
         /**
          * update the consulting with given id
          */
@@ -108,12 +116,14 @@ class ConsultingUseCases(
         val consulting = Consulting.rehydrateConsulting(consultingId, memberId, repository.getById(consultingId))
         consulting.updateSummaryDescription(description)
         repository.save(consulting)
+
+        return consulting
     }
 
     /**
      * FCLAC-8 Manage Consulting Summaries (Delete)
      */
-    fun deleteConsultingSummary(consultingId: ConsultingId) {
+    fun deleteConsultingSummary(/*consultingId: ConsultingId*/) {
         /**
          * delete the consulting with given id from the member
          */
@@ -143,33 +153,7 @@ class ConsultingUseCases(
 
         }
 
-        /**
-         *
-         */
-        fun updateFreelancerAvailabilityForDay() {
 
-        }
-
-        /**
-         *
-         */
-        fun createFreelancerAvailabilityForDay() {
-
-        }
-
-        /**
-         *
-         */
-        fun deleteFreelancerAvailabilityForDay() {
-
-        }
-
-        /**
-         *
-         */
-        fun getFreelancerAvailabilityForDay() {
-
-        }
     }
 
 }
