@@ -7,4 +7,5 @@ sealed class ConsultingType {
     data class PhysioterapyConsulting(val name: String = "PhysioterapyConsulting") : ConsultingType()
     data class NutritionConsulting(val name: String = "NutritionConsulting") : ConsultingType()
     data class BiomechanicsConsulting(val name: String = "BiomechanicsConsulting") : ConsultingType()
+    data class AthleticTrainerConsulting(val name: String = "AthleticTrainerConsulting") : ConsultingType()
 }

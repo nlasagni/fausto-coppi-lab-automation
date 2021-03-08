@@ -13,32 +13,29 @@ typealias ConsultingId = String
  * @author Stefano Braggion
  *
  * Representing a consulting
- * TODO da tenere consulting summary???
  */
 class Consulting(
     val consultingId: ConsultingId,
-    val freelancerId: FreelancerId
+    val freelancerId: FreelancerId,
+    val consultingDate: Date,
+    val consultingType: ConsultingType
 ) : AbstractAggregate(consultingId) {
 
     private lateinit var consultingSummary: ConsultingSummary
 
-
     companion object {
-        fun createConsulting(consultingId: ConsultingId, freelancerId: FreelancerId) : Consulting {
-
-            return Consulting(consultingId, freelancerId)
+        fun createConsulting(consultingId: ConsultingId, freelancerId: FreelancerId,
+                             consultingDate: Date, consultingType: ConsultingType) : Consulting {
+            return Consulting(consultingId, freelancerId, consultingDate, consultingType)
         }
 
-        fun hydrateConsulting(aggregateId: AggregateId, freelancerId: FreelancerId, eventList: List<DomainEvent>) : Consulting {
+        fun hydrateConsulting(aggregateId: AggregateId, freelancerId: FreelancerId,
+                              eventList: List<DomainEvent>, consultingType: ConsultingType) : Consulting {
             var consulting = Consulting.createConsulting(aggregateId, freelancerId)
             eventList.forEach { consulting.applyEvent(it) }
 
             return consulting
         }
-    }
-
-    init {
-
     }
 
     /**
@@ -56,22 +53,22 @@ class Consulting(
     private fun apply(event: ConsultingSummaryUpdatedDescriptionEvent) {
         consultingSummary = ConsultingSummary(
             consultingSummary.consultingType,
-            event.description,
-            consultingSummary.consultingDate
+            event.description
         )
     }
 
     /**
      * Apply the event: created a new consulting summary
-     * TODO add validation for data
      */
     private fun apply(event: ConsultingSummaryCreatedEvent) {
         if (event.description.isEmpty()) throw ConsultingSummaryDescriptionCannotBeEmpty()
-        if (event.consultingType.isEmpty()) throw ConsultingSummaryTypeCannotBeEmpty()
 
-        consultingSummary = ConsultingSummary(event.consultingType, event.description, event.consultingDate)
+        consultingSummary = ConsultingSummary(event.consultingType, event.description)
     }
 
+    /**
+     *
+     */
     override fun applyEvent(event: DomainEvent) {
         when (event) {
             is ConsultingSummaryUpdatedDescriptionEvent -> apply(event)
