@@ -1,5 +1,7 @@
 package it.unibo.lss.fcla.consulting.domain.exceptions
 
+import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
+
 /**
  *
  */
@@ -9,6 +11,11 @@ class FreelancerFirstNameCannotBeNull : ConsultingException("Freelancer fist nam
  *
  */
 class FreelancerLastNameCannotBeNull : ConsultingException("Freelancer last name cannot be null or empty")
+
+/**
+ *
+ */
+class FreelancerMustHaveAValidId : ConsultingException("Freelancer must have a valid Id")
 
 /**
  *

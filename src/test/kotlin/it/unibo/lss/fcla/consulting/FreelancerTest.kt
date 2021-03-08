@@ -16,7 +16,7 @@ class FreelancerTest : FreeSpec({
 
     "A freelancer should not be created without a firstname " - {
         shouldThrow<FreelancerFirstNameCannotBeNull> {
-            Freelancer(
+            Freelancer.createFreelancer(
                 freelancerId = "12345",
                 firstName = "",
                 lastName = "turing",
@@ -27,7 +27,7 @@ class FreelancerTest : FreeSpec({
 
     "A freelancer should not be created without a lastname" - {
         shouldThrow<FreelancerLastNameCannotBeNull> {
-            Freelancer(
+            Freelancer.createFreelancer(
                 freelancerId = "12345",
                 firstName = "alan",
                 lastName = "",
@@ -51,7 +51,7 @@ class FreelancerTest : FreeSpec({
     }
 
     "A freelancer cannot have more than one availability per day" - {
-        val freelancer = Freelancer(
+        val freelancer = Freelancer.createFreelancer(
             freelancerId = "12345",
             firstName = "Mario",
             lastName = "Rossi",
@@ -67,7 +67,7 @@ class FreelancerTest : FreeSpec({
     }
 
     "Test freelancer correctly update the availability for the day" - {
-        val freelancer = Freelancer(
+        val freelancer = Freelancer.createFreelancer(
             freelancerId = "12345",
             firstName = "Mario",
             lastName = "Rossi",
@@ -83,7 +83,7 @@ class FreelancerTest : FreeSpec({
     }
 
     "Updating the availability for a day that not exist should throw error" - {
-        val freelancer = Freelancer(
+        val freelancer = Freelancer.createFreelancer(
             freelancerId = "12345",
             firstName = "Mario",
             lastName = "Rossi",

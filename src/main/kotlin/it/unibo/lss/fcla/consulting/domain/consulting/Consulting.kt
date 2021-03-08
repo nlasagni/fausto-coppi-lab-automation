@@ -53,7 +53,7 @@ class Consulting private constructor(
         }
 
         fun rehydrateConsulting(aggregateId: AggregateId, eventList: List<DomainEvent>) : Consulting {
-            var consulting = Consulting(aggregateId)
+            val consulting = Consulting(aggregateId)
             eventList.forEach { consulting.applyEvent(it) }
 
             return consulting

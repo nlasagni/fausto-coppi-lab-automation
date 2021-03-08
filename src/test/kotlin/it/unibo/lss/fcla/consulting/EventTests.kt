@@ -11,12 +11,12 @@ import java.time.LocalTime
 
 class EventTests : FreeSpec ({
 
-    "Freelancer event store accumulation test" - {
+    "Freelancer event store and rehydrating test" - {
         var eventStore = EventStore()
         var aggregateRepository = FreelancerMockRepository(eventStore)
         val aggregateID = "123"
         val date = Date(year = 2021, month = 1, day = 1)
-        val expectedEvents = 4
+        val expectedEvents = 6
 
         val freelancer = Freelancer.createFreelancer(aggregateID, firstName = "Alan",
             lastName = "Turing", role = FreelancerRole.Biomechanical())
@@ -25,16 +25,20 @@ class EventTests : FreeSpec ({
         fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
 
         freelancer.updateAvailability(availabilityDate = date, fromTime = LocalTime.MIDNIGHT, toTime = LocalTime.MAX)
-
         freelancer.deleteAvailability(availabilityDate = date)
+        freelancer.addAvailability(newAvailabilityDate = date, fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
 
         aggregateRepository.save(freelancer)
 
-        assert(eventStore.getEventsForAggregate(aggregateID).count() == expectedEvents &&
-            freelancer.getUncommittedEvents().count() == 0)
+        assert(eventStore.getEventsForAggregate(aggregateID).count() == expectedEvents)
+        assert(freelancer.getUncommittedEvents().count() == 0)
+
+        val rehydratedAggregate = Freelancer.rehydrateFreelancer(aggregateID, eventStore.getEventsForAggregate(aggregateID))
+        assert(rehydratedAggregate.getAvailabilityFromHours(date) == LocalTime.MIN)
+        assert(rehydratedAggregate.getAvailabilityToHours(date) == LocalTime.MAX)
     }
 
-    "Consulting rehydrating test" - {
+    "Consulting event store and rehydrating test" - {
         var eventStore = EventStore()
         var aggregateRepository = ConsultingMockRepository(eventStore)
         val aggregateId = "C001"

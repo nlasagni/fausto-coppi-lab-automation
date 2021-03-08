@@ -14,24 +14,36 @@ typealias FreelancerId = String
  *
  * Represents a freelancer
  */
-class Freelancer(
-    val freelancerId: FreelancerId,
-    val firstName: String,
-    val lastName: String,
-    val role: FreelancerRole
+class Freelancer private constructor(
+    val freelancerId: FreelancerId
 ) : AbstractAggregate(freelancerId) {
 
     private val availabilities = mutableListOf<Availability>()
-    private val personalData: FreelancerPersonalData = FreelancerPersonalData(firstName, lastName, role)
+    private lateinit var personalData: FreelancerPersonalData
+
+    init {
+        if(freelancerId.isEmpty()) {
+            throw FreelancerMustHaveAValidId()
+        }
+    }
 
     companion object {
+        /**
+         *
+         */
         fun createFreelancer(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) : Freelancer {
-            return Freelancer(freelancerId, firstName, lastName, role)
+            //return Freelancer(freelancerId, firstName, lastName, role)
+            val freelancer = Freelancer(freelancerId)
+            freelancer.raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName, role))
+
+            return freelancer
         }
 
-        fun hydrateFreelancer(aggregateId: AggregateId, firstName: String, lastName: String, role: FreelancerRole,
-                              eventList: List<DomainEvent>) : Freelancer {
-            var freelancer = Freelancer(aggregateId, firstName, lastName, role)
+        /**
+         *
+         */
+        fun rehydrateFreelancer(aggregateId: AggregateId, eventList: List<DomainEvent>) : Freelancer {
+            val freelancer = Freelancer(aggregateId)
             eventList.forEach { freelancer.applyEvent(it) }
 
             return freelancer
@@ -104,6 +116,12 @@ class Freelancer(
         availabilities.removeIf { it.availabilityDate == event.availabilityDate }
     }
 
+    /**
+     *
+     */
+    private fun apply(event: FreelancerCreatedEvent) {
+        personalData = FreelancerPersonalData(event.firstName, event.lastName, event.role)
+    }
 
     /**
      *
@@ -112,6 +130,7 @@ class Freelancer(
         when (event) {
             is FreelancerAvailabilityCreatedEvent -> apply(event)
             is FreelancerAvailabilityDeletedEvent -> apply(event)
+            is FreelancerCreatedEvent -> apply(event)
             else -> throw IllegalArgumentException() //TODO fixme
         }
     }
@@ -120,6 +139,7 @@ class Freelancer(
      *
      */
     override fun toString(): String {
-        return "Freelancer(id=$freelancerId, firstName=$firstName, lastName=$lastName, role=$role"
+        return "Freelancer(id=$freelancerId, firstName=${personalData.firstName}, " +
+                "lastName=${personalData.lastName}, role=${personalData.role.toString()}"
     }
 }
