@@ -3,6 +3,7 @@ package it.unibo.lss.fcla.consulting.domain.consulting
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.consulting.events.ConsultingSummaryCreatedEvent
+import it.unibo.lss.fcla.consulting.domain.consulting.events.ConsultingSummaryUpdatedDescriptionEvent
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidId
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidMember
@@ -14,10 +15,9 @@ typealias MemberId = String
 /**
  * @author Stefano Braggion
  *
- * The [Consulting] represent the main entity to manage all members consulting
- * summaries.
+ * The [Consulting] represent the
  *
- * Here a member can receive a consulting
+ *
  */
 class Consulting(
     private val consultingId: ConsultingId,
@@ -31,7 +31,7 @@ class Consulting(
     private lateinit var consultingSummary: ConsultingSummary
 
     /**
-     * Check invariants
+     *
      */
     init {
         if(consultingId.isEmpty()) {
@@ -63,6 +63,10 @@ class Consulting(
         }*/
     }
 
+    fun updateSummaryDescription(consultingDescription: String) {
+        raiseEvent(ConsultingSummaryUpdatedDescriptionEvent(consultingId, consultingDescription))
+    }
+
     /**
      *
      */
@@ -79,12 +83,17 @@ class Consulting(
         event.consultingType, event.consultingDescription)
     }
 
+    private fun apply(event: ConsultingSummaryUpdatedDescriptionEvent) {
+        consultingSummary = ConsultingSummary(consultingDate, freelancerId, consultingType, event.description)
+    }
+
     /**
      *
      */
     override fun applyEvent(event: DomainEvent) {
         when (event) {
             is ConsultingSummaryCreatedEvent -> apply(event)
+            is ConsultingSummaryUpdatedDescriptionEvent -> apply(event)
             else -> throw IllegalArgumentException() //TODO fixme
         }
     }

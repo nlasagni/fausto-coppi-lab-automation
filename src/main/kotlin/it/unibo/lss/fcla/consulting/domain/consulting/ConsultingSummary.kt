@@ -8,7 +8,8 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
  * @author Stefano Braggion
  *
  * Value object representing a consulting summary
- * with a [consultingType] and containing a [description]
+ * with a [consultingType] and containing a [description], executed by a
+ * freelancer identified with [freelancerId] in a specific [consultingDate]
  */
 data class ConsultingSummary(
     val consultingDate: Date,
@@ -20,6 +21,9 @@ data class ConsultingSummary(
     init {
         if (description.isEmpty()) {
             throw ConsultingSummaryDescriptionCannotBeEmpty()
+        }
+        if(freelancerId.isEmpty()) {
+            throw ConsultingSummaryMustHaveAValidFreelancer()
         }
     }
 
