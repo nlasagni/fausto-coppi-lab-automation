@@ -1,6 +1,7 @@
-package it.unibo.lss.fcla.consulting.domain.consulting
+package it.unibo.lss.fcla.consulting.domain.consulting.events
 
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
+import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingType
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
@@ -11,8 +12,8 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
  * Event representing a created consulting summary
  */
 data class ConsultingSummaryCreatedEvent(
-    val consultingId: ConsultingId,
-    val consultingType: ConsultingType,
+    val freelancerId: FreelancerId,
     val consultingDate: Date,
-    val description: String
+    val consultingType: ConsultingType,
+    val consultingDescription: String
 ) : DomainEvent

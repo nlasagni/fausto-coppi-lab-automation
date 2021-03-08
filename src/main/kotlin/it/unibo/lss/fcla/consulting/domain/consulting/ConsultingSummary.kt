@@ -1,6 +1,8 @@
 package it.unibo.lss.fcla.consulting.domain.consulting
 
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
+import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryMustHaveAValidFreelancer
+import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
 /**
  * @author Stefano Braggion
@@ -8,7 +10,12 @@ import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescripti
  * Value object representing a consulting summary
  * with a [consultingType] and containing a [description]
  */
-data class ConsultingSummary(val consultingType: ConsultingType, val description: String) {
+data class ConsultingSummary(
+    val consultingDate: Date,
+    val freelancerId: FreelancerId,
+    val consultingType: ConsultingType,
+    val description: String
+) {
 
     init {
         if (description.isEmpty()) {

@@ -1,7 +1,9 @@
 package it.unibo.lss.fcla.consulting.usecases
 
+import it.unibo.lss.fcla.consulting.common.IRepository
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
-import it.unibo.lss.fcla.consulting.domain.member.MemberId
+import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingSummary
+import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
 
 /**
  * @author Stefano Braggion

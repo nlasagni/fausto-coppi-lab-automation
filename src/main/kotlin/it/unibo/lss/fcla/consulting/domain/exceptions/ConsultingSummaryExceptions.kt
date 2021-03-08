@@ -14,3 +14,8 @@ class ConsultingSummaryDescriptionCannotBeEmpty : ConsultingException("A consult
  * Exception that occur when a consulting is created with an invalid freelancer
  */
 class ConsultingSummaryWithInvalidFreelancer : ConsultingException("A consulting must have a valid freelancer")
+
+/**
+ *
+ */
+class ConsultingSummaryMustHaveAValidFreelancer : ConsultingException("A consulting summary must have a valid freelancer")
