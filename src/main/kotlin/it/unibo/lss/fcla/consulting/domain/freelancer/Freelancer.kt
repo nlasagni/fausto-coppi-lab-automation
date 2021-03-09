@@ -4,7 +4,10 @@ import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
-import it.unibo.lss.fcla.consulting.domain.exceptions.*
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityNotValidTime
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerMustHaveAValidId
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerAvailabilityCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerAvailabilityDeletedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerCreatedEvent
@@ -25,7 +28,7 @@ class Freelancer internal constructor(
     private lateinit var personalData: FreelancerPersonalData
 
     init {
-        if(freelancerId.isEmpty()) {
+        if (freelancerId.isEmpty()) {
             throw FreelancerMustHaveAValidId()
         }
     }
@@ -34,7 +37,7 @@ class Freelancer internal constructor(
         /**
          *
          */
-        fun rehydrateFreelancer(aggregateId: AggregateId, eventList: List<DomainEvent>) : Freelancer {
+        fun rehydrateFreelancer(aggregateId: AggregateId, eventList: List<DomainEvent>): Freelancer {
             val freelancer = Freelancer(aggregateId)
             eventList.forEach { freelancer.applyEvent(it) }
 
@@ -82,11 +85,11 @@ class Freelancer internal constructor(
     /**
      *
      */
-    fun getAvailabilityForDay(availabilityDate: Date) : AvailabilityHours {
+    fun getAvailabilityForDay(availabilityDate: Date): AvailabilityHours {
         val fromTime = availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.fromTime
         val toTime = availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.toTime
 
-        if(fromTime == null || toTime == null) {
+        if (fromTime == null || toTime == null) {
             throw FreelancerAvailabilityDoesNotExist()
         }
 
@@ -125,7 +128,7 @@ class Freelancer internal constructor(
             is FreelancerAvailabilityCreatedEvent -> apply(event)
             is FreelancerAvailabilityDeletedEvent -> apply(event)
             is FreelancerCreatedEvent -> apply(event)
-            else -> throw IllegalArgumentException() //TODO fixme
+            else -> throw IllegalArgumentException() // TODO fixme
         }
     }
 
@@ -134,6 +137,6 @@ class Freelancer internal constructor(
      */
     override fun toString(): String {
         return "Freelancer(id=$freelancerId, firstName=${personalData.firstName}, " +
-                "lastName=${personalData.lastName}, role=${personalData.role.toString()}"
+            "lastName=${personalData.lastName}, role=${personalData.role}"
     }
 }

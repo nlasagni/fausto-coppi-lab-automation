@@ -1,7 +1,5 @@
 package it.unibo.lss.fcla.consulting.domain.exceptions
 
-import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
-
 /**
  *
  */

@@ -3,6 +3,9 @@ package it.unibo.lss.fcla.consulting.domain.freelancer
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
 
+/**
+ *
+ */
 data class FreelancerPersonalData(
     val firstName: String,
     val lastName: String,
@@ -10,9 +13,11 @@ data class FreelancerPersonalData(
 ) {
 
     init {
-        if(firstName.isEmpty())
+        if (firstName.isEmpty()) {
             throw FreelancerFirstNameCannotBeNull()
-        if(lastName.isEmpty())
+        }
+        if (lastName.isEmpty()) {
             throw FreelancerLastNameCannotBeNull()
+        }
     }
 }

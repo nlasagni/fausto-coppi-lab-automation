@@ -22,7 +22,7 @@ data class ConsultingSummary(
         if (description.isEmpty()) {
             throw ConsultingSummaryDescriptionCannotBeEmpty()
         }
-        if(freelancerId.isEmpty()) {
+        if (freelancerId.isEmpty()) {
             throw ConsultingSummaryMustHaveAValidFreelancer()
         }
     }
@@ -31,6 +31,6 @@ data class ConsultingSummary(
      * String representation of a consulting summary
      */
     override fun toString(): String {
-        return "ConsultingSummary(type=${consultingType.toString()}, description=$description)"
+        return "ConsultingSummary(type=$consultingType, description=$description)"
     }
 }

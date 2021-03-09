@@ -14,11 +14,9 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 /**
  *
  */
-class FreelancerMockRepository(eventStore: EventStore) : EventSourcedRepository<Freelancer>(eventStore) {
-}
+class FreelancerMockRepository(eventStore: EventStore) : EventSourcedRepository<Freelancer>(eventStore)
 
 /**
  *
  */
-class ConsultingMockRepository(eventStore: EventStore) : EventSourcedRepository<Consulting>(eventStore) {
-}
+class ConsultingMockRepository(eventStore: EventStore) : EventSourcedRepository<Consulting>(eventStore)

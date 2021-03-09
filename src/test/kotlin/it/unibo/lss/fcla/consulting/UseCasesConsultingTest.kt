@@ -3,7 +3,6 @@ package it.unibo.lss.fcla.consulting
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.common.EventStore
-import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.usecases.ConsultingShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.ConsultingUseCases
@@ -16,12 +15,22 @@ class UseCasesConsultingTest : FreeSpec({
         var aggregateRepository = ConsultingMockRepository(eventStore)
         val useCasesConsulting = ConsultingUseCases(aggregateRepository)
 
-        useCasesConsulting.receiveAthleticTrainerConsulting(consultingId = "C001", memberId = "M001",
-        consultingDate = Date(2021, 1, 1), freelancerId = "F001", description = "description")
+        useCasesConsulting.receiveAthleticTrainerConsulting(
+            consultingId = "C001",
+            memberId = "M001",
+            consultingDate = Date(2021, 1, 1),
+            freelancerId = "F001",
+            description = "description"
+        )
 
         shouldThrow<ConsultingShouldHaveAUniqueId> {
-            useCasesConsulting.receiveBiomechanicalConsulting(consultingId = "C001", memberId = "M001",
-                consultingDate = Date(2021, 1, 1), freelancerId = "F002", description = "description description")
+            useCasesConsulting.receiveBiomechanicalConsulting(
+                consultingId = "C001",
+                memberId = "M001",
+                consultingDate = Date(2021, 1, 1),
+                freelancerId = "F002",
+                description = "description description"
+            )
         }
     }
 

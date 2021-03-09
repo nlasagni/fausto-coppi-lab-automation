@@ -10,7 +10,7 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 /**
  * @author Stefano Braggion
  *
- * Event representing a created consulting summary
+ * Event representing a created consulting
  */
 data class ConsultingCreatedEvent(
     val consultingId: ConsultingId,

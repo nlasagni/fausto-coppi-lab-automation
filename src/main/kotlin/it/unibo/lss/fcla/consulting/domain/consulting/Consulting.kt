@@ -3,12 +3,10 @@ package it.unibo.lss.fcla.consulting.domain.consulting
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.consulting.events.ConsultingCreatedEvent
-import it.unibo.lss.fcla.consulting.domain.consulting.events.ConsultingSummaryCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.consulting.events.ConsultingSummaryUpdatedDescriptionEvent
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidId
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidMember
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
 typealias ConsultingId = String
 typealias MemberId = String
@@ -17,7 +15,6 @@ typealias MemberId = String
  * @author Stefano Braggion
  *
  * The [Consulting] represent the
- *
  *
  */
 class Consulting internal constructor(
@@ -28,17 +25,25 @@ class Consulting internal constructor(
     private lateinit var consultingSummary: ConsultingSummary
 
     init {
-        if(consultingId.isEmpty()) {
+        if (consultingId.isEmpty()) {
             throw ConsultingMustHaveAValidId()
         }
 
-        if(memberId.isEmpty()) {
+        if (memberId.isEmpty()) {
             throw ConsultingMustHaveAValidMember()
         }
     }
 
     companion object {
-        fun rehydrateConsulting(aggregateId: AggregateId, memberId: MemberId, eventList: List<DomainEvent>) : Consulting {
+        /**
+         *
+         */
+        fun rehydrateConsulting(
+            aggregateId: AggregateId,
+            memberId: MemberId,
+            eventList: List<DomainEvent>
+        ): Consulting {
+
             val consulting = Consulting(aggregateId, memberId)
             eventList.forEach { consulting.applyEvent(it) }
 
@@ -46,6 +51,9 @@ class Consulting internal constructor(
         }
     }
 
+    /**
+     *
+     */
     fun updateSummaryDescription(consultingDescription: String) {
         raiseEvent(ConsultingSummaryUpdatedDescriptionEvent(consultingId, consultingDescription))
     }
@@ -53,15 +61,19 @@ class Consulting internal constructor(
     /**
      *
      */
-    fun getSummaryDescription() : String = consultingSummary.description
+    fun getSummaryDescription(): String = consultingSummary.description
 
     /**
      * Apply the event [ConsultingCreatedEvent]: created a new consulting with
      * a consulting summary
      */
     private fun apply(event: ConsultingCreatedEvent) {
-        consultingSummary = ConsultingSummary(event.consultingDate, event.freelancerId,
-        event.consultingType, event.description)
+        consultingSummary = ConsultingSummary(
+            event.consultingDate,
+            event.freelancerId,
+            event.consultingType,
+            event.description
+        )
     }
 
     /**
@@ -69,8 +81,12 @@ class Consulting internal constructor(
      * of the summary was updated
      */
     private fun apply(event: ConsultingSummaryUpdatedDescriptionEvent) {
-        consultingSummary = ConsultingSummary(consultingSummary.consultingDate,
-            consultingSummary.freelancerId, consultingSummary.consultingType, event.description)
+        consultingSummary = ConsultingSummary(
+            consultingSummary.consultingDate,
+            consultingSummary.freelancerId,
+            consultingSummary.consultingType,
+            event.description
+        )
     }
 
     /**
@@ -80,7 +96,7 @@ class Consulting internal constructor(
         when (event) {
             is ConsultingCreatedEvent -> apply(event)
             is ConsultingSummaryUpdatedDescriptionEvent -> apply(event)
-            else -> throw IllegalArgumentException() //TODO fixme
+            else -> throw IllegalArgumentException() // TODO fixme
         }
     }
 }

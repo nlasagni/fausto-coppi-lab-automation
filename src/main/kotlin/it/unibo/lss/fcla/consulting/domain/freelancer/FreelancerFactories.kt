@@ -5,12 +5,21 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerCreatedEv
 /**
  *
  */
-fun Freelancer.Companion.createPhysiotherapist(freelancerId: FreelancerId, firstName: String,
-                                               lastName: String) : Freelancer {
+fun Freelancer.Companion.createPhysiotherapist(
+    freelancerId: FreelancerId,
+    firstName: String,
+    lastName: String
+): Freelancer {
 
     val freelancer = Freelancer(freelancerId)
-    freelancer.raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName,
-        FreelancerRole.Physiotherapist()))
+    freelancer.raiseEvent(
+        FreelancerCreatedEvent(
+            freelancerId,
+            firstName,
+            lastName,
+            FreelancerRole.Physiotherapist()
+        )
+    )
 
     return freelancer
 }
@@ -18,12 +27,21 @@ fun Freelancer.Companion.createPhysiotherapist(freelancerId: FreelancerId, first
 /**
  *
  */
-fun Freelancer.Companion.createNutritionist(freelancerId: FreelancerId, firstName: String,
-                                               lastName: String) : Freelancer {
+fun Freelancer.Companion.createNutritionist(
+    freelancerId: FreelancerId,
+    firstName: String,
+    lastName: String
+): Freelancer {
 
     val freelancer = Freelancer(freelancerId)
-    freelancer.raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName,
-        FreelancerRole.Nutritionist()))
+    freelancer.raiseEvent(
+        FreelancerCreatedEvent(
+            freelancerId,
+            firstName,
+            lastName,
+            FreelancerRole.Nutritionist()
+        )
+    )
 
     return freelancer
 }
@@ -31,12 +49,21 @@ fun Freelancer.Companion.createNutritionist(freelancerId: FreelancerId, firstNam
 /**
  *
  */
-fun Freelancer.Companion.createAthleticTrainer(freelancerId: FreelancerId, firstName: String,
-                                            lastName: String) : Freelancer {
+fun Freelancer.Companion.createAthleticTrainer(
+    freelancerId: FreelancerId,
+    firstName: String,
+    lastName: String
+): Freelancer {
 
     val freelancer = Freelancer(freelancerId)
-    freelancer.raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName,
-        FreelancerRole.AthleticTrainer()))
+    freelancer.raiseEvent(
+        FreelancerCreatedEvent(
+            freelancerId,
+            firstName,
+            lastName,
+            FreelancerRole.AthleticTrainer()
+        )
+    )
 
     return freelancer
 }
@@ -44,12 +71,21 @@ fun Freelancer.Companion.createAthleticTrainer(freelancerId: FreelancerId, first
 /**
  *
  */
-fun Freelancer.Companion.createBiomechanical(freelancerId: FreelancerId, firstName: String,
-                                            lastName: String) : Freelancer {
+fun Freelancer.Companion.createBiomechanical(
+    freelancerId: FreelancerId,
+    firstName: String,
+    lastName: String
+): Freelancer {
 
     val freelancer = Freelancer(freelancerId)
-    freelancer.raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName,
-        FreelancerRole.Biomechanical()))
+    freelancer.raiseEvent(
+        FreelancerCreatedEvent(
+            freelancerId,
+            firstName,
+            lastName,
+            FreelancerRole.Biomechanical()
+        )
+    )
 
     return freelancer
 }

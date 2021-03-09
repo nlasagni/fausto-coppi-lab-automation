@@ -13,7 +13,7 @@ import java.time.LocalTime
 data class AvailabilityHours(val fromTime: LocalTime, val toTime: LocalTime) {
 
     init {
-        if(fromTime.isAfter(toTime)) {
+        if (fromTime.isAfter(toTime)) {
             throw FreelancerAvailabilityNotValidTime()
         }
     }
