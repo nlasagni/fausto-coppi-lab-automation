@@ -11,5 +11,5 @@ import java.util.UUID
 data class RequestSucceeded(
     override val id: UUID,
     val requestId: UUID,
-    val message: String = "Everything fine"
+    val message: String = "The request succeeded"
 ) : Event
