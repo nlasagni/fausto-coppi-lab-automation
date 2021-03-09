@@ -2,10 +2,7 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
-import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
-import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
+import it.unibo.lss.fcla.consulting.domain.consulting.*
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidId
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidMember
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
@@ -58,5 +55,19 @@ class ConsultingTest : FreeSpec({
                 description = ""
             )
         }
+    }
+
+    "Consulting type equality" - {
+        val firstNutritionConsulting = ConsultingType.NutritionConsulting()
+        val secondNutritionConsulting = ConsultingType.NutritionConsulting()
+
+        assert(firstNutritionConsulting.equals(secondNutritionConsulting))
+    }
+
+    "Consulting type inequality" - {
+        val nutritionConsulting = ConsultingType.NutritionConsulting()
+        val athleticTrainerConsulting = ConsultingType.AthleticTrainerConsulting()
+
+        assert(!nutritionConsulting.equals(athleticTrainerConsulting))
     }
 })

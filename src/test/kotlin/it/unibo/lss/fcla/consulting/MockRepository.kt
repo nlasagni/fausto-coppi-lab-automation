@@ -12,11 +12,11 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
  */
 
 /**
- *
+ * Represent a mock repository for freelancer aggregate
  */
 class FreelancerMockRepository(eventStore: EventStore) : EventSourcedRepository<Freelancer>(eventStore)
 
 /**
- *
+ * Represent a mock repository for consulting aggregate
  */
 class ConsultingMockRepository(eventStore: EventStore) : EventSourcedRepository<Consulting>(eventStore)

@@ -5,6 +5,7 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.common.EventStore
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
 import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
@@ -50,5 +51,54 @@ class UseCasesFreelancerTest : FreeSpec({
             useCasesFreelancer.getFreelancerAvailabilityForDay(freelancerId = id, day = date) ==
                 AvailabilityHours(LocalTime.MIN, LocalTime.MAX)
         )
+    }
+
+    "Test update day availabilities for freelancer" - {
+        var eventStore = EventStore()
+        var aggregateRepository = FreelancerMockRepository(eventStore)
+        val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
+        val id = "F001"
+        val date = Date(2021, 1, 1)
+
+        useCasesFreelancer.createAthleticTrainer(freelancerId = id, firstName = "Alan", lastName = "Turing")
+        useCasesFreelancer.createFreelancerAvailabilityForDay(
+            freelancerId = id,
+            day = date,
+            fromTime = LocalTime.MIN,
+            toTime = LocalTime.MAX
+        )
+
+        val from: LocalTime = LocalTime.now()
+        val to: LocalTime = LocalTime.now().plusHours(2)
+
+        useCasesFreelancer.updateFreelancerAvailabilityForDay(freelancerId = id, day = date,
+        fromTime = from, toTime = to)
+
+        assert(
+            useCasesFreelancer.getFreelancerAvailabilityForDay(freelancerId = id, day = date) ==
+                    AvailabilityHours(fromTime = from, toTime = to)
+        )
+    }
+
+    "Test delete day availabilities for freelancer" - {
+        var eventStore = EventStore()
+        var aggregateRepository = FreelancerMockRepository(eventStore)
+        val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
+        val id = "F001"
+        val date = Date(2021, 1, 1)
+
+        useCasesFreelancer.createAthleticTrainer(freelancerId = id, firstName = "Alan", lastName = "Turing")
+        useCasesFreelancer.createFreelancerAvailabilityForDay(
+            freelancerId = id,
+            day = date,
+            fromTime = LocalTime.MIN,
+            toTime = LocalTime.MAX
+        )
+
+        useCasesFreelancer.deleteFreelancerAvailabilityForDay(freelancerId = id, day = date)
+
+        shouldThrow<FreelancerAvailabilityDoesNotExist> {
+            useCasesFreelancer.getFreelancerAvailabilityForDay(freelancerId = id, day = date)
+        }
     }
 })
