@@ -7,6 +7,6 @@ import java.util.UUID
  * An event representing an update to a consulting reservation freelancer
  */
 data class ConsultingReservationUpdateFreelancer(
-    override val id: UUID,
+    override val eventId: UUID,
     val freelancer: String
 ) : Event

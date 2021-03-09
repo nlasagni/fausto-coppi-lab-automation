@@ -31,7 +31,7 @@ class CommandReservationUseCase(
      */
     private fun handleRequestResult(event: Event, producer: Producer): String {
         eventStore.evolve(headquarterId, event, producer)
-        when (val resultEvent = eventStore.getStream(event.id).first()) {
+        when (val resultEvent = eventStore.getStream(event.eventId).first()) {
             is RequestSucceeded -> return resultEvent.message
             is RequestFailed -> throw RequestFailedException(resultEvent.message)
             else -> throw RequestFailedException()

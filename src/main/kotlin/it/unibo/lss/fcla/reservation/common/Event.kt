@@ -3,8 +3,8 @@ package it.unibo.lss.fcla.reservation.common
 import java.util.UUID
 
 /**
- * This is the interface of Event which have an [id]
+ * This is the interface of Event which have an [eventId]
  */
 interface Event {
-    val id: UUID
+    val eventId: UUID
 }

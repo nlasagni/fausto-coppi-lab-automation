@@ -6,10 +6,10 @@ import java.util.UUID
 /**
  * An event representing the success of a Consulting or Workout reservation.
  *
- * It needs the [id] of this event, the [requestId], and the [message] of the success of the event that occurred.
+ * It needs the [eventId] of this event, the [requestId], and the [message] of the success of the event that occurred.
  */
 data class RequestSucceeded(
-    override val id: UUID,
+    override val eventId: UUID,
     val requestId: UUID,
     val message: String = "The request succeeded"
 ) : Event

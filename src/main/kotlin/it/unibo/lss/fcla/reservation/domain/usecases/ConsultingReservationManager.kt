@@ -62,10 +62,10 @@ class ConsultingReservationManager(
      */
     private fun closeConsultingReservation(event: CloseConsultingReservationRequest):
         Map<UUID, List<Event>> {
-            val retrievedReservation = retrieveReservation(event.reservationId)
-                ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
+            val retrievedReservation = retrieveReservation(event.reservationToCloseId)
+                ?: return errorInRequest(event.eventId, RequestFailedMessages.reservationNotFound)
             if (retrievedReservation is CloseConsultingReservation) {
-                return errorInRequest(event.id, RequestFailedMessages.alreadyCloseReservation)
+                return errorInRequest(event.eventId, RequestFailedMessages.alreadyCloseReservation)
             }
             val updatedReservation = computeConsultingReservation(retrievedReservation as OpenConsultingReservation)
             val closedReservation = CloseConsultingReservation(
@@ -78,11 +78,11 @@ class ConsultingReservationManager(
             val agendaAddReservationEvent =
                 AgendaAddConsultingReservation(UUID.randomUUID(), closedReservation)
             if (!(
-                memberOwnReservation(event.memberId, event.reservationId)
-                    ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound)
+                memberOwnReservation(event.memberId, event.reservationToCloseId)
+                    ?: return errorInRequest(event.eventId, RequestFailedMessages.memberNotFound)
                 )
             ) {
-                return errorInRequest(event.id, RequestFailedMessages.wrongMember)
+                return errorInRequest(event.eventId, RequestFailedMessages.wrongMember)
             }
             val memberDeleteReservationEvent =
                 MemberDeleteConsultingReservation(UUID.randomUUID(), retrievedReservation)
@@ -91,7 +91,7 @@ class ConsultingReservationManager(
             return mapOf(
                 agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
                 event.memberId to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
-                event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
+                event.eventId to listOf(RequestSucceeded(UUID.randomUUID(), event.eventId))
             )
         }
 
@@ -110,9 +110,9 @@ class ConsultingReservationManager(
                 UUID.randomUUID()
             )
         } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
-            return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
+            return errorInRequest(event.eventId, RequestFailedMessages.emptyConsultingFreelancer)
         } catch (exception: OpenReservationMustNotHavePastDate) {
-            return errorInRequest(event.id, RequestFailedMessages.pastDateInReservation)
+            return errorInRequest(event.eventId, RequestFailedMessages.pastDateInReservation)
         }
         val agendaAddReservationEvent =
             AgendaAddConsultingReservation(UUID.randomUUID(), openConsulting)
@@ -121,7 +121,7 @@ class ConsultingReservationManager(
         val resultMap: Map<UUID, List<Event>> = mapOf(
             agenda.id to listOf(agendaAddReservationEvent),
             event.memberId to listOf(memberAddReservationEvent),
-            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
+            event.eventId to listOf(RequestSucceeded(UUID.randomUUID(), event.eventId))
         )
         return try {
             ledger.retrieveAllMembers().first { member -> member.id == event.memberId }
@@ -143,23 +143,23 @@ class ConsultingReservationManager(
      * the aggregate when [DeleteConsultingReservationRequest] occurs.
      */
     private fun deleteConsultingReservation(event: DeleteConsultingReservationRequest): Map<UUID, List<Event>> {
-        val retrievedReservation = retrieveReservation(event.reservationId)
-            ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
+        val retrievedReservation = retrieveReservation(event.reservationToDeleteId)
+            ?: return errorInRequest(event.eventId, RequestFailedMessages.reservationNotFound)
         val agendaDeleteReservationEvent =
             AgendaDeleteConsultingReservation(UUID.randomUUID(), retrievedReservation)
         val memberDeleteReservationEvent =
             MemberDeleteConsultingReservation(UUID.randomUUID(), retrievedReservation)
         if (!(
-            memberOwnReservation(event.memberId, event.reservationId)
-                ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound)
+            memberOwnReservation(event.memberId, event.reservationToDeleteId)
+                ?: return errorInRequest(event.eventId, RequestFailedMessages.memberNotFound)
             )
         ) {
-            return errorInRequest(event.id, RequestFailedMessages.wrongMember)
+            return errorInRequest(event.eventId, RequestFailedMessages.wrongMember)
         }
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent),
             event.memberId to listOf(memberDeleteReservationEvent),
-            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
+            event.eventId to listOf(RequestSucceeded(UUID.randomUUID(), event.eventId))
         )
     }
 
@@ -168,25 +168,25 @@ class ConsultingReservationManager(
      * the aggregate when [UpdateConsultingReservationRequest] occurs.
      */
     private fun updateConsultingReservation(event: UpdateConsultingReservationRequest): Map<UUID, List<Event>> {
-        val retrievedReservation = retrieveReservation(event.reservationId)
-            ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
+        val retrievedReservation = retrieveReservation(event.reservationToUpdateId)
+            ?: return errorInRequest(event.eventId, RequestFailedMessages.reservationNotFound)
         if (retrievedReservation is CloseConsultingReservation) {
-            return errorInRequest(event.id, RequestFailedMessages.noUpdateToCloseReservation)
+            return errorInRequest(event.eventId, RequestFailedMessages.noUpdateToCloseReservation)
         }
         try {
-            OpenConsultingReservation(event.date, event.freelancer, event.id)
+            OpenConsultingReservation(event.date, event.freelancer, event.eventId)
         } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
-            return errorInRequest(event.id, RequestFailedMessages.emptyConsultingFreelancer)
+            return errorInRequest(event.eventId, RequestFailedMessages.emptyConsultingFreelancer)
         } catch (exception: OpenReservationMustNotHavePastDate) {
-            return errorInRequest(event.id, RequestFailedMessages.pastDateInReservation)
+            return errorInRequest(event.eventId, RequestFailedMessages.pastDateInReservation)
         }
         val updateConsultingFreelancerEvent =
             ConsultingReservationUpdateFreelancer(UUID.randomUUID(), event.freelancer)
         val updateConsultingDateEvent =
             ConsultingReservationUpdateDate(UUID.randomUUID(), event.date)
         return mapOf(
-            event.reservationId to listOf(updateConsultingFreelancerEvent, updateConsultingDateEvent),
-            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
+            event.reservationToUpdateId to listOf(updateConsultingFreelancerEvent, updateConsultingDateEvent),
+            event.eventId to listOf(RequestSucceeded(UUID.randomUUID(), event.eventId))
         )
     }
 

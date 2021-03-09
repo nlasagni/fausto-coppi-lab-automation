@@ -8,6 +8,6 @@ import java.util.UUID
  * An event representing an added member to the Ledger
  */
 data class LedgerAddMember(
-    override val id: UUID,
+    override val eventId: UUID,
     val member: Member
 ) : Event

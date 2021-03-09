@@ -8,6 +8,6 @@ import java.util.UUID
  * An event representing a deleted consulting reservation to the Agenda
  */
 data class AgendaDeleteConsultingReservation(
-    override val id: UUID,
+    override val eventId: UUID,
     val reservation: ConsultingReservation
 ) : Event

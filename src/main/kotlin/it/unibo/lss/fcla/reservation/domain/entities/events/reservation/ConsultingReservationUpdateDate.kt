@@ -8,6 +8,6 @@ import java.util.UUID
  * An event representing an update to a consulting reservation date
  */
 data class ConsultingReservationUpdateDate(
-    override val id: UUID,
+    override val eventId: UUID,
     val date: Date
 ) : Event

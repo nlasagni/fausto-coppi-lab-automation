@@ -7,6 +7,6 @@ import java.util.UUID
  * An event representing an update to a workout reservation aim
  */
 data class WorkoutReservationUpdateAim(
-    override val id: UUID,
+    override val eventId: UUID,
     val aim: String
 ) : Event

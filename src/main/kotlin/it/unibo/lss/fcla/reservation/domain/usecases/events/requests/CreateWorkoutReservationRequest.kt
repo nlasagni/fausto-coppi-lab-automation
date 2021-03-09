@@ -7,12 +7,12 @@ import java.util.UUID
 /**
  * An event representing the creation of a workout reservation.
  *
- * It needs the [id] of this event, the [aim] of the workout reservation,
+ * It needs the [eventId] of this event, the [aim] of the workout reservation,
  * the [date] of the consulting reservation, the [firstName], the [lastName] and the [memberId] of the Member who
  * require the consulting.
  */
 data class CreateWorkoutReservationRequest(
-    override val id: UUID,
+    override val eventId: UUID,
     val aim: String,
     val date: Date,
     val firstName: String,

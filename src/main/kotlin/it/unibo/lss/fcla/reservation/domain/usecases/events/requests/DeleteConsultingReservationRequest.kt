@@ -6,11 +6,11 @@ import java.util.UUID
 /**
  * An event representing the deletion of a consulting reservation.
  *
- * It needs the [id] of this event, the [reservationId] of the consulting reservation a Member wants to delete
- * and the [memberId] of the Member whose consultation is to be deleted.
+ * It needs the [eventId] of this event, the [reservationToDeleteId] of the consulting reservation
+ * a Member wants to delete and the [memberId] of the Member whose consultation is to be deleted.
  */
 data class DeleteConsultingReservationRequest(
-    override val id: UUID,
-    val reservationId: UUID,
+    override val eventId: UUID,
+    val reservationToDeleteId: UUID,
     val memberId: UUID
 ) : Event

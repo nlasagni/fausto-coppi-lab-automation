@@ -6,10 +6,10 @@ import java.util.UUID
 /**
  * An event representing the closure of a workout reservation.
  *
- * IIt needs the [id] of this event, a [reservationId], and the [memberId]
+ * IIt needs the [eventId] of this event, a [reservationToCloseId], and the [memberId]
  */
 data class CloseWorkoutReservationRequest(
-    override val id: UUID,
-    val reservationId: UUID,
+    override val eventId: UUID,
+    val reservationToCloseId: UUID,
     val memberId: UUID
 ) : Event

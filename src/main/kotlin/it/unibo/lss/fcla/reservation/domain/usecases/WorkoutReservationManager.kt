@@ -65,10 +65,10 @@ class WorkoutReservationManager(
      */
     private fun closeWorkoutReservation(event: CloseWorkoutReservationRequest):
         Map<UUID, List<Event>> {
-            val retrievedReservation = retrieveReservation(event.reservationId)
-                ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
+            val retrievedReservation = retrieveReservation(event.reservationToCloseId)
+                ?: return errorMap(event.eventId, RequestFailedMessages.reservationNotFound)
             if (retrievedReservation is CloseWorkoutReservation) {
-                return errorMap(event.id, RequestFailedMessages.alreadyCloseReservation)
+                return errorMap(event.eventId, RequestFailedMessages.alreadyCloseReservation)
             }
             val updatedReservation = computeWorkoutReservation(retrievedReservation as OpenWorkoutReservation)
             val closedReservation = CloseWorkoutReservation(
@@ -80,11 +80,11 @@ class WorkoutReservationManager(
                 AgendaDeleteWorkoutReservation(UUID.randomUUID(), retrievedReservation)
             val agendaAddReservationEvent = AgendaAddWorkoutReservation(UUID.randomUUID(), closedReservation)
             if (!(
-                memberOwnReservation(event.memberId, event.reservationId)
-                    ?: return errorMap(event.id, RequestFailedMessages.memberNotFound)
+                memberOwnReservation(event.memberId, event.reservationToCloseId)
+                    ?: return errorMap(event.eventId, RequestFailedMessages.memberNotFound)
                 )
             ) {
-                return errorMap(event.id, RequestFailedMessages.wrongMember)
+                return errorMap(event.eventId, RequestFailedMessages.wrongMember)
             }
             val memberDeleteReservationEvent =
                 MemberDeleteWorkoutReservation(UUID.randomUUID(), retrievedReservation)
@@ -92,7 +92,7 @@ class WorkoutReservationManager(
             return mapOf(
                 agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
                 event.memberId to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
-                event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
+                event.eventId to listOf(RequestSucceeded(UUID.randomUUID(), event.eventId))
             )
         }
 
@@ -109,9 +109,9 @@ class WorkoutReservationManager(
                 UUID.randomUUID()
             )
         } catch (exception: WorkoutReservationAimCannotBeEmpty) {
-            return errorMap(event.id, RequestFailedMessages.emptyWorkoutAim)
+            return errorMap(event.eventId, RequestFailedMessages.emptyWorkoutAim)
         } catch (exception: OpenReservationMustNotHavePastDate) {
-            return errorMap(event.id, RequestFailedMessages.pastDateInReservation)
+            return errorMap(event.eventId, RequestFailedMessages.pastDateInReservation)
         }
         val agendaAddReservationEvent =
             AgendaAddWorkoutReservation(UUID.randomUUID(), workoutReservation)
@@ -120,7 +120,7 @@ class WorkoutReservationManager(
         val resultMap: Map<UUID, List<Event>> = mapOf(
             agenda.id to listOf(agendaAddReservationEvent),
             event.memberId to listOf(memberAddReservationEvent),
-            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
+            event.eventId to listOf(RequestSucceeded(UUID.randomUUID(), event.eventId))
         )
         return try {
             ledger.retrieveAllMembers().first { member -> member.id == event.memberId }
@@ -142,23 +142,23 @@ class WorkoutReservationManager(
      * the aggregate when [DeleteWorkoutReservationRequest] occurs.
      */
     private fun deleteWorkoutReservation(event: DeleteWorkoutReservationRequest): Map<UUID, List<Event>> {
-        val retrievedReservation = retrieveReservation(event.reservationId)
-            ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
+        val retrievedReservation = retrieveReservation(event.reservationToDeleteId)
+            ?: return errorMap(event.eventId, RequestFailedMessages.reservationNotFound)
         val agendaDeleteReservationEvent =
             AgendaDeleteWorkoutReservation(UUID.randomUUID(), retrievedReservation)
         val memberDeleteReservationEvent =
             MemberDeleteWorkoutReservation(UUID.randomUUID(), retrievedReservation)
         if (!(
-            memberOwnReservation(event.memberId, event.reservationId)
-                ?: return errorMap(event.id, RequestFailedMessages.memberNotFound)
+            memberOwnReservation(event.memberId, event.reservationToDeleteId)
+                ?: return errorMap(event.eventId, RequestFailedMessages.memberNotFound)
             )
         ) {
-            return errorMap(event.id, RequestFailedMessages.wrongMember)
+            return errorMap(event.eventId, RequestFailedMessages.wrongMember)
         }
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent),
             event.memberId to listOf(memberDeleteReservationEvent),
-            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
+            event.eventId to listOf(RequestSucceeded(UUID.randomUUID(), event.eventId))
         )
     }
 
@@ -167,23 +167,23 @@ class WorkoutReservationManager(
      * the aggregate when [UpdateWorkoutReservationRequest] occurs.
      */
     private fun updateWorkoutReservation(event: UpdateWorkoutReservationRequest): Map<UUID, List<Event>> {
-        val retrievedReservation = retrieveReservation(event.reservationId)
-            ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
+        val retrievedReservation = retrieveReservation(event.reservationToUpdateId)
+            ?: return errorMap(event.eventId, RequestFailedMessages.reservationNotFound)
         if (retrievedReservation is CloseWorkoutReservation) {
-            return errorMap(event.id, RequestFailedMessages.noUpdateToCloseReservation)
+            return errorMap(event.eventId, RequestFailedMessages.noUpdateToCloseReservation)
         }
         try {
-            OpenWorkoutReservation(event.aim, event.date, event.id)
+            OpenWorkoutReservation(event.aim, event.date, event.eventId)
         } catch (exception: WorkoutReservationAimCannotBeEmpty) {
-            return errorMap(event.id, RequestFailedMessages.emptyWorkoutAim)
+            return errorMap(event.eventId, RequestFailedMessages.emptyWorkoutAim)
         } catch (exception: OpenReservationMustNotHavePastDate) {
-            return errorMap(event.id, RequestFailedMessages.pastDateInReservation)
+            return errorMap(event.eventId, RequestFailedMessages.pastDateInReservation)
         }
         val reservationUpdateAimEvent = WorkoutReservationUpdateAim(UUID.randomUUID(), event.aim)
         val reservationUpdateDateEvent = WorkoutReservationUpdateDate(UUID.randomUUID(), event.date)
         return mapOf(
-            event.reservationId to listOf(reservationUpdateAimEvent, reservationUpdateDateEvent),
-            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
+            event.reservationToUpdateId to listOf(reservationUpdateAimEvent, reservationUpdateDateEvent),
+            event.eventId to listOf(RequestSucceeded(UUID.randomUUID(), event.eventId))
         )
     }
 
