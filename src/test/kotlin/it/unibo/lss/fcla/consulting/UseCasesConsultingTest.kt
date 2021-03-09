@@ -2,7 +2,6 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.matchers.collections.shouldExist
 import it.unibo.lss.fcla.consulting.common.EventStore
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.usecases.ConsultingShouldHaveAUniqueId

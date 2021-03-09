@@ -73,7 +73,7 @@ class Consulting internal constructor(
      * a consulting summary
      */
     private fun apply(event: ConsultingCreatedEvent) {
-        if(event.memberId.isEmpty()) {
+        if (event.memberId.isEmpty()) {
             throw ConsultingMustHaveAValidMember()
         }
         memberId = event.memberId
