@@ -6,7 +6,7 @@ import it.unibo.lss.fcla.consulting.domain.contracts.IEventStore
 /**
  * @author Stefano Braggion
  *
- * Represent a base implementation of the store in which are
+ * Represent a basic and in-memory implementation of the store in which are
  * persisted the domain events
  */
 class EventStore(
@@ -16,21 +16,21 @@ class EventStore(
     constructor() : this(hashMapOf())
 
     /**
-     *
+     * Save one [domainEvent] of the specified [aggregateId] in the event store
      */
     override fun saveEvent(aggregateId: AggregateId, domainEvent: DomainEvent) {
         events += (aggregateId to (events.getOrDefault(aggregateId, listOf())) + domainEvent)
     }
 
     /**
-     *
+     * Retrieve the list of all [DomainEvent] of the specified [aggregateId]
      */
     override fun getEventsForAggregate(aggregateId: AggregateId): List<DomainEvent> {
         return events.getOrDefault(aggregateId, listOf())
     }
 
     /**
-     *
+     * Retrieve the list of all [DomainEvent] of all the [AggregateId]
      */
     override fun getAllEvents(): HashMap<AggregateId, List<DomainEvent>> = events
 }

@@ -6,7 +6,7 @@ import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 /**
  * @author Stefano Braggion
  *
- * Event representing an updated consulting summary
+ * Event representing an updated consulting summary description
  */
 data class ConsultingSummaryUpdatedDescriptionEvent(
     val consultingId: ConsultingId,

@@ -8,7 +8,7 @@ import java.time.LocalTime
 /**
  * @author Stefano Braggion
  *
- *
+ * Event representing a created freelancer availability
  */
 data class FreelancerAvailabilityCreatedEvent(
     val freelancerId: FreelancerId,

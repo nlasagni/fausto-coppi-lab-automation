@@ -5,6 +5,7 @@ import it.unibo.lss.fcla.consulting.common.AggregateId
 /**
  * @author Stefano Braggion
  *
+ * Interface for event stores
  */
 interface IEventStore {
 

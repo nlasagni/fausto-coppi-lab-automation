@@ -4,7 +4,10 @@ import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotB
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
 
 /**
+ * @author Stefano Braggion
  *
+ * Value object representing personal data such as [firstName], [lastName]
+ * and [role] of a [Freelancer]
  */
 data class FreelancerPersonalData(
     val firstName: String,
@@ -12,6 +15,9 @@ data class FreelancerPersonalData(
     val role: FreelancerRole
 ) {
 
+    /**
+     * Check invariants
+     */
     init {
         if (firstName.isEmpty()) {
             throw FreelancerFirstNameCannotBeNull()

@@ -76,8 +76,8 @@ class FreelancerTest : FreeSpec({
         freelancer.updateAvailability(availabilityDate = date, fromTime = LocalTime.MIDNIGHT, toTime = LocalTime.MAX)
 
         assert(
-            freelancer.availabilityOfDay(date)?.fromTime == LocalTime.MIDNIGHT &&
-                freelancer.availabilityOfDay(date)?.toTime == LocalTime.MAX
+            freelancer.getAvailabilityForDay(date).fromTime == LocalTime.MIDNIGHT &&
+                freelancer.getAvailabilityForDay(date).toTime == LocalTime.MAX
         )
     }
 

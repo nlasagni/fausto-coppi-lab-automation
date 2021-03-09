@@ -5,7 +5,9 @@ import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
 /**
+ * @author Stefano Braggion
  *
+ * Event representing a deleted freelancer availability
  */
 data class FreelancerAvailabilityDeletedEvent(
     val freelancerId: FreelancerId,

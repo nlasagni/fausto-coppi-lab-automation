@@ -3,7 +3,7 @@ package it.unibo.lss.fcla.consulting.domain.consulting
 /**
  * @author Stefano Braggion
  *
- * Value object representing a date in consulting context
+ * Value object representing a date in the consulting context
  */
 data class Date(val year: Int, val month: Int, val day: Int) {
 

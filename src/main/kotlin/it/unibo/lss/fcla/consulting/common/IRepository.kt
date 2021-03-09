@@ -5,6 +5,7 @@ import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 /**
  * @author Stefano Braggion
  *
+ *  Interface for a generic repository
  */
 interface IRepository<A : AbstractAggregate> {
     fun getById(aggregateId: AggregateId): List<DomainEvent>

@@ -1,5 +1,6 @@
 package it.unibo.lss.fcla.consulting.usecases
 
+import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.common.IRepository
 import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
@@ -9,6 +10,7 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createAthleticTrainerConsu
 import it.unibo.lss.fcla.consulting.domain.consulting.createBiomechanicalConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
+import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
 /**
@@ -163,20 +165,10 @@ class ConsultingUseCases(
     }
 
     /**
-     * FCLAC-8 Manage Consulting Summaries (Delete)
+     * FCLAC-9 Retrieve all the summaries for a member
+     * //TODO refactoring in next version
      */
-    fun deleteConsultingSummary(/*consultingId: ConsultingId*/) {
-        /**
-         * delete the consulting with given id from the member
-         */
-    }
+    fun retrieveProfile(/*memberId: MemberId*/) {
 
-    /**
-     * FCLAC-9 Retrieve Profile
-     */
-    fun retrieveProfile() {
-        /**
-         *
-         */
     }
 }

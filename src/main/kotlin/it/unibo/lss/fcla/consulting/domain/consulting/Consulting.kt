@@ -14,8 +14,8 @@ typealias MemberId = String
 /**
  * @author Stefano Braggion
  *
- * The [Consulting] represent the
- *
+ * The [Consulting] is the entity that contains the behaviours in order to create a consulting, update the
+ * related description of the summary and retrieving the information about that
  */
 class Consulting internal constructor(
     private val consultingId: ConsultingId,
@@ -24,6 +24,9 @@ class Consulting internal constructor(
 
     private lateinit var consultingSummary: ConsultingSummary
 
+    /**
+     * Check invariants
+     */
     init {
         if (consultingId.isEmpty()) {
             throw ConsultingMustHaveAValidId()
@@ -36,7 +39,8 @@ class Consulting internal constructor(
 
     companion object {
         /**
-         *
+         * Method used to restore the current state of a consulting, applying all the events
+         * occurred and stored in the event store
          */
         fun rehydrateConsulting(
             aggregateId: AggregateId,
@@ -52,14 +56,15 @@ class Consulting internal constructor(
     }
 
     /**
-     *
+     * Update the summary description of a consulting replacing the existent
+     * with [consultingDescription]
      */
     fun updateSummaryDescription(consultingDescription: String) {
         raiseEvent(ConsultingSummaryUpdatedDescriptionEvent(consultingId, consultingDescription))
     }
 
     /**
-     *
+     * Retrieve the current description of the summary
      */
     fun getSummaryDescription(): String = consultingSummary.description
 
@@ -90,7 +95,7 @@ class Consulting internal constructor(
     }
 
     /**
-     * Select which event to apply
+     * Select which [event] to apply
      */
     override fun applyEvent(event: DomainEvent) {
         when (event) {

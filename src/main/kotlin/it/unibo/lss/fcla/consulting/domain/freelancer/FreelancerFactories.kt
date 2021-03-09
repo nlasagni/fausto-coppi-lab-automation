@@ -3,7 +3,7 @@ package it.unibo.lss.fcla.consulting.domain.freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerCreatedEvent
 
 /**
- *
+ * Extension method factory for Freelancer. Creates a new freelancer with role Physiotherapist
  */
 fun Freelancer.Companion.createPhysiotherapist(
     freelancerId: FreelancerId,
@@ -25,7 +25,7 @@ fun Freelancer.Companion.createPhysiotherapist(
 }
 
 /**
- *
+ * Extension method factory for Freelancer. Creates a new freelancer with role Nutritionist
  */
 fun Freelancer.Companion.createNutritionist(
     freelancerId: FreelancerId,
@@ -47,7 +47,7 @@ fun Freelancer.Companion.createNutritionist(
 }
 
 /**
- *
+ * Extension method factory for Freelancer. Creates a new freelancer with role AthleticTrainer
  */
 fun Freelancer.Companion.createAthleticTrainer(
     freelancerId: FreelancerId,
@@ -69,7 +69,7 @@ fun Freelancer.Companion.createAthleticTrainer(
 }
 
 /**
- *
+ * Extension method factory for Freelancer. Creates a new freelancer with role Biomechanical
  */
 fun Freelancer.Companion.createBiomechanical(
     freelancerId: FreelancerId,
