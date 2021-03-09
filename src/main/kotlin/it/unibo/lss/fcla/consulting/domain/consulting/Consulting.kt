@@ -33,6 +33,11 @@ class Consulting internal constructor(
         }
     }
 
+    /**
+     * Retrieve the member Id of the consulting
+     */
+    fun getMemberId(): MemberId = memberId
+
     companion object {
         /**
          * Method used to restore the current state of a consulting, applying all the events

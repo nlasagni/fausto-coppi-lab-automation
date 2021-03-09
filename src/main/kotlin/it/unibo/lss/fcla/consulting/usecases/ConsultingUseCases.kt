@@ -168,12 +168,14 @@ class ConsultingUseCases(
      * FCLAC-9 Retrieve all the summaries for a member
      * //TODO refactoring in next version
      */
-    fun retrieveProfile() {
+    fun retrieveProfile(memberId: MemberId): List<Consulting> {
         val events: Map<AggregateId, List<DomainEvent>> = repository.getAllEvents()
         val entityList = mutableListOf<Consulting>()
 
         events.forEach {
-            entityList.add(Consulting.rehydrateConsulting(it.key, it.value.toList()))
+            entityList += Consulting.rehydrateConsulting(it.key, it.value.toList())
         }
+
+        return entityList.filter { it.getMemberId() == memberId }
     }
 }
