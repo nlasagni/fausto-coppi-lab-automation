@@ -4,9 +4,10 @@ import java.util.Date
 import java.util.UUID
 
 /**
- * This is the interface of a Consulting Reservation
- * @param date The date of the requested consulting
- * @param freelancerId The freelancer who will make the consulting
+ * This is the interface of a Consulting Reservation.
+ *
+ * A Consulting Reservation requires a [date] of the consulting, the [freelancerId]
+ * who will make the consulting and the [id] of the reservation.
  */
 interface ConsultingReservation {
     val date: Date
