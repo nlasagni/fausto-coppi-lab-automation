@@ -73,8 +73,8 @@ class ConsultingUseCases(
             throw ConsultingShouldHaveAUniqueId()
         }
 
-        val consulting = createConsultingOfType(consultingId, memberId, consultingDate, freelancerId,
-            description, ConsultingType.BiomechanicsConsulting())
+        val consulting = Consulting.createBiomechanicalConsulting(consultingId, memberId, consultingDate, freelancerId,
+            description)
 
         repository.save(consulting)
 
@@ -93,8 +93,8 @@ class ConsultingUseCases(
         if(repository.getById(consultingId).count() > 0) {
             throw ConsultingShouldHaveAUniqueId()
         }
-        val consulting = Consulting.createConsulting(consultingId, memberId, consultingDate,
-            freelancerId, ConsultingType.AthleticTrainerConsulting(), description)
+        val consulting = Consulting.createAthleticTrainerConsulting(consultingId, memberId, consultingDate,
+            freelancerId, description)
 
         repository.save(consulting)
 
@@ -127,21 +127,6 @@ class ConsultingUseCases(
         /**
          * delete the consulting with given id from the member
          */
-    }
-
-    /**
-     * Utility method able to create a consulting
-     */
-    private fun createConsultingOfType(
-        consultingId: ConsultingId, memberId: MemberId,
-        consultingDate: Date, freelancerId: FreelancerId,
-        description: String, type: ConsultingType
-    ): Consulting {
-
-        return Consulting.createConsulting(
-            consultingId, memberId, consultingDate,
-            freelancerId, type, description
-        )
     }
 
     companion object {

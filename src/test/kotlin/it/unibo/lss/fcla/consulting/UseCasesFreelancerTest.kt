@@ -4,6 +4,8 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.common.EventStore
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
+import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
@@ -26,9 +28,18 @@ class UseCasesFreelancerTest : FreeSpec ({
         var aggregateRepository = FreelancerMockRepository(eventStore)
         val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
         val id = "F001"
+        val date = Date(2021, 1, 1)
 
         useCasesFreelancer.createAthleticTrainer(freelancerId = id, firstName = "Alan", lastName = "Turing")
-        useCasesFreelancer.createFreelancerAvailabilityForDay(freelancerId = id, day = Date(2021, 1, 1),
+        useCasesFreelancer.createFreelancerAvailabilityForDay(freelancerId = id, day = date ,
         fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
+
+        shouldThrow<FreelancerAvailabilityAlreadyExist> {
+            useCasesFreelancer.createFreelancerAvailabilityForDay(freelancerId = id, day = date,
+                fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
+        }
+
+        assert(useCasesFreelancer.getFreelancerAvailabilityForDay(freelancerId = id, day = date) ==
+                AvailabilityHours(LocalTime.MIN, LocalTime.MAX))
     }
 })
