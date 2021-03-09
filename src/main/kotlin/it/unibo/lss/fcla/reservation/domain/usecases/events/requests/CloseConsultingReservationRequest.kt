@@ -8,7 +8,7 @@ import java.util.UUID
  *
  * It needs the [id] of this event, a [reservationId], and the [memberId]
  */
-data class CloseConsultingReservation(
+data class CloseConsultingReservationRequest(
     override val id: UUID,
     val reservationId: UUID,
     val memberId: UUID

@@ -16,9 +16,10 @@ import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationRequest
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailed
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedMessages
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceeded
@@ -59,7 +60,7 @@ class ConsultingReservationManager(
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
      * the aggregate when [CloseConsultingReservation] occurs.
      */
-    private fun closeConsultingReservation(event: it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservation):
+    private fun closeConsultingReservation(event: CloseConsultingReservationRequest):
         Map<UUID, List<Event>> {
             val retrievedReservation = retrieveReservation(event.reservationId)
                 ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
@@ -96,10 +97,10 @@ class ConsultingReservationManager(
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [CreateConsultingReservation] occurs.
+     * the aggregate when [CreateConsultingReservationRequest] occurs.
      */
     private fun createConsultingReservation(
-        event: CreateConsultingReservation
+        event: CreateConsultingReservationRequest
     ): Map<UUID, List<Event>> {
         val openConsulting: OpenConsultingReservation
         try {
@@ -139,9 +140,9 @@ class ConsultingReservationManager(
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [DeleteConsultingReservation] occurs.
+     * the aggregate when [DeleteConsultingReservationRequest] occurs.
      */
-    private fun deleteConsultingReservation(event: DeleteConsultingReservation): Map<UUID, List<Event>> {
+    private fun deleteConsultingReservation(event: DeleteConsultingReservationRequest): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
         val agendaDeleteReservationEvent =
@@ -164,9 +165,9 @@ class ConsultingReservationManager(
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [UpdateConsultingReservation] occurs.
+     * the aggregate when [UpdateConsultingReservationRequest] occurs.
      */
-    private fun updateConsultingReservation(event: UpdateConsultingReservation): Map<UUID, List<Event>> {
+    private fun updateConsultingReservation(event: UpdateConsultingReservationRequest): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
         if (retrievedReservation is CloseConsultingReservation) {
@@ -194,10 +195,10 @@ class ConsultingReservationManager(
      * the aggregate based on the specific occurred [event] which is related to the consulting reservation.
      */
     override fun produce(event: Event): Map<UUID, List<Event>> = when (event) {
-        is it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservation -> closeConsultingReservation(event)
-        is CreateConsultingReservation -> createConsultingReservation(event)
-        is DeleteConsultingReservation -> deleteConsultingReservation(event)
-        is UpdateConsultingReservation -> updateConsultingReservation(event)
+        is CloseConsultingReservationRequest -> closeConsultingReservation(event)
+        is CreateConsultingReservationRequest -> createConsultingReservation(event)
+        is DeleteConsultingReservationRequest -> deleteConsultingReservation(event)
+        is UpdateConsultingReservationRequest -> updateConsultingReservation(event)
         else -> mapOf()
     }
 

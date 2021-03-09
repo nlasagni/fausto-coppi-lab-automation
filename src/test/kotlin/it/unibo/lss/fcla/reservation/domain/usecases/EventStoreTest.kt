@@ -2,8 +2,8 @@ package it.unibo.lss.fcla.reservation.domain.usecases
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationRequest
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceeded
 import java.util.Calendar
 import java.util.UUID
@@ -30,7 +30,7 @@ class EventStoreTest : FreeSpec({
         "be appended to the eventStore map" - {
             eventStore.evolve(
                 aggregateId,
-                CreateConsultingReservation(
+                CreateConsultingReservationRequest(
                     reservationId,
                     freelancerID,
                     validDate,
@@ -47,7 +47,7 @@ class EventStoreTest : FreeSpec({
         "be appended to the list of event associated to him if the aggregate already exist" - {
             eventStore.evolve(
                 aggregateId,
-                CreateConsultingReservation(
+                CreateConsultingReservationRequest(
                     reservationId,
                     freelancerID,
                     validDate,
@@ -60,7 +60,7 @@ class EventStoreTest : FreeSpec({
 
             eventStore.evolve(
                 aggregateId2,
-                UpdateConsultingReservation(
+                UpdateConsultingReservationRequest(
                     UUID.randomUUID(),
                     reservationId,
                     "4543",

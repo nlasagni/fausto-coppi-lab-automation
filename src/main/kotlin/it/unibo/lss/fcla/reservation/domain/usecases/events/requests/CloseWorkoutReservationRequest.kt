@@ -8,7 +8,7 @@ import java.util.UUID
  *
  * IIt needs the [id] of this event, a [reservationId], and the [memberId]
  */
-data class CloseWorkoutReservation(
+data class CloseWorkoutReservationRequest(
     override val id: UUID,
     val reservationId: UUID,
     val memberId: UUID

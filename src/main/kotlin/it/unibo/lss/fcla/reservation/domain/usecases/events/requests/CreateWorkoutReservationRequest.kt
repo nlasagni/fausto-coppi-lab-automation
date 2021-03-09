@@ -11,7 +11,7 @@ import java.util.UUID
  * the [date] of the consulting reservation, the [firstName], the [lastName] and the [memberId] of the Member who
  * require the consulting.
  */
-data class CreateWorkoutReservation(
+data class CreateWorkoutReservationRequest(
     override val id: UUID,
     val aim: String,
     val date: Date,

@@ -27,7 +27,7 @@ class UseCaseTest : FreeSpec({
     val validDateLate = calendar.time
     calendar.set(invalidYear, feb, day)
     val invalidDate = calendar.time
-    val successMessage = "Everything fine"
+    val successMessage = "The request succeeded"
 
     "Command and Query use case, given valid data, should" - {
         "create, close, update and delete consulting reservations" - {

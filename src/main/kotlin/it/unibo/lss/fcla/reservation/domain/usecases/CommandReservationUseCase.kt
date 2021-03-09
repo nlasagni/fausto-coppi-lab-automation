@@ -1,14 +1,14 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
 import it.unibo.lss.fcla.reservation.common.Event
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseWorkoutReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateWorkoutReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteWorkoutReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseWorkoutReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateWorkoutReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteWorkoutReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationRequest
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateWorkoutReservationRequest
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailed
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceeded
 import java.util.Date
@@ -47,7 +47,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = CloseConsultingReservation(UUID.randomUUID(), reservationId, memberId)
+        val event = CloseConsultingReservationRequest(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -60,7 +60,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = CloseWorkoutReservation(UUID.randomUUID(), reservationId, memberId)
+        val event = CloseWorkoutReservationRequest(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -78,7 +78,7 @@ class CommandReservationUseCase(
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
         val event =
-            CreateConsultingReservation(UUID.randomUUID(), freelancer, date, firstName, lastName, memberId)
+            CreateConsultingReservationRequest(UUID.randomUUID(), freelancer, date, firstName, lastName, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -95,7 +95,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = CreateWorkoutReservation(UUID.randomUUID(), aim, date, firstName, lastName, memberId)
+        val event = CreateWorkoutReservationRequest(UUID.randomUUID(), aim, date, firstName, lastName, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -108,7 +108,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = DeleteConsultingReservation(UUID.randomUUID(), reservationId, memberId)
+        val event = DeleteConsultingReservationRequest(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -121,7 +121,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = DeleteWorkoutReservation(UUID.randomUUID(), reservationId, memberId)
+        val event = DeleteWorkoutReservationRequest(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -135,7 +135,7 @@ class CommandReservationUseCase(
         date: Date
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = UpdateConsultingReservation(UUID.randomUUID(), reservationId, freelancer, date)
+        val event = UpdateConsultingReservationRequest(UUID.randomUUID(), reservationId, freelancer, date)
         return handleRequestResult(event, producer)
     }
 
@@ -149,7 +149,7 @@ class CommandReservationUseCase(
         date: Date
     ): String {
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = UpdateWorkoutReservation(UUID.randomUUID(), reservationId, aim, date)
+        val event = UpdateWorkoutReservationRequest(UUID.randomUUID(), reservationId, aim, date)
         return handleRequestResult(event, producer)
     }
 }

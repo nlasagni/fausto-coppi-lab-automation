@@ -11,7 +11,7 @@ import java.util.UUID
  * the [date] of the consulting reservation, the [firstName], the [lastName] and the [memberId] of the Member who
  * require the consulting.
  */
-data class CreateConsultingReservation(
+data class CreateConsultingReservationRequest(
     override val id: UUID,
     val freelancer: String,
     val date: Date,

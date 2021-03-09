@@ -9,7 +9,7 @@ import java.util.UUID
  * It needs the [id] of this event, the [reservationId] of the consulting reservation a Member wants to delete
  * and the [memberId] of the Member whose consultation is to be deleted.
  */
-data class DeleteConsultingReservation(
+data class DeleteConsultingReservationRequest(
     override val id: UUID,
     val reservationId: UUID,
     val memberId: UUID
