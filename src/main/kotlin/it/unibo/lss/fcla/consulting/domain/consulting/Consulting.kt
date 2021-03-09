@@ -18,11 +18,11 @@ typealias MemberId = String
  * related description of the summary and retrieving the information about that
  */
 class Consulting internal constructor(
-    private val consultingId: ConsultingId,
-    private val memberId: MemberId
+    private val consultingId: ConsultingId
 ) : AbstractAggregate(consultingId) {
 
     private lateinit var consultingSummary: ConsultingSummary
+    private lateinit var memberId: MemberId
 
     /**
      * Check invariants
@@ -30,10 +30,6 @@ class Consulting internal constructor(
     init {
         if (consultingId.isEmpty()) {
             throw ConsultingMustHaveAValidId()
-        }
-
-        if (memberId.isEmpty()) {
-            throw ConsultingMustHaveAValidMember()
         }
     }
 
@@ -44,11 +40,10 @@ class Consulting internal constructor(
          */
         fun rehydrateConsulting(
             aggregateId: AggregateId,
-            memberId: MemberId,
             eventList: List<DomainEvent>
         ): Consulting {
 
-            val consulting = Consulting(aggregateId, memberId)
+            val consulting = Consulting(aggregateId)
             eventList.forEach { consulting.applyEvent(it) }
 
             return consulting
@@ -73,6 +68,10 @@ class Consulting internal constructor(
      * a consulting summary
      */
     private fun apply(event: ConsultingCreatedEvent) {
+        if(event.memberId.isEmpty()) {
+            throw ConsultingMustHaveAValidMember()
+        }
+        memberId = event.memberId
         consultingSummary = ConsultingSummary(
             event.consultingDate,
             event.freelancerId,

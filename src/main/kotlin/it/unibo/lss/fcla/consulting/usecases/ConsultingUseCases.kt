@@ -25,8 +25,8 @@ class ConsultingUseCases(
     /**
      * FCLAC-1 Examine consulting summaries
      */
-    fun examineConsultingSummaries(consultingId: ConsultingId, memberId: MemberId): Consulting {
-        return Consulting.rehydrateConsulting(consultingId, memberId, repository.getById(consultingId))
+    fun examineConsultingSummaries(consultingId: ConsultingId): Consulting {
+        return Consulting.rehydrateConsulting(consultingId, repository.getById(consultingId))
     }
 
     /**
@@ -149,7 +149,7 @@ class ConsultingUseCases(
     /**
      * FCLAC-8 Manage Consulting Summaries (Update)
      */
-    fun updateConsultingSummary(consultingId: ConsultingId, memberId: MemberId, description: String): Consulting {
+    fun updateConsultingSummary(consultingId: ConsultingId, description: String): Consulting {
         /**
          * update the consulting with given id
          */
@@ -157,7 +157,7 @@ class ConsultingUseCases(
             throw ConsultingWithGivenIdDoesNotExist()
         }
 
-        val consulting = Consulting.rehydrateConsulting(consultingId, memberId, repository.getById(consultingId))
+        val consulting = Consulting.rehydrateConsulting(consultingId, repository.getById(consultingId))
         consulting.updateSummaryDescription(description)
         repository.save(consulting)
 
@@ -168,7 +168,12 @@ class ConsultingUseCases(
      * FCLAC-9 Retrieve all the summaries for a member
      * //TODO refactoring in next version
      */
-    fun retrieveProfile(/*memberId: MemberId*/) {
+    fun retrieveProfile() {
+        val events: Map<AggregateId, List<DomainEvent>> = repository.getAllEvents()
+        val entityList = mutableListOf<Consulting>()
 
+        events.forEach {
+            entityList.add(Consulting.rehydrateConsulting(it.key, it.value.toList()))
+        }
     }
 }

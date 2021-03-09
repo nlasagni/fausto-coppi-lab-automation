@@ -13,7 +13,7 @@ fun Consulting.Companion.createPhysiotherapyConsulting(
     freelancerId: FreelancerId,
     description: String
 ): Consulting {
-    val consultingAggregate = Consulting(consultingId, memberId)
+    val consultingAggregate = Consulting(consultingId)
     consultingAggregate.raiseEvent(
         ConsultingCreatedEvent(
             consultingId,
@@ -38,7 +38,7 @@ fun Consulting.Companion.createNutritionistConsulting(
     freelancerId: FreelancerId,
     description: String
 ): Consulting {
-    val consultingAggregate = Consulting(consultingId, memberId)
+    val consultingAggregate = Consulting(consultingId)
     consultingAggregate.raiseEvent(
         ConsultingCreatedEvent(
             consultingId,
@@ -63,7 +63,7 @@ fun Consulting.Companion.createAthleticTrainerConsulting(
     freelancerId: FreelancerId,
     description: String
 ): Consulting {
-    val consultingAggregate = Consulting(consultingId, memberId)
+    val consultingAggregate = Consulting(consultingId)
     consultingAggregate.raiseEvent(
         ConsultingCreatedEvent(
             consultingId,
@@ -88,7 +88,7 @@ fun Consulting.Companion.createBiomechanicalConsulting(
     freelancerId: FreelancerId,
     description: String
 ): Consulting {
-    val consultingAggregate = Consulting(consultingId, memberId)
+    val consultingAggregate = Consulting(consultingId)
     consultingAggregate.raiseEvent(
         ConsultingCreatedEvent(
             consultingId,

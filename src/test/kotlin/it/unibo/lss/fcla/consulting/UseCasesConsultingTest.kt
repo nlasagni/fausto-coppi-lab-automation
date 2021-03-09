@@ -40,7 +40,7 @@ class UseCasesConsultingTest : FreeSpec({
         val useCasesConsulting = ConsultingUseCases(aggregateRepository)
 
         shouldThrow<ConsultingWithGivenIdDoesNotExist> {
-            useCasesConsulting.updateConsultingSummary(consultingId = "C001", memberId = "M001", "new description")
+            useCasesConsulting.updateConsultingSummary(consultingId = "C001", description = "new description")
         }
     }
 })

@@ -72,7 +72,6 @@ class EventTests : FreeSpec({
 
         val rehydratedAggregate = Consulting.rehydrateConsulting(
             aggregateId,
-            memberId = "M001",
             eventStore.getEventsForAggregate(aggregateId)
         )
         assert(rehydratedAggregate.getSummaryDescription() == "third description")
