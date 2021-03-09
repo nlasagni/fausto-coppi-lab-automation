@@ -2,10 +2,7 @@ package it.unibo.lss.fcla.consulting.usecases
 
 import it.unibo.lss.fcla.consulting.common.IRepository
 import it.unibo.lss.fcla.consulting.domain.consulting.Date
-import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
-import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
+import it.unibo.lss.fcla.consulting.domain.freelancer.*
 import java.time.LocalTime
 
 class FreelancerUseCases(
@@ -14,7 +11,7 @@ class FreelancerUseCases(
 
     fun createAthleticTrainer(freelancerId: FreelancerId, firstName: String, lastName: String) : Freelancer {
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
-        val freelancer = createFreelancerWithRole(freelancerId, firstName, lastName, FreelancerRole.AthleticTrainer())
+        val freelancer = Freelancer.createAthleticTrainer(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
         return freelancer
@@ -22,7 +19,7 @@ class FreelancerUseCases(
 
     fun createPhysiotherapist(freelancerId: FreelancerId, firstName: String, lastName: String) : Freelancer {
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
-        val freelancer = createFreelancerWithRole(freelancerId, firstName, lastName, FreelancerRole.Physiotherapist())
+        val freelancer = Freelancer.createPhysiotherapist(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
         return freelancer
@@ -30,7 +27,7 @@ class FreelancerUseCases(
 
     fun createNutritionist(freelancerId: FreelancerId, firstName: String, lastName: String) : Freelancer {
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
-        val freelancer = createFreelancerWithRole(freelancerId, firstName, lastName, FreelancerRole.Nutritionist())
+        val freelancer = Freelancer.createNutritionist(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
         return freelancer
@@ -38,18 +35,10 @@ class FreelancerUseCases(
 
     fun createBiomechanical(freelancerId: FreelancerId, firstName: String, lastName: String) : Freelancer {
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
-        val freelancer = createFreelancerWithRole(freelancerId, firstName, lastName, FreelancerRole.Biomechanical())
+        val freelancer = Freelancer.createBiomechanical(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
         return freelancer
-    }
-
-    /**
-     *
-     */
-    private fun createFreelancerWithRole(freelancerId: FreelancerId, firstName: String,
-                                         lastName: String, role: FreelancerRole) : Freelancer {
-        return Freelancer.createFreelancer(freelancerId, firstName, lastName, role)
     }
 
     /**

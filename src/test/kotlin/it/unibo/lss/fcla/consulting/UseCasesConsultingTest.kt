@@ -20,7 +20,7 @@ class UseCasesConsultingTest : FreeSpec({
         consultingDate = Date(2021, 1, 1), freelancerId = "F001", description = "description")
 
         shouldThrow<ConsultingShouldHaveAUniqueId> {
-            useCasesConsulting.receiveBiomechanicsConsulting(consultingId = "C001", memberId = "M001",
+            useCasesConsulting.receiveBiomechanicalConsulting(consultingId = "C001", memberId = "M001",
                 consultingDate = Date(2021, 1, 1), freelancerId = "F002", description = "description description")
         }
     }

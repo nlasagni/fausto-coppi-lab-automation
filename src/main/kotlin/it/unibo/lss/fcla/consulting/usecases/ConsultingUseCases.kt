@@ -32,8 +32,8 @@ class ConsultingUseCases(
         if(repository.getById(consultingId).count() > 0) {
             throw ConsultingShouldHaveAUniqueId()
         }
-        val consulting = createConsultingOfType(consultingId, memberId, consultingDate, freelancerId,
-        description, ConsultingType.PhysioterapyConsulting())
+        val consulting = Consulting.createPhysiotherapyConsulting(consultingId, memberId, consultingDate,
+            freelancerId, description)
 
         repository.save(consulting)
 
@@ -52,8 +52,8 @@ class ConsultingUseCases(
         if(repository.getById(consultingId).count() > 0) {
             throw ConsultingShouldHaveAUniqueId()
         }
-        val consulting = createConsultingOfType(consultingId, memberId, consultingDate, freelancerId,
-            description, ConsultingType.NutritionConsulting())
+        val consulting = Consulting.createNutritionistConsulting(consultingId, memberId, consultingDate,
+            freelancerId, description)
 
         repository.save(consulting)
 
@@ -63,7 +63,7 @@ class ConsultingUseCases(
     /**
      * FCLAC-7 Receive Consulting
      */
-    fun receiveBiomechanicsConsulting(consultingId: ConsultingId, memberId: MemberId,
+    fun receiveBiomechanicalConsulting(consultingId: ConsultingId, memberId: MemberId,
                                       consultingDate: Date, freelancerId: FreelancerId,
                                       description: String) : Consulting {
         /**
@@ -73,8 +73,8 @@ class ConsultingUseCases(
             throw ConsultingShouldHaveAUniqueId()
         }
 
-        val consulting = Consulting.createBiomechanicalConsulting(consultingId, memberId, consultingDate, freelancerId,
-            description)
+        val consulting = Consulting.createBiomechanicalConsulting(consultingId, memberId, consultingDate,
+            freelancerId, description)
 
         repository.save(consulting)
 

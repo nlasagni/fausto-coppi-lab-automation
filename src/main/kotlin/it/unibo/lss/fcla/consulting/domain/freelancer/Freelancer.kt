@@ -17,7 +17,7 @@ typealias FreelancerId = String
  *
  * Represents a freelancer
  */
-class Freelancer private constructor(
+class Freelancer internal constructor(
     val freelancerId: FreelancerId
 ) : AbstractAggregate(freelancerId) {
 
@@ -31,17 +31,6 @@ class Freelancer private constructor(
     }
 
     companion object {
-        /**
-         *
-         */
-        fun createFreelancer(freelancerId: FreelancerId, firstName: String, lastName: String, role: FreelancerRole) : Freelancer {
-            //return Freelancer(freelancerId, firstName, lastName, role)
-            val freelancer = Freelancer(freelancerId)
-            freelancer.raiseEvent(FreelancerCreatedEvent(freelancerId, firstName, lastName, role))
-
-            return freelancer
-        }
-
         /**
          *
          */

@@ -7,31 +7,27 @@ import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
-import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
+import it.unibo.lss.fcla.consulting.domain.freelancer.*
 import java.time.LocalTime
 
 class FreelancerTest : FreeSpec({
 
     "A freelancer should not be created without a firstname " - {
         shouldThrow<FreelancerFirstNameCannotBeNull> {
-            Freelancer.createFreelancer(
+            Freelancer.createAthleticTrainer(
                 freelancerId = "12345",
                 firstName = "",
-                lastName = "turing",
-                FreelancerRole.AthleticTrainer()
+                lastName = "turing"
             )
         }
     }
 
     "A freelancer should not be created without a lastname" - {
         shouldThrow<FreelancerLastNameCannotBeNull> {
-            Freelancer.createFreelancer(
+            Freelancer.createAthleticTrainer(
                 freelancerId = "12345",
                 firstName = "alan",
-                lastName = "",
-                FreelancerRole.AthleticTrainer()
+                lastName = ""
             )
         }
     }
@@ -51,11 +47,10 @@ class FreelancerTest : FreeSpec({
     }
 
     "A freelancer cannot have more than one availability per day" - {
-        val freelancer = Freelancer.createFreelancer(
+        val freelancer = Freelancer.createBiomechanical(
             freelancerId = "12345",
             firstName = "Mario",
-            lastName = "Rossi",
-            role = FreelancerRole.Biomechanical()
+            lastName = "Rossi"
         )
         val date = Date(2021, 1, 1)
 
@@ -67,11 +62,10 @@ class FreelancerTest : FreeSpec({
     }
 
     "Test freelancer correctly update the availability for the day" - {
-        val freelancer = Freelancer.createFreelancer(
+        val freelancer = Freelancer.createBiomechanical(
             freelancerId = "12345",
             firstName = "Mario",
-            lastName = "Rossi",
-            role = FreelancerRole.Biomechanical()
+            lastName = "Rossi"
         )
 
         val date = Date(2021, 1, 1)
@@ -83,11 +77,10 @@ class FreelancerTest : FreeSpec({
     }
 
     "Updating the availability for a day that not exist should throw error" - {
-        val freelancer = Freelancer.createFreelancer(
+        val freelancer = Freelancer.createBiomechanical(
             freelancerId = "12345",
             firstName = "Mario",
-            lastName = "Rossi",
-            role = FreelancerRole.Biomechanical()
+            lastName = "Rossi"
         )
 
         val date = Date(2021, 1, 1)
@@ -98,11 +91,10 @@ class FreelancerTest : FreeSpec({
     }
 
     "Retrieve the availability for a non-existing day should throw error" - {
-        val freelancer = Freelancer.createFreelancer(
+        val freelancer = Freelancer.createBiomechanical(
             freelancerId = "12345",
             firstName = "Mario",
-            lastName = "Rossi",
-            role = FreelancerRole.Biomechanical()
+            lastName = "Rossi"
         )
 
         shouldThrow<FreelancerAvailabilityDoesNotExist> {
