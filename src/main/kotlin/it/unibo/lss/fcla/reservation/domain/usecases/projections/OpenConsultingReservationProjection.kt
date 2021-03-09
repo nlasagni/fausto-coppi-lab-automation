@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.reservation.domain.usecases.projections
 
 import it.unibo.lss.fcla.reservation.common.Event
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateDateEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancerEvent
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateDate
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancer
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 
 /**
@@ -15,8 +15,8 @@ class OpenConsultingReservationProjection(override val init: OpenConsultingReser
      * Return an updated [OpenConsultingReservation] based on the given event.
      */
     override fun update(state: OpenConsultingReservation, event: Event) = when (event) {
-        is ConsultingReservationUpdateDateEvent -> state.updateDateOfConsulting(event.date)
-        is ConsultingReservationUpdateFreelancerEvent ->
+        is ConsultingReservationUpdateDate -> state.updateDateOfConsulting(event.date)
+        is ConsultingReservationUpdateFreelancer ->
             state.updateFreelancerOfConsulting(event.freelancer)
         else -> state
     }

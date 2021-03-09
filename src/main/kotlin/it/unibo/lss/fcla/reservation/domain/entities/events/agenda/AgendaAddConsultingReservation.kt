@@ -5,9 +5,9 @@ import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
 /**
- * An event representing a deleted consulting reservation to the Agenda
+ * An event representing an added consulting reservation to the Agenda
  */
-data class AgendaDeleteConsultingReservationEvent(
+data class AgendaAddConsultingReservation(
     override val id: UUID,
     val reservation: ConsultingReservation
 ) : Event

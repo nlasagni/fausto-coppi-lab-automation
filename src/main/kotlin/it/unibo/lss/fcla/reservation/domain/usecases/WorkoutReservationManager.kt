@@ -3,26 +3,25 @@ package it.unibo.lss.fcla.reservation.domain.usecases
 import it.unibo.lss.fcla.reservation.common.Event
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.agenda.Agenda
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMemberEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateAimEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateDateEvent
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMember
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateAim
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateDate
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailed
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedMessages
-import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceeded
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberProjection
@@ -61,9 +60,9 @@ class WorkoutReservationManager(
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [CloseWorkoutReservationEvent] occurs.
+     * the aggregate when [CloseWorkoutReservation] occurs.
      */
-    private fun closeWorkoutReservation(event: CloseWorkoutReservationEvent):
+    private fun closeWorkoutReservation(event: it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseWorkoutReservation):
         Map<UUID, List<Event>> {
             val retrievedReservation = retrieveReservation(event.reservationId)
                 ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
@@ -77,8 +76,8 @@ class WorkoutReservationManager(
                 updatedReservation.id
             )
             val agendaDeleteReservationEvent =
-                AgendaDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
-            val agendaAddReservationEvent = AgendaAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
+                AgendaDeleteWorkoutReservation(UUID.randomUUID(), retrievedReservation)
+            val agendaAddReservationEvent = AgendaAddWorkoutReservation(UUID.randomUUID(), closedReservation)
             if (!(
                 memberOwnReservation(event.memberId, event.reservationId)
                     ?: return errorMap(event.id, RequestFailedMessages.memberNotFound)
@@ -87,20 +86,20 @@ class WorkoutReservationManager(
                 return errorMap(event.id, RequestFailedMessages.wrongMember)
             }
             val memberDeleteReservationEvent =
-                MemberDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
-            val memberAddReservationEvent = MemberAddWorkoutReservationEvent(UUID.randomUUID(), closedReservation)
+                MemberDeleteWorkoutReservation(UUID.randomUUID(), retrievedReservation)
+            val memberAddReservationEvent = MemberAddWorkoutReservation(UUID.randomUUID(), closedReservation)
             return mapOf(
                 agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
                 event.memberId to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
-                event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+                event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
             )
         }
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [CreateWorkoutReservationEvent] occurs.
+     * the aggregate when [CreateWorkoutReservation] occurs.
      */
-    private fun createWorkoutReservation(event: CreateWorkoutReservationEvent): Map<UUID, List<Event>> {
+    private fun createWorkoutReservation(event: CreateWorkoutReservation): Map<UUID, List<Event>> {
         val workoutReservation: OpenWorkoutReservation
         try {
             workoutReservation = OpenWorkoutReservation(
@@ -114,13 +113,13 @@ class WorkoutReservationManager(
             return errorMap(event.id, RequestFailedMessages.pastDateInReservation)
         }
         val agendaAddReservationEvent =
-            AgendaAddWorkoutReservationEvent(UUID.randomUUID(), workoutReservation)
+            AgendaAddWorkoutReservation(UUID.randomUUID(), workoutReservation)
         val memberAddReservationEvent =
-            MemberAddWorkoutReservationEvent(UUID.randomUUID(), workoutReservation)
+            MemberAddWorkoutReservation(UUID.randomUUID(), workoutReservation)
         val resultMap: Map<UUID, List<Event>> = mapOf(
             agenda.id to listOf(agendaAddReservationEvent),
             event.memberId to listOf(memberAddReservationEvent),
-            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
         )
         return try {
             ledger.retrieveAllMembers().first { member -> member.id == event.memberId }
@@ -128,7 +127,7 @@ class WorkoutReservationManager(
         } catch (exception: NoSuchElementException) {
             resultMap + (
                 ledger.id to listOf(
-                    LedgerAddMemberEvent(
+                    LedgerAddMember(
                         UUID.randomUUID(),
                         Member(event.firstName, event.lastName, event.memberId)
                     )
@@ -139,15 +138,15 @@ class WorkoutReservationManager(
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [DeleteWorkoutReservationEvent] occurs.
+     * the aggregate when [DeleteWorkoutReservation] occurs.
      */
-    private fun deleteWorkoutReservation(event: DeleteWorkoutReservationEvent): Map<UUID, List<Event>> {
+    private fun deleteWorkoutReservation(event: DeleteWorkoutReservation): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
         val agendaDeleteReservationEvent =
-            AgendaDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
+            AgendaDeleteWorkoutReservation(UUID.randomUUID(), retrievedReservation)
         val memberDeleteReservationEvent =
-            MemberDeleteWorkoutReservationEvent(UUID.randomUUID(), retrievedReservation)
+            MemberDeleteWorkoutReservation(UUID.randomUUID(), retrievedReservation)
         if (!(
             memberOwnReservation(event.memberId, event.reservationId)
                 ?: return errorMap(event.id, RequestFailedMessages.memberNotFound)
@@ -158,15 +157,15 @@ class WorkoutReservationManager(
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent),
             event.memberId to listOf(memberDeleteReservationEvent),
-            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
         )
     }
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [UpdateWorkoutReservationEvent] occurs.
+     * the aggregate when [UpdateWorkoutReservation] occurs.
      */
-    private fun updateWorkoutReservation(event: UpdateWorkoutReservationEvent): Map<UUID, List<Event>> {
+    private fun updateWorkoutReservation(event: UpdateWorkoutReservation): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorMap(event.id, RequestFailedMessages.reservationNotFound)
         if (retrievedReservation is CloseWorkoutReservation) {
@@ -179,11 +178,11 @@ class WorkoutReservationManager(
         } catch (exception: OpenReservationMustNotHavePastDate) {
             return errorMap(event.id, RequestFailedMessages.pastDateInReservation)
         }
-        val reservationUpdateAimEvent = WorkoutReservationUpdateAimEvent(UUID.randomUUID(), event.aim)
-        val reservationUpdateDateEvent = WorkoutReservationUpdateDateEvent(UUID.randomUUID(), event.date)
+        val reservationUpdateAimEvent = WorkoutReservationUpdateAim(UUID.randomUUID(), event.aim)
+        val reservationUpdateDateEvent = WorkoutReservationUpdateDate(UUID.randomUUID(), event.date)
         return mapOf(
             event.reservationId to listOf(reservationUpdateAimEvent, reservationUpdateDateEvent),
-            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
         )
     }
 
@@ -192,10 +191,10 @@ class WorkoutReservationManager(
      * the aggregate based on the specific occurred [event] which is related to the workout reservation.
      */
     override fun produce(event: Event): Map<UUID, List<Event>> = when (event) {
-        is CloseWorkoutReservationEvent -> closeWorkoutReservation(event)
-        is CreateWorkoutReservationEvent -> createWorkoutReservation(event)
-        is DeleteWorkoutReservationEvent -> deleteWorkoutReservation(event)
-        is UpdateWorkoutReservationEvent -> updateWorkoutReservation(event)
+        is it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseWorkoutReservation -> closeWorkoutReservation(event)
+        is CreateWorkoutReservation -> createWorkoutReservation(event)
+        is DeleteWorkoutReservation -> deleteWorkoutReservation(event)
+        is UpdateWorkoutReservation -> updateWorkoutReservation(event)
         else -> mapOf()
     }
 
@@ -206,7 +205,7 @@ class WorkoutReservationManager(
     private fun errorMap(requestId: UUID, error: String): Map<UUID, List<Event>> {
         return mapOf(
             requestId to listOf(
-                RequestFailedEvent(
+                RequestFailed(
                     UUID.randomUUID(),
                     requestId,
                     error

@@ -2,9 +2,9 @@ package it.unibo.lss.fcla.reservation.domain.usecases
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceeded
 import java.util.Calendar
 import java.util.UUID
 
@@ -30,7 +30,7 @@ class EventStoreTest : FreeSpec({
         "be appended to the eventStore map" - {
             eventStore.evolve(
                 aggregateId,
-                CreateConsultingReservationEvent(
+                CreateConsultingReservation(
                     reservationId,
                     freelancerID,
                     validDate,
@@ -42,12 +42,12 @@ class EventStoreTest : FreeSpec({
             )
             assert(eventStore.get().isNotEmpty())
             assert(eventStore.getStream(reservationId).isNotEmpty())
-            assert(eventStore.getStream(reservationId).first() is RequestSucceededEvent)
+            assert(eventStore.getStream(reservationId).first() is RequestSucceeded)
         }
         "be appended to the list of event associated to him if the aggregate already exist" - {
             eventStore.evolve(
                 aggregateId,
-                CreateConsultingReservationEvent(
+                CreateConsultingReservation(
                     reservationId,
                     freelancerID,
                     validDate,
@@ -60,7 +60,7 @@ class EventStoreTest : FreeSpec({
 
             eventStore.evolve(
                 aggregateId2,
-                UpdateConsultingReservationEvent(
+                UpdateConsultingReservation(
                     UUID.randomUUID(),
                     reservationId,
                     "4543",

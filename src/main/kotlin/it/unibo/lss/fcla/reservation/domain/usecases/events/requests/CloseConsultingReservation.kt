@@ -4,11 +4,11 @@ import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
 /**
- * An event representing the closure of a workout reservation.
+ * An event representing the closure of a consulting reservation.
  *
- * IIt needs the [id] of this event, a [reservationId], and the [memberId]
+ * It needs the [id] of this event, a [reservationId], and the [memberId]
  */
-data class CloseWorkoutReservationEvent(
+data class CloseConsultingReservation(
     override val id: UUID,
     val reservationId: UUID,
     val memberId: UUID

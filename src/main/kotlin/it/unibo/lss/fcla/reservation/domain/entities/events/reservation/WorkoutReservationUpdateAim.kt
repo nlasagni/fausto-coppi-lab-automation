@@ -1,13 +1,12 @@
 package it.unibo.lss.fcla.reservation.domain.entities.events.reservation
 
 import it.unibo.lss.fcla.reservation.common.Event
-import java.util.Date
 import java.util.UUID
 
 /**
- * An event representing an update to a workout reservation date
+ * An event representing an update to a workout reservation aim
  */
-data class WorkoutReservationUpdateDateEvent(
+data class WorkoutReservationUpdateAim(
     override val id: UUID,
-    val date: Date
+    val aim: String
 ) : Event

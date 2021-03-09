@@ -8,11 +8,11 @@ import java.util.UUID
  * An event representing the update of a consulting reservation.
  *
  * It needs the [id] of this event, the [reservationId] of the consulting reservation a Member wants to update,
- * the [freelancer] to update and the [date] to update.
+ * the [aim] to update and the [date] to update.
  */
-data class UpdateConsultingReservationEvent(
+data class UpdateWorkoutReservation(
     override val id: UUID,
     val reservationId: UUID,
-    val freelancer: String,
+    val aim: String,
     val date: Date
 ) : Event

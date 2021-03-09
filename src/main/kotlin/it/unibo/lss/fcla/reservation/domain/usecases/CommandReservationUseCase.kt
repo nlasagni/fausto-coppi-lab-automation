@@ -1,16 +1,16 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
 import it.unibo.lss.fcla.reservation.common.Event
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailed
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceeded
 import java.util.Date
 import java.util.UUID
 
@@ -32,8 +32,8 @@ class CommandReservationUseCase(
     private fun handleRequestResult(event: Event, producer: Producer): String {
         eventStore.evolve(headquarterId, event, producer)
         when (val resultEvent = eventStore.getStream(event.id).first()) {
-            is RequestSucceededEvent -> return resultEvent.message
-            is RequestFailedEvent -> throw RequestFailedException(resultEvent.message)
+            is RequestSucceeded -> return resultEvent.message
+            is RequestFailed -> throw RequestFailedException(resultEvent.message)
             else -> throw RequestFailedException()
         }
     }
@@ -47,7 +47,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = CloseConsultingReservationEvent(UUID.randomUUID(), reservationId, memberId)
+        val event = CloseConsultingReservation(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -60,7 +60,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = CloseWorkoutReservationEvent(UUID.randomUUID(), reservationId, memberId)
+        val event = CloseWorkoutReservation(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -78,7 +78,7 @@ class CommandReservationUseCase(
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
         val event =
-            CreateConsultingReservationEvent(UUID.randomUUID(), freelancer, date, firstName, lastName, memberId)
+            CreateConsultingReservation(UUID.randomUUID(), freelancer, date, firstName, lastName, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -95,7 +95,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = CreateWorkoutReservationEvent(UUID.randomUUID(), aim, date, firstName, lastName, memberId)
+        val event = CreateWorkoutReservation(UUID.randomUUID(), aim, date, firstName, lastName, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -108,7 +108,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = DeleteConsultingReservationEvent(UUID.randomUUID(), reservationId, memberId)
+        val event = DeleteConsultingReservation(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -121,7 +121,7 @@ class CommandReservationUseCase(
         memberId: UUID
     ): String {
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = DeleteWorkoutReservationEvent(UUID.randomUUID(), reservationId, memberId)
+        val event = DeleteWorkoutReservation(UUID.randomUUID(), reservationId, memberId)
         return handleRequestResult(event, producer)
     }
 
@@ -135,7 +135,7 @@ class CommandReservationUseCase(
         date: Date
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = UpdateConsultingReservationEvent(UUID.randomUUID(), reservationId, freelancer, date)
+        val event = UpdateConsultingReservation(UUID.randomUUID(), reservationId, freelancer, date)
         return handleRequestResult(event, producer)
     }
 
@@ -149,7 +149,7 @@ class CommandReservationUseCase(
         date: Date
     ): String {
         val producer: Producer = WorkoutReservationManager(agendaId, ledgerId, eventStore.get())
-        val event = UpdateWorkoutReservationEvent(UUID.randomUUID(), reservationId, aim, date)
+        val event = UpdateWorkoutReservation(UUID.randomUUID(), reservationId, aim, date)
         return handleRequestResult(event, producer)
     }
 }

@@ -1,19 +1,19 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMemberEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateDateEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancerEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateAimEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateDateEvent
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMember
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateDate
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancer
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateAim
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateDate
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
@@ -51,52 +51,52 @@ class ProjectionTest : FreeSpec({
     val reservationWorkProjection = OpenWorkoutReservationProjection(reservationOW)
     "Agenda projection should" - {
         "add and delete a ConsultingReservation" - {
-            val addEvent = AgendaAddConsultingReservationEvent(UUID.randomUUID(), reservationOC)
+            val addEvent = AgendaAddConsultingReservation(UUID.randomUUID(), reservationOC)
             val fullAgenda = agendaProjection.update(agendaProjection.init, addEvent)
             assert(fullAgenda.retrieveConsultingReservation().contains(reservationOC))
-            val delEvent = AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), reservationOC)
+            val delEvent = AgendaDeleteConsultingReservation(UUID.randomUUID(), reservationOC)
             val emptyAgenda = agendaProjection.update(fullAgenda, delEvent)
             assert(emptyAgenda.retrieveConsultingReservation().isEmpty())
         }
         "add and delete a WorkoutReservation" - {
-            val addEvent = AgendaAddWorkoutReservationEvent(UUID.randomUUID(), reservationOW)
+            val addEvent = AgendaAddWorkoutReservation(UUID.randomUUID(), reservationOW)
             val fullAgenda = agendaProjection.update(agendaProjection.init, addEvent)
             assert(fullAgenda.retrieveWorkoutReservation().contains(reservationOW))
-            val delEvent = AgendaDeleteWorkoutReservationEvent(UUID.randomUUID(), reservationOW)
+            val delEvent = AgendaDeleteWorkoutReservation(UUID.randomUUID(), reservationOW)
             val emptyAgenda = agendaProjection.update(fullAgenda, delEvent)
             assert(emptyAgenda.retrieveWorkoutReservation().isEmpty())
         }
     }
     "MemberLedger projection should" - {
         "add a member" - {
-            val event = LedgerAddMemberEvent(UUID.randomUUID(), member)
+            val event = LedgerAddMember(UUID.randomUUID(), member)
             val ledger = ledgerProjection.update(ledgerProjection.init, event)
             assert(ledger.retrieveAllMembers().contains(member))
         }
     }
     "Member projection should" - {
         "add and delete a ConsultingReservation" - {
-            val eventAdd = MemberAddConsultingReservationEvent(UUID.randomUUID(), reservationOC)
+            val eventAdd = MemberAddConsultingReservation(UUID.randomUUID(), reservationOC)
             val memberFull = memberProjection.update(memberProjection.init, eventAdd)
             assert(memberFull.retrieveConsultingReservation().contains(reservationOC))
-            val eventDelete = MemberDeleteConsultingReservationEvent(UUID.randomUUID(), reservationOC)
+            val eventDelete = MemberDeleteConsultingReservation(UUID.randomUUID(), reservationOC)
             val memberEmpty = memberProjection.update(memberFull, eventDelete)
             assert(memberEmpty.retrieveConsultingReservation().isEmpty())
         }
         "add and delete a WorkoutReservation" - {
-            val eventAdd = MemberAddWorkoutReservationEvent(UUID.randomUUID(), reservationOW)
+            val eventAdd = MemberAddWorkoutReservation(UUID.randomUUID(), reservationOW)
             val memberFull = memberProjection.update(memberProjection.init, eventAdd)
             assert(memberFull.retrieveWorkoutReservation().contains(reservationOW))
-            val eventDelete = MemberDeleteWorkoutReservationEvent(UUID.randomUUID(), reservationOW)
+            val eventDelete = MemberDeleteWorkoutReservation(UUID.randomUUID(), reservationOW)
             val memberEmpty = memberProjection.update(memberFull, eventDelete)
             assert(memberEmpty.retrieveWorkoutReservation().isEmpty())
         }
     }
     "OpenConsultingReservation projection should" - {
         "update freelancer and date" - {
-            val updateDate = ConsultingReservationUpdateDateEvent(UUID.randomUUID(), validDateLate)
+            val updateDate = ConsultingReservationUpdateDate(UUID.randomUUID(), validDateLate)
             val resDate = reservationConsProjection.update(reservationConsProjection.init, updateDate)
-            val updateFreelancer = ConsultingReservationUpdateFreelancerEvent(UUID.randomUUID(), freelancerName2)
+            val updateFreelancer = ConsultingReservationUpdateFreelancer(UUID.randomUUID(), freelancerName2)
             val resFreelancer = reservationConsProjection.update(reservationConsProjection.init, updateFreelancer)
             assert(resDate.date == validDateLate)
             assert(resDate.freelancerId == freelancerName)
@@ -106,9 +106,9 @@ class ProjectionTest : FreeSpec({
     }
     "OpenWorkoutReservation projection should" - {
         "update aim and date" - {
-            val updateDate = WorkoutReservationUpdateDateEvent(UUID.randomUUID(), validDateLate)
+            val updateDate = WorkoutReservationUpdateDate(UUID.randomUUID(), validDateLate)
             val resDate = reservationWorkProjection.update(reservationWorkProjection.init, updateDate)
-            val updateAim = WorkoutReservationUpdateAimEvent(UUID.randomUUID(), aim2)
+            val updateAim = WorkoutReservationUpdateAim(UUID.randomUUID(), aim2)
             val resAim = reservationWorkProjection.update(reservationWorkProjection.init, updateAim)
             assert(resDate.date == validDateLate)
             assert(resDate.aim == aim)

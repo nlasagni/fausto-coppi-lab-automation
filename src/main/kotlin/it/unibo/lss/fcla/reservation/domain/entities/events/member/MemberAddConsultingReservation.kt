@@ -7,7 +7,7 @@ import java.util.UUID
 /**
  * An event representing an added consulting reservation
  */
-data class MemberAddConsultingReservationEvent(
+data class MemberAddConsultingReservation(
     override val id: UUID,
     val reservation: ConsultingReservation
 ) : Event

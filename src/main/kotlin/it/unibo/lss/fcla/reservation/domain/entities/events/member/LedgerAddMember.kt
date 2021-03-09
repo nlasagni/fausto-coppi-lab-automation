@@ -7,7 +7,7 @@ import java.util.UUID
 /**
  * An event representing an added member to the Ledger
  */
-data class LedgerAddMemberEvent(
+data class LedgerAddMember(
     override val id: UUID,
     val member: Member
 ) : Event

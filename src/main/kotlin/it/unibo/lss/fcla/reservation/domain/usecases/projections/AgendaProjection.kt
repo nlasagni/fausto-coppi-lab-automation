@@ -2,10 +2,10 @@ package it.unibo.lss.fcla.reservation.domain.usecases.projections
 
 import it.unibo.lss.fcla.reservation.common.Event
 import it.unibo.lss.fcla.reservation.domain.entities.agenda.Agenda
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddWorkoutReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservationEvent
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddWorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservation
 import java.util.UUID
 
 /**
@@ -19,10 +19,10 @@ class AgendaProjection(override val init: Agenda) : Projection<Agenda> {
      * Return an updated [Agenda] based on the given event.
      */
     override fun update(state: Agenda, event: Event): Agenda = when (event) {
-        is AgendaAddConsultingReservationEvent -> state.addConsultingReservation(event.reservation)
-        is AgendaAddWorkoutReservationEvent -> state.addWorkoutReservation(event.reservation)
-        is AgendaDeleteConsultingReservationEvent -> state.deleteConsultingReservation(event.reservation)
-        is AgendaDeleteWorkoutReservationEvent -> state.deleteWorkoutReservation(event.reservation)
+        is AgendaAddConsultingReservation -> state.addConsultingReservation(event.reservation)
+        is AgendaAddWorkoutReservation -> state.addWorkoutReservation(event.reservation)
+        is AgendaDeleteConsultingReservation -> state.deleteConsultingReservation(event.reservation)
+        is AgendaDeleteWorkoutReservation -> state.deleteWorkoutReservation(event.reservation)
         else -> state
     }
 }

@@ -8,7 +8,7 @@ import java.util.UUID
  *
  * It needs the [id] of this event, the [requestId], and the [message] of the error occurred.
  */
-data class RequestFailedEvent(
+data class RequestFailed(
     override val id: UUID,
     val requestId: UUID,
     val message: String

@@ -3,26 +3,25 @@ package it.unibo.lss.fcla.reservation.domain.usecases
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.Event
 import it.unibo.lss.fcla.reservation.domain.entities.agenda.Agenda
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMemberEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateDateEvent
-import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancerEvent
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMember
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateDate
+import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancer
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationEvent
-import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.DeleteConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservation
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailed
 import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestFailedMessages
-import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceededEvent
+import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucceeded
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.AgendaProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberLedgerProjection
 import it.unibo.lss.fcla.reservation.domain.usecases.projections.MemberProjection
@@ -58,9 +57,9 @@ class ConsultingReservationManager(
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [CloseConsultingReservationEvent] occurs.
+     * the aggregate when [CloseConsultingReservation] occurs.
      */
-    private fun closeConsultingReservation(event: CloseConsultingReservationEvent):
+    private fun closeConsultingReservation(event: it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservation):
         Map<UUID, List<Event>> {
             val retrievedReservation = retrieveReservation(event.reservationId)
                 ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
@@ -74,9 +73,9 @@ class ConsultingReservationManager(
                 updatedReservation.id
             )
             val agendaDeleteReservationEvent =
-                AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
+                AgendaDeleteConsultingReservation(UUID.randomUUID(), retrievedReservation)
             val agendaAddReservationEvent =
-                AgendaAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
+                AgendaAddConsultingReservation(UUID.randomUUID(), closedReservation)
             if (!(
                 memberOwnReservation(event.memberId, event.reservationId)
                     ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound)
@@ -85,22 +84,22 @@ class ConsultingReservationManager(
                 return errorInRequest(event.id, RequestFailedMessages.wrongMember)
             }
             val memberDeleteReservationEvent =
-                MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
+                MemberDeleteConsultingReservation(UUID.randomUUID(), retrievedReservation)
             val memberAddReservationEvent =
-                MemberAddConsultingReservationEvent(UUID.randomUUID(), closedReservation)
+                MemberAddConsultingReservation(UUID.randomUUID(), closedReservation)
             return mapOf(
                 agenda.id to listOf(agendaDeleteReservationEvent, agendaAddReservationEvent),
                 event.memberId to listOf(memberDeleteReservationEvent, memberAddReservationEvent),
-                event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+                event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
             )
         }
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [CreateConsultingReservationEvent] occurs.
+     * the aggregate when [CreateConsultingReservation] occurs.
      */
     private fun createConsultingReservation(
-        event: CreateConsultingReservationEvent
+        event: CreateConsultingReservation
     ): Map<UUID, List<Event>> {
         val openConsulting: OpenConsultingReservation
         try {
@@ -115,13 +114,13 @@ class ConsultingReservationManager(
             return errorInRequest(event.id, RequestFailedMessages.pastDateInReservation)
         }
         val agendaAddReservationEvent =
-            AgendaAddConsultingReservationEvent(UUID.randomUUID(), openConsulting)
+            AgendaAddConsultingReservation(UUID.randomUUID(), openConsulting)
         val memberAddReservationEvent =
-            MemberAddConsultingReservationEvent(UUID.randomUUID(), openConsulting)
+            MemberAddConsultingReservation(UUID.randomUUID(), openConsulting)
         val resultMap: Map<UUID, List<Event>> = mapOf(
             agenda.id to listOf(agendaAddReservationEvent),
             event.memberId to listOf(memberAddReservationEvent),
-            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
         )
         return try {
             ledger.retrieveAllMembers().first { member -> member.id == event.memberId }
@@ -129,7 +128,7 @@ class ConsultingReservationManager(
         } catch (exception: NoSuchElementException) {
             resultMap + (
                 ledger.id to listOf(
-                    LedgerAddMemberEvent(
+                    LedgerAddMember(
                         UUID.randomUUID(),
                         Member(event.firstName, event.lastName, event.memberId)
                     )
@@ -140,15 +139,15 @@ class ConsultingReservationManager(
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [DeleteConsultingReservationEvent] occurs.
+     * the aggregate when [DeleteConsultingReservation] occurs.
      */
-    private fun deleteConsultingReservation(event: DeleteConsultingReservationEvent): Map<UUID, List<Event>> {
+    private fun deleteConsultingReservation(event: DeleteConsultingReservation): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
         val agendaDeleteReservationEvent =
-            AgendaDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
+            AgendaDeleteConsultingReservation(UUID.randomUUID(), retrievedReservation)
         val memberDeleteReservationEvent =
-            MemberDeleteConsultingReservationEvent(UUID.randomUUID(), retrievedReservation)
+            MemberDeleteConsultingReservation(UUID.randomUUID(), retrievedReservation)
         if (!(
             memberOwnReservation(event.memberId, event.reservationId)
                 ?: return errorInRequest(event.id, RequestFailedMessages.memberNotFound)
@@ -159,15 +158,15 @@ class ConsultingReservationManager(
         return mapOf(
             agenda.id to listOf(agendaDeleteReservationEvent),
             event.memberId to listOf(memberDeleteReservationEvent),
-            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
         )
     }
 
     /**
      * Returns a [Map] with the [UUID] of the aggregate as key and a [List] of [Event] as value for
-     * the aggregate when [UpdateConsultingReservationEvent] occurs.
+     * the aggregate when [UpdateConsultingReservation] occurs.
      */
-    private fun updateConsultingReservation(event: UpdateConsultingReservationEvent): Map<UUID, List<Event>> {
+    private fun updateConsultingReservation(event: UpdateConsultingReservation): Map<UUID, List<Event>> {
         val retrievedReservation = retrieveReservation(event.reservationId)
             ?: return errorInRequest(event.id, RequestFailedMessages.reservationNotFound)
         if (retrievedReservation is CloseConsultingReservation) {
@@ -181,12 +180,12 @@ class ConsultingReservationManager(
             return errorInRequest(event.id, RequestFailedMessages.pastDateInReservation)
         }
         val updateConsultingFreelancerEvent =
-            ConsultingReservationUpdateFreelancerEvent(UUID.randomUUID(), event.freelancer)
+            ConsultingReservationUpdateFreelancer(UUID.randomUUID(), event.freelancer)
         val updateConsultingDateEvent =
-            ConsultingReservationUpdateDateEvent(UUID.randomUUID(), event.date)
+            ConsultingReservationUpdateDate(UUID.randomUUID(), event.date)
         return mapOf(
             event.reservationId to listOf(updateConsultingFreelancerEvent, updateConsultingDateEvent),
-            event.id to listOf(RequestSucceededEvent(UUID.randomUUID(), event.id))
+            event.id to listOf(RequestSucceeded(UUID.randomUUID(), event.id))
         )
     }
 
@@ -195,10 +194,10 @@ class ConsultingReservationManager(
      * the aggregate based on the specific occurred [event] which is related to the consulting reservation.
      */
     override fun produce(event: Event): Map<UUID, List<Event>> = when (event) {
-        is CloseConsultingReservationEvent -> closeConsultingReservation(event)
-        is CreateConsultingReservationEvent -> createConsultingReservation(event)
-        is DeleteConsultingReservationEvent -> deleteConsultingReservation(event)
-        is UpdateConsultingReservationEvent -> updateConsultingReservation(event)
+        is it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CloseConsultingReservation -> closeConsultingReservation(event)
+        is CreateConsultingReservation -> createConsultingReservation(event)
+        is DeleteConsultingReservation -> deleteConsultingReservation(event)
+        is UpdateConsultingReservation -> updateConsultingReservation(event)
         else -> mapOf()
     }
 
@@ -209,7 +208,7 @@ class ConsultingReservationManager(
     private fun errorInRequest(eventId: UUID, error: String): Map<UUID, List<Event>> {
         return mapOf(
             eventId to listOf(
-                RequestFailedEvent(
+                RequestFailed(
                     UUID.randomUUID(),
                     eventId,
                     error

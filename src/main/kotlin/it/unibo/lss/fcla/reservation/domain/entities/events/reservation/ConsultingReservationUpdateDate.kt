@@ -1,12 +1,13 @@
 package it.unibo.lss.fcla.reservation.domain.entities.events.reservation
 
 import it.unibo.lss.fcla.reservation.common.Event
+import java.util.Date
 import java.util.UUID
 
 /**
- * An event representing an update to a consulting reservation freelancer
+ * An event representing an update to a consulting reservation date
  */
-data class ConsultingReservationUpdateFreelancerEvent(
+data class ConsultingReservationUpdateDate(
     override val id: UUID,
-    val freelancer: String
+    val date: Date
 ) : Event
