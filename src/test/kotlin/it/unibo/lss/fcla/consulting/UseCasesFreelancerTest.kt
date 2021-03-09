@@ -71,12 +71,16 @@ class UseCasesFreelancerTest : FreeSpec({
         val from: LocalTime = LocalTime.now()
         val to: LocalTime = LocalTime.now().plusHours(2)
 
-        useCasesFreelancer.updateFreelancerAvailabilityForDay(freelancerId = id, day = date,
-        fromTime = from, toTime = to)
+        useCasesFreelancer.updateFreelancerAvailabilityForDay(
+            freelancerId = id,
+            day = date,
+            fromTime = from,
+            toTime = to
+        )
 
         assert(
             useCasesFreelancer.getFreelancerAvailabilityForDay(freelancerId = id, day = date) ==
-                    AvailabilityHours(fromTime = from, toTime = to)
+                AvailabilityHours(fromTime = from, toTime = to)
         )
     }
 
