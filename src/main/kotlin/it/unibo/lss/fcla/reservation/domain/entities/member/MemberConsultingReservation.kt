@@ -2,6 +2,10 @@ package it.unibo.lss.fcla.reservation.domain.entities.member
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 
+/**
+ * An Immutable Entity that is used to store into the [consultingReservationList]
+ * all the consulting reservations present into the system.
+ */
 class MemberConsultingReservation(val consultingReservationList: List<ConsultingReservation>) {
 
     constructor() : this(listOf<ConsultingReservation>())

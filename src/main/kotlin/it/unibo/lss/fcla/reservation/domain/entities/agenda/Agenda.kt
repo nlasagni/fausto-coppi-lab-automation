@@ -4,6 +4,13 @@ import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import java.util.UUID
 
+/**
+ * An aggregate root that is about referencing all the reservations
+ * present into the system.
+ *
+ * To do that, it uses two entities that help to group reservations,
+ * one to group workout reservations and another to group workout reservations.
+ */
 class Agenda(
     private val agendaWorkoutReservation: AgendaWorkoutReservation,
     private val agendaConsultingReservation: AgendaConsultingReservation,

@@ -6,7 +6,7 @@ import it.unibo.lss.fcla.reservation.domain.entities.exceptions.MemberDataMustNo
 import java.util.UUID
 
 /**
- * Class used to identify a member giving the [firstName], [lastName] and [id].
+ * An aggregate root used to identify a specific member giving the [firstName], [lastName] and [id].
  *
  * Throws [MemberDataMustNotBeEmpty] if a member is created with empty data
  */

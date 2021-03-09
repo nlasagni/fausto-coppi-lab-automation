@@ -4,7 +4,7 @@ import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
 /**
- * [Event] representing an update to a workout reservation aim
+ * An event representing an update to a workout reservation aim
  */
 data class WorkoutReservationUpdateAimEvent(
     override val id: UUID,

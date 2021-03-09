@@ -4,7 +4,7 @@ import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
 /**
- * [Event] representing the failure of a Consulting or Workout reservation.
+ * An event representing the failure of a Consulting or Workout reservation.
  *
  * It needs the [id] of this event, the [requestId], and the [message] of the error occurred.
  */

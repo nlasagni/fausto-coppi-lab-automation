@@ -5,7 +5,7 @@ import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import java.util.UUID
 
 /**
- * [Event] representing an added workout reservation to the Agenda
+ * An event representing an added workout reservation to the Agenda
  */
 data class AgendaAddWorkoutReservationEvent(
     override val id: UUID,

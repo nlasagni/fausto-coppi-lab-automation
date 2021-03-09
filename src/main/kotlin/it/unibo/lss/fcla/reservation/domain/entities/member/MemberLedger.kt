@@ -4,6 +4,10 @@ import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import java.util.UUID
 
+/**
+ * An aggregate root that is about referencing all the member present into
+ * the system and stored into [members] map.
+ */
 class MemberLedger(private val members: Map<UUID, Member>, val id: UUID) {
 
     constructor(id: UUID) : this(mapOf(), id)

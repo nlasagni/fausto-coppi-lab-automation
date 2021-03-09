@@ -4,7 +4,7 @@ import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
 /**
- * [Event] representing the closure of a workout reservation.
+ * An event representing the closure of a workout reservation.
  *
  * IIt needs the [id] of this event, a [reservationId], and the [memberId]
  */

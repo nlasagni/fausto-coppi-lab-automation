@@ -4,7 +4,7 @@ import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
 /**
- * [Event] representing the closure of a consulting reservation.
+ * An event representing the closure of a consulting reservation.
  *
  * It needs the [id] of this event, a [reservationId], and the [memberId]
  */

@@ -2,6 +2,10 @@ package it.unibo.lss.fcla.reservation.domain.entities.agenda
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 
+/**
+ * An immutable Entity that is about the storage of consulting reservations
+ * inside the [consultingReservationList].
+ */
 class AgendaConsultingReservation(val consultingReservationList: List<ConsultingReservation>) {
 
     constructor() : this(listOf<ConsultingReservation>())

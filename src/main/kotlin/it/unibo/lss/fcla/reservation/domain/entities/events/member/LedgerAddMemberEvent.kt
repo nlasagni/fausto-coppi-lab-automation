@@ -5,7 +5,7 @@ import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import java.util.UUID
 
 /**
- * [Event] representing an added member to the Ledger
+ * An event representing an added member to the Ledger
  */
 data class LedgerAddMemberEvent(
     override val id: UUID,

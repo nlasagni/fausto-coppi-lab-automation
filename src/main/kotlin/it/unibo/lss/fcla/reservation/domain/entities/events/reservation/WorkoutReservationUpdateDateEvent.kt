@@ -5,7 +5,7 @@ import java.util.Date
 import java.util.UUID
 
 /**
- * [Event] representing an update to a workout reservation date
+ * An event representing an update to a workout reservation date
  */
 data class WorkoutReservationUpdateDateEvent(
     override val id: UUID,

@@ -45,7 +45,6 @@ class WorkoutReservationManager(
             events
         )
 
-    // TODO Probably useless
     constructor(agendaId: UUID, ledgerId: UUID) : this(agendaId, ledgerId, mapOf())
 
     private companion object {
