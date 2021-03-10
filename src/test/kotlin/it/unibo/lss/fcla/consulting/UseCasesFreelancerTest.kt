@@ -68,8 +68,8 @@ class UseCasesFreelancerTest : FreeSpec({
             toTime = LocalTime.MAX
         )
 
-        val from: LocalTime = LocalTime.now()
-        val to: LocalTime = LocalTime.now().plusHours(2)
+        val from: LocalTime = LocalTime.MIN
+        val to: LocalTime = LocalTime.MIN.plusHours(2)
 
         useCasesFreelancer.updateFreelancerAvailabilityForDay(
             freelancerId = id,
