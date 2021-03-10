@@ -2,7 +2,6 @@ package it.unibo.lss.fcla.athleticpreparation.domain.model
 
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.ExceededMaximumWorkoutDuration
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.NameMustNotBeEmpty
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.WorkoutMustBelongToATrainingPlan
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
