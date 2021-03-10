@@ -5,8 +5,6 @@ import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparatio
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationMustHaveMember
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustBePreparedDuringPeriodOfPreparation
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustNotOverlap
-import java.time.LocalDate
-import java.time.LocalTime
 
 /**
  * This is one of the main entities of the Athletic Preparation Bounded Context.

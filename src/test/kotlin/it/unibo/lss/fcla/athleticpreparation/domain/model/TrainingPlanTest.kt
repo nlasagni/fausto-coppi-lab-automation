@@ -55,12 +55,11 @@ class TrainingPlanTest : FreeSpec({
             Assertions.assertEquals(postponedEnd, snapshot.periodOfTraining.end)
         }
         "allow scheduling of workouts" - {
-            val workout = Workout(TrainingPlanId("1234"), "Workout", LocalDate.now(), LocalTime.now())
+            val workout = Workout("Workout", LocalDate.now(), LocalTime.now())
             assertDoesNotThrow { validTrainingPlan.scheduleWorkout(workout) }
         }
         "not allow scheduling of workout out of the period of training" - {
             val outOfPeriodWorkout = Workout(
-                TrainingPlanId("1234"),
                 "Workout",
                 LocalDate.now().minusDays(2),
                 LocalTime.now()
@@ -71,7 +70,6 @@ class TrainingPlanTest : FreeSpec({
         }
         "not allow scheduling of workouts with same date and time" - {
             val workout = Workout(
-                TrainingPlanId("1234"),
                 "Workout",
                 LocalDate.now(),
                 LocalTime.now()

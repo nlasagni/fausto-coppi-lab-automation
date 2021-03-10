@@ -41,7 +41,7 @@ class TrainingPlan(
      * into the [id] private property.
      */
     private fun generateId(): TrainingPlanId = TrainingPlanId(
-            "$name-$purpose-${periodOfTraining.beginning}-${periodOfTraining.end}"
+        "$name-$purpose-${periodOfTraining.beginning}-${periodOfTraining.end}"
     )
 
     /**
