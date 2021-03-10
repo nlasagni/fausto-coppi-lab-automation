@@ -16,6 +16,8 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 /**
  * @author Stefano Braggion
  *
+ * This class contains all the use cases identified in the analysis phase, which allow to interact with
+ * behaviour and data of the [Consulting] aggregate.
  *
  */
 class ConsultingUseCases(
@@ -166,7 +168,6 @@ class ConsultingUseCases(
 
     /**
      * FCLAC-9 Retrieve all the summaries for a member
-     * //TODO refactoring in next version
      */
     fun retrieveProfile(memberId: MemberId): List<Consulting> {
         val events: Map<AggregateId, List<DomainEvent>> = repository.getAllEvents()

@@ -35,7 +35,7 @@ abstract class EventSourcedRepository<A : AbstractAggregate>(eventStore: EventSt
     }
 
     /**
-     * Retrieve the complete list of all the events for all the aggregates
+     * Retrieve the map with all [DomainEvent] of each [AggregateId]
      */
     override fun getAllEvents(): HashMap<AggregateId, List<DomainEvent>> {
         return store.getAllEvents()

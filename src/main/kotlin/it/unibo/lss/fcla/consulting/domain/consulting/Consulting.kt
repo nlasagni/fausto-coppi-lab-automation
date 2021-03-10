@@ -105,7 +105,7 @@ class Consulting internal constructor(
         when (event) {
             is ConsultingCreatedEvent -> apply(event)
             is ConsultingSummaryUpdatedDescriptionEvent -> apply(event)
-            else -> throw IllegalArgumentException() // TODO fixme
+            else -> throw IllegalArgumentException()
         }
     }
 }

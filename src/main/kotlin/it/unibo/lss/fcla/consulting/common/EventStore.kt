@@ -30,7 +30,7 @@ class EventStore(
     }
 
     /**
-     * Retrieve the list of all [DomainEvent] of all the [AggregateId]
+     * Retrieve the map with all [DomainEvent] of each [AggregateId]
      */
     override fun getAllEvents(): HashMap<AggregateId, List<DomainEvent>> = events
 }
