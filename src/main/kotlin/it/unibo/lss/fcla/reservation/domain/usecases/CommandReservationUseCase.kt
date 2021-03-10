@@ -65,6 +65,8 @@ class CommandReservationUseCase(
     }
 
     /**
+     * FCLARD-1 Requests to create a consulting reservation.
+     *
      * Return a [String] expressing the result of the create consulting request given the
      * [freelancer], the [date] of the consulting, the [firstName] of the member,
      * the [lastName] of the member and the [memberId].
@@ -83,6 +85,8 @@ class CommandReservationUseCase(
     }
 
     /**
+     * FCLARD-2 Requests to create a consulting reservation.
+     *
      * Return a [String] expressing the result of the create workout request given the
      * [aim], the [date] of the consulting, the [firstName] of the member,
      * the [lastName] of the member and the [memberId].
@@ -100,6 +104,8 @@ class CommandReservationUseCase(
     }
 
     /**
+     * FCLARD-5 Request delete a consulting reservation.
+     *
      * Return a [String] expressing the result of the delete consulting request given the
      * [reservationId] and the [memberId].
      */
@@ -113,6 +119,8 @@ class CommandReservationUseCase(
     }
 
     /**
+     * FCLARD-6 Request delete a workout reservation.
+     *
      * Return a [String] expressing the result of the delete workout request given the
      * [reservationId] and the [memberId].
      */
@@ -126,6 +134,8 @@ class CommandReservationUseCase(
     }
 
     /**
+     * FCLARD-3 Request update a consulting reservation.
+     *
      * Return a [String] expressing the result of the update consulting request given the
      * [reservationId],the new [freelancer] and the new [date].
      */
@@ -140,6 +150,8 @@ class CommandReservationUseCase(
     }
 
     /**
+     * FCLARD-4 Request update a workout reservation.
+     *
      * Return a [String] expressing the result of the update workout request given the
      * [reservationId],the new [aim] and the new [date].
      */
