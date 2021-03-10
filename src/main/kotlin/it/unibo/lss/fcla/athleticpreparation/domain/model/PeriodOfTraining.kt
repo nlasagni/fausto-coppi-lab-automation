@@ -7,7 +7,7 @@ import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 /**
- * A value object representing a period of training during an athletic preparation.
+ * The period of training during an athletic preparation.
  *
  * @property [beginning] A [LocalDate] which represents the beginning of a period.
  * @property [end] A [LocalDate] which represents the end of a period.
@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit
 data class PeriodOfTraining(val beginning: LocalDate, val end: LocalDate) {
 
     companion object PeriodOfTraining {
-        const val minimumPeriodDurationInWeeks: Int = 4
+        const val minimumPeriodDurationInWeeks: Int = 1
     }
 
     init {

@@ -7,14 +7,14 @@ import java.time.LocalDate
 import java.time.Period
 
 /**
- * A value object representing the period of an athletic preparation.
+ * The period of an athletic preparation.
  *
  * @see AthleticPreparation
  *
  * @author Nicola Lasagni on 22/02/2021.
  *
- * @property beginning
- * @property end
+ * @property beginning A [LocalDate] which represents the beginning of a period.
+ * @property end A [LocalDate] which represents the end of a period.
  */
 data class PeriodOfPreparation(val beginning: LocalDate, val end: LocalDate) {
 

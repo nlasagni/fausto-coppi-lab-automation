@@ -25,8 +25,8 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
         athleticTrainerId = "1234"
         memberId = "1234"
         periodOfPreparation = PeriodOfPreparation(
-                now,
-                now.plusMonths(PeriodOfPreparation.minimumPeriodDurationInMonth.toLong())
+            now,
+            now.plusMonths(PeriodOfPreparation.minimumPeriodDurationInMonth.toLong())
         )
         athleticPreparation = AthleticPreparation(athleticTrainerId, memberId, periodOfPreparation)
     }

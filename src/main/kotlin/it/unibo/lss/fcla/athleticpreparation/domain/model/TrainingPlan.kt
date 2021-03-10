@@ -26,13 +26,23 @@ class TrainingPlan(
     private var periodOfTraining: PeriodOfTraining
 ) {
 
+    private val id: TrainingPlanId
     private var workouts: List<Workout> = emptyList()
 
     init {
         if (name.isEmpty()) {
             throw NameMustNotBeEmpty()
         }
+        id = generateId()
     }
+
+    /**
+     * Returns a unique id of this TrainingPlan which will be stored
+     * into the [id] private property.
+     */
+    private fun generateId(): TrainingPlanId = TrainingPlanId(
+            "$name-$purpose-${periodOfTraining.beginning}-${periodOfTraining.end}"
+    )
 
     /**
      * Generates a [TrainingPlanSnapshot] with the information about this TrainingPlan.

@@ -39,5 +39,4 @@ class InMemoryAthleticPreparationRepository : AthleticPreparationRepository {
     override fun findAllByPeriodOfPreparation(periodOfPreparation: PeriodOfPreparation): List<AthleticPreparation> {
         return inMemoryStorage.values.filter { it.snapshot().periodOfPreparation == periodOfPreparation }
     }
-
 }

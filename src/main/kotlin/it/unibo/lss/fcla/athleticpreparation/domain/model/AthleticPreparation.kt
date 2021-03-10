@@ -1,7 +1,12 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.model
 
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.*
-
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationAlreadyCompleted
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationMustHaveAthleticTrainer
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.AthleticPreparationMustHaveMember
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustBePreparedDuringPeriodOfPreparation
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustNotOverlap
+import java.time.LocalDate
+import java.time.LocalTime
 
 /**
  * This is one of the main entities of the Athletic Preparation Bounded Context.
@@ -50,7 +55,7 @@ class AthleticPreparation(
     }
 
     /**
-     * Returns a unique id of the athletic preparation which will be stored
+     * Returns a unique id of this AthleticPreparation which will be stored
      * into the [id] private property.
      */
     private fun generateId(): AthleticPreparationId =
@@ -60,9 +65,11 @@ class AthleticPreparation(
      * Prepares a [TrainingPlan] for this AthleticPreparation.
      * Throws [AthleticPreparationAlreadyCompleted] if there's an attempt to prepare a TrainingPlan
      * for an already-completed AthleticPreparation.
+     * Throws [TrainingPlanMustBePreparedDuringPeriodOfPreparation] if the [trainingPlan] that is
+     * going to be prepared has a period that is not included by the [periodOfPreparation] of this athletic
+     * preparation.
      * Throws [TrainingPlanMustNotOverlap] if the [trainingPlan] that is going to be prepared overlaps
      * with an already-planned TrainingPlan.
-     *
      */
     fun prepareTrainingPlan(trainingPlan: TrainingPlan) {
         if (isAlreadyCompleted()) {

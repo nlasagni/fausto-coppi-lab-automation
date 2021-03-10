@@ -24,9 +24,9 @@ class TrainingPlanTest : FreeSpec({
         purpose = Purpose.Strengthening()
         periodOfTraining = PeriodOfTraining(LocalDate.now(), LocalDate.now().plusWeeks(5))
         validTrainingPlan = TrainingPlan(
-                trainingPlanName,
-                purpose,
-                periodOfTraining
+            trainingPlanName,
+            purpose,
+            periodOfTraining
         )
     }
 
@@ -34,9 +34,9 @@ class TrainingPlanTest : FreeSpec({
         "have a name" - {
             assertThrows<NameMustNotBeEmpty> {
                 TrainingPlan(
-                        "",
-                        purpose,
-                        periodOfTraining
+                    "",
+                    purpose,
+                    periodOfTraining
                 )
             }
         }
@@ -60,10 +60,10 @@ class TrainingPlanTest : FreeSpec({
         }
         "not allow scheduling of workout out of the period of training" - {
             val outOfPeriodWorkout = Workout(
-                    TrainingPlanId("1234"),
-                    "Workout",
-                    LocalDate.now().minusDays(2),
-                    LocalTime.now()
+                TrainingPlanId("1234"),
+                "Workout",
+                LocalDate.now().minusDays(2),
+                LocalTime.now()
             )
             assertThrows<WorkoutMustBeScheduledDuringPeriodOfTraining> {
                 validTrainingPlan.scheduleWorkout(outOfPeriodWorkout)
@@ -71,10 +71,10 @@ class TrainingPlanTest : FreeSpec({
         }
         "not allow scheduling of workouts with same date and time" - {
             val workout = Workout(
-                    TrainingPlanId("1234"),
-                    "Workout",
-                    LocalDate.now(),
-                    LocalTime.now()
+                TrainingPlanId("1234"),
+                "Workout",
+                LocalDate.now(),
+                LocalTime.now()
             )
             validTrainingPlan.scheduleWorkout(workout)
             assertThrows<WorkoutOnSameDateTimeAlreadyExists> {

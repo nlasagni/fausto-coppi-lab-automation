@@ -7,6 +7,8 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 /**
+ * A Workout that is scheduled during a [TrainingPlan].
+ *
  * @author Nicola Lasagni on 25/02/2021.
  */
 class Workout(
@@ -15,7 +17,11 @@ class Workout(
     private val time: LocalTime
 ) {
 
-    val maximumWorkoutDuration: Duration = Duration.ofHours(4)
+    companion object Workout {
+        const val maximumWorkoutDurationInHours: Long = 4
+    }
+
+    private val maximumWorkoutDuration: Duration = Duration.ofHours(maximumWorkoutDurationInHours)
 
     private val id: WorkoutId
     private var exercises: List<Exercise> = emptyList()
@@ -29,24 +35,36 @@ class Workout(
 
     private fun generateId() = WorkoutId("$name-$day-$time")
 
+    /**
+     * Generates an [WorkoutSnapshot] with the information about this Workout.
+     */
     fun snapshot(): WorkoutSnapshot = WorkoutSnapshot(name, day, time, exercises)
 
+    /**
+     * Prepares an [Exercise] for this Workout.
+     * If with this [exercise] the [Workout.maximumWorkoutDurationInHours] is exceeded,
+     * an [ExceededMaximumWorkoutDuration] exception is thrown.
+     */
     fun prepareExercise(exercise: Exercise) {
         if (exceedMaximumDuration(exercise)) {
-           throw ExceededMaximumWorkoutDuration()
+            throw ExceededMaximumWorkoutDuration()
         }
         exercises = exercises + exercise
     }
 
-    private fun exceedMaximumDuration(exercise: Exercise) : Boolean {
+    /**
+     * Checks if the [exercise] that is going to be prepared makes this Workout
+     * exceed the [Workout.maximumWorkoutDurationInHours].
+     */
+    private fun exceedMaximumDuration(exercise: Exercise): Boolean {
         val currentDurationInMinutes = exercises.map {
             it.durationOfExecution.toMinutes() + it.durationOfRest.toMinutes()
         }.foldRight(Duration.ZERO.toMinutes()) {
-            ex1Duration, ex2Duration -> ex1Duration + ex2Duration
+            ex1Duration, ex2Duration ->
+            ex1Duration + ex2Duration
         }
         val newExerciseDurationInMinutes =
-                exercise.durationOfExecution.toMinutes() + exercise.durationOfRest.toMinutes()
+            exercise.durationOfExecution.toMinutes() + exercise.durationOfRest.toMinutes()
         return currentDurationInMinutes + newExerciseDurationInMinutes > maximumWorkoutDuration.toMinutes()
     }
-
 }

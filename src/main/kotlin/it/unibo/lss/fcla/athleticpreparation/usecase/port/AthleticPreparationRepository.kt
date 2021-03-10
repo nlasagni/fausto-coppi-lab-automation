@@ -20,5 +20,4 @@ interface AthleticPreparationRepository {
     fun findAllByMemberId(memberId: String): List<AthleticPreparation>
 
     fun findAllByPeriodOfPreparation(periodOfPreparation: PeriodOfPreparation): List<AthleticPreparation>
-
 }

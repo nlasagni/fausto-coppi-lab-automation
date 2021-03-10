@@ -19,11 +19,10 @@ class CreateAthleticPreparation(private val repository: AthleticPreparationRepos
             throw AthleticPreparationWithSamePeriodAlreadyExists()
         }
         val athleticPreparationToAdd = AthleticPreparation(
-                snapshot.athleticTrainerId,
-                snapshot.memberId,
-                snapshot.periodOfPreparation
+            snapshot.athleticTrainerId,
+            snapshot.memberId,
+            snapshot.periodOfPreparation
         )
         return repository.add(athleticPreparationToAdd)
     }
-
 }
