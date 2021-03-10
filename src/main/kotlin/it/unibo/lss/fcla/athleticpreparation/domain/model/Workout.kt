@@ -33,6 +33,10 @@ class Workout(
         id = generateId()
     }
 
+    /**
+     * Returns a unique id of this Workout which will be stored
+     * into the [id] private property.
+     */
     private fun generateId() = WorkoutId("$name-$day-$time")
 
     /**
