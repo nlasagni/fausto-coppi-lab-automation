@@ -6,5 +6,13 @@ it.unibo.lss.fcla.athleticPreparation.domain
 it.unibo.lss.fcla.athleticPreparation.domain.builders
 it.unibo.lss.fcla.athleticPreparation.domain.exceptions
 it.unibo.lss.fcla.athleticPreparation.domain.model
+it.unibo.lss.fcla.consulting.common
+it.unibo.lss.fcla.consulting.domain.consulting
+it.unibo.lss.fcla.consulting.domain.consulting.events
+it.unibo.lss.fcla.consulting.domain.contracts
+it.unibo.lss.fcla.consulting.domain.exceptions
+it.unibo.lss.fcla.consulting.domain.freelancer
+it.unibo.lss.fcla.consulting.domain.freelancer.events
+it.unibo.lss.fcla.consulting.usecases
 it.unibo.lss.fcla.reservation
 
