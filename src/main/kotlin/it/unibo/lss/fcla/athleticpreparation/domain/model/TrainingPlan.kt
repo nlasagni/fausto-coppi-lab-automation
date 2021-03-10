@@ -1,6 +1,9 @@
 package it.unibo.lss.fcla.athleticpreparation.domain.model
 
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.*
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.NameMustNotBeEmpty
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
+import it.unibo.lss.fcla.athleticpreparation.domain.exception.WorkoutOnSameDateTimeAlreadyExists
 import java.time.LocalDate
 
 /**
@@ -18,7 +21,6 @@ import java.time.LocalDate
  * @author Nicola Lasagni on 22/02/2021.
  */
 class TrainingPlan(
-    private val athleticPreparationId: AthleticPreparationId,
     private val name: String,
     private val purpose: Purpose,
     private var periodOfTraining: PeriodOfTraining
@@ -27,9 +29,6 @@ class TrainingPlan(
     private var workouts: List<Workout> = emptyList()
 
     init {
-        if (athleticPreparationId.value.isEmpty()) {
-            throw TrainingPlanMustBelongToAthleticPreparation()
-        }
         if (name.isEmpty()) {
             throw NameMustNotBeEmpty()
         }
@@ -40,7 +39,6 @@ class TrainingPlan(
      */
     fun snapshot() = TrainingPlanSnapshot(
         name,
-        athleticPreparationId,
         purpose,
         periodOfTraining,
         workouts,

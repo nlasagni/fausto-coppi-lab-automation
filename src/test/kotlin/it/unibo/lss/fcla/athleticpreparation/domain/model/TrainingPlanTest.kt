@@ -2,7 +2,6 @@ package it.unibo.lss.fcla.athleticpreparation.domain.model
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.NameMustNotBeEmpty
-import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustBelongToAthleticPreparation
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
 import it.unibo.lss.fcla.athleticpreparation.domain.exception.WorkoutOnSameDateTimeAlreadyExists
 import org.junit.jupiter.api.Assertions
@@ -15,19 +14,16 @@ import java.time.LocalTime
  * @author Nicola Lasagni on 04/03/2021.
  */
 class TrainingPlanTest : FreeSpec({
-    lateinit var athleticPreparationId: AthleticPreparationId
     lateinit var trainingPlanName: String
     lateinit var purpose: Purpose
     lateinit var periodOfTraining: PeriodOfTraining
     lateinit var validTrainingPlan: TrainingPlan
 
     beforeAny {
-        athleticPreparationId = AthleticPreparationId("1234")
         trainingPlanName = "Training Plan"
         purpose = Purpose.Strengthening()
         periodOfTraining = PeriodOfTraining(LocalDate.now(), LocalDate.now().plusWeeks(5))
         validTrainingPlan = TrainingPlan(
-                athleticPreparationId,
                 trainingPlanName,
                 purpose,
                 periodOfTraining
@@ -35,20 +31,9 @@ class TrainingPlanTest : FreeSpec({
     }
 
     "TrainingPlan should" - {
-        "belong to an AthleticPreparation" - {
-            assertThrows<TrainingPlanMustBelongToAthleticPreparation> {
-                TrainingPlan(
-                        AthleticPreparationId(""),
-                        trainingPlanName,
-                        purpose,
-                        periodOfTraining
-                )
-            }
-        }
         "have a name" - {
             assertThrows<NameMustNotBeEmpty> {
                 TrainingPlan(
-                        athleticPreparationId,
                         "",
                         purpose,
                         periodOfTraining
@@ -57,7 +42,6 @@ class TrainingPlanTest : FreeSpec({
         }
         "offer a snapshot of itself" - {
             val snapshot = validTrainingPlan.snapshot()
-            Assertions.assertEquals(athleticPreparationId, snapshot.athleticPreparationId)
             Assertions.assertEquals(trainingPlanName, snapshot.name)
             Assertions.assertEquals(purpose, snapshot.purpose)
             Assertions.assertEquals(periodOfTraining, snapshot.periodOfTraining)
