@@ -14,5 +14,17 @@ it.unibo.lss.fcla.consulting.domain.exceptions
 it.unibo.lss.fcla.consulting.domain.freelancer
 it.unibo.lss.fcla.consulting.domain.freelancer.events
 it.unibo.lss.fcla.consulting.usecases
-it.unibo.lss.fcla.reservation
+it.unibo.lss.fcla.reservation.common
+it.unibo.lss.fcla.reservation.domain.entities.agenda
+it.unibo.lss.fcla.reservation.domain.entities.events.agenda
+it.unibo.lss.fcla.reservation.domain.entities.events.member
+it.unibo.lss.fcla.reservation.domain.entities.events.reservation
+it.unibo.lss.fcla.reservation.domain.entities.exceptions
+it.unibo.lss.fcla.reservation.domain.entities.member
+it.unibo.lss.fcla.reservation.domain.entities.reservation
+it.unibo.lss.fcla.reservation.domain.usecases
+it.unibo.lss.fcla.reservation.domain.usecases.events.requests
+it.unibo.lss.fcla.reservation.domain.usecases.events.results
+it.unibo.lss.fcla.reservation.domain.usecases.facades
+it.unibo.lss.fcla.reservation.domain.usecases.projections
 

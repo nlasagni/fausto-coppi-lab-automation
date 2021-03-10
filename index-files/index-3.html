@@ -113,23 +113,29 @@ var pathtoroot = "../";
         
             <a href="index-9.html">I</a>&nbsp;
         
-            <a href="index-10.html">M</a>&nbsp;
+            <a href="index-10.html">L</a>&nbsp;
         
-            <a href="index-11.html">N</a>&nbsp;
+            <a href="index-11.html">M</a>&nbsp;
         
-            <a href="index-12.html">P</a>&nbsp;
+            <a href="index-12.html">N</a>&nbsp;
         
-            <a href="index-13.html">R</a>&nbsp;
+            <a href="index-13.html">O</a>&nbsp;
         
-            <a href="index-14.html">S</a>&nbsp;
+            <a href="index-14.html">P</a>&nbsp;
         
-            <a href="index-15.html">T</a>&nbsp;
+            <a href="index-15.html">Q</a>&nbsp;
         
-            <a href="index-16.html">U</a>&nbsp;
+            <a href="index-16.html">R</a>&nbsp;
         
-            <a href="index-17.html">W</a>&nbsp;
+            <a href="index-17.html">S</a>&nbsp;
         
-            <a href="index-18.html">Y</a>&nbsp;
+            <a href="index-18.html">T</a>&nbsp;
+        
+            <a href="index-19.html">U</a>&nbsp;
+        
+            <a href="index-20.html">W</a>&nbsp;
+        
+            <a href="index-21.html">Y</a>&nbsp;
         
         <h2 class="title">C</h2>
         <dl>
@@ -177,7 +183,7 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/ProfessionalType.html#clone()">clone()</a>
+                    <a href="../it/unibo/lss/fcla/athleticPreparation/domain/model/WorkoutPlanStatus.html#clone()">clone()</a>
                 
                 </span> - function in kotlin.<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html>Enum</a>
                 
@@ -190,7 +196,7 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/ProfessionalType.html#clone()">clone()</a>
+                    <a href="../it/unibo/lss/fcla/athleticPreparation/domain/model/WorkoutPlanStatus.html#clone()">clone()</a>
                 
                 </span> - function in kotlin.<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html>Enum</a>
                 
@@ -203,26 +209,104 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/ProfessionalType.html#clone()">clone()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/reservation/CloseConsultingReservation.html">CloseConsultingReservation</a>
                 
-                </span> - function in kotlin.<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html>Enum</a>
+                </span> - class in it.unibo.lss.fcla.reservation.domain.entities.reservation
                 
 
             </dt>
-            <dd>&nbsp;</dd>
+            <dd>It is referred to a consulting reservation that cannot be updated anymore</dd>
 
         
             <dt>
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/ProfessionalType.html#clone()">clone()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html#closeConsultingReservation(CloseConsultingReservationRequest)">closeConsultingReservation(CloseConsultingReservationRequest)</a>
                 
-                </span> - function in kotlin.<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html>Enum</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html>ConsultingReservationManager</a>
                 
 
             </dt>
-            <dd>&nbsp;</dd>
+            <dd>Returns a <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html>Map</a> with the <a href=https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html>UUID</a> of the aggregate as key and a <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html>List</a> of <a href=../it/unibo/lss/fcla/reservation/common/Event.html>Event</a> as value for the aggregate when <a href=../it/unibo/lss/fcla/reservation/domain/entities/reservation/CloseConsultingReservation.html>CloseConsultingReservation</a> occurs.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html">CloseConsultingReservationRequest</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases.events.requests
+                
+
+            </dt>
+            <dd>An event representing the closure of a consulting reservation.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/exceptions/ClosedReservationCannotBeUpdated.html">ClosedReservationCannotBeUpdated</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.entities.exceptions
+                
+
+            </dt>
+            <dd><a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html>Exception</a> that occur when someone wants to update a close reservation</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/reservation/CloseWorkoutReservation.html">CloseWorkoutReservation</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.entities.reservation
+                
+
+            </dt>
+            <dd>It is referred to a workout reservation that cannot be updated anymore</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.html#closeWorkoutReservation(CloseWorkoutReservationRequest)">closeWorkoutReservation(CloseWorkoutReservationRequest)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.html>WorkoutReservationManager</a>
+                
+
+            </dt>
+            <dd>Returns a <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html>Map</a> with the <a href=https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html>UUID</a> of the aggregate as key and a <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html>List</a> of <a href=../it/unibo/lss/fcla/reservation/common/Event.html>Event</a> as value for the aggregate when <a href=../it/unibo/lss/fcla/reservation/domain/entities/reservation/CloseWorkoutReservation.html>CloseWorkoutReservation</a> occurs.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html">CloseWorkoutReservationRequest</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases.events.requests
+                
+
+            </dt>
+            <dd>An event representing the closure of a workout reservation.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/CommandReservationUseCase.html">CommandReservationUseCase</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases
+                
+
+            </dt>
+            <dd>A command <a href=../it/unibo/lss/fcla/reservation/domain/usecases/ReservationUseCase.html>ReservationUseCase</a> which handles the command requests</dd>
 
         
             <dt>
@@ -243,32 +327,6 @@ var pathtoroot = "../";
                 <span class="memberNameLink">
                 
                     <a href="../it/unibo/lss/fcla/athleticPreparation/domain/model/WorkoutPlanStatus.html#compareTo(WorkoutPlanStatus)">compareTo(WorkoutPlanStatus)</a>
-                
-                </span> - function in kotlin.<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html>Enum</a>
-                
-
-            </dt>
-            <dd>&nbsp;</dd>
-
-        
-            <dt>
-                
-                <span class="memberNameLink">
-                
-                    <a href="../it/unibo/lss/fcla/reservation/Consulting.html#compareTo(Consulting)">compareTo(Consulting)</a>
-                
-                </span> - function in kotlin.<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html>Enum</a>
-                
-
-            </dt>
-            <dd>&nbsp;</dd>
-
-        
-            <dt>
-                
-                <span class="memberNameLink">
-                
-                    <a href="../it/unibo/lss/fcla/reservation/ProfessionalType.html#compareTo(ProfessionalType)">compareTo(ProfessionalType)</a>
                 
                 </span> - function in kotlin.<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html>Enum</a>
                 
@@ -580,22 +638,9 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Machine.html#component1()">component1()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddConsultingReservation.html#component1()">component1()</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Machine.html>Machine</a>
-                
-
-            </dt>
-            <dd>&nbsp;</dd>
-
-        
-            <dt>
-                
-                <span class="memberNameLink">
-                
-                    <a href="../it/unibo/lss/fcla/reservation/Member.html#component1()">component1()</a>
-                
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Member.html>Member</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddConsultingReservation.html>AgendaAddConsultingReservation</a>
                 
 
             </dt>
@@ -606,9 +651,9 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/MembershipCard.html#component1()">component1()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddWorkoutReservation.html#component1()">component1()</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/MembershipCard.html>MembershipCard</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddWorkoutReservation.html>AgendaAddWorkoutReservation</a>
                 
 
             </dt>
@@ -619,9 +664,295 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Professional.html#component1()">component1()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteConsultingReservation.html#component1()">component1()</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Professional.html>Professional</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteConsultingReservation.html>AgendaDeleteConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteWorkoutReservation.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteWorkoutReservation.html>AgendaDeleteWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/LedgerAddMember.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/LedgerAddMember.html>LedgerAddMember</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddConsultingReservation.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddConsultingReservation.html>MemberAddConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddWorkoutReservation.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddWorkoutReservation.html>MemberAddWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteConsultingReservation.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteConsultingReservation.html>MemberDeleteConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteWorkoutReservation.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteWorkoutReservation.html>MemberDeleteWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateDate.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateDate.html>ConsultingReservationUpdateDate</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateFreelancer.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateFreelancer.html>ConsultingReservationUpdateFreelancer</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateAim.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateAim.html>WorkoutReservationUpdateAim</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateDate.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateDate.html>WorkoutReservationUpdateDate</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html>CloseConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html>CloseWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html>CreateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html>CreateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteConsultingReservationRequest.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteConsultingReservationRequest.html>DeleteConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteWorkoutReservationRequest.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteWorkoutReservationRequest.html>DeleteWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html>UpdateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html>UpdateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestFailed.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.results.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestFailed.html>RequestFailed</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestSucceeded.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.results.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestSucceeded.html>RequestSucceeded</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html>ConsultingReservationFacade</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html#component1()">component1()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html>WorkoutReservationFacade</a>
                 
 
             </dt>
@@ -814,9 +1145,9 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Member.html#component2()">component2()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddConsultingReservation.html#component2()">component2()</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Member.html>Member</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddConsultingReservation.html>AgendaAddConsultingReservation</a>
                 
 
             </dt>
@@ -827,9 +1158,308 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Professional.html#component2()">component2()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddWorkoutReservation.html#component2()">component2()</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Professional.html>Professional</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddWorkoutReservation.html>AgendaAddWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteConsultingReservation.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteConsultingReservation.html>AgendaDeleteConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteWorkoutReservation.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteWorkoutReservation.html>AgendaDeleteWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/LedgerAddMember.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/LedgerAddMember.html>LedgerAddMember</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddConsultingReservation.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddConsultingReservation.html>MemberAddConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddWorkoutReservation.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddWorkoutReservation.html>MemberAddWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteConsultingReservation.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteConsultingReservation.html>MemberDeleteConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteWorkoutReservation.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteWorkoutReservation.html>MemberDeleteWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateDate.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateDate.html>ConsultingReservationUpdateDate</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateFreelancer.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateFreelancer.html>ConsultingReservationUpdateFreelancer</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateAim.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateAim.html>WorkoutReservationUpdateAim</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateDate.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateDate.html>WorkoutReservationUpdateDate</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html>CloseConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html>CloseWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html>CreateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html>CreateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteConsultingReservationRequest.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteConsultingReservationRequest.html>DeleteConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteWorkoutReservationRequest.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteWorkoutReservationRequest.html>DeleteWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html>UpdateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html>UpdateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestFailed.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.results.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestFailed.html>RequestFailed</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestSucceeded.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.results.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestSucceeded.html>RequestSucceeded</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html>ConsultingReservationFacade</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html#component2()">component2()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html>WorkoutReservationFacade</a>
                 
 
             </dt>
@@ -944,9 +1574,9 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Member.html#component3()">component3()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html#component3()">component3()</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Member.html>Member</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html>CloseConsultingReservationRequest</a>
                 
 
             </dt>
@@ -957,9 +1587,139 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Professional.html#component3()">component3()</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html#component3()">component3()</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Professional.html>Professional</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html>CloseWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html>CreateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html>CreateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteConsultingReservationRequest.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteConsultingReservationRequest.html>DeleteConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteWorkoutReservationRequest.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteWorkoutReservationRequest.html>DeleteWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html>UpdateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html>UpdateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestFailed.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.results.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestFailed.html>RequestFailed</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestSucceeded.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.results.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestSucceeded.html>RequestSucceeded</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html>ConsultingReservationFacade</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html#component3()">component3()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html>WorkoutReservationFacade</a>
                 
 
             </dt>
@@ -1035,9 +1795,113 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html#component4()">component4()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html>CreateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html#component4()">component4()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html>CreateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html#component4()">component4()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html>UpdateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html#component4()">component4()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html>UpdateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html#component4()">component4()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html>ConsultingReservationFacade</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html#component4()">component4()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html>WorkoutReservationFacade</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
                     <a href="../it/unibo/lss/fcla/consulting/domain/consulting/events/ConsultingCreatedEvent.html#component5()">component5()</a>
                 
                 </span> - function in it.unibo.lss.fcla.consulting.domain.consulting.events.<a href=../it/unibo/lss/fcla/consulting/domain/consulting/events/ConsultingCreatedEvent.html>ConsultingCreatedEvent</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html#component5()">component5()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html>CreateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html#component5()">component5()</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html>CreateWorkoutReservationRequest</a>
                 
 
             </dt>
@@ -1061,9 +1925,9 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/consulting/domain/consulting/Consulting.html">Consulting</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html#component6()">component6()</a>
                 
-                </span> - class in it.unibo.lss.fcla.consulting.domain.consulting
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html>CreateConsultingReservationRequest</a>
                 
 
             </dt>
@@ -1074,13 +1938,169 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Consulting.html">Consulting</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html#component6()">component6()</a>
                 
-                </span> - class in it.unibo.lss.fcla.reservation
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html>CreateWorkoutReservationRequest</a>
                 
 
             </dt>
-            <dd>Consulting name that can be used</dd>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.Companion.html#computeAgenda(UUID,List)">computeAgenda(UUID,List)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.Companion.html>ConsultingReservationManager.Companion</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.Companion.html#computeAgenda(UUID,List)">computeAgenda(UUID,List)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.Companion.html>WorkoutReservationManager.Companion</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ReservationUseCase.html#computeAggregate(UUID,Projection)">computeAggregate(UUID,Projection)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ReservationUseCase.html>ReservationUseCase</a>
+                
+
+            </dt>
+            <dd>Return an aggregate T given its aggregateId and the related projection based on the events present into the <a href=../it/unibo/lss/fcla/reservation/domain/usecases/EventStore.html>EventStore</a></dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ReservationUseCase.html#computeAggregate(UUID,Projection)">computeAggregate(UUID,Projection)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ReservationUseCase.html>ReservationUseCase</a>
+                
+
+            </dt>
+            <dd>Return an aggregate T given its aggregateId and the related projection based on the events present into the <a href=../it/unibo/lss/fcla/reservation/domain/usecases/EventStore.html>EventStore</a></dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ReservationUseCase.html#computeAggregate(UUID,Projection)">computeAggregate(UUID,Projection)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ReservationUseCase.html>ReservationUseCase</a>
+                
+
+            </dt>
+            <dd>Return an aggregate <a href=../it/unibo/lss/fcla/reservation/domain/usecases/ReservationUseCase.html#computeAggregate(UUID,Projection)>T</a> given its aggregateId and the related projection based on the events present into the <a href=../it/unibo/lss/fcla/reservation/domain/usecases/EventStore.html>EventStore</a></dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html#computeConsultingReservation(OpenConsultingReservation)">computeConsultingReservation(OpenConsultingReservation)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html>ConsultingReservationManager</a>
+                
+
+            </dt>
+            <dd>compute the <a href=../it/unibo/lss/fcla/reservation/common/ConsultingReservation.html>ConsultingReservation</a> based on the events occurred and the given reservation Return the updated <a href=../it/unibo/lss/fcla/reservation/common/ConsultingReservation.html>ConsultingReservation</a></dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html#computeMember(Member)">computeMember(Member)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html>ConsultingReservationManager</a>
+                
+
+            </dt>
+            <dd>compute the <a href=../it/unibo/lss/fcla/reservation/domain/entities/member/Member.html>Member</a> based on the events occurred and the given member Return the updated <a href=../it/unibo/lss/fcla/reservation/domain/entities/member/Member.html>Member</a></dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.html#computeMember(Member)">computeMember(Member)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.html>WorkoutReservationManager</a>
+                
+
+            </dt>
+            <dd>compute the <a href=../it/unibo/lss/fcla/reservation/domain/entities/member/Member.html>Member</a> based on the events occurred and the given member Return the updated <a href=../it/unibo/lss/fcla/reservation/domain/entities/member/Member.html>Member</a></dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.Companion.html#computeMemberLedger(UUID,List)">computeMemberLedger(UUID,List)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.Companion.html>ConsultingReservationManager.Companion</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.Companion.html#computeMemberLedger(UUID,List)">computeMemberLedger(UUID,List)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.Companion.html>WorkoutReservationManager.Companion</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.html#computeWorkoutReservation(OpenWorkoutReservation)">computeWorkoutReservation(OpenWorkoutReservation)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.html>WorkoutReservationManager</a>
+                
+
+            </dt>
+            <dd>compute the <a href=../it/unibo/lss/fcla/reservation/common/WorkoutReservation.html>WorkoutReservation</a> based on the events occurred and the given reservation Return the updated <a href=../it/unibo/lss/fcla/reservation/common/WorkoutReservation.html>WorkoutReservation</a></dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/consulting/domain/consulting/Consulting.html">Consulting</a>
+                
+                </span> - class in it.unibo.lss.fcla.consulting.domain.consulting
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
 
         
             <dt>
@@ -1159,6 +2179,110 @@ var pathtoroot = "../";
 
             </dt>
             <dd>Thrown when a consulting is created without a valid Member Id</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/common/ConsultingReservation.html">ConsultingReservation</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.common
+                
+
+            </dt>
+            <dd>This is the interface of a Consulting Reservation.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationDateFacade.html">ConsultingReservationDateFacade</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases.facades
+                
+
+            </dt>
+            <dd>Facade used to have access to a consulting reservation and associate the <a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationDateFacade.html#reservationId>reservationId</a> to its <a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationDateFacade.html#date>date</a>.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html">ConsultingReservationFacade</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases.facades
+                
+
+            </dt>
+            <dd>Facade class used to have access to all consulting reservation information.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/exceptions/ConsultingReservationFreelancerCannotBeEmpty.html">ConsultingReservationFreelancerCannotBeEmpty</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.entities.exceptions
+                
+
+            </dt>
+            <dd><a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html>Exception</a> that occur when a consulting reservation is created without a freelancer</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html">ConsultingReservationManager</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases
+                
+
+            </dt>
+            <dd>An implementation of <a href=../it/unibo/lss/fcla/reservation/domain/usecases/Producer.html>Producer</a> that handle consulting reservation</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.Companion.html">ConsultingReservationManager.Companion</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html>ConsultingReservationManager</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateDate.html">ConsultingReservationUpdateDate</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.entities.events.reservation
+                
+
+            </dt>
+            <dd>An event representing an update to a consulting reservation date</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateFreelancer.html">ConsultingReservationUpdateFreelancer</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.entities.events.reservation
+                
+
+            </dt>
+            <dd>An event representing an update to a consulting reservation freelancer</dd>
 
         
             <dt>
@@ -1328,6 +2452,32 @@ var pathtoroot = "../";
 
             </dt>
             <dd>Thrown when the provided consulting Id does not exist</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/QueryReservationUseCase.html#convertToConsultingDateFacades(List)">convertToConsultingDateFacades(List)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/QueryReservationUseCase.html>QueryReservationUseCase</a>
+                
+
+            </dt>
+            <dd>Convert a list of <a href=../it/unibo/lss/fcla/reservation/common/ConsultingReservation.html>ConsultingReservation</a> to a list of <a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationDateFacade.html>ConsultingReservationDateFacade</a></dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/QueryReservationUseCase.html#convertToWorkoutDateFacades(List)">convertToWorkoutDateFacades(List)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/QueryReservationUseCase.html>QueryReservationUseCase</a>
+                
+
+            </dt>
+            <dd>Convert a list of <a href=../it/unibo/lss/fcla/reservation/common/WorkoutReservation.html>WorkoutReservation</a> to a list of <a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationDateFacade.html>WorkoutReservationDateFacade</a></dd>
 
         
             <dt>
@@ -1633,22 +2783,9 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Machine.html#copy(String)">copy(String)</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddConsultingReservation.html#copy(UUID,ConsultingReservation)">copy(UUID,ConsultingReservation)</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Machine.html>Machine</a>
-                
-
-            </dt>
-            <dd>&nbsp;</dd>
-
-        
-            <dt>
-                
-                <span class="memberNameLink">
-                
-                    <a href="../it/unibo/lss/fcla/reservation/Member.html#copy(String,String,MembershipCard)">copy(String,String,MembershipCard)</a>
-                
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Member.html>Member</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddConsultingReservation.html>AgendaAddConsultingReservation</a>
                 
 
             </dt>
@@ -1659,9 +2796,9 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/MembershipCard.html#copy(String)">copy(String)</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddWorkoutReservation.html#copy(UUID,WorkoutReservation)">copy(UUID,WorkoutReservation)</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/MembershipCard.html>MembershipCard</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaAddWorkoutReservation.html>AgendaAddWorkoutReservation</a>
                 
 
             </dt>
@@ -1672,9 +2809,295 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Professional.html#copy(ProfessionalType,String,String)">copy(ProfessionalType,String,String)</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteConsultingReservation.html#copy(UUID,ConsultingReservation)">copy(UUID,ConsultingReservation)</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Professional.html>Professional</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteConsultingReservation.html>AgendaDeleteConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteWorkoutReservation.html#copy(UUID,WorkoutReservation)">copy(UUID,WorkoutReservation)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.agenda.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/agenda/AgendaDeleteWorkoutReservation.html>AgendaDeleteWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/LedgerAddMember.html#copy(UUID,Member)">copy(UUID,Member)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/LedgerAddMember.html>LedgerAddMember</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddConsultingReservation.html#copy(UUID,ConsultingReservation)">copy(UUID,ConsultingReservation)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddConsultingReservation.html>MemberAddConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddWorkoutReservation.html#copy(UUID,WorkoutReservation)">copy(UUID,WorkoutReservation)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberAddWorkoutReservation.html>MemberAddWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteConsultingReservation.html#copy(UUID,ConsultingReservation)">copy(UUID,ConsultingReservation)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteConsultingReservation.html>MemberDeleteConsultingReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteWorkoutReservation.html#copy(UUID,WorkoutReservation)">copy(UUID,WorkoutReservation)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.member.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/member/MemberDeleteWorkoutReservation.html>MemberDeleteWorkoutReservation</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateDate.html#copy(UUID,Date)">copy(UUID,Date)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateDate.html>ConsultingReservationUpdateDate</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateFreelancer.html#copy(UUID,String)">copy(UUID,String)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/ConsultingReservationUpdateFreelancer.html>ConsultingReservationUpdateFreelancer</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateAim.html#copy(UUID,String)">copy(UUID,String)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateAim.html>WorkoutReservationUpdateAim</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateDate.html#copy(UUID,Date)">copy(UUID,Date)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.entities.events.reservation.<a href=../it/unibo/lss/fcla/reservation/domain/entities/events/reservation/WorkoutReservationUpdateDate.html>WorkoutReservationUpdateDate</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html#copy(UUID,UUID,UUID)">copy(UUID,UUID,UUID)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseConsultingReservationRequest.html>CloseConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html#copy(UUID,UUID,UUID)">copy(UUID,UUID,UUID)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CloseWorkoutReservationRequest.html>CloseWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html#copy(UUID,String,Date,String,String,UUID)">copy(UUID,String,Date,String,String,UUID)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html>CreateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html#copy(UUID,String,Date,String,String,UUID)">copy(UUID,String,Date,String,String,UUID)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html>CreateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteConsultingReservationRequest.html#copy(UUID,UUID,UUID)">copy(UUID,UUID,UUID)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteConsultingReservationRequest.html>DeleteConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteWorkoutReservationRequest.html#copy(UUID,UUID,UUID)">copy(UUID,UUID,UUID)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/DeleteWorkoutReservationRequest.html>DeleteWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html#copy(UUID,UUID,String,Date)">copy(UUID,UUID,String,Date)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateConsultingReservationRequest.html>UpdateConsultingReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html#copy(UUID,UUID,String,Date)">copy(UUID,UUID,String,Date)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.requests.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/UpdateWorkoutReservationRequest.html>UpdateWorkoutReservationRequest</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestFailed.html#copy(UUID,UUID,String)">copy(UUID,UUID,String)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.results.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestFailed.html>RequestFailed</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestSucceeded.html#copy(UUID,UUID,String)">copy(UUID,UUID,String)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.events.results.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/results/RequestSucceeded.html>RequestSucceeded</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html#copy(Date,String,UUID,Boolean)">copy(Date,String,UUID,Boolean)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/ConsultingReservationFacade.html>ConsultingReservationFacade</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html#copy(Date,String,UUID,Boolean)">copy(Date,String,UUID,Boolean)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.facades.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/facades/WorkoutReservationFacade.html>WorkoutReservationFacade</a>
                 
 
             </dt>
@@ -1763,13 +3186,26 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
-                    <a href="../it/unibo/lss/fcla/reservation/Desk.html#createConsultingReservation(Date,Member,Professional,Consulting)">createConsultingReservation(Date,Member,Professional,Consulting)</a>
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html#createConsultingReservation(CreateConsultingReservationRequest)">createConsultingReservation(CreateConsultingReservationRequest)</a>
                 
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Desk.html>Desk</a>
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/ConsultingReservationManager.html>ConsultingReservationManager</a>
                 
 
             </dt>
-            <dd>Method used to create a new Consulting Reservation.</dd>
+            <dd>Returns a <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html>Map</a> with the <a href=https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html>UUID</a> of the aggregate as key and a <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html>List</a> of <a href=../it/unibo/lss/fcla/reservation/common/Event.html>Event</a> as value for the aggregate when <a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html>CreateConsultingReservationRequest</a> occurs.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateConsultingReservationRequest.html">CreateConsultingReservationRequest</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases.events.requests
+                
+
+            </dt>
+            <dd>An event representing the creation of a consulting reservation.</dd>
 
         
             <dt>
@@ -1796,19 +3232,6 @@ var pathtoroot = "../";
 
             </dt>
             <dd>&nbsp;</dd>
-
-        
-            <dt>
-                
-                <span class="memberNameLink">
-                
-                    <a href="../it/unibo/lss/fcla/reservation/Desk.html#createGymReservation(Date,Member,Machine)">createGymReservation(Date,Member,Machine)</a>
-                
-                </span> - function in it.unibo.lss.fcla.reservation.<a href=../it/unibo/lss/fcla/reservation/Desk.html>Desk</a>
-                
-
-            </dt>
-            <dd>Method used to create a new Gym Reservation.</dd>
 
         
             <dt>
@@ -1919,6 +3342,19 @@ var pathtoroot = "../";
                 
                 <span class="memberNameLink">
                 
+                    <a href="../it/unibo/lss/fcla/MainClass.html#createReservation()">createReservation()</a>
+                
+                </span> - function in it.unibo.lss.fcla.<a href=../it/unibo/lss/fcla/MainClass.html>MainClass</a>
+                
+
+            </dt>
+            <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
                     <a href="../it/unibo/lss/fcla/athleticPreparation/domain/model/AthleteProfile.html#createWorkoutPlan(String,Integer,WorkoutPlanType)">createWorkoutPlan(String,Integer,WorkoutPlanType)</a>
                 
                 </span> - function in it.unibo.lss.fcla.athleticPreparation.domain.model.<a href=../it/unibo/lss/fcla/athleticPreparation/domain/model/AthleteProfile.html>AthleteProfile</a>
@@ -1926,6 +3362,32 @@ var pathtoroot = "../";
 
             </dt>
             <dd>&nbsp;</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.html#createWorkoutReservation(CreateWorkoutReservationRequest)">createWorkoutReservation(CreateWorkoutReservationRequest)</a>
+                
+                </span> - function in it.unibo.lss.fcla.reservation.domain.usecases.<a href=../it/unibo/lss/fcla/reservation/domain/usecases/WorkoutReservationManager.html>WorkoutReservationManager</a>
+                
+
+            </dt>
+            <dd>Returns a <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html>Map</a> with the <a href=https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html>UUID</a> of the aggregate as key and a <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html>List</a> of <a href=../it/unibo/lss/fcla/reservation/common/Event.html>Event</a> as value for the aggregate when <a href=../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html>CreateWorkoutReservationRequest</a> occurs.</dd>
+
+        
+            <dt>
+                
+                <span class="memberNameLink">
+                
+                    <a href="../it/unibo/lss/fcla/reservation/domain/usecases/events/requests/CreateWorkoutReservationRequest.html">CreateWorkoutReservationRequest</a>
+                
+                </span> - class in it.unibo.lss.fcla.reservation.domain.usecases.events.requests
+                
+
+            </dt>
+            <dd>An event representing the creation of a workout reservation.</dd>
 
         
         </dl>
@@ -1948,23 +3410,29 @@ var pathtoroot = "../";
         
             <a href="index-9.html">I</a>&nbsp;
         
-            <a href="index-10.html">M</a>&nbsp;
+            <a href="index-10.html">L</a>&nbsp;
         
-            <a href="index-11.html">N</a>&nbsp;
+            <a href="index-11.html">M</a>&nbsp;
         
-            <a href="index-12.html">P</a>&nbsp;
+            <a href="index-12.html">N</a>&nbsp;
         
-            <a href="index-13.html">R</a>&nbsp;
+            <a href="index-13.html">O</a>&nbsp;
         
-            <a href="index-14.html">S</a>&nbsp;
+            <a href="index-14.html">P</a>&nbsp;
         
-            <a href="index-15.html">T</a>&nbsp;
+            <a href="index-15.html">Q</a>&nbsp;
         
-            <a href="index-16.html">U</a>&nbsp;
+            <a href="index-16.html">R</a>&nbsp;
         
-            <a href="index-17.html">W</a>&nbsp;
+            <a href="index-17.html">S</a>&nbsp;
         
-            <a href="index-18.html">Y</a>&nbsp;
+            <a href="index-18.html">T</a>&nbsp;
+        
+            <a href="index-19.html">U</a>&nbsp;
+        
+            <a href="index-20.html">W</a>&nbsp;
+        
+            <a href="index-21.html">Y</a>&nbsp;
         
     </div>
 </main><footer role="contentinfo">
