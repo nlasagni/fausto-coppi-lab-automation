@@ -11,6 +11,8 @@ interface AthleticPreparationRepository {
 
     fun add(athleticPreparation: AthleticPreparation): AthleticPreparation
 
+    fun update(athleticPreparation: AthleticPreparation): AthleticPreparation
+
     fun findById(id: AthleticPreparationId): AthleticPreparation?
 
     fun findAllByAthleticTrainerId(athleticTrainerId: String): List<AthleticPreparation>

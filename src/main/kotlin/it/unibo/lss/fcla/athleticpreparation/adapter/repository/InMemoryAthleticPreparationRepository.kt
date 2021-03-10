@@ -13,6 +13,14 @@ class InMemoryAthleticPreparationRepository : AthleticPreparationRepository {
     private val inMemoryStorage: MutableMap<AthleticPreparationId, AthleticPreparation> = mutableMapOf()
 
     override fun add(athleticPreparation: AthleticPreparation): AthleticPreparation {
+        return addOrUpdate(athleticPreparation)
+    }
+
+    override fun update(athleticPreparation: AthleticPreparation): AthleticPreparation {
+        return addOrUpdate(athleticPreparation)
+    }
+
+    private fun addOrUpdate(athleticPreparation: AthleticPreparation): AthleticPreparation {
         val id = athleticPreparation.snapshot().id
         inMemoryStorage[id] = athleticPreparation
         return athleticPreparation
