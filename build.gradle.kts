@@ -37,6 +37,7 @@ dependencies {
 detekt {
     failFast = true
     buildUponDefaultConfig = true
+    config = files("detektConfig.yml")
 }
 
 tasks.jar {
@@ -89,15 +90,6 @@ tasks.jacocoTestReport {
     reports {
         xml.isEnabled = true
         html.isEnabled = true
-    }
-}
-
-tasks.dokkaHtml.configure {
-    dokkaSourceSets {
-        configureEach {
-            // Use to include or exclude non public members
-            includeNonPublic.set(true)
-        }
     }
 }
 
