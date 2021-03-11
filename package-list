@@ -2,10 +2,12 @@ $dokka.format:javadoc-v1
 $dokka.linkExtension:html
 
 it.unibo.lss.fcla
-it.unibo.lss.fcla.athleticPreparation.domain
-it.unibo.lss.fcla.athleticPreparation.domain.builders
-it.unibo.lss.fcla.athleticPreparation.domain.exceptions
-it.unibo.lss.fcla.athleticPreparation.domain.model
+it.unibo.lss.fcla.athleticpreparation.adapter.repository
+it.unibo.lss.fcla.athleticpreparation.domain.exception
+it.unibo.lss.fcla.athleticpreparation.domain.model
+it.unibo.lss.fcla.athleticpreparation.usecase
+it.unibo.lss.fcla.athleticpreparation.usecase.exception
+it.unibo.lss.fcla.athleticpreparation.usecase.port
 it.unibo.lss.fcla.consulting.common
 it.unibo.lss.fcla.consulting.domain.consulting
 it.unibo.lss.fcla.consulting.domain.consulting.events
