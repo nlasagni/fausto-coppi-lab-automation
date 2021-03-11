@@ -2,6 +2,8 @@ package it.unibo.lss.fcla.athleticpreparation.adapter.repository
 
 import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticPreparation
 import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticPreparationId
+import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticTrainerId
+import it.unibo.lss.fcla.athleticpreparation.domain.model.MemberId
 import it.unibo.lss.fcla.athleticpreparation.domain.model.PeriodOfPreparation
 import it.unibo.lss.fcla.athleticpreparation.usecase.port.AthleticPreparationRepository
 
@@ -28,11 +30,11 @@ class InMemoryAthleticPreparationRepository : AthleticPreparationRepository {
 
     override fun findById(id: AthleticPreparationId): AthleticPreparation? = inMemoryStorage[id]
 
-    override fun findAllByAthleticTrainerId(athleticTrainerId: String): List<AthleticPreparation> {
+    override fun findAllByAthleticTrainerId(athleticTrainerId: AthleticTrainerId): List<AthleticPreparation> {
         return inMemoryStorage.values.filter { it.snapshot().athleticTrainerId == athleticTrainerId }
     }
 
-    override fun findAllByMemberId(memberId: String): List<AthleticPreparation> {
+    override fun findAllByMemberId(memberId: MemberId): List<AthleticPreparation> {
         return inMemoryStorage.values.filter { it.snapshot().memberId == memberId }
     }
 

@@ -7,8 +7,8 @@ package it.unibo.lss.fcla.athleticpreparation.domain.model
  */
 data class AthleticPreparationSnapshot(
     val id: AthleticPreparationId,
-    val athleticTrainerId: String,
-    val memberId: String,
+    val athleticTrainerId: AthleticTrainerId,
+    val memberId: MemberId,
     val periodOfPreparation: PeriodOfPreparation,
     val trainingPlans: List<TrainingPlan>
 )

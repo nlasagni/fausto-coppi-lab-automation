@@ -3,6 +3,8 @@ package it.unibo.lss.fcla.athleticpreparation.adapter.repository
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticPreparation
 import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticPreparationId
+import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticTrainerId
+import it.unibo.lss.fcla.athleticpreparation.domain.model.MemberId
 import it.unibo.lss.fcla.athleticpreparation.domain.model.PeriodOfPreparation
 import it.unibo.lss.fcla.athleticpreparation.usecase.port.AthleticPreparationRepository
 import org.junit.jupiter.api.Assertions
@@ -14,16 +16,16 @@ import java.time.LocalDate
 class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
 
     lateinit var repository: AthleticPreparationRepository
-    lateinit var athleticTrainerId: String
-    lateinit var memberId: String
+    lateinit var athleticTrainerId: AthleticTrainerId
+    lateinit var memberId: MemberId
     lateinit var periodOfPreparation: PeriodOfPreparation
     lateinit var athleticPreparation: AthleticPreparation
 
     beforeAny {
         repository = InMemoryAthleticPreparationRepository()
         val now = LocalDate.now()
-        athleticTrainerId = "1234"
-        memberId = "1234"
+        athleticTrainerId = AthleticTrainerId("1234")
+        memberId = MemberId("1234")
         periodOfPreparation = PeriodOfPreparation(
             now,
             now.plusMonths(PeriodOfPreparation.minimumPeriodDurationInMonth.toLong())

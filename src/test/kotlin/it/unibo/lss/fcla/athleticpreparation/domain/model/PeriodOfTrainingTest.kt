@@ -10,6 +10,8 @@ import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 
 /**
+ * Tests of the [PeriodOfTraining] Value Object.
+ *
  * @author Nicola Lasagni on 24/02/2021.
  */
 class PeriodOfTrainingTest : FreeSpec({

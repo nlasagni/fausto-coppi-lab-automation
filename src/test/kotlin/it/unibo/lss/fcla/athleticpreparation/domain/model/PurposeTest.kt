@@ -4,6 +4,8 @@ import io.kotest.core.spec.style.FreeSpec
 import org.junit.jupiter.api.Assertions
 
 /**
+ * Test of the [Purpose] Value Object.
+ *
  * @author Nicola Lasagni on 22/02/2021.
  */
 class PurposeTest : FreeSpec({

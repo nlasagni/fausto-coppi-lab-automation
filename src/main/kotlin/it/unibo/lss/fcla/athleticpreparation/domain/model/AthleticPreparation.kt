@@ -29,8 +29,8 @@ import it.unibo.lss.fcla.athleticpreparation.domain.exception.TrainingPlanMustNo
  * @author Nicola Lasagni on 22/02/2021.
  */
 class AthleticPreparation(
-    private val athleticTrainerId: String,
-    private val memberId: String,
+    private val athleticTrainerId: AthleticTrainerId,
+    private val memberId: MemberId,
     private val periodOfPreparation: PeriodOfPreparation
 ) {
 
@@ -43,10 +43,10 @@ class AthleticPreparation(
     private var status: Status = Status.ACTIVE
 
     init {
-        if (athleticTrainerId.isEmpty()) {
+        if (athleticTrainerId.value.isEmpty()) {
             throw AthleticPreparationMustHaveAthleticTrainer()
         }
-        if (memberId.isEmpty()) {
+        if (memberId.value.isEmpty()) {
             throw AthleticPreparationMustHaveMember()
         }
         id = generateId()

@@ -11,18 +11,23 @@ import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 
 /**
+ * Tests of the [AthleticPreparation] domain Entity.
+ *
  * @author Nicola Lasagni on 24/02/2021.
  */
 class AthleticPreparationTest : FreeSpec({
-    lateinit var fakeAthleticTrainerId: String
-    lateinit var fakeMemberId: String
+    lateinit var fakeAthleticTrainerId: AthleticTrainerId
+    lateinit var fakeMemberId: MemberId
     lateinit var validBeginning: LocalDate
     lateinit var validEnd: LocalDate
     lateinit var validPeriod: PeriodOfPreparation
 
+    /**
+     * Setup before every test.
+     */
     beforeAny {
-        fakeAthleticTrainerId = "1234"
-        fakeMemberId = "1234"
+        fakeAthleticTrainerId = AthleticTrainerId("1234")
+        fakeMemberId = MemberId("1234")
         validBeginning = LocalDate.now()
         validEnd = validBeginning.plusMonths(PeriodOfPreparation.minimumPeriodDurationInMonth.toLong())
         validPeriod = PeriodOfPreparation(validBeginning, validEnd)
@@ -39,7 +44,7 @@ class AthleticPreparationTest : FreeSpec({
             }
             assertThrows<AthleticPreparationMustHaveAthleticTrainer> {
                 AthleticPreparation(
-                    "",
+                    AthleticTrainerId(""),
                     fakeMemberId,
                     validPeriod
                 )
@@ -47,7 +52,7 @@ class AthleticPreparationTest : FreeSpec({
             assertThrows<AthleticPreparationMustHaveMember> {
                 AthleticPreparation(
                     fakeAthleticTrainerId,
-                    "",
+                    MemberId(""),
                     validPeriod
                 )
             }

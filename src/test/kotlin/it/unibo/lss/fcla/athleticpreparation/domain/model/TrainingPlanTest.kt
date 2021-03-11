@@ -11,6 +11,8 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 /**
+ * Test of the [TrainingPlan] domain Entity.
+ *
  * @author Nicola Lasagni on 04/03/2021.
  */
 class TrainingPlanTest : FreeSpec({
@@ -19,6 +21,9 @@ class TrainingPlanTest : FreeSpec({
     lateinit var periodOfTraining: PeriodOfTraining
     lateinit var validTrainingPlan: TrainingPlan
 
+    /**
+     * Setup before every test.
+     */
     beforeAny {
         trainingPlanName = "Training Plan"
         purpose = Purpose.Strengthening()

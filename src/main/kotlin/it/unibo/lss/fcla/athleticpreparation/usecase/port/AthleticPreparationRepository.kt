@@ -2,6 +2,8 @@ package it.unibo.lss.fcla.athleticpreparation.usecase.port
 
 import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticPreparation
 import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticPreparationId
+import it.unibo.lss.fcla.athleticpreparation.domain.model.AthleticTrainerId
+import it.unibo.lss.fcla.athleticpreparation.domain.model.MemberId
 import it.unibo.lss.fcla.athleticpreparation.domain.model.PeriodOfPreparation
 
 /**
@@ -15,9 +17,9 @@ interface AthleticPreparationRepository {
 
     fun findById(id: AthleticPreparationId): AthleticPreparation?
 
-    fun findAllByAthleticTrainerId(athleticTrainerId: String): List<AthleticPreparation>
+    fun findAllByAthleticTrainerId(athleticTrainerId: AthleticTrainerId): List<AthleticPreparation>
 
-    fun findAllByMemberId(memberId: String): List<AthleticPreparation>
+    fun findAllByMemberId(memberId: MemberId): List<AthleticPreparation>
 
     fun findAllByPeriodOfPreparation(periodOfPreparation: PeriodOfPreparation): List<AthleticPreparation>
 }

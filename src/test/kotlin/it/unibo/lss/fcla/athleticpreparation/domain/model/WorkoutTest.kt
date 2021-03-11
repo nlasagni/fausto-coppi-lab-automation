@@ -11,6 +11,8 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 /**
+ * Test of the [Workout] domain Entity.
+ *
  * @author Nicola Lasagni on 04/03/2021.
  */
 class WorkoutTest : FreeSpec({
@@ -18,6 +20,9 @@ class WorkoutTest : FreeSpec({
     lateinit var today: LocalDate
     lateinit var todayTime: LocalTime
 
+    /**
+     * Setup before every test.
+     */
     beforeAny {
         workoutName = "Workout"
         today = LocalDate.now()
