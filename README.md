@@ -6,7 +6,7 @@ Exam project for the Laboratory of Software Systems (LSS) course of the Computer
 * ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nlasagni/fausto-coppi-lab-automation/workflow)
 * Main coverage: [![maincodecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main)
 * Develop coverage: [![developcodecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/develop/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/develop)
-* <a href="https://nlasagni.github.io/fausto-coppi-lab-automation/"><img src="https://img.shields.io/badge/docs%20by-Dokka-green.svg"/></a>
+* <a href="https://nlasagni.github.io/fausto-coppi-lab-automation/fausto-coppi-lab-automation/"><img src="https://img.shields.io/badge/docs%20by-Dokka-green.svg"/></a>
 * ![GitHub](https://img.shields.io/github/license/nlasagni/fausto-coppi-lab-automation)
 
 ## Prerequisites
