@@ -21,8 +21,7 @@ class OpenConsultingReservation(
 ) : ConsultingReservation {
 
     init {
-        if (freelancerId == UUID(0, 0))
-            throw ConsultingReservationFreelancerCannotBeEmpty()
+        if (freelancerId == UUID(0, 0)) throw ConsultingReservationFreelancerCannotBeEmpty()
         if (date.before(Date())) throw OpenReservationMustNotHavePastDate()
     }
 
@@ -44,8 +43,7 @@ class OpenConsultingReservation(
      * inserted in the moment of creation.
      */
     fun updateFreelancerOfConsulting(freelancerId: UUID): OpenConsultingReservation {
-        if (freelancerId == UUID(0, 0))
-            throw ConsultingReservationFreelancerCannotBeEmpty()
+        if (freelancerId == UUID(0, 0)) throw ConsultingReservationFreelancerCannotBeEmpty()
         return OpenConsultingReservation(date, freelancerId, id)
     }
 
