@@ -1,6 +1,9 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteConsultingReservation
@@ -53,43 +56,43 @@ class ProjectionTest : FreeSpec({
         "add and delete a ConsultingReservation" - {
             val addEvent = AgendaAddConsultingReservation(UUID.randomUUID(), reservationOC)
             val fullAgenda = agendaProjection.update(agendaProjection.init, addEvent)
-            assert(fullAgenda.retrieveConsultingReservation().contains(reservationOC))
+            fullAgenda.retrieveConsultingReservation().shouldContain(reservationOC)
             val delEvent = AgendaDeleteConsultingReservation(UUID.randomUUID(), reservationOC)
             val emptyAgenda = agendaProjection.update(fullAgenda, delEvent)
-            assert(emptyAgenda.retrieveConsultingReservation().isEmpty())
+            emptyAgenda.retrieveConsultingReservation().shouldBeEmpty()
         }
         "add and delete a WorkoutReservation" - {
             val addEvent = AgendaAddWorkoutReservation(UUID.randomUUID(), reservationOW)
             val fullAgenda = agendaProjection.update(agendaProjection.init, addEvent)
-            assert(fullAgenda.retrieveWorkoutReservation().contains(reservationOW))
+            fullAgenda.retrieveWorkoutReservation().shouldContain(reservationOW)
             val delEvent = AgendaDeleteWorkoutReservation(UUID.randomUUID(), reservationOW)
             val emptyAgenda = agendaProjection.update(fullAgenda, delEvent)
-            assert(emptyAgenda.retrieveWorkoutReservation().isEmpty())
+            emptyAgenda.retrieveWorkoutReservation().shouldBeEmpty()
         }
     }
     "MemberLedger projection should" - {
         "add a member" - {
             val event = LedgerAddMember(UUID.randomUUID(), member)
             val ledger = ledgerProjection.update(ledgerProjection.init, event)
-            assert(ledger.retrieveAllMembers().contains(member))
+            ledger.retrieveAllMembers().shouldContain(member)
         }
     }
     "Member projection should" - {
         "add and delete a ConsultingReservation" - {
             val eventAdd = MemberAddConsultingReservation(UUID.randomUUID(), reservationOC)
             val memberFull = memberProjection.update(memberProjection.init, eventAdd)
-            assert(memberFull.retrieveConsultingReservation().contains(reservationOC))
+            memberFull.retrieveConsultingReservation().shouldContain(reservationOC)
             val eventDelete = MemberDeleteConsultingReservation(UUID.randomUUID(), reservationOC)
             val memberEmpty = memberProjection.update(memberFull, eventDelete)
-            assert(memberEmpty.retrieveConsultingReservation().isEmpty())
+            memberEmpty.retrieveConsultingReservation().shouldBeEmpty()
         }
         "add and delete a WorkoutReservation" - {
             val eventAdd = MemberAddWorkoutReservation(UUID.randomUUID(), reservationOW)
             val memberFull = memberProjection.update(memberProjection.init, eventAdd)
-            assert(memberFull.retrieveWorkoutReservation().contains(reservationOW))
+            memberFull.retrieveWorkoutReservation().shouldContain(reservationOW)
             val eventDelete = MemberDeleteWorkoutReservation(UUID.randomUUID(), reservationOW)
             val memberEmpty = memberProjection.update(memberFull, eventDelete)
-            assert(memberEmpty.retrieveWorkoutReservation().isEmpty())
+            memberEmpty.retrieveWorkoutReservation().shouldBeEmpty()
         }
     }
     "OpenConsultingReservation projection should" - {
@@ -98,10 +101,10 @@ class ProjectionTest : FreeSpec({
             val resDate = reservationConsProjection.update(reservationConsProjection.init, updateDate)
             val updateFreelancer = ConsultingReservationUpdateFreelancer(UUID.randomUUID(), freelancerName2)
             val resFreelancer = reservationConsProjection.update(reservationConsProjection.init, updateFreelancer)
-            assert(resDate.date == validDateLate)
-            assert(resDate.freelancerId == freelancerName)
-            assert(resFreelancer.date == validDate)
-            assert(resFreelancer.freelancerId == freelancerName2)
+            resDate.date.shouldBe(validDateLate)
+            resDate.freelancerId.shouldBe(freelancerName)
+            resFreelancer.date.shouldBe(validDate)
+            resFreelancer.freelancerId.shouldBe(freelancerName2)
         }
     }
     "OpenWorkoutReservation projection should" - {
@@ -110,10 +113,10 @@ class ProjectionTest : FreeSpec({
             val resDate = reservationWorkProjection.update(reservationWorkProjection.init, updateDate)
             val updateAim = WorkoutReservationUpdateAim(UUID.randomUUID(), aim2)
             val resAim = reservationWorkProjection.update(reservationWorkProjection.init, updateAim)
-            assert(resDate.date == validDateLate)
-            assert(resDate.aim == aim)
-            assert(resAim.date == validDate)
-            assert(resAim.aim == aim2)
+            resDate.date.shouldBe(validDateLate)
+            resDate.aim.shouldBe(aim)
+            resAim.date.shouldBe(validDate)
+            resAim.aim.shouldBe(aim2)
         }
     }
 })
