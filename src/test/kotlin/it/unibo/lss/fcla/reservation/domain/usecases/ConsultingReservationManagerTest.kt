@@ -39,7 +39,7 @@ class ConsultingReservationManagerTest : FreeSpec({
     calendar.set(year, Calendar.MARCH, day)
     val updatedDate = calendar.time
     val freelancerId = UUID.randomUUID()
-    val invalidFreelancerId = UUID(0,0)
+    val invalidFreelancerId = UUID(0, 0)
     var member = Member("Mario", "Rossi", UUID.randomUUID())
     val member1 = Member("Mario", "Bianchi", UUID.randomUUID())
 

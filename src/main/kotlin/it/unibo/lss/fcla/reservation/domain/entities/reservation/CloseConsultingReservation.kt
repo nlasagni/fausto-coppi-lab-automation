@@ -15,7 +15,7 @@ class CloseConsultingReservation(
 ) : ConsultingReservation {
 
     init {
-        if (freelancerId == UUID(0,0))
+        if (freelancerId == UUID(0, 0))
             throw ConsultingReservationFreelancerCannotBeEmpty()
     }
 
