@@ -8,8 +8,8 @@ import java.util.UUID
 class UseCaseTest : FreeSpec({
     val agendaId = UUID.randomUUID()
     val ledgerId = UUID.randomUUID()
-    val validFreelancer = "freelancer"
-    val invalidFreelancer = ""
+    val validFreelancer = UUID.randomUUID()
+    val invalidFreelancer = UUID( 0 , 0 )
     val validAim = "Aim"
     val invalidAim = ""
     val firstName = "Mario"
@@ -48,7 +48,11 @@ class UseCaseTest : FreeSpec({
                 .first { resDate -> queryUseCase.retrieveConsultingReservation(resDate.reservationId).isOpen }
                 .reservationId
             val resultCUp = commandUseCase
-                .requestUpdateConsultingReservation(reservationOConsId, "newF", validDateLate)
+                .requestUpdateConsultingReservation(
+                    reservationOConsId,
+                    UUID.randomUUID(),
+                    validDateLate
+                )
             assert(resultCUp == successMessage)
             val resultCDel = commandUseCase.requestDeleteConsultingReservation(reservationOConsId, memberId)
             assert(resultCDel == successMessage)

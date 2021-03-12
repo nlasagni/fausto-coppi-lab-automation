@@ -11,7 +11,7 @@ import java.util.UUID
 class EventStoreTest : FreeSpec({
     val reservationId = UUID.randomUUID()
     val agendaID = UUID.randomUUID()
-    val freelancerID = "" + UUID.randomUUID()
+    val freelancerID = UUID.randomUUID()
     val member = Member("Mario", "Rossi", UUID.randomUUID())
 
     val calendar = Calendar.getInstance()
@@ -63,7 +63,7 @@ class EventStoreTest : FreeSpec({
                 UpdateConsultingReservationRequest(
                     UUID.randomUUID(),
                     reservationId,
-                    "4543",
+                    UUID.randomUUID(),
                     validDate,
                 ),
                 ConsultingReservationManager(agendaID, ledgerID, mapOf())

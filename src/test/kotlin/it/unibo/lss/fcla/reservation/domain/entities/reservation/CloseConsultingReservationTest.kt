@@ -13,7 +13,8 @@ class CloseConsultingReservationTest : FreeSpec({
     val day = 25
     calendar.set(year, feb, day)
     val validDateOfConsulting = calendar.time
-    val freelancerId = "0111"
+    val freelancerId = UUID.randomUUID()
+    val invalidFreelancer = UUID(0,0)
     val closeConsultingId = UUID.randomUUID()
 
     "A CloseConsultingReservation should" - {
@@ -33,7 +34,11 @@ class CloseConsultingReservationTest : FreeSpec({
 
         "have a freelancer that made a consulting" - {
             assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
-                CloseConsultingReservation(validDateOfConsulting, "", closeConsultingId)
+                CloseConsultingReservation(
+                    validDateOfConsulting,
+                    invalidFreelancer,
+                    closeConsultingId
+                )
             }
         }
     }

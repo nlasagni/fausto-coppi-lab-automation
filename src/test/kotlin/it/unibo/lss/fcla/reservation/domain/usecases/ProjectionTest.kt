@@ -28,8 +28,8 @@ import java.util.UUID
 class ProjectionTest : FreeSpec({
     val agendaId = UUID.randomUUID()
     val ledgerId = UUID.randomUUID()
-    val freelancerName = "freelancer"
-    val freelancerName2 = "Mandrake"
+    val freelancerName = UUID.randomUUID()
+    val freelancerName2 = UUID.randomUUID()
     val aim = "aim"
     val aim2 = "blind"
     val member = Member("first", "last", UUID.randomUUID())

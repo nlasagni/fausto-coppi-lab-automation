@@ -15,7 +15,7 @@ class MemberTest : FreeSpec({
     val year = 2021
     val feb = 2
     val day = 25
-    val freelancerId = "0111"
+    val freelancerId = UUID.randomUUID()
     val aim = "recovery"
     calendar.set(year, feb, day)
     val consulting = OpenConsultingReservation(calendar.time, freelancerId, UUID.randomUUID())

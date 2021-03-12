@@ -38,8 +38,8 @@ class ConsultingReservationManagerTest : FreeSpec({
     val invalidDate = calendar.time
     calendar.set(year, Calendar.MARCH, day)
     val updatedDate = calendar.time
-    val freelancerId = "0001"
-    val invalidFreelancerId = ""
+    val freelancerId = UUID.randomUUID()
+    val invalidFreelancerId = UUID(0,0)
     var member = Member("Mario", "Rossi", UUID.randomUUID())
     val member1 = Member("Mario", "Bianchi", UUID.randomUUID())
 
@@ -251,7 +251,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val updateInvalidConsultingDueToEmptyFreelancerRequest = UpdateConsultingReservationRequest(
                 UUID.randomUUID(),
                 resId,
-                "",
+                invalidFreelancerId,
                 updatedDate
             )
             val requestFailAimConsultingMap = manager.produce(updateInvalidConsultingDueToEmptyFreelancerRequest)
