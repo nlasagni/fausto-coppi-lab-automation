@@ -1,6 +1,9 @@
 package it.unibo.lss.fcla.reservation.domain.entities.member
 
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldNotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import java.util.Calendar
 import java.util.UUID
@@ -18,13 +21,13 @@ class MemberWorkoutReservationTest : FreeSpec({
     "It should" - {
         "be possible to make a reservation. It will be added to an internal list" - {
             val newWorkoutReservation = workoutReservationList.addWorkoutReservation(workout)
-            assert(newWorkoutReservation.workoutReservationList.isNotEmpty())
-            assert(newWorkoutReservation.workoutReservationList.contains(workout))
+            newWorkoutReservation.workoutReservationList.shouldNotBeEmpty()
+            newWorkoutReservation.workoutReservationList.shouldContain(workout)
         }
         "be possible to delete a reservation" - {
             val newWorkoutReservation = workoutReservationList.addWorkoutReservation(workout)
             val newDeletedWorkoutReservation = newWorkoutReservation.deleteWorkoutReservation(workout)
-            assert(newDeletedWorkoutReservation.workoutReservationList.isEmpty())
+            newDeletedWorkoutReservation.workoutReservationList.shouldBeEmpty()
         }
     }
 })

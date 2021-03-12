@@ -1,9 +1,11 @@
 package it.unibo.lss.fcla.reservation.domain.entities.member
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
-import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 import java.util.UUID
 
@@ -29,8 +31,8 @@ class MemberLedgerTest : FreeSpec({
     "A member should" - {
         "be added to the ledger" - {
             val newMemberList = memberLedger.addMemberToLedger(member)
-            assert(memberLedger.id == newMemberList.id)
-            assert(newMemberList.retrieveAllMembers().contains(member))
+            memberLedger.id.shouldBe(newMemberList.id)
+            newMemberList.retrieveAllMembers().shouldContain(member)
         }
     }
     "It should" - {
@@ -39,15 +41,14 @@ class MemberLedgerTest : FreeSpec({
             val memberWithWorkout = memberWithConsulting.addWorkoutReservation(workout)
             val myLedgerWithConsulting = memberLedger.addMemberToLedger(memberWithConsulting)
             val myLedgerWithConsultingAndWorkout = memberLedger.addMemberToLedger(memberWithWorkout)
-            assert(myLedgerWithConsulting.retrieveMemberWithConsultingReservation(consulting) == memberWithConsulting)
-            assert(
-                myLedgerWithConsultingAndWorkout.retrieveMemberWithWorkoutReservation(workout)
-                    == memberWithWorkout
-            )
-            assertThrows<NoSuchElementException> {
+            myLedgerWithConsulting.retrieveMemberWithConsultingReservation(consulting)
+                .shouldBe(memberWithConsulting)
+            myLedgerWithConsultingAndWorkout.retrieveMemberWithWorkoutReservation(workout)
+                .shouldBe(memberWithWorkout)
+            shouldThrow<NoSuchElementException> {
                 myLedgerWithConsulting.retrieveMemberWithConsultingReservation(consultingNotInMember)
             }
-            assertThrows<NoSuchElementException> {
+            shouldThrow<NoSuchElementException> {
                 myLedgerWithConsultingAndWorkout.retrieveMemberWithWorkoutReservation(workoutNotInMember)
             }
         }

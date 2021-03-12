@@ -1,8 +1,11 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldBeUUID
+import io.kotest.matchers.string.shouldNotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
-import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 import java.util.UUID
 
@@ -19,19 +22,20 @@ class CloseWorkoutReservationTest : FreeSpec({
     "A CloseWorkoutReservation should" - {
         "not to be empty" - {
             val reservation = CloseWorkoutReservation(aim, dateOfConsulting, closeWorkoutId)
-            assert(reservation.id.toString().isNotEmpty())
-            assert(reservation.id == closeWorkoutId)
+            reservation.id.toString().shouldBeUUID()
+            reservation.id.toString().shouldNotBeEmpty()
+            reservation.id.shouldBe(closeWorkoutId)
+            reservation.id.hashCode().shouldBe(closeWorkoutId.hashCode())
         }
         "be named as requested" - {
             val reservation = CloseWorkoutReservation(aim, dateOfConsulting, closeWorkoutId)
-            assert(
-                reservation.toString() ==
-                    "Reservation workout {$closeWorkoutId} with aim: " +
+            reservation.toString().shouldBe(
+                "Reservation workout {$closeWorkoutId} with aim: " +
                     "$aim in date $dateOfConsulting"
             )
         }
         "have a aim of workout" - {
-            assertThrows<WorkoutReservationAimCannotBeEmpty> {
+            shouldThrow<WorkoutReservationAimCannotBeEmpty> {
                 CloseWorkoutReservation("", dateOfConsulting, closeWorkoutId)
             }
         }

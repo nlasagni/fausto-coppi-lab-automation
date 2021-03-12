@@ -1,16 +1,13 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
-import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.matchers.comparables.shouldBeEqualComparingTo
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeUUID
 import io.kotest.matchers.string.shouldNotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 import java.util.UUID
 
@@ -24,7 +21,7 @@ class OpenConsultingReservationTest : FreeSpec({
     calendar.set(year, feb, day)
     val validDateOfConsulting = calendar.time
     val openConsultingReservationId = UUID.randomUUID()
-    val invalidFreelancer = UUID(0,0)
+    val invalidFreelancer = UUID(0, 0)
 
     var reservation = OpenConsultingReservation(
         validDateOfConsulting,
@@ -66,7 +63,7 @@ class OpenConsultingReservationTest : FreeSpec({
         "have correct UUID" - {
             reservation.id.toString().shouldBeUUID()
             reservation.id.toString().shouldNotBeEmpty()
-            reservation.id.shouldBeEqualComparingTo(openConsultingReservationId)
+            reservation.id.shouldBe(openConsultingReservationId)
         }
         "be named as requested" - {
             assert(
@@ -83,9 +80,9 @@ class OpenConsultingReservationTest : FreeSpec({
                 val newReservation = reservation.updateDateOfConsulting(newDateOfReservation)
                 println("test di correttezza valori")
                 println("NewDate $newDateOfReservation")
-                newReservation.freelancerId.shouldBeEqualComparingTo(freelancerId)
-                newReservation.date.shouldBeEqualComparingTo(newDateOfReservation)
-                newReservation.id.shouldBeEqualComparingTo(openConsultingReservationId)
+                newReservation.freelancerId.shouldBe(freelancerId)
+                newReservation.date.shouldBe(newDateOfReservation)
+                newReservation.id.shouldBe(openConsultingReservationId)
             }
             "not to be able to update a reservation with an invalid date" - {
                 calendar.set(invalidYear, feb, day)
@@ -97,7 +94,7 @@ class OpenConsultingReservationTest : FreeSpec({
             "be able to update the freelancer of a reservation" - {
                 val newFreelancerId = UUID.randomUUID()
                 val updatedFreelancer = reservation.updateFreelancerOfConsulting(newFreelancerId)
-                updatedFreelancer.freelancerId.shouldBeEqualComparingTo(newFreelancerId)
+                updatedFreelancer.freelancerId.shouldBe(newFreelancerId)
             }
             "not to be able to update a reservation with an invalid freelancer" - {
                 shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {

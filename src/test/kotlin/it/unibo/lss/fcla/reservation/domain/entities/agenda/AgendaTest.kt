@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotBeEmpty
-import io.kotest.matchers.comparables.shouldBeEqualComparingTo
+import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import java.util.Calendar
@@ -26,7 +26,7 @@ class AgendaTest : FreeSpec({
     "A member should" - {
         "add a consulting reservation" - {
             val newAgenda = agenda.addConsultingReservation(consulting)
-            newAgenda.id.shouldBeEqualComparingTo(agenda.id)
+            newAgenda.id.shouldBe(agenda.id)
             newAgenda.retrieveConsultingReservation().shouldContain(consulting)
         }
         "add a workout reservation" - {
