@@ -72,7 +72,7 @@ class CommandReservationUseCase(
      * the [lastName] of the member and the [memberId].
      */
     fun requestCreateConsultingReservation(
-        freelancer: String,
+        freelancer: UUID,
         date: Date,
         firstName: String,
         lastName: String,
@@ -141,7 +141,7 @@ class CommandReservationUseCase(
      */
     fun requestUpdateConsultingReservation(
         reservationId: UUID,
-        freelancer: String,
+        freelancer: UUID,
         date: Date
     ): String {
         val producer: Producer = ConsultingReservationManager(agendaId, ledgerId, eventStore.get())

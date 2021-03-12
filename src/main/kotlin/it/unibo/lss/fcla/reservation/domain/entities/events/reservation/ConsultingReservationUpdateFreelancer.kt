@@ -8,5 +8,5 @@ import java.util.UUID
  */
 data class ConsultingReservationUpdateFreelancer(
     override val eventId: UUID,
-    val freelancer: String
+    val freelancer: UUID
 ) : Event

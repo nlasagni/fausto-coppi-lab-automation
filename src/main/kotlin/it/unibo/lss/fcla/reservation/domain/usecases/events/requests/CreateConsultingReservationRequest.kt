@@ -13,7 +13,7 @@ import java.util.UUID
  */
 data class CreateConsultingReservationRequest(
     override val eventId: UUID,
-    val freelancer: String,
+    val freelancer: UUID,
     val date: Date,
     val firstName: String,
     val lastName: String,

@@ -13,7 +13,7 @@ class MainClass {
         private val agendaId = UUID.randomUUID()
         private val ledgerId = UUID.randomUUID()
         private val eventStore = EventStore()
-        private const val freelancer = "Physiotherapist"
+        private val freelancer = UUID.randomUUID()
         private const val month = Calendar.APRIL
         private val calendar = Calendar.getInstance()
         private const val memberFirstName = "Mario"
