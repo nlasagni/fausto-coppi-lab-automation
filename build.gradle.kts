@@ -67,18 +67,6 @@ tasks.jar {
     })
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform() // Use JUnit 5 engine
-    testLogging.showStandardStreams = true
-    testLogging {
-        showCauses = true
-        showStackTraces = true
-        showStandardStreams = true
-        events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
-        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-    }
-}
-
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         allWarningsAsErrors = true
@@ -90,15 +78,6 @@ tasks.jacocoTestReport {
     reports {
         xml.isEnabled = true
         html.isEnabled = true
-    }
-}
-
-tasks.dokkaJavadoc.configure {
-    dokkaSourceSets {
-        configureEach {
-            // Use to include or exclude non public members
-            includeNonPublic.set(true)
-        }
     }
 }
 
