@@ -20,8 +20,12 @@ class OpenWorkoutReservation(
 ) : WorkoutReservation {
 
     init {
-        if (aim.isEmpty()) throw WorkoutReservationAimCannotBeEmpty()
-        if (date.before(Date())) throw OpenReservationMustNotHavePastDate()
+        if (aim.isEmpty()) {
+            throw WorkoutReservationAimCannotBeEmpty()
+        }
+        if (date.before(Date())) {
+            throw OpenReservationMustNotHavePastDate()
+        }
     }
 
     /**

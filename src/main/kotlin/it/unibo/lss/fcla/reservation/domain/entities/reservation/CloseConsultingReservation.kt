@@ -15,7 +15,9 @@ class CloseConsultingReservation(
 ) : ConsultingReservation {
 
     init {
-        if (freelancerId == UUID(0, 0)) throw ConsultingReservationFreelancerCannotBeEmpty()
+        if (freelancerId == UUID(0, 0)) {
+            throw ConsultingReservationFreelancerCannotBeEmpty()
+        }
     }
 
     override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId in date $date"

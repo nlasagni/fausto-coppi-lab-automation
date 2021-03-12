@@ -15,7 +15,9 @@ class CloseWorkoutReservation(
 ) : WorkoutReservation {
 
     init {
-        if (aim.isEmpty()) throw WorkoutReservationAimCannotBeEmpty()
+        if (aim.isEmpty()) {
+            throw WorkoutReservationAimCannotBeEmpty()
+        }
     }
 
     override fun toString(): String = "Reservation workout {$id} with aim: $aim in date $date"
