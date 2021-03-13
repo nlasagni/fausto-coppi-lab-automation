@@ -16,13 +16,17 @@ import java.util.UUID
  */
 class OpenConsultingReservation(
     override val date: Date,
-    override val freelancerId: String,
+    override val freelancerId: UUID,
     override val id: UUID
 ) : ConsultingReservation {
 
     init {
-        if (freelancerId.isEmpty()) throw ConsultingReservationFreelancerCannotBeEmpty()
-        if (date.before(Date())) throw OpenReservationMustNotHavePastDate()
+        if (freelancerId == UUID(0, 0)) {
+            throw ConsultingReservationFreelancerCannotBeEmpty()
+        }
+        if (date.before(Date())) {
+            throw OpenReservationMustNotHavePastDate()
+        }
     }
 
     /**
@@ -32,7 +36,9 @@ class OpenConsultingReservation(
      * moment of creation.
      */
     fun updateDateOfConsulting(date: Date): OpenConsultingReservation {
-        if (date.before(this.date)) throw OpenReservationMustNotHavePastDate()
+        if (date.before(this.date)) {
+            throw OpenReservationMustNotHavePastDate()
+        }
         return OpenConsultingReservation(date, freelancerId, id)
     }
 
@@ -42,8 +48,10 @@ class OpenConsultingReservation(
      * Throws [ConsultingReservationFreelancerCannotBeEmpty] exception if the freelancer is not
      * inserted in the moment of creation.
      */
-    fun updateFreelancerOfConsulting(freelancerId: String): OpenConsultingReservation {
-        if (freelancerId.isEmpty()) throw ConsultingReservationFreelancerCannotBeEmpty()
+    fun updateFreelancerOfConsulting(freelancerId: UUID): OpenConsultingReservation {
+        if (freelancerId == UUID(0, 0)) {
+            throw ConsultingReservationFreelancerCannotBeEmpty()
+        }
         return OpenConsultingReservation(date, freelancerId, id)
     }
 

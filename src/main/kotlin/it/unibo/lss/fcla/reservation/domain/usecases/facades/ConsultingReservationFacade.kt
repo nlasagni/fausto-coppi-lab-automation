@@ -15,7 +15,7 @@ import java.util.UUID
  */
 data class ConsultingReservationFacade(
     override val date: Date,
-    override val freelancerId: String,
+    override val freelancerId: UUID,
     override val id: UUID,
     val isOpen: Boolean
 ) : ConsultingReservation {

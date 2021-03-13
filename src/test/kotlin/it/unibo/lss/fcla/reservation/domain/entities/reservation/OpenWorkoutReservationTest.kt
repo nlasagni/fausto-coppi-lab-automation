@@ -1,10 +1,13 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
+import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldBeUUID
+import io.kotest.matchers.string.shouldNotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 import java.util.UUID
 
@@ -30,7 +33,7 @@ class OpenWorkoutReservationTest : FreeSpec({
             calendar.set(invalidYear, feb, day)
             val invalidWorkoutDate = calendar.time
 
-            Assertions.assertDoesNotThrow {
+            shouldNotThrowAny {
                 val myReservation = OpenWorkoutReservation(
                     aim,
                     validDateOfConsulting,
@@ -38,14 +41,14 @@ class OpenWorkoutReservationTest : FreeSpec({
                 )
                 println(myReservation)
             }
-            assertThrows<WorkoutReservationAimCannotBeEmpty> {
+            shouldThrow<WorkoutReservationAimCannotBeEmpty> {
                 OpenWorkoutReservation(
                     "",
                     validDateOfConsulting,
                     openWorkoutReservationId
                 )
             }
-            assertThrows<OpenReservationMustNotHavePastDate> {
+            shouldThrow<OpenReservationMustNotHavePastDate> {
                 OpenWorkoutReservation(
                     aim,
                     invalidWorkoutDate,
@@ -54,16 +57,16 @@ class OpenWorkoutReservationTest : FreeSpec({
             }
         }
         "not to be empty" - {
-            assert(reservation.id.toString().isNotEmpty())
+            reservation.id.toString().shouldBeUUID()
+            reservation.id.toString().shouldNotBeEmpty()
         }
         "have correct UUID" - {
-            assert(reservation.id.toString().isNotEmpty())
-            assert(reservation.id == openWorkoutReservationId)
+            reservation.id.toString().shouldNotBeEmpty()
+            reservation.id.shouldBe(openWorkoutReservationId)
         }
         "be named as requested" - {
-            assert(
-                reservation.toString() ==
-                    "Reservation consulting {$openWorkoutReservationId} with aim: " +
+            reservation.toString().shouldBe(
+                "Reservation consulting {$openWorkoutReservationId} with aim: " +
                     "$aim in date $validDateOfConsulting"
             )
         }
@@ -73,17 +76,17 @@ class OpenWorkoutReservationTest : FreeSpec({
                 calendar.set(year, feb, 26)
                 val newDateOfReservation = calendar.time
                 val newReservation = reservation.updateWorkoutReservationDate(newDateOfReservation)
-                assert(newReservation.aim == aim)
-                assert(newReservation.date == newDateOfReservation)
-                assert(newReservation.id == openWorkoutReservationId)
+                newReservation.aim.shouldBe(aim)
+                newReservation.date.shouldBe(newDateOfReservation)
+                newReservation.id.shouldBe(openWorkoutReservationId)
             }
             "be able to update the aim of a reservation" - {
                 val newAim = "Strengthening"
                 val updatedFreelancer = reservation.updateWorkoutReservationAim(newAim)
-                assert(updatedFreelancer.aim == newAim)
+                updatedFreelancer.aim.shouldBe(newAim)
             }
             "not to be able to update a reservation with an invalid aim" - {
-                assertThrows<WorkoutReservationAimCannotBeEmpty> {
+                shouldThrow<WorkoutReservationAimCannotBeEmpty> {
                     reservation.updateWorkoutReservationAim("")
                 }
             }

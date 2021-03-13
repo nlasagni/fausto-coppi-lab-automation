@@ -1,6 +1,10 @@
 package it.unibo.lss.fcla.reservation.domain.entities.agenda
 
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldNotBeEmpty
+import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import java.util.Calendar
@@ -13,7 +17,7 @@ class AgendaTest : FreeSpec({
     val year = 2022
     val feb = 2
     val day = 25
-    val freelancerId = "0111"
+    val freelancerId = UUID.randomUUID()
     val aim = "recovery"
     calendar.set(year, feb, day)
     val consulting = OpenConsultingReservation(calendar.time, freelancerId, UUID.randomUUID())
@@ -22,30 +26,30 @@ class AgendaTest : FreeSpec({
     "A member should" - {
         "add a consulting reservation" - {
             val newAgenda = agenda.addConsultingReservation(consulting)
-            assert(newAgenda.id == agenda.id)
-            assert(newAgenda.retrieveConsultingReservation().contains(consulting))
+            newAgenda.id.shouldBe(agenda.id)
+            newAgenda.retrieveConsultingReservation().shouldContain(consulting)
         }
         "add a workout reservation" - {
             val newAgenda = agenda.addWorkoutReservation(consultingWorkout)
-            assert(newAgenda.retrieveWorkoutReservation().contains(consultingWorkout))
+            newAgenda.retrieveWorkoutReservation().shouldContain(consultingWorkout)
         }
         "delete a consulting reservation" - {
             val newAgenda = agenda.addConsultingReservation(consulting)
             val deleteConsulting = newAgenda.deleteConsultingReservation(consulting)
-            assert(deleteConsulting.retrieveConsultingReservation().isEmpty())
+            deleteConsulting.retrieveConsultingReservation().shouldBeEmpty()
         }
         "delete a workout reservation" - {
             val newAgenda = agenda.addWorkoutReservation(consultingWorkout)
             val deleteWorkout = newAgenda.deleteWorkoutReservation(consultingWorkout)
-            assert(deleteWorkout.retrieveWorkoutReservation().isEmpty())
+            deleteWorkout.retrieveWorkoutReservation().shouldBeEmpty()
         }
         "ask for reservation workout list" - {
             val newAgenda = agenda.addWorkoutReservation(consultingWorkout)
-            assert(newAgenda.retrieveWorkoutReservation().isNotEmpty())
+            newAgenda.retrieveWorkoutReservation().shouldNotBeEmpty()
         }
         "ask for reservation consulting list" - {
             val newAgenda = agenda.addConsultingReservation(consulting)
-            assert(newAgenda.retrieveConsultingReservation().isNotEmpty())
+            newAgenda.retrieveConsultingReservation().shouldNotBeEmpty()
         }
     }
 })

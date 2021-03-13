@@ -3,6 +3,10 @@ package it.unibo.lss.fcla.reservation.domain.usecases
 import io.kotest.assertions.fail
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.fp.success
+import io.kotest.matchers.collections.shouldHaveSingleElement
+import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMember
@@ -38,8 +42,8 @@ class ConsultingReservationManagerTest : FreeSpec({
     val invalidDate = calendar.time
     calendar.set(year, Calendar.MARCH, day)
     val updatedDate = calendar.time
-    val freelancerId = "0001"
-    val invalidFreelancerId = ""
+    val freelancerId = UUID.randomUUID()
+    val invalidFreelancerId = UUID(0, 0)
     var member = Member("Mario", "Rossi", UUID.randomUUID())
     val member1 = Member("Mario", "Bianchi", UUID.randomUUID())
 
@@ -64,8 +68,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(closeInvalidConsulting)[closeInvalidConsulting.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingCloseRequest as RequestFailed
-            assert(failEvent.requestId == closeInvalidConsulting.eventId)
-            assert(failEvent.message == RequestFailedMessages.reservationNotFound)
+            failEvent.requestId.shouldBe(closeInvalidConsulting.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.reservationNotFound)
         }
         "produce error if close an has invalid member or member not found" - {
             val consultingManagerMap = consultingManager.produce(createValidConsultingReservation)
@@ -74,7 +78,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveConsultingReservation().first().freelancerId == freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
 
             val closeInvalidMemberConsultingRequest = CloseConsultingReservationRequest(
@@ -87,8 +91,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(closeInvalidMemberConsultingRequest)[closeInvalidMemberConsultingRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToRequestNotFound as RequestFailed
-            assert(failEvent.requestId == closeInvalidMemberConsultingRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.memberNotFound)
+            failEvent.requestId.shouldBe(closeInvalidMemberConsultingRequest.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.memberNotFound)
 
             val createValidConsultingReservationMember1 = CreateConsultingReservationRequest(
                 UUID.randomUUID(),
@@ -115,19 +119,19 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(closeWrongMemberConsultingRequest)[closeWrongMemberConsultingRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEventWrongMember = failingRequestDueToWrongMember as RequestFailed
-            assert(failEventWrongMember.requestId == closeWrongMemberConsultingRequest.eventId)
-            assert(failEventWrongMember.message == RequestFailedMessages.wrongMember)
+            failEventWrongMember.requestId.shouldBe(closeWrongMemberConsultingRequest.eventId)
+            failEventWrongMember.message.shouldBe(RequestFailedMessages.wrongMember)
         }
         "produce event for agenda, member" - {
             val createMap = consultingManager.produce(createValidConsultingReservation)
             val createRes = createMap[createValidConsultingReservation.eventId]?.first() ?: fail("Success event not found")
-            assert(createRes is RequestSucceeded)
+            createRes.shouldBeInstanceOf<RequestSucceeded>()
 
             val agendaProjection = AgendaProjection(agendaId)
             val agenda = createMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(agenda.retrieveConsultingReservation().first() is OpenConsultingReservation)
+            agenda.retrieveConsultingReservation().first().shouldBeInstanceOf<OpenConsultingReservation>()
             val resId = agenda.retrieveConsultingReservation().first().id
 
             val manager = ConsultingReservationManager(agendaId, ledgerId, createMap)
@@ -140,22 +144,21 @@ class ConsultingReservationManagerTest : FreeSpec({
             requestConsultingMap[closeConsulting.eventId]?.first() ?: fail("Success event not found")
 
             val agendaDeleteFromList = requestConsultingMap[agendaId] ?: fail("Agenda events not found")
-            assert(agendaDeleteFromList.any { event -> event is AgendaDeleteConsultingReservation })
-            assert(agendaDeleteFromList.any { event -> event is AgendaAddConsultingReservation })
+            agendaDeleteFromList.shouldHaveSingleElement { event -> event is AgendaDeleteConsultingReservation }
+            agendaDeleteFromList.shouldHaveSingleElement { event -> event is AgendaAddConsultingReservation }
 
             val memberList = requestConsultingMap[member.id] ?: fail("Member events not found")
-            assert(memberList.any { event -> event is MemberDeleteConsultingReservation })
-            assert(memberList.any { event -> event is MemberAddConsultingReservation })
+            memberList.shouldHaveSingleElement { event -> event is MemberDeleteConsultingReservation }
+            memberList.shouldHaveSingleElement { event -> event is MemberAddConsultingReservation }
 
             val closeResult = requestConsultingMap[closeConsulting.eventId]?.first() ?: fail("Success event not found")
-            assert(closeResult is RequestSucceeded)
+            closeResult.shouldBeInstanceOf<RequestSucceeded>()
 
             val consultingFullManager = ConsultingReservationManager(agendaId, ledgerId, requestConsultingMap)
             val resOldMemberMap = consultingFullManager.produce(closeConsulting)
             val closeFail = resOldMemberMap[closeConsulting.eventId]?.first() ?: fail("Success event not found")
-            assert(closeFail is RequestFailed)
-            val failMessage = closeFail as RequestFailed
-            assert(failMessage.message == RequestFailedMessages.alreadyCloseReservation)
+            closeFail.shouldBeInstanceOf<RequestFailed>()
+            closeFail.message.shouldBe(RequestFailedMessages.alreadyCloseReservation)
         }
     }
     "A CreateConsultingReservationEvent occurring in ConsultingReservationManager should" - {
@@ -173,8 +176,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(createInvalidFreelancerConsulting)[createInvalidFreelancerConsulting.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToFreelancer as RequestFailed
-            assert(failEvent.requestId == createInvalidFreelancerConsulting.eventId)
-            assert(failEvent.message == RequestFailedMessages.emptyConsultingFreelancer)
+            failEvent.requestId.shouldBe(createInvalidFreelancerConsulting.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.emptyConsultingFreelancer)
 
             val createInvalidDateConsulting = CreateConsultingReservationRequest(
                 UUID.randomUUID(),
@@ -188,23 +191,23 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(createInvalidDateConsulting)[createInvalidDateConsulting.eventId]?.first()
                 ?: fail("Error in request")
             val failEventDate = failingRequestDueToDate as RequestFailed
-            assert(failEventDate.requestId == createInvalidDateConsulting.eventId)
-            assert(failEventDate.message == RequestFailedMessages.pastDateInReservation)
+            failEventDate.requestId.shouldBe(createInvalidDateConsulting.eventId)
+            failEventDate.message.shouldBe(RequestFailedMessages.pastDateInReservation)
         }
         "produce event for agenda, member and ledger" - {
 
             val requestConsultingMap = consultingManager.produce(createValidConsultingReservation)
             requestConsultingMap[createValidConsultingReservation.eventId]?.first() ?: fail("Success event not found")
             val agendaList = requestConsultingMap[agendaId] ?: fail("Agenda events not found")
-            assert(agendaList.first() is AgendaAddConsultingReservation)
+            agendaList.first().shouldBeInstanceOf<AgendaAddConsultingReservation>()
             val ledgerList = requestConsultingMap[ledgerId] ?: fail("Ledger events not found")
-            assert(ledgerList.first() is LedgerAddMember)
+            ledgerList.first().shouldBeInstanceOf<LedgerAddMember>()
             val memberList = requestConsultingMap[member.id] ?: fail("Member events not found")
-            assert(memberList.first() is MemberAddConsultingReservation)
+            memberList.first().shouldBeInstanceOf<MemberAddConsultingReservation>()
             val consultingFullManager = ConsultingReservationManager(agendaId, ledgerId, requestConsultingMap)
             val resOldMemberMap = consultingFullManager.produce(createValidConsultingReservation)
             val createResult = resOldMemberMap[createValidConsultingReservation.eventId]?.first() ?: fail("Success event not found")
-            assert(createResult is RequestSucceeded)
+            createResult.shouldBeInstanceOf<RequestSucceeded>()
 
             val createSecondValidConsultingReservation = CreateConsultingReservationRequest(
                 UUID.randomUUID(),
@@ -222,7 +225,7 @@ class ConsultingReservationManagerTest : FreeSpec({
         "produce empty map if event is not valid" - {
             val invalidEvent = ConsultingReservationUpdateDate(UUID.randomUUID(), validDate)
             val emptyMap = consultingManager.produce(invalidEvent)
-            assert(emptyMap.isEmpty())
+            emptyMap.shouldBeEmpty()
         }
         "produce an error if parameters are not valid" - {
             val updateInvalidConsultingRequest = UpdateConsultingReservationRequest(
@@ -235,8 +238,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(updateInvalidConsultingRequest)[updateInvalidConsultingRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToRequestNotFound as RequestFailed
-            assert(failEvent.requestId == updateInvalidConsultingRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.reservationNotFound)
+            failEvent.requestId.shouldBe(updateInvalidConsultingRequest.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.reservationNotFound)
         }
         "produce an error if are present empty parameters" - {
             val consultingManagerMap = consultingManager.produce(createValidConsultingReservation)
@@ -244,14 +247,14 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveConsultingReservation().first().freelancerId == freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingManagerMap)
 
             val updateInvalidConsultingDueToEmptyFreelancerRequest = UpdateConsultingReservationRequest(
                 UUID.randomUUID(),
                 resId,
-                "",
+                invalidFreelancerId,
                 updatedDate
             )
             val requestFailAimConsultingMap = manager.produce(updateInvalidConsultingDueToEmptyFreelancerRequest)
@@ -259,10 +262,9 @@ class ConsultingReservationManagerTest : FreeSpec({
             val failUpdate =
                 requestFailAimConsultingMap[updateInvalidConsultingDueToEmptyFreelancerRequest.eventId]
                     ?.first() ?: fail("Success event not found")
-            assert(failUpdate is RequestFailed)
-            val failEvent = failUpdate as RequestFailed
-            assert(failEvent.requestId == updateInvalidConsultingDueToEmptyFreelancerRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.emptyConsultingFreelancer)
+            failUpdate.shouldBeInstanceOf<RequestFailed>()
+            failUpdate.requestId.shouldBe(updateInvalidConsultingDueToEmptyFreelancerRequest.eventId)
+            failUpdate.message.shouldBe(RequestFailedMessages.emptyConsultingFreelancer)
 
             val updateInvalidConsultingDueToPastDateRequest = UpdateConsultingReservationRequest(
                 UUID.randomUUID(),
@@ -275,10 +277,9 @@ class ConsultingReservationManagerTest : FreeSpec({
             val failUpdatePastDate =
                 requestFailDateConsultingMap[updateInvalidConsultingDueToPastDateRequest.eventId]
                     ?.first() ?: fail("Success event not found")
-            assert(failUpdatePastDate is RequestFailed)
-            val failEventPastDate = failUpdatePastDate as RequestFailed
-            assert(failEventPastDate.requestId == updateInvalidConsultingDueToPastDateRequest.eventId)
-            assert(failEventPastDate.message == RequestFailedMessages.pastDateInReservation)
+            failUpdatePastDate.shouldBeInstanceOf<RequestFailed>()
+            failUpdatePastDate.requestId.shouldBe(updateInvalidConsultingDueToPastDateRequest.eventId)
+            failUpdatePastDate.message.shouldBe(RequestFailedMessages.pastDateInReservation)
         }
         "produce an error if a closeConsultingReservation is updated" - {
             val consultingManagerMap = consultingManager.produce(createValidConsultingReservation)
@@ -287,7 +288,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveConsultingReservation().first().freelancerId == freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
 
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingManagerMap)
@@ -310,20 +311,19 @@ class ConsultingReservationManagerTest : FreeSpec({
             val resUpdateFailMap = managerFailUpdate.produce(updateConsultingDate)
             val failUpdate =
                 resUpdateFailMap[updateConsultingDate.eventId]?.first() ?: fail("Success event not found")
-            assert(failUpdate is RequestFailed)
-            val failMessage = failUpdate as RequestFailed
-            assert(failMessage.message == RequestFailedMessages.noUpdateToCloseReservation)
+            failUpdate.shouldBeInstanceOf<RequestFailed>()
+            failUpdate.message.shouldBe(RequestFailedMessages.noUpdateToCloseReservation)
         }
         "produce event for agenda, member" - {
             val consultingMap = consultingManager.produce(createValidConsultingReservation)
             val createRes = consultingMap[createValidConsultingReservation.eventId]?.first() ?: fail("Success event not found")
-            assert(createRes is RequestSucceeded)
+            createRes.shouldBeInstanceOf<RequestSucceeded>()
 
             val agendaProjection = AgendaProjection(agendaId)
             val ag = consultingMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveConsultingReservation().first().freelancerId == freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingMap)
 
@@ -335,16 +335,16 @@ class ConsultingReservationManagerTest : FreeSpec({
             )
             val requestConsultingMap = manager.produce(updateConsultingDate)
             val updateEventMap = requestConsultingMap[updateConsultingDate.eventId]?.first() ?: fail("Success event not found")
-            assert(updateEventMap is RequestSucceeded)
+            updateEventMap.shouldBeInstanceOf<RequestSucceeded>()
 
             val reservationEventMap = requestConsultingMap[resId] ?: fail("Reservation events not found")
-            assert(reservationEventMap.any { event -> event is ConsultingReservationUpdateFreelancer })
-            assert(reservationEventMap.any { event -> event is ConsultingReservationUpdateDate })
+            reservationEventMap.shouldHaveSingleElement { event -> event is ConsultingReservationUpdateFreelancer }
+            reservationEventMap.shouldHaveSingleElement { event -> event is ConsultingReservationUpdateDate }
             val consultingFullManager = ConsultingReservationManager(agendaId, ledgerId, requestConsultingMap)
             val resOldMemberMap = consultingFullManager.produce(updateConsultingDate)
             val failUpdate = resOldMemberMap[updateConsultingDate.eventId]?.first() ?: fail("Success event not found")
             resOldMemberMap[ledgerId] ?: success()
-            assert(failUpdate is RequestFailed)
+            failUpdate.shouldBeInstanceOf<RequestFailed>()
         }
     }
     "A DeleteConsultingReservationEvent occurring in ConsultingReservationManager should" - {
@@ -358,8 +358,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(deleteInvalidConsultingRequest)[deleteInvalidConsultingRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToRequestNotFound as RequestFailed
-            assert(failEvent.requestId == deleteInvalidConsultingRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.reservationNotFound)
+            failEvent.requestId.shouldBe(deleteInvalidConsultingRequest.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.reservationNotFound)
         }
         "produce an error if member not found" - {
             val consultingManagerMap = consultingManager.produce(createValidConsultingReservation)
@@ -368,7 +368,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveConsultingReservation().first().freelancerId == freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
 
             val deleteInvalidMemberConsultingRequest = DeleteConsultingReservationRequest(
@@ -381,8 +381,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(deleteInvalidMemberConsultingRequest)[deleteInvalidMemberConsultingRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToRequestNotFound as RequestFailed
-            assert(failEvent.requestId == deleteInvalidMemberConsultingRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.memberNotFound)
+            failEvent.requestId.shouldBe(deleteInvalidMemberConsultingRequest.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.memberNotFound)
 
             val createValidConsultingReservationMember1 = CreateConsultingReservationRequest(
                 UUID.randomUUID(),
@@ -409,8 +409,8 @@ class ConsultingReservationManagerTest : FreeSpec({
                 .produce(deleteWrongMemberConsultingRequest)[deleteWrongMemberConsultingRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEventWrongMember = failingRequestDueToWrongMember as RequestFailed
-            assert(failEventWrongMember.requestId == deleteWrongMemberConsultingRequest.eventId)
-            assert(failEventWrongMember.message == RequestFailedMessages.wrongMember)
+            failEventWrongMember.requestId.shouldBe(deleteWrongMemberConsultingRequest.eventId)
+            failEventWrongMember.message.shouldBe(RequestFailedMessages.wrongMember)
         }
         "produce event for agenda and member" - {
             val createMap = consultingManager.produce(createValidConsultingReservation)
@@ -421,7 +421,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val agenda = createMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(agenda.retrieveConsultingReservation().first().freelancerId == freelancerId)
+            agenda.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
             val resId = agenda.retrieveConsultingReservation().first().id
 
             val deleteConsulting = DeleteConsultingReservationRequest(
@@ -434,10 +434,10 @@ class ConsultingReservationManagerTest : FreeSpec({
             requestConsultingMap[deleteConsulting.eventId]?.first() ?: fail("Success event not found")
 
             val agendaList = requestConsultingMap[agendaId] ?: fail("Agenda events not found")
-            assert(agendaList.first() is AgendaDeleteConsultingReservation)
+            agendaList.first().shouldBeInstanceOf<AgendaDeleteConsultingReservation>()
 
             val memberList = requestConsultingMap[member.id] ?: fail("Member events not found")
-            assert(memberList.first() is MemberDeleteConsultingReservation)
+            memberList.first().shouldBeInstanceOf<MemberDeleteConsultingReservation>()
             val consultingFullManager = ConsultingReservationManager(agendaId, ledgerId, requestConsultingMap)
             val resOldMemberMap = consultingFullManager.produce(deleteConsulting)
             resOldMemberMap[deleteConsulting.eventId]?.first() ?: fail("Success event not found")

@@ -1,8 +1,11 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldBeUUID
+import io.kotest.matchers.string.shouldNotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
-import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 import java.util.UUID
 
@@ -13,27 +16,35 @@ class CloseConsultingReservationTest : FreeSpec({
     val day = 25
     calendar.set(year, feb, day)
     val validDateOfConsulting = calendar.time
-    val freelancerId = "0111"
+    val freelancerId = UUID.randomUUID()
+    val invalidFreelancer = UUID(0, 0)
     val closeConsultingId = UUID.randomUUID()
 
     "A CloseConsultingReservation should" - {
         "not to be empty" - {
             val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId, closeConsultingId)
-            assert(reservation.id.toString().isNotEmpty())
-            assert(reservation.id == closeConsultingId)
+            reservation.id.toString().shouldBeUUID()
+            reservation.id.toString().shouldNotBeEmpty()
+            reservation.id.shouldBe(closeConsultingId)
         }
         "be named as requested" - {
             val reservation = CloseConsultingReservation(validDateOfConsulting, freelancerId, closeConsultingId)
-            assert(
-                reservation.toString() ==
-                    "Reservation consulting {$closeConsultingId} with freelancerId: " +
+            reservation.toString().shouldBe(
+                "Reservation consulting {$closeConsultingId} with freelancerId: " +
                     "$freelancerId in date $validDateOfConsulting"
             )
+            reservation.freelancerId.toString().shouldBeUUID()
+            reservation.freelancerId.shouldBe(freelancerId)
+            reservation.id.hashCode().shouldBe(closeConsultingId.hashCode())
         }
 
         "have a freelancer that made a consulting" - {
-            assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
-                CloseConsultingReservation(validDateOfConsulting, "", closeConsultingId)
+            shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {
+                CloseConsultingReservation(
+                    validDateOfConsulting,
+                    invalidFreelancer,
+                    closeConsultingId
+                )
             }
         }
     }

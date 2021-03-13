@@ -93,15 +93,6 @@ tasks.jacocoTestReport {
     }
 }
 
-tasks.dokkaJavadoc.configure {
-    dokkaSourceSets {
-        configureEach {
-            // Use to include or exclude non public members
-            includeNonPublic.set(true)
-        }
-    }
-}
-
 application {
     // Define the main class for the application
     mainClass.set(myMainClass)

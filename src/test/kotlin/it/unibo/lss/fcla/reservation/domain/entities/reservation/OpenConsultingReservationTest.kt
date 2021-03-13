@@ -1,10 +1,13 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
+import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldBeUUID
+import io.kotest.matchers.string.shouldNotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.assertThrows
 import java.util.Calendar
 import java.util.UUID
 
@@ -14,10 +17,11 @@ class OpenConsultingReservationTest : FreeSpec({
     val invalidYear = 2021
     val feb = Calendar.FEBRUARY
     val day = 25
-    val freelancerId = "0111"
+    val freelancerId = UUID.randomUUID()
     calendar.set(year, feb, day)
     val validDateOfConsulting = calendar.time
     val openConsultingReservationId = UUID.randomUUID()
+    val invalidFreelancer = UUID(0, 0)
 
     var reservation = OpenConsultingReservation(
         validDateOfConsulting,
@@ -29,7 +33,7 @@ class OpenConsultingReservationTest : FreeSpec({
         "have a freelancer that make a consulting and a valid date" - {
             calendar.set(invalidYear, feb, day)
             val invalidDateOfConsulting = calendar.time
-            Assertions.assertDoesNotThrow {
+            shouldNotThrowAny {
                 reservation = OpenConsultingReservation(
                     validDateOfConsulting,
                     freelancerId,
@@ -37,14 +41,14 @@ class OpenConsultingReservationTest : FreeSpec({
                 )
             }
 
-            assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
+            shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {
                 OpenConsultingReservation(
                     validDateOfConsulting,
-                    "",
+                    invalidFreelancer,
                     openConsultingReservationId
                 )
             }
-            assertThrows<OpenReservationMustNotHavePastDate> {
+            shouldThrow<OpenReservationMustNotHavePastDate> {
                 OpenConsultingReservation(
                     invalidDateOfConsulting,
                     freelancerId,
@@ -53,11 +57,13 @@ class OpenConsultingReservationTest : FreeSpec({
             }
         }
         "not to be empty" - {
-            assert(reservation.id.toString().isNotEmpty())
+            reservation.id.toString().shouldBeUUID()
+            reservation.id.toString().shouldNotBeEmpty()
         }
         "have correct UUID" - {
-            assert(reservation.id.toString().isNotEmpty())
-            assert(reservation.id == openConsultingReservationId)
+            reservation.id.toString().shouldBeUUID()
+            reservation.id.toString().shouldNotBeEmpty()
+            reservation.id.shouldBe(openConsultingReservationId)
         }
         "be named as requested" - {
             assert(
@@ -74,25 +80,25 @@ class OpenConsultingReservationTest : FreeSpec({
                 val newReservation = reservation.updateDateOfConsulting(newDateOfReservation)
                 println("test di correttezza valori")
                 println("NewDate $newDateOfReservation")
-                assert(newReservation.freelancerId == freelancerId)
-                assert(newReservation.date == newDateOfReservation)
-                assert(newReservation.id == openConsultingReservationId)
+                newReservation.freelancerId.shouldBe(freelancerId)
+                newReservation.date.shouldBe(newDateOfReservation)
+                newReservation.id.shouldBe(openConsultingReservationId)
             }
             "not to be able to update a reservation with an invalid date" - {
                 calendar.set(invalidYear, feb, day)
                 val invalidDateOfConsulting = calendar.time
-                assertThrows<OpenReservationMustNotHavePastDate> {
+                shouldThrow<OpenReservationMustNotHavePastDate> {
                     reservation.updateDateOfConsulting(invalidDateOfConsulting)
                 }
             }
             "be able to update the freelancer of a reservation" - {
-                val newFreelancerId = "2222"
+                val newFreelancerId = UUID.randomUUID()
                 val updatedFreelancer = reservation.updateFreelancerOfConsulting(newFreelancerId)
-                assert(updatedFreelancer.freelancerId == newFreelancerId)
+                updatedFreelancer.freelancerId.shouldBe(newFreelancerId)
             }
             "not to be able to update a reservation with an invalid freelancer" - {
-                assertThrows<ConsultingReservationFreelancerCannotBeEmpty> {
-                    reservation.updateFreelancerOfConsulting("")
+                shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {
+                    reservation.updateFreelancerOfConsulting(invalidFreelancer)
                 }
             }
         }

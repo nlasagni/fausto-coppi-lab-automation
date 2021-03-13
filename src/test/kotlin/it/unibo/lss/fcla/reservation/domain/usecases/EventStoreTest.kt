@@ -1,6 +1,10 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldNotBeEmpty
+import io.kotest.matchers.maps.shouldNotBeEmpty
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.CreateConsultingReservationRequest
 import it.unibo.lss.fcla.reservation.domain.usecases.events.requests.UpdateConsultingReservationRequest
@@ -11,7 +15,7 @@ import java.util.UUID
 class EventStoreTest : FreeSpec({
     val reservationId = UUID.randomUUID()
     val agendaID = UUID.randomUUID()
-    val freelancerID = "" + UUID.randomUUID()
+    val freelancerID = UUID.randomUUID()
     val member = Member("Mario", "Rossi", UUID.randomUUID())
 
     val calendar = Calendar.getInstance()
@@ -40,9 +44,9 @@ class EventStoreTest : FreeSpec({
                 ),
                 ConsultingReservationManager(agendaID, ledgerID, mapOf())
             )
-            assert(eventStore.get().isNotEmpty())
-            assert(eventStore.getStream(reservationId).isNotEmpty())
-            assert(eventStore.getStream(reservationId).first() is RequestSucceeded)
+            eventStore.get().shouldNotBeEmpty()
+            eventStore.getStream(reservationId).shouldNotBeEmpty()
+            eventStore.getStream(reservationId).first().shouldBeInstanceOf<RequestSucceeded>()
         }
         "be appended to the list of event associated to him if the aggregate already exist" - {
             eventStore.evolve(
@@ -63,13 +67,13 @@ class EventStoreTest : FreeSpec({
                 UpdateConsultingReservationRequest(
                     UUID.randomUUID(),
                     reservationId,
-                    "4543",
+                    UUID.randomUUID(),
                     validDate,
                 ),
                 ConsultingReservationManager(agendaID, ledgerID, mapOf())
             )
-            assert(eventStore.get().isNotEmpty())
-            assert(eventStore.getStream(reservationId).size == 2)
+            eventStore.get().shouldNotBeEmpty()
+            eventStore.getStream(reservationId).size.shouldBe(2)
         }
     }
 })

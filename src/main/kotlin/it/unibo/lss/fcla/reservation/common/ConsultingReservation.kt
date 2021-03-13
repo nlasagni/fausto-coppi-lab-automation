@@ -11,6 +11,6 @@ import java.util.UUID
  */
 interface ConsultingReservation {
     val date: Date
-    val freelancerId: String
+    val freelancerId: UUID
     val id: UUID
 }

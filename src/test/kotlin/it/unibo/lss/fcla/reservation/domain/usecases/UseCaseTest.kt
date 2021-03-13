@@ -1,15 +1,18 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import org.junit.jupiter.api.assertThrows
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldNotBeEmpty
+import io.kotest.matchers.shouldBe
 import java.util.Calendar
 import java.util.UUID
 
 class UseCaseTest : FreeSpec({
     val agendaId = UUID.randomUUID()
     val ledgerId = UUID.randomUUID()
-    val validFreelancer = "freelancer"
-    val invalidFreelancer = ""
+    val validFreelancer = UUID.randomUUID()
+    val invalidFreelancer = UUID(0, 0)
     val validAim = "Aim"
     val invalidAim = ""
     val firstName = "Mario"
@@ -36,22 +39,26 @@ class UseCaseTest : FreeSpec({
             val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
             val resultCCre = commandUseCase
                 .requestCreateConsultingReservation(validFreelancer, validDate, firstName, lastName, memberId)
-            assert(resultCCre == successMessage)
+            resultCCre.shouldBe(successMessage)
             val reservationConsId = queryUseCase.retrieveAgendaConsultingReservation().first().reservationId
             val resMemberList = queryUseCase.retrieveMemberConsultingReservations(memberId)
-            assert(resMemberList.isNotEmpty())
+            resMemberList.shouldNotBeEmpty()
             val resultCClose = commandUseCase.requestCloseConsultingReservation(reservationConsId, memberId)
-            assert(resultCClose == successMessage)
+            resultCClose.shouldBe(successMessage)
             commandUseCase
                 .requestCreateConsultingReservation(validFreelancer, validDate, firstName, lastName, memberId)
             val reservationOConsId = queryUseCase.retrieveAgendaConsultingReservation()
                 .first { resDate -> queryUseCase.retrieveConsultingReservation(resDate.reservationId).isOpen }
                 .reservationId
             val resultCUp = commandUseCase
-                .requestUpdateConsultingReservation(reservationOConsId, "newF", validDateLate)
-            assert(resultCUp == successMessage)
+                .requestUpdateConsultingReservation(
+                    reservationOConsId,
+                    UUID.randomUUID(),
+                    validDateLate
+                )
+            resultCUp.shouldBe(successMessage)
             val resultCDel = commandUseCase.requestDeleteConsultingReservation(reservationOConsId, memberId)
-            assert(resultCDel == successMessage)
+            resultCDel.shouldBe(successMessage)
         }
         "create, close, update and delete workout reservations" - {
             val eventStore = EventStore()
@@ -59,12 +66,12 @@ class UseCaseTest : FreeSpec({
             val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
             val resultWCre = commandUseCase
                 .requestCreateWorkoutReservation(validAim, validDate, firstName, lastName, memberId)
-            assert(resultWCre == successMessage)
+            resultWCre.shouldBe(successMessage)
             val reservationWorkId = queryUseCase.retrieveAgendaWorkoutReservation().first().reservationId
             val resMemberWList = queryUseCase.retrieveMemberWorkoutReservations(memberId)
-            assert(resMemberWList.isNotEmpty())
+            resMemberWList.shouldNotBeEmpty()
             val resultW = commandUseCase.requestCloseWorkoutReservation(reservationWorkId, memberId)
-            assert(resultW == successMessage)
+            resultW.shouldBe(successMessage)
             commandUseCase
                 .requestCreateWorkoutReservation(validAim, validDate, firstName, lastName, memberId)
             val reservationOWorkId = queryUseCase.retrieveAgendaWorkoutReservation()
@@ -72,43 +79,43 @@ class UseCaseTest : FreeSpec({
                 .reservationId
             val resultWUp = commandUseCase
                 .requestUpdateWorkoutReservation(reservationOWorkId, "newAim", validDateLate)
-            assert(resultWUp == successMessage)
+            resultWUp.shouldBe(successMessage)
             val resultWDel = commandUseCase.requestDeleteWorkoutReservation(reservationOWorkId, memberId)
-            assert(resultWDel == successMessage)
+            resultWDel.shouldBe(successMessage)
         }
     }
     "Command and Query use case, given invalid data, should" - {
         "fail giving the specific error for consulting reservation" - {
             val eventStore = EventStore()
             val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestCreateConsultingReservation(invalidFreelancer, validDate, firstName, lastName, memberId)
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestCreateConsultingReservation(validFreelancer, invalidDate, firstName, lastName, memberId)
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestCloseConsultingReservation(UUID.randomUUID(), memberId)
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestUpdateConsultingReservation(UUID.randomUUID(), validFreelancer, validDateLate)
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestDeleteConsultingReservation(UUID.randomUUID(), memberId)
             }
 
             val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
-            assert(queryUseCase.retrieveAgendaConsultingReservation().isEmpty())
-            assertThrows<RequestFailedException> {
+            queryUseCase.retrieveAgendaConsultingReservation().shouldBeEmpty()
+            shouldThrow<RequestFailedException> {
                 queryUseCase
                     .retrieveMemberConsultingReservations(UUID.randomUUID())
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 queryUseCase
                     .retrieveConsultingReservation(UUID.randomUUID())
             }
@@ -116,33 +123,33 @@ class UseCaseTest : FreeSpec({
         "fail giving the specific error for workout reservation" - {
             val eventStore = EventStore()
             val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestCreateWorkoutReservation(invalidAim, validDate, firstName, lastName, memberId)
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestCreateWorkoutReservation(validAim, invalidDate, firstName, lastName, memberId)
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestCloseWorkoutReservation(UUID.randomUUID(), memberId)
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestUpdateWorkoutReservation(UUID.randomUUID(), validAim, validDateLate)
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestDeleteWorkoutReservation(UUID.randomUUID(), memberId)
             }
             val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
-            assert(queryUseCase.retrieveAgendaWorkoutReservation().isEmpty())
-            assertThrows<RequestFailedException> {
+            queryUseCase.retrieveAgendaWorkoutReservation().shouldBeEmpty()
+            shouldThrow<RequestFailedException> {
                 queryUseCase
                     .retrieveMemberWorkoutReservations(UUID.randomUUID())
             }
-            assertThrows<RequestFailedException> {
+            shouldThrow<RequestFailedException> {
                 queryUseCase
                     .retrieveWorkoutReservation(UUID.randomUUID())
             }

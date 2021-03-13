@@ -3,6 +3,10 @@ package it.unibo.lss.fcla.reservation.domain.usecases
 import io.kotest.assertions.fail
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.fp.success
+import io.kotest.matchers.collections.shouldHaveSingleElement
+import io.kotest.matchers.maps.shouldBeEmpty
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaAddWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.LedgerAddMember
@@ -66,8 +70,8 @@ class WorkoutReservationManagerTest : FreeSpec({
                 .produce(closeInvalidWorkout)[closeInvalidWorkout.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingCloseRequest as RequestFailed
-            assert(failEvent.requestId == closeInvalidWorkout.eventId)
-            assert(failEvent.message == RequestFailedMessages.reservationNotFound)
+            failEvent.requestId.shouldBe(closeInvalidWorkout.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.reservationNotFound)
         }
         "produce error if close an has invalid member or member not found" - {
             val workoutManagerMap = workoutManager.produce(createValidWorkoutReservation)
@@ -76,9 +80,8 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveWorkoutReservation().first().aim == validAim)
+            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
-
             val closeInvalidMemberWorkoutRequest = CloseWorkoutReservationRequest(
                 UUID.randomUUID(),
                 resId,
@@ -89,8 +92,8 @@ class WorkoutReservationManagerTest : FreeSpec({
                 .produce(closeInvalidMemberWorkoutRequest)[closeInvalidMemberWorkoutRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToRequestNotFound as RequestFailed
-            assert(failEvent.requestId == closeInvalidMemberWorkoutRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.memberNotFound)
+            failEvent.requestId.shouldBe(closeInvalidMemberWorkoutRequest.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.memberNotFound)
 
             val createValidWorkoutReservationMember1 = CreateWorkoutReservationRequest(
                 UUID.randomUUID(),
@@ -117,19 +120,19 @@ class WorkoutReservationManagerTest : FreeSpec({
                 .produce(closeWrongMemberWorkoutRequest)[closeWrongMemberWorkoutRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEventWrongMember = failingRequestDueToWrongMember as RequestFailed
-            assert(failEventWrongMember.requestId == closeWrongMemberWorkoutRequest.eventId)
-            assert(failEventWrongMember.message == RequestFailedMessages.wrongMember)
+            failEventWrongMember.requestId.shouldBe(closeWrongMemberWorkoutRequest.eventId)
+            failEventWrongMember.message.shouldBe(RequestFailedMessages.wrongMember)
         }
         "produce event for agenda, member" - {
             val createMap = workoutManager.produce(createValidWorkoutReservation)
             val createRes = createMap[createValidWorkoutReservation.eventId]?.first() ?: fail("Success event not found")
-            assert(createRes is RequestSucceeded)
+            createRes.shouldBeInstanceOf<RequestSucceeded>()
 
             val agendaProjection = AgendaProjection(agendaId)
             val agenda = createMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(agenda.retrieveWorkoutReservation().first() is OpenWorkoutReservation)
+            agenda.retrieveWorkoutReservation().first().shouldBeInstanceOf<OpenWorkoutReservation>()
             val resId = agenda.retrieveWorkoutReservation().first().id
 
             val manager = WorkoutReservationManager(agendaId, ledgerId, createMap)
@@ -142,22 +145,21 @@ class WorkoutReservationManagerTest : FreeSpec({
             requestWorkoutMap[closeWorkout.eventId]?.first() ?: fail("Success event not found")
 
             val agendaDeleteFromList = requestWorkoutMap[agendaId] ?: fail("Agenda events not found")
-            assert(agendaDeleteFromList.any { event -> event is AgendaDeleteWorkoutReservation })
-            assert(agendaDeleteFromList.any { event -> event is AgendaAddWorkoutReservation })
+            agendaDeleteFromList.shouldHaveSingleElement { event -> event is AgendaDeleteWorkoutReservation }
+            agendaDeleteFromList.shouldHaveSingleElement { event -> event is AgendaAddWorkoutReservation }
 
             val memberList = requestWorkoutMap[member.id] ?: fail("Member events not found")
-            assert(memberList.any { event -> event is MemberDeleteWorkoutReservation })
-            assert(memberList.any { event -> event is MemberAddWorkoutReservation })
+            memberList.shouldHaveSingleElement { event -> event is MemberDeleteWorkoutReservation }
+            memberList.shouldHaveSingleElement { event -> event is MemberAddWorkoutReservation }
 
             val closeResult = requestWorkoutMap[closeWorkout.eventId]?.first() ?: fail("Success event not found")
-            assert(closeResult is RequestSucceeded)
+            closeResult.shouldBeInstanceOf<RequestSucceeded>()
 
             val workoutFullManager = WorkoutReservationManager(agendaId, ledgerId, requestWorkoutMap)
             val resOldMemberMap = workoutFullManager.produce(closeWorkout)
             val closeFail = resOldMemberMap[closeWorkout.eventId]?.first() ?: fail("Success event not found")
-            assert(closeFail is RequestFailed)
-            val failMessage = closeFail as RequestFailed
-            assert(failMessage.message == RequestFailedMessages.alreadyCloseReservation)
+            closeFail.shouldBeInstanceOf<RequestFailed>()
+            closeFail.message.shouldBe(RequestFailedMessages.alreadyCloseReservation)
         }
     }
     "When a CreateWorkoutReservationEvent occurs the WorkoutReservationManager should" - {
@@ -181,28 +183,26 @@ class WorkoutReservationManagerTest : FreeSpec({
             val resInvAim = workoutManager
                 .produce(invalidReservationAimEvent)[invalidReservationAimEvent.eventId]?.first()
                 ?: fail("Error event not found")
-            assert(resInvAim is RequestFailed)
-            val failAimEvent = resInvAim as RequestFailed
-            assert(failAimEvent.requestId == invalidReservationAimEvent.eventId)
-            assert(failAimEvent.message == RequestFailedMessages.emptyWorkoutAim)
+            resInvAim.shouldBeInstanceOf<RequestFailed>()
+            resInvAim.requestId.shouldBe(invalidReservationAimEvent.eventId)
+            resInvAim.message.shouldBe(RequestFailedMessages.emptyWorkoutAim)
             val resInvDate = workoutManager
                 .produce(invalidReservationDateEvent)[invalidReservationDateEvent.eventId]?.first()
                 ?: fail("Error event not found")
-            assert(resInvDate is RequestFailed)
-            val failDateEvent = resInvDate as RequestFailed
-            assert(failDateEvent.requestId == invalidReservationDateEvent.eventId)
-            assert(failDateEvent.message == RequestFailedMessages.pastDateInReservation)
+            resInvDate.shouldBeInstanceOf<RequestFailed>()
+            resInvDate.requestId.shouldBe(invalidReservationDateEvent.eventId)
+            resInvDate.message.shouldBe(RequestFailedMessages.pastDateInReservation)
         }
         "produce events for agenda, member and ledger" - {
             val resNewMemberMap = workoutManager
                 .produce(createValidWorkoutReservation)
             resNewMemberMap[createValidWorkoutReservation.eventId]?.first() ?: fail("Success event not found")
             val agendaList = resNewMemberMap[agendaId] ?: fail("Agenda events not found")
-            assert(agendaList.first() is AgendaAddWorkoutReservation)
+            agendaList.first().shouldBeInstanceOf<AgendaAddWorkoutReservation>()
             val ledgerList = resNewMemberMap[ledgerId] ?: fail("Ledger events not found")
-            assert(ledgerList.first() is LedgerAddMember)
+            ledgerList.first().shouldBeInstanceOf<LedgerAddMember>()
             val memberList = resNewMemberMap[member.id] ?: fail("Member events not found")
-            assert(memberList.first() is MemberAddWorkoutReservation)
+            memberList.first().shouldBeInstanceOf<MemberAddWorkoutReservation>()
             val workoutFullManager = WorkoutReservationManager(agendaId, ledgerId, resNewMemberMap)
 
             val createSecondValidWorkoutReservation = CreateWorkoutReservationRequest(
@@ -221,7 +221,7 @@ class WorkoutReservationManagerTest : FreeSpec({
         "produce empty map if event is not valid" - {
             val invalidEvent = ConsultingReservationUpdateDate(UUID.randomUUID(), validDate)
             val emptyMap = workoutManager.produce(invalidEvent)
-            assert(emptyMap.isEmpty())
+            emptyMap.shouldBeEmpty()
         }
         "produce an error if parameters are not valid" - {
             val updateInvalidWorkoutRequest = UpdateWorkoutReservationRequest(
@@ -234,8 +234,8 @@ class WorkoutReservationManagerTest : FreeSpec({
                 .produce(updateInvalidWorkoutRequest)[updateInvalidWorkoutRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToRequestNotFound as RequestFailed
-            assert(failEvent.requestId == updateInvalidWorkoutRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.reservationNotFound)
+            failEvent.requestId.shouldBe(updateInvalidWorkoutRequest.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.reservationNotFound)
         }
         "produce an error if are present empty parameters" - {
             val workoutManagerMap = workoutManager.produce(createValidWorkoutReservation)
@@ -243,7 +243,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveWorkoutReservation().first().aim == validAim)
+            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutManagerMap)
 
@@ -258,10 +258,9 @@ class WorkoutReservationManagerTest : FreeSpec({
             val failUpdate =
                 requestFailAimWorkoutMap[updateInvalidWorkoutDueToEmptyAimRequest.eventId]
                     ?.first() ?: fail("Success event not found")
-            assert(failUpdate is RequestFailed)
-            val failEvent = failUpdate as RequestFailed
-            assert(failEvent.requestId == updateInvalidWorkoutDueToEmptyAimRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.emptyWorkoutAim)
+            failUpdate.shouldBeInstanceOf<RequestFailed>()
+            failUpdate.requestId.shouldBe(updateInvalidWorkoutDueToEmptyAimRequest.eventId)
+            failUpdate.message.shouldBe(RequestFailedMessages.emptyWorkoutAim)
 
             val updateInvalidWorkoutDueToPastDateRequest = UpdateWorkoutReservationRequest(
                 UUID.randomUUID(),
@@ -274,10 +273,9 @@ class WorkoutReservationManagerTest : FreeSpec({
             val failUpdatePastDate =
                 requestFailDateWorkoutMap[updateInvalidWorkoutDueToPastDateRequest.eventId]
                     ?.first() ?: fail("Success event not found")
-            assert(failUpdatePastDate is RequestFailed)
-            val failEventPastDate = failUpdatePastDate as RequestFailed
-            assert(failEventPastDate.requestId == updateInvalidWorkoutDueToPastDateRequest.eventId)
-            assert(failEventPastDate.message == RequestFailedMessages.pastDateInReservation)
+            failUpdatePastDate.shouldBeInstanceOf<RequestFailed>()
+            failUpdatePastDate.requestId.shouldBe(updateInvalidWorkoutDueToPastDateRequest.eventId)
+            failUpdatePastDate.message.shouldBe(RequestFailedMessages.pastDateInReservation)
         }
         "produce an error if a closeConsultingReservation is updated" - {
             val workoutManagerMap = workoutManager.produce(createValidWorkoutReservation)
@@ -286,7 +284,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveWorkoutReservation().first().aim == validAim)
+            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
 
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutManagerMap)
@@ -309,20 +307,19 @@ class WorkoutReservationManagerTest : FreeSpec({
             val resUpdateFailMap = managerFailUpdate.produce(updateWorkoutDate)
             val failUpdate =
                 resUpdateFailMap[updateWorkoutDate.eventId]?.first() ?: fail("Success event not found")
-            assert(failUpdate is RequestFailed)
-            val failMessage = failUpdate as RequestFailed
-            assert(failMessage.message == RequestFailedMessages.noUpdateToCloseReservation)
+            failUpdate.shouldBeInstanceOf<RequestFailed>()
+            failUpdate.message.shouldBe(RequestFailedMessages.noUpdateToCloseReservation)
         }
         "produce event for agenda, member" - {
             val workoutMap = workoutManager.produce(createValidWorkoutReservation)
             val createRes = workoutMap[createValidWorkoutReservation.eventId]?.first() ?: fail("Success event not found")
-            assert(createRes is RequestSucceeded)
+            createRes.shouldBeInstanceOf<RequestSucceeded>()
 
             val agendaProjection = AgendaProjection(agendaId)
             val ag = workoutMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveWorkoutReservation().first().aim == validAim)
+            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutMap)
 
@@ -334,16 +331,16 @@ class WorkoutReservationManagerTest : FreeSpec({
             )
             val requestWorkoutMap = manager.produce(updateWorkoutDate)
             val updateEventMap = requestWorkoutMap[updateWorkoutDate.eventId]?.first() ?: fail("Success event not found")
-            assert(updateEventMap is RequestSucceeded)
+            updateEventMap.shouldBeInstanceOf<RequestSucceeded>()
 
             val reservationEventMap = requestWorkoutMap[resId] ?: fail("Reservation events not found")
-            assert(reservationEventMap.any { event -> event is WorkoutReservationUpdateAim })
-            assert(reservationEventMap.any { event -> event is WorkoutReservationUpdateDate })
+            reservationEventMap.shouldHaveSingleElement { event -> event is WorkoutReservationUpdateAim }
+            reservationEventMap.shouldHaveSingleElement { event -> event is WorkoutReservationUpdateDate }
             val workoutFullManager = WorkoutReservationManager(agendaId, ledgerId, requestWorkoutMap)
             val resOldMemberMap = workoutFullManager.produce(updateWorkoutDate)
             val failUpdate =
                 resOldMemberMap[updateWorkoutDate.eventId]?.first() ?: fail("Success event not found")
-            assert(failUpdate is RequestFailed)
+            failUpdate.shouldBeInstanceOf<RequestFailed>()
         }
     }
     "When a DeleteWorkoutReservationEvent occurs in the WorkoutReservationManager should" - {
@@ -357,8 +354,8 @@ class WorkoutReservationManagerTest : FreeSpec({
                 .produce(deleteInvalidWorkoutRequest)[deleteInvalidWorkoutRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToRequestNotFound as RequestFailed
-            assert(failEvent.requestId == deleteInvalidWorkoutRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.reservationNotFound)
+            failEvent.requestId.shouldBe(deleteInvalidWorkoutRequest.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.reservationNotFound)
         }
         "produce an error if member not found" - {
             val workoutManagerMap = workoutManager.produce(createValidWorkoutReservation)
@@ -367,7 +364,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(ag.retrieveWorkoutReservation().first().aim == validAim)
+            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
 
             val deleteInvalidMemberWorkoutRequest = DeleteWorkoutReservationRequest(
@@ -380,8 +377,8 @@ class WorkoutReservationManagerTest : FreeSpec({
                 .produce(deleteInvalidMemberWorkoutRequest)[deleteInvalidMemberWorkoutRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEvent = failingRequestDueToRequestNotFound as RequestFailed
-            assert(failEvent.requestId == deleteInvalidMemberWorkoutRequest.eventId)
-            assert(failEvent.message == RequestFailedMessages.memberNotFound)
+            failEvent.requestId.shouldBe(deleteInvalidMemberWorkoutRequest.eventId)
+            failEvent.message.shouldBe(RequestFailedMessages.memberNotFound)
 
             val createValidWorkoutReservationMember1 = CreateWorkoutReservationRequest(
                 UUID.randomUUID(),
@@ -408,8 +405,8 @@ class WorkoutReservationManagerTest : FreeSpec({
                 .produce(deleteWrongMemberWorkoutRequest)[deleteWrongMemberWorkoutRequest.eventId]?.first()
                 ?: fail("Error in request")
             val failEventWrongMember = failingRequestDueToWrongMember as RequestFailed
-            assert(failEventWrongMember.requestId == deleteWrongMemberWorkoutRequest.eventId)
-            assert(failEventWrongMember.message == RequestFailedMessages.wrongMember)
+            failEventWrongMember.requestId.shouldBe(deleteWrongMemberWorkoutRequest.eventId)
+            failEventWrongMember.message.shouldBe(RequestFailedMessages.wrongMember)
         }
         "produce event for agenda and member" - {
             val createMap = workoutManager.produce(createValidWorkoutReservation)
@@ -420,7 +417,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val agenda = createMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            assert(agenda.retrieveWorkoutReservation().first().aim == validAim)
+            agenda.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
             val resId = agenda.retrieveWorkoutReservation().first().id
 
             val deleteWorkout = DeleteWorkoutReservationRequest(
@@ -432,9 +429,9 @@ class WorkoutReservationManagerTest : FreeSpec({
             val requestWorkoutMap = manager.produce(deleteWorkout)
             requestWorkoutMap[deleteWorkout.eventId]?.first() ?: fail("Success event not found")
             val agendaList = requestWorkoutMap[agendaId] ?: fail("Agenda events not found")
-            assert(agendaList.first() is AgendaDeleteWorkoutReservation)
+            agendaList.first().shouldBeInstanceOf<AgendaDeleteWorkoutReservation>()
             val memberList = requestWorkoutMap[member.id] ?: fail("Member events not found")
-            assert(memberList.first() is MemberDeleteWorkoutReservation)
+            memberList.first().shouldBeInstanceOf<MemberDeleteWorkoutReservation>()
             val workoutFullManager = WorkoutReservationManager(agendaId, ledgerId, requestWorkoutMap)
             val resOldMemberMap = workoutFullManager.produce(deleteWorkout)
             resOldMemberMap[deleteWorkout.eventId]?.first() ?: fail("Success event not found")
