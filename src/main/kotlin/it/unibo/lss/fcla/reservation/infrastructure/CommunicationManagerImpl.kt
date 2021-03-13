@@ -7,7 +7,7 @@ import it.unibo.lss.fcla.reservation.application.interfaces.CommunicationManager
  *
  * It implements the [CommunicationManager] interface exposed by application layer.
  */
-class CommunicationManagerImpl: CommunicationManager {
+class CommunicationManagerImpl : CommunicationManager {
     private val events: ArrayDeque<String> = ArrayDeque()
 
     /**
@@ -23,5 +23,4 @@ class CommunicationManagerImpl: CommunicationManager {
     override fun publishResult(result: String) {
         println("$result published into the Bus!")
     }
-
 }

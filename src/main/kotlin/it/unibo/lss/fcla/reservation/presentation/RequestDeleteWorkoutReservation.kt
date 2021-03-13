@@ -11,4 +11,4 @@ import java.util.UUID
 sealed class RequestDeleteWorkoutReservation(
     val reservationId: UUID,
     val memberId: UUID
-): Request
+) : Request

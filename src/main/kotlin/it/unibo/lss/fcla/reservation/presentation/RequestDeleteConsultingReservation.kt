@@ -8,7 +8,7 @@ import java.util.UUID
  * This class performs instruction for a requestDeleteConsultingReservation
  * with no logic in it.
  */
-sealed class RequestDeleteConsultingReservation (
+sealed class RequestDeleteConsultingReservation(
     val reservationId: UUID,
     val memberId: UUID
-): Request
+) : Request
