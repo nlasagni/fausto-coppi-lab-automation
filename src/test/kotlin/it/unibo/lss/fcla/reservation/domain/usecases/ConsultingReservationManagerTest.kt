@@ -82,8 +82,8 @@ class ConsultingReservationManagerTest : FreeSpec({
 
     fun createConsulting(freelancer: UUID, date: Date, name: String, surname: String, memberId: UUID):
         CreateConsultingReservationRequest {
-        return CreateConsultingReservationRequest(UUID.randomUUID(), freelancer, date, name, surname, memberId)
-    }
+            return CreateConsultingReservationRequest(UUID.randomUUID(), freelancer, date, name, surname, memberId)
+        }
 
     fun updateConsulting(resId: UUID, freelancer: UUID, date: Date): UpdateConsultingReservationRequest {
         return UpdateConsultingReservationRequest(UUID.randomUUID(), resId, freelancer, date)
