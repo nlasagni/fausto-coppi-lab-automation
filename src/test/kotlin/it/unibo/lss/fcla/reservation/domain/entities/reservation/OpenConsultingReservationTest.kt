@@ -80,7 +80,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 val newReservation = reservation.updateDateOfConsulting(newDateOfReservation)
                 println("test di correttezza valori")
                 println("NewDate $newDateOfReservation")
-                newReservation.freelancerId.shouldBe(freelancerId)
+                newReservation.freelancerId.freelancerId.shouldBe(freelancerId)
                 newReservation.date.shouldBe(newDateOfReservation)
                 newReservation.id.shouldBe(openConsultingReservationId)
             }
@@ -94,7 +94,7 @@ class OpenConsultingReservationTest : FreeSpec({
             "be able to update the freelancer of a reservation" - {
                 val newFreelancerId = UUID.randomUUID()
                 val updatedFreelancer = reservation.updateFreelancerOfConsulting(newFreelancerId)
-                updatedFreelancer.freelancerId.shouldBe(newFreelancerId)
+                updatedFreelancer.freelancerId.freelancerId.shouldBe(newFreelancerId)
             }
             "not to be able to update a reservation with an invalid freelancer" - {
                 shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {

@@ -33,8 +33,8 @@ class CloseConsultingReservationTest : FreeSpec({
                 "Reservation consulting {$closeConsultingId} with freelancerId: " +
                     "$freelancerId in date $validDateOfConsulting"
             )
-            reservation.freelancerId.toString().shouldBeUUID()
-            reservation.freelancerId.shouldBe(freelancerId)
+            reservation.freelancerId.freelancerId.toString().shouldBeUUID()
+            reservation.freelancerId.freelancerId.shouldBe(freelancerId)
             reservation.id.hashCode().shouldBe(closeConsultingId.hashCode())
         }
 

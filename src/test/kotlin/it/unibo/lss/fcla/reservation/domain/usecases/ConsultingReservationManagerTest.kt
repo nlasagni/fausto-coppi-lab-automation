@@ -78,7 +78,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
 
             val closeInvalidMemberConsultingRequest = CloseConsultingReservationRequest(
@@ -247,7 +247,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingManagerMap)
 
@@ -288,7 +288,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
 
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingManagerMap)
@@ -323,7 +323,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingMap)
 
@@ -368,7 +368,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val ag = consultingManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
 
             val deleteInvalidMemberConsultingRequest = DeleteConsultingReservationRequest(
@@ -421,7 +421,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val agenda = createMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            agenda.retrieveConsultingReservation().first().freelancerId.shouldBe(freelancerId)
+            agenda.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
             val resId = agenda.retrieveConsultingReservation().first().id
 
             val deleteConsulting = DeleteConsultingReservationRequest(

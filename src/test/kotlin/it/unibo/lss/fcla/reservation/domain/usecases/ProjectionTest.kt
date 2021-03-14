@@ -102,9 +102,9 @@ class ProjectionTest : FreeSpec({
             val updateFreelancer = ConsultingReservationUpdateFreelancer(UUID.randomUUID(), freelancerName2)
             val resFreelancer = reservationConsProjection.update(reservationConsProjection.init, updateFreelancer)
             resDate.date.shouldBe(validDateLate)
-            resDate.freelancerId.shouldBe(freelancerName)
+            resDate.freelancerId.freelancerId.shouldBe(freelancerName)
             resFreelancer.date.shouldBe(validDate)
-            resFreelancer.freelancerId.shouldBe(freelancerName2)
+            resFreelancer.freelancerId.freelancerId.shouldBe(freelancerName2)
         }
     }
     "OpenWorkoutReservation projection should" - {
