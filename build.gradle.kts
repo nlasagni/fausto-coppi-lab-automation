@@ -19,21 +19,28 @@ allprojects {
     }
 }
 
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50")
-    testImplementation(gradleTestKit())
-    testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
-    testImplementation("io.kotest:kotest-assertions-core:4.2.5")
-    testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
-}
-
 gitSemVer {
     version = computeGitSemVer()
 }
 
 subprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin ="org.danilopianini.git-sensitive-semantic-versioning")
+    apply(plugin = "org.gradle.jacoco")
+    apply(plugin = "pl.droidsonroids.jacoco.testkit")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+    apply(plugin = "org.jetbrains.dokka")
+
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50")
+        testImplementation(gradleTestKit())
+        testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
+        testImplementation("io.kotest:kotest-assertions-core:4.2.5")
+        testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
+    }
 
     tasks.withType<Test> {
         useJUnitPlatform() // Use JUnit 5 engine
