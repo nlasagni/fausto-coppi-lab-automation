@@ -68,7 +68,7 @@ class ConsultingReservationManagerTest : FreeSpec({
         failEvent.message.shouldBe(failingMessage)
     }
 
-    fun checkCloseFail(map: Map<UUID, List<Event>>, id: UUID, failingMessage: String){
+    fun checkCloseFail(map: Map<UUID, List<Event>>, id: UUID, failingMessage: String) {
         val closeFail = map[id]?.first() ?: fail("Success event not found")
         closeFail.shouldBeInstanceOf<RequestFailed>()
         closeFail.message.shouldBe(failingMessage)
@@ -84,12 +84,12 @@ class ConsultingReservationManagerTest : FreeSpec({
     fun computeAgenda(events: Map<UUID, List<Event>>): Agenda {
         val agendaProjection = AgendaProjection(agendaId)
         return events[agendaId]?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
-        ?: fail("Reservation not found into the agenda")
+            ?: fail("Reservation not found into the agenda")
     }
 
-    fun mergeMaps(map1: Map<UUID, List<Event>>, map2: Map<UUID, List<Event>>): Map<UUID, List<Event>>{
+    fun mergeMaps(map1: Map<UUID, List<Event>>, map2: Map<UUID, List<Event>>): Map<UUID, List<Event>> {
         return map1.entries.fold(map2) {
-                map, entries ->
+            map, entries ->
             val list = map.getOrDefault(entries.key, listOf()) + entries.value
             map + (entries.key to list)
         }
@@ -277,7 +277,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val managerFailUpdate = ConsultingReservationManager(agendaId, ledgerId, requestConsultingMap)
             val updateDate = updateConsulting(resId, freelancerId, updatedDate)
             val resUpdateFailMap = managerFailUpdate.produce(updateDate)
-            checkFailUpdate(resUpdateFailMap,updateDate.eventId, RequestFailedMessages.noUpdateToCloseReservation)
+            checkFailUpdate(resUpdateFailMap, updateDate.eventId, RequestFailedMessages.noUpdateToCloseReservation)
         }
         "produce event for agenda and member" - {
             val consultingMap = consultingManager.produce(createValidConsultingReservation)
