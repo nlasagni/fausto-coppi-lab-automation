@@ -1,5 +1,6 @@
 package it.unibo.lss.fcla.reservation.common
 
+import it.unibo.lss.fcla.reservation.domain.entities.reservation.Aim
 import java.util.Date
 import java.util.UUID
 
@@ -10,7 +11,7 @@ import java.util.UUID
  * of the workout and the [id] of the reservation.
  */
 interface WorkoutReservation {
-    val aim: String
+    val aim: Aim
     val date: Date
     val id: UUID
 }

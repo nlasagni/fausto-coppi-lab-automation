@@ -13,22 +13,22 @@ import java.util.UUID
  * the [id] of the facade and [isOpen] which is used to know if a reservation is open or close.
  */
 data class WorkoutReservationFacade(
-    override val date: Date,
-    override val aim: String,
-    override val id: UUID,
+    val date: Date,
+    val aim: String,
+    val id: UUID,
     val isOpen: Boolean
-) : WorkoutReservation {
+) {
 
     constructor(openWorkoutReservation: OpenWorkoutReservation) : this(
         openWorkoutReservation.date,
-        openWorkoutReservation.aim,
+        openWorkoutReservation.aim.aim,
         openWorkoutReservation.id,
         isOpen = true
     )
 
     constructor(closeWorkoutReservation: CloseWorkoutReservation) : this(
         closeWorkoutReservation.date,
-        closeWorkoutReservation.aim,
+        closeWorkoutReservation.aim.aim,
         closeWorkoutReservation.id,
         isOpen = false
     )

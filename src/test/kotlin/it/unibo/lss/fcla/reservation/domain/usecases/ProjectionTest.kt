@@ -114,9 +114,9 @@ class ProjectionTest : FreeSpec({
             val updateAim = WorkoutReservationUpdateAim(UUID.randomUUID(), aim2)
             val resAim = reservationWorkProjection.update(reservationWorkProjection.init, updateAim)
             resDate.date.shouldBe(validDateLate)
-            resDate.aim.shouldBe(aim)
+            resDate.aim.aim.shouldBe(aim)
             resAim.date.shouldBe(validDate)
-            resAim.aim.shouldBe(aim2)
+            resAim.aim.aim.shouldBe(aim2)
         }
     }
 })

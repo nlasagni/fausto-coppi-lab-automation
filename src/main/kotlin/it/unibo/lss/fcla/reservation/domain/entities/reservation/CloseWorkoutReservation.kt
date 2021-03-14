@@ -9,18 +9,14 @@ import java.util.UUID
  * It is referred to a workout reservation that cannot be updated anymore
  */
 class CloseWorkoutReservation(
-    override val aim: String,
+    private val aim_: String,
     override val date: Date,
     override val id: UUID
 ) : WorkoutReservation {
 
-    init {
-        if (aim.isEmpty()) {
-            throw WorkoutReservationAimCannotBeEmpty()
-        }
-    }
+    override val aim: Aim = Aim(aim_)
 
-    override fun toString(): String = "Reservation workout {$id} with aim: $aim in date $date"
+    override fun toString(): String = "Reservation workout {$id} with aim: $aim_ in date $date"
 
     override fun equals(other: Any?): Boolean {
         return (other is CloseWorkoutReservation) && other.id == this.id

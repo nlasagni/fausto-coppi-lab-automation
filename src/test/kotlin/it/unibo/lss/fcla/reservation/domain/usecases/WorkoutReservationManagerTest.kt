@@ -80,7 +80,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val closeInvalidMemberWorkoutRequest = CloseWorkoutReservationRequest(
                 UUID.randomUUID(),
@@ -243,7 +243,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutManagerMap)
 
@@ -284,7 +284,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
 
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutManagerMap)
@@ -319,7 +319,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutMap)
 
@@ -364,7 +364,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val ag = workoutManagerMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            ag.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
 
             val deleteInvalidMemberWorkoutRequest = DeleteWorkoutReservationRequest(
@@ -417,7 +417,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val agenda = createMap[agendaId]
                 ?.fold(agendaProjection.init) { ag, ev -> agendaProjection.update(ag, ev) }
                 ?: fail("Reservation not found into the agenda")
-            agenda.retrieveWorkoutReservation().first().aim.shouldBe(validAim)
+            agenda.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
             val resId = agenda.retrieveWorkoutReservation().first().id
 
             val deleteWorkout = DeleteWorkoutReservationRequest(

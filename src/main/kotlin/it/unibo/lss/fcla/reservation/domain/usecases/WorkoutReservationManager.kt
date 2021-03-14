@@ -72,7 +72,7 @@ class WorkoutReservationManager(
             }
             val updatedReservation = computeWorkoutReservation(retrievedReservation as OpenWorkoutReservation)
             val closedReservation = CloseWorkoutReservation(
-                updatedReservation.aim,
+                updatedReservation.aim.aim,
                 updatedReservation.date,
                 updatedReservation.id
             )
