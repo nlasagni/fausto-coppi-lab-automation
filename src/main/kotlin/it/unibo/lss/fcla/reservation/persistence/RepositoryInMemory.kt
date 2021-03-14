@@ -9,7 +9,7 @@ import java.util.UUID
  *
  * This class implements the interface [Repository] exposed by the use case layer.
  */
-class RepositoryInMemory: Repository{
+class RepositoryInMemory : Repository {
     private var eventsInMemoryMap: Map<UUID, List<Event>> = mapOf()
 
     /**
