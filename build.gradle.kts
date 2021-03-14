@@ -53,7 +53,6 @@ subprojects {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
     }
-
 }
 
 application {

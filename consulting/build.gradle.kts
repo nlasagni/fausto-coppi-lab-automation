@@ -59,4 +59,3 @@ tasks.jacocoTestReport {
         html.isEnabled = true
     }
 }
-
