@@ -14,11 +14,11 @@ import java.util.UUID
  * if a reservation is open or close.
  */
 data class ConsultingReservationFacade(
-    override val date: Date,
-    override val freelancerId: UUID,
-    override val id: UUID,
+    val date: Date,
+    val freelancerId: UUID,
+    val id: UUID,
     val isOpen: Boolean
-) : ConsultingReservation {
+) {
 
     constructor(openConsultingReservation: OpenConsultingReservation) : this(
         openConsultingReservation.date,
