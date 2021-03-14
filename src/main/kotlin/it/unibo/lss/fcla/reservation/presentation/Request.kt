@@ -5,7 +5,7 @@ import java.util.UUID
 
 interface Request
 
-class RequestCreateConsultingReservation (
+class RequestCreateConsultingReservation(
     val freelancer: UUID,
     val date: Date,
     val firstName: String,
@@ -13,7 +13,7 @@ class RequestCreateConsultingReservation (
     val memberId: UUID
 ) : Request
 
-class RequestCreateWorkoutReservation (
+class RequestCreateWorkoutReservation(
     val aim: String,
     val date: Date,
     val firstName: String,
@@ -27,7 +27,7 @@ class RequestUpdateConsultingReservation(
     val date: Date
 ) : Request
 
-class RequestUpdateWorkoutReservation (
+class RequestUpdateWorkoutReservation(
     val reservationId: UUID,
     val aim: String,
     val date: Date
@@ -39,10 +39,10 @@ class RequestUpdateWorkoutReservation (
  * This class performs instruction for a requestDeleteConsultingReservation
  * with no logic in it.
  */
-class RequestDeleteConsultingReservation (
-        val reservationId: UUID,
-        val memberId: UUID
-): Request
+class RequestDeleteConsultingReservation(
+    val reservationId: UUID,
+    val memberId: UUID
+) : Request
 
 /**
  * Sealed class that implements [Request] interface.
@@ -51,9 +51,9 @@ class RequestDeleteConsultingReservation (
  * with no logic in it.
  */
 class RequestDeleteWorkoutReservation(
-        val reservationId: UUID,
-        val memberId: UUID
-): Request
+    val reservationId: UUID,
+    val memberId: UUID
+) : Request
 
 class RequestRetrieveAgendaConsultingReservation : Request
 

@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.reservation.presentation
 
 import it.unibo.lss.fcla.reservation.application.interfaces.Presenter
 
-class PresenterImpl: Presenter {
+class PresenterImpl : Presenter {
 
     override fun convertRequest(request: String): Request {
         TODO()
