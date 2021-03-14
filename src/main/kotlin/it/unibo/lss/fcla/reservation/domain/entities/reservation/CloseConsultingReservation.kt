@@ -10,17 +10,13 @@ import java.util.UUID
  */
 class CloseConsultingReservation(
     override val date: Date,
-    override val freelancerId: UUID,
+    private val freelancerId_: UUID,
     override val id: UUID
 ) : ConsultingReservation {
 
-    init {
-        if (freelancerId == UUID(0, 0)) {
-            throw ConsultingReservationFreelancerCannotBeEmpty()
-        }
-    }
+    override val freelancerId = FreelancerId(freelancerId_)
 
-    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId in date $date"
+    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId_ in date $date"
 
     override fun equals(other: Any?): Boolean { return (other is CloseConsultingReservation) && other.id == this.id }
 
