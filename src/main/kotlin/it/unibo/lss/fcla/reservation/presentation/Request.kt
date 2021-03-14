@@ -90,27 +90,27 @@ class RequestRetrieveAgendaWorkoutReservation : Request
 /**
  * Class that implements [Request] interface.
  *
- * This class represents the request to retrieve consulting reservation given its id.
+ * This class represents the request to retrieve consulting reservation given its [reservationId]
  */
-class RequestRetrieveConsultingReservation(reservationId: UUID) : Request
+class RequestRetrieveConsultingReservation(val reservationId: UUID) : Request
 
 /**
  * Class that implements [Request] interface.
  *
- * This class represents the request to retrieve workout reservation given its id.
+ * This class represents the request to retrieve workout reservation given its [reservationId].
  */
-class RequestRetrieveWorkoutReservation(reservationId: UUID) : Request
+class RequestRetrieveWorkoutReservation(val reservationId: UUID) : Request
 
 /**
  * Class that implements [Request] interface.
  *
- * This class represents the request to retrieve member consulting reservation given the id of the member.
+ * This class represents the request to retrieve member consulting reservation given the [memberId].
  */
-class RequestRetrieveMemberConsultingReservations(memberId: UUID) : Request
+class RequestRetrieveMemberConsultingReservations(val memberId: UUID) : Request
 
 /**
  * Class that implements [Request] interface.
  *
- * This class represents the request to retrieve workout reservation given the id of the member.
+ * This class represents the request to retrieve workout reservation given the [memberId].
  */
-class RequestRetrieveMemberWorkoutReservations(memberId: UUID) : Request
+class RequestRetrieveMemberWorkoutReservations(val memberId: UUID) : Request
