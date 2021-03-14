@@ -14,12 +14,12 @@ import java.util.UUID
  * Throws [OpenReservationMustNotHavePastDate] if an OpenWorkoutReservation is created with a past date
  */
 class OpenWorkoutReservation(
-    private val aim_: String,
+    private val myAim: String,
     override val date: Date,
     override val id: UUID
 ) : WorkoutReservation {
 
-    override val aim: Aim = Aim(aim_)
+    override val aim: Aim = Aim(myAim)
 
     init {
         if (date.before(Date())) {
@@ -31,7 +31,7 @@ class OpenWorkoutReservation(
      * Returns a new [OpenWorkoutReservation] after the update of the [date] of a workout reservation
      */
     fun updateWorkoutReservationDate(date: Date): OpenWorkoutReservation {
-        return OpenWorkoutReservation(aim_, date, id)
+        return OpenWorkoutReservation(myAim, date, id)
     }
 
     /**
@@ -41,7 +41,7 @@ class OpenWorkoutReservation(
         return OpenWorkoutReservation(aim, date, id)
     }
 
-    override fun toString(): String = "Reservation consulting {$id} with aim: $aim_ in date $date"
+    override fun toString(): String = "Reservation consulting {$id} with aim: $myAim in date $date"
 
     override fun equals(other: Any?): Boolean {
         return (other is OpenWorkoutReservation) && other.id == this.id

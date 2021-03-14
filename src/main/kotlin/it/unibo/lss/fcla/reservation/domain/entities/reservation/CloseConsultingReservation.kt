@@ -9,13 +9,13 @@ import java.util.UUID
  */
 class CloseConsultingReservation(
     override val date: Date,
-    private val freelancerId_: UUID,
+    private val myFreelancerId: UUID,
     override val id: UUID
 ) : ConsultingReservation {
 
-    override val freelancerId = FreelancerId(freelancerId_)
+    override val freelancerId = FreelancerId(myFreelancerId)
 
-    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId_ in date $date"
+    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $myFreelancerId in date $date"
 
     override fun equals(other: Any?): Boolean { return (other is CloseConsultingReservation) && other.id == this.id }
 

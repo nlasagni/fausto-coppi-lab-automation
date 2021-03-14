@@ -16,11 +16,11 @@ import java.util.UUID
  */
 class OpenConsultingReservation(
     override val date: Date,
-    private val freelancerId_: UUID,
+    private val myFreelancerId: UUID,
     override val id: UUID
 ) : ConsultingReservation {
 
-    override val freelancerId = FreelancerId(freelancerId_)
+    override val freelancerId = FreelancerId(myFreelancerId)
 
     init {
         if (date.before(Date())) {
@@ -38,7 +38,7 @@ class OpenConsultingReservation(
         if (date.before(this.date)) {
             throw OpenReservationMustNotHavePastDate()
         }
-        return OpenConsultingReservation(date, freelancerId_, id)
+        return OpenConsultingReservation(date, myFreelancerId, id)
     }
 
     /**
@@ -54,7 +54,7 @@ class OpenConsultingReservation(
         return OpenConsultingReservation(date, freelancerId, id)
     }
 
-    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId_ in date $date"
+    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $myFreelancerId in date $date"
 
     override fun equals(other: Any?): Boolean {
         return (other is OpenConsultingReservation) && other.id == this.id
