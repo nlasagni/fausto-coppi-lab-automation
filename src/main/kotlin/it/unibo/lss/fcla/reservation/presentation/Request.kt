@@ -5,7 +5,7 @@ import java.util.UUID
 
 interface Request
 
-sealed class RequestCreateConsultingReservation (
+class RequestCreateConsultingReservation (
     val freelancer: UUID,
     val date: Date,
     val firstName: String,
@@ -13,7 +13,7 @@ sealed class RequestCreateConsultingReservation (
     val memberId: UUID
 ) : Request
 
-sealed class RequestCreateWorkoutReservation (
+class RequestCreateWorkoutReservation (
     val aim: String,
     val date: Date,
     val firstName: String,
@@ -21,13 +21,13 @@ sealed class RequestCreateWorkoutReservation (
     val memberId: UUID
 ) : Request
 
-sealed class RequestUpdateConsultingReservation(
+class RequestUpdateConsultingReservation(
     val reservationId: UUID,
     val freelancer: UUID,
     val date: Date
 ) : Request
 
-sealed class RequestUpdateWorkoutReservation (
+class RequestUpdateWorkoutReservation (
     val reservationId: UUID,
     val aim: String,
     val date: Date
@@ -39,7 +39,7 @@ sealed class RequestUpdateWorkoutReservation (
  * This class performs instruction for a requestDeleteConsultingReservation
  * with no logic in it.
  */
-sealed class RequestDeleteConsultingReservation (
+class RequestDeleteConsultingReservation (
         val reservationId: UUID,
         val memberId: UUID
 ): Request
@@ -50,19 +50,19 @@ sealed class RequestDeleteConsultingReservation (
  * This class performs instruction for a requestDeleteWorkoutReservation
  * with no logic in it.
  */
-sealed class RequestDeleteWorkoutReservation(
+class RequestDeleteWorkoutReservation(
         val reservationId: UUID,
         val memberId: UUID
 ): Request
 
-sealed class RequestRetrieveAgendaConsultingReservation : Request
+class RequestRetrieveAgendaConsultingReservation : Request
 
-sealed class RequestRetrieveAgendaWorkoutReservation : Request
+class RequestRetrieveAgendaWorkoutReservation : Request
 
-sealed class RequestRetrieveConsultingReservation(reservationId: UUID) : Request
+class RequestRetrieveConsultingReservation(reservationId: UUID) : Request
 
-sealed class RequestRetrieveWorkoutReservation(reservationId: UUID) : Request
+class RequestRetrieveWorkoutReservation(reservationId: UUID) : Request
 
-sealed class RequestRetrieveMemberConsultingReservations(memberId: UUID) : Request
+class RequestRetrieveMemberConsultingReservations(memberId: UUID) : Request
 
-sealed class RequestRetrieveMemberWorkoutReservations(memberId: UUID) : Request
+class RequestRetrieveMemberWorkoutReservations(memberId: UUID) : Request
