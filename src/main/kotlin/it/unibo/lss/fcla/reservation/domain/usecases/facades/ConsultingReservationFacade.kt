@@ -1,6 +1,5 @@
 package it.unibo.lss.fcla.reservation.domain.usecases.facades
 
-import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import java.util.Date
