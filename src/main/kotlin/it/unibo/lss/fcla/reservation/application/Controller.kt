@@ -4,6 +4,8 @@ import it.unibo.lss.fcla.reservation.domain.usecases.CommandReservationUseCase
 import it.unibo.lss.fcla.reservation.domain.usecases.EventStore
 import it.unibo.lss.fcla.reservation.domain.usecases.QueryReservationUseCase
 import it.unibo.lss.fcla.reservation.domain.usecases.RequestFailedException
+import it.unibo.lss.fcla.reservation.domain.usecases.facades.ConsultingReservationDateFacade
+import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationDateFacade
 import it.unibo.lss.fcla.reservation.persistence.RepositoryInMemory
 import it.unibo.lss.fcla.reservation.ui.ConsoleUI
 import java.util.UUID
@@ -13,8 +15,8 @@ class Controller {
     private val agendaId = UUID.randomUUID()
     private val ledgerId = UUID.randomUUID()
     private val memberId = UUID.randomUUID()
-    private val memberFirstName = "Luca"
-    private val memberLastName = "Viola"
+    private val firstName = "Luca"
+    private val lastName = "Viola"
     private val noConsultingReservation = "No consulting reservation available"
     private val noWorkoutReservation = "No workout reservation available"
 
@@ -22,8 +24,8 @@ class Controller {
 
     private val eventStore = EventStore(repository.readEvents())
 
-    private val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore, repository)
-    private val queryReservationUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
+    private val cmd = CommandReservationUseCase(agendaId, ledgerId, eventStore, repository)
+    private val query = QueryReservationUseCase(agendaId, ledgerId, eventStore)
 
     private val ui = ConsoleUI()
 
@@ -39,109 +41,29 @@ class Controller {
         private const val reqExit = 9
     }
 
-    private fun createConsulting() {
-        ui.printMsg(
-            commandUseCase.requestCreateConsultingReservation(
-                ui.readFreelancer(),
-                ui.readDate(),
-                memberFirstName,
-                memberLastName,
-                memberId
-            )
-        )
-    }
-
-    private fun createWorkout() {
-        ui.printMsg(
-            commandUseCase.requestCreateWorkoutReservation(
-                ui.readAim(),
-                ui.readDate(),
-                memberFirstName,
-                memberLastName,
-                memberId
-            )
-        )
-    }
-
-    private fun updateConsulting() {
+    private fun useWorkoutRes(toDo: (List<WorkoutReservationDateFacade>) -> Unit) {
         try {
-            val resList = queryReservationUseCase.retrieveMemberConsultingReservations(memberId)
-            ui.printMsg(
-                commandUseCase.requestUpdateConsultingReservation(
-                    ui.chooseConsultingReservation(resList),
-                    ui.readFreelancer(),
-                    ui.readDate()
-                )
-            )
+            val resList = query.retrieveMemberWorkoutReservations(memberId)
+            if (resList.isNotEmpty()) {
+                toDo(resList)
+            } else {
+                ui.printMsg(noWorkoutReservation)
+            }
         } catch (exception: RequestFailedException) {
-            ui.printMsg(noConsultingReservation)
+            ui.printMsg(exception.message)
         }
     }
 
-    private fun updateWorkout() {
+    private fun useConsultingRes(toDo: (List<ConsultingReservationDateFacade>) -> Unit) {
         try {
-            val resList = queryReservationUseCase.retrieveMemberWorkoutReservations(memberId)
-            ui.printMsg(
-                commandUseCase.requestUpdateWorkoutReservation(
-                    ui.chooseWorkoutReservation(resList),
-                    ui.readAim(),
-                    ui.readDate()
-                )
-            )
+            val resList = query.retrieveMemberConsultingReservations(memberId)
+            if (resList.isNotEmpty()) {
+                toDo(resList)
+            } else {
+                ui.printMsg(noConsultingReservation)
+            }
         } catch (exception: RequestFailedException) {
-            ui.printMsg(noWorkoutReservation)
-        }
-    }
-
-    private fun deleteConsulting() {
-        try {
-            val resList = queryReservationUseCase.retrieveMemberConsultingReservations(memberId)
-            ui.printMsg(
-                commandUseCase.requestDeleteConsultingReservation(
-                    ui.chooseConsultingReservation(resList),
-                    memberId
-                )
-            )
-        } catch (exception: RequestFailedException) {
-            ui.printMsg(noConsultingReservation)
-        }
-    }
-
-    private fun deleteWorkout() {
-        try {
-            val resList = queryReservationUseCase.retrieveMemberWorkoutReservations(memberId)
-            ui.printMsg(
-                commandUseCase.requestDeleteWorkoutReservation(
-                    ui.chooseWorkoutReservation(resList),
-                    memberId
-                )
-            )
-        } catch (exception: RequestFailedException) {
-            ui.printMsg(noWorkoutReservation)
-        }
-    }
-
-    private fun consultingDetails() {
-        try {
-            val resList = queryReservationUseCase.retrieveMemberConsultingReservations(memberId)
-            ui.printConsultingReservationDetails(
-                queryReservationUseCase
-                    .retrieveConsultingReservation(ui.chooseConsultingReservation(resList))
-            )
-        } catch (exception: RequestFailedException) {
-            ui.printMsg(noConsultingReservation)
-        }
-    }
-
-    private fun workoutDetails() {
-        try {
-            val resList = queryReservationUseCase.retrieveMemberWorkoutReservations(memberId)
-            ui.printWorkoutReservationDetails(
-                queryReservationUseCase
-                    .retrieveWorkoutReservation(ui.chooseWorkoutReservation(resList))
-            )
-        } catch (exception: RequestFailedException) {
-            ui.printMsg(noWorkoutReservation)
+            ui.printMsg(exception.message)
         }
     }
 
@@ -152,14 +74,56 @@ class Controller {
         var exit = false
         do {
             when (ui.readCommand()) {
-                reqCreateConsRes -> createConsulting()
-                reqCreateWorkRes -> createWorkout()
-                reqUpdateConsRes -> updateConsulting()
-                reqUpdateWorkRes -> updateWorkout()
-                reqDeleteConsRes -> deleteConsulting()
-                reqDeleteWorkRes -> deleteWorkout()
-                reqConsResDetails -> consultingDetails()
-                reqWorkResDetails -> workoutDetails()
+                reqCreateConsRes -> {
+                    ui.printMsg(
+                        cmd.requestCreateConsultingReservation(ui.readF(), ui.readD(), firstName, lastName, memberId)
+                    )
+                }
+                reqCreateWorkRes -> {
+                    ui.printMsg(
+                        cmd.requestCreateWorkoutReservation(ui.readA(), ui.readD(), firstName, lastName, memberId)
+                    )
+                }
+                reqUpdateConsRes -> {
+                    useConsultingRes { rL ->
+                        ui.printMsg(
+                            cmd.requestUpdateConsultingReservation(ui.chooseConsRes(rL), ui.readF(), ui.readD())
+                        )
+                    }
+                }
+                reqUpdateWorkRes -> {
+                    useWorkoutRes { rL ->
+                        ui.printMsg(
+                            cmd.requestUpdateWorkoutReservation(ui.chooseWorkRes(rL), ui.readA(), ui.readD())
+                        )
+                    }
+                }
+                reqDeleteConsRes -> {
+                    useConsultingRes { rL ->
+                        ui.printMsg(
+                            cmd.requestDeleteConsultingReservation(ui.chooseConsRes(rL), memberId)
+                        )
+                    }
+                }
+                reqDeleteWorkRes -> {
+                    useWorkoutRes { rL ->
+                        ui.printMsg(
+                            cmd.requestDeleteWorkoutReservation(ui.chooseWorkRes(rL), memberId)
+                        )
+                    }
+                }
+                reqConsResDetails -> {
+                    useConsultingRes { rL ->
+                        ui.printConsResDetails(
+                            query.retrieveConsultingReservation(ui.chooseConsRes(rL))
+                        )
+                    }
+                }
+                reqWorkResDetails -> {
+                    useWorkoutRes { rL ->
+                        ui.printWorkResDetails(query.retrieveWorkoutReservation(ui.chooseWorkRes(rL)))
+                    }
+                }
                 reqExit -> exit = true
             }
         } while (! exit)

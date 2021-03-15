@@ -71,7 +71,7 @@ class ConsoleUI {
         return readInput(numberOfCommands)
     }
 
-    fun readFreelancer(): UUID {
+    fun readF(): UUID {
         println(
             "Choose a freelancer\n" +
                 "1) Mario Rossi\n" +
@@ -83,7 +83,7 @@ class ConsoleUI {
         }
     }
 
-    fun readDate(): Date {
+    fun readD(): Date {
         println(
             "Choose a date\n" +
                 "1) 2021/4/7\n" +
@@ -95,7 +95,7 @@ class ConsoleUI {
         }
     }
 
-    fun readAim(): String {
+    fun readA(): String {
         println(
             "Choose an aim\n" +
                 "1) Injury recovery\n" +
@@ -107,31 +107,31 @@ class ConsoleUI {
         }
     }
 
-    fun chooseConsultingReservation(reservations: List<ConsultingReservationDateFacade>): UUID {
+    fun chooseConsRes(reservations: List<ConsultingReservationDateFacade>): UUID {
         var counter = 1
         println("Choose a consulting reservation")
         reservations.forEach { res ->
             println("$counter) ${res.date}")
             counter++
         }
-        return reservations[readInput(counter) - 1].reservationId
+        return reservations[readInput(reservations.size) - 1].reservationId
     }
 
-    fun chooseWorkoutReservation(reservations: List<WorkoutReservationDateFacade>): UUID {
+    fun chooseWorkRes(reservations: List<WorkoutReservationDateFacade>): UUID {
         var counter = 1
         println("Choose a workout reservation")
         reservations.forEach { res ->
             println("$counter) ${res.date}")
             counter++
         }
-        return reservations[readInput(counter) - 1].reservationId
+        return reservations[readInput(reservations.size) - 1].reservationId
     }
 
     fun printMsg(msg: String) {
-        println(msg)
+        println("\n$msg\n")
     }
 
-    fun printConsultingReservationDetails(res: ConsultingReservationFacade) {
+    fun printConsResDetails(res: ConsultingReservationFacade) {
         println(
             "Consulting reservation details: \n" +
                 "ReservationId: ${res.id}\n" +
@@ -141,7 +141,7 @@ class ConsoleUI {
         )
     }
 
-    fun printWorkoutReservationDetails(res: WorkoutReservationFacade) {
+    fun printWorkResDetails(res: WorkoutReservationFacade) {
         println(
             "Consulting reservation details: \n" +
                 "ReservationId: ${res.id}\n" +
