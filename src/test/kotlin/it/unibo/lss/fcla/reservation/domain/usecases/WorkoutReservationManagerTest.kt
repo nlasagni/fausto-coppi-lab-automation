@@ -110,7 +110,7 @@ class WorkoutReservationManagerTest : FreeSpec({
         "produce error if close an has invalid member or member not found" - {
             val workoutManagerMap = workoutManager.produce(createValidWorkoutReservation)
             val ag = computeAgenda(workoutManagerMap)
-            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.value.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val closeInvalidMemberWorkoutRequest = closeWorkout(resId, member1.id)
             val managerWithReservation = WorkoutReservationManager(agendaId, ledgerId, workoutManagerMap)
@@ -227,7 +227,7 @@ class WorkoutReservationManagerTest : FreeSpec({
         "produce an error if are present empty parameters" - {
             val workoutManagerMap = workoutManager.produce(createValidWorkoutReservation)
             val ag = computeAgenda(workoutManagerMap)
-            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.value.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutManagerMap)
             val updateInvalidWorkoutDueToEmptyAimRequest = updateWorkout(resId, invalidAim, updateDate)
@@ -248,7 +248,7 @@ class WorkoutReservationManagerTest : FreeSpec({
         "produce an error if a closeWorkoutReservation is updated" - {
             val workoutManagerMap = workoutManager.produce(createValidWorkoutReservation)
             val ag = computeAgenda(workoutManagerMap)
-            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.value.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutManagerMap)
             val closeWorkout = closeWorkout(resId, createValidWorkoutReservation.memberId)
@@ -267,7 +267,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             val createRes = workoutMap[createValidWorkoutReservation.eventId]?.first() ?: fail("Success event not found")
             createRes.shouldBeInstanceOf<RequestSucceeded>()
             val ag = computeAgenda(workoutMap)
-            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.value.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val manager = WorkoutReservationManager(agendaId, ledgerId, workoutMap)
             val updateWorkoutDate = updateWorkout(resId, updateAim, updateDate)
@@ -291,7 +291,7 @@ class WorkoutReservationManagerTest : FreeSpec({
         "produce an error if member not found" - {
             val workoutManagerMap = workoutManager.produce(createValidWorkoutReservation)
             val ag = computeAgenda(workoutManagerMap)
-            ag.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
+            ag.retrieveWorkoutReservation().first().aim.value.shouldBe(validAim)
             val resId = ag.retrieveWorkoutReservation().first().id
             val deleteInvalidMemberWorkoutRequest = deleteWorkout(resId, member1.id)
             val managerWithReservation = WorkoutReservationManager(agendaId, ledgerId, workoutManagerMap)
@@ -317,7 +317,7 @@ class WorkoutReservationManagerTest : FreeSpec({
             createMap[createValidWorkoutReservation.eventId]?.first() ?: fail("Success event not found")
             val manager = WorkoutReservationManager(agendaId, ledgerId, createMap)
             val agenda = computeAgenda(createMap)
-            agenda.retrieveWorkoutReservation().first().aim.aim.shouldBe(validAim)
+            agenda.retrieveWorkoutReservation().first().aim.value.shouldBe(validAim)
             val resId = agenda.retrieveWorkoutReservation().first().id
             val deleteWorkout = deleteWorkout(resId, createValidWorkoutReservation.memberId)
             val requestWorkoutMap = manager.produce(deleteWorkout)

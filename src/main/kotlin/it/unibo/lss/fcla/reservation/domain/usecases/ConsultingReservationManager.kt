@@ -70,7 +70,7 @@ class ConsultingReservationManager(
             val updatedReservation = computeConsultingReservation(retrievedReservation as OpenConsultingReservation)
             val closedReservation = CloseConsultingReservation(
                 updatedReservation.date,
-                updatedReservation.freelancerId.freelancerId,
+                updatedReservation.freelancerId.value,
                 updatedReservation.id
             )
             val agendaDeleteReservationEvent =

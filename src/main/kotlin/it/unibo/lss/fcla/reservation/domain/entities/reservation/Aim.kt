@@ -5,15 +5,12 @@ import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservati
 /**
  * Aim value object.
  *
- * It is the unique identifier of a workout [aim]
+ * It is the unique identifier of a workout [value]
  */
-data class Aim(val aim: String) {
+data class Aim(val value: String) {
 
-    /**
-     * check invariant
-     */
     init {
-        if (aim.isEmpty()) {
+        if (value.isEmpty()) {
             throw WorkoutReservationAimCannotBeEmpty()
         }
     }

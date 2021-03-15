@@ -20,14 +20,14 @@ data class WorkoutReservationFacade(
 
     constructor(openWorkoutReservation: OpenWorkoutReservation) : this(
         openWorkoutReservation.date,
-        openWorkoutReservation.aim.aim,
+        openWorkoutReservation.aim.value,
         openWorkoutReservation.id,
         isOpen = true
     )
 
     constructor(closeWorkoutReservation: CloseWorkoutReservation) : this(
         closeWorkoutReservation.date,
-        closeWorkoutReservation.aim.aim,
+        closeWorkoutReservation.aim.value,
         closeWorkoutReservation.id,
         isOpen = false
     )

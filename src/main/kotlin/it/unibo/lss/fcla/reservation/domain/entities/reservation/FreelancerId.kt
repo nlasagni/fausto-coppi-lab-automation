@@ -6,15 +6,12 @@ import java.util.UUID
 /**
  * Freelancer value object.
  *
- * It is the unique identifier of a Freelancer identified by its [freelancerId]
+ * It is the unique identifier of a Freelancer identified by its [value]
  */
-class FreelancerId(val freelancerId: UUID) {
+class FreelancerId(val value: UUID) {
 
-    /**
-     * check invariant
-     */
     init {
-        if (freelancerId == UUID(0, 0)) {
+        if (value == UUID(0, 0)) {
             throw ConsultingReservationFreelancerCannotBeEmpty()
         }
     }

@@ -112,7 +112,7 @@ class ConsultingReservationManagerTest : FreeSpec({
         "produce error if close an has invalid member or member not found" - {
             val consultingManagerMap = consultingManager.produce(createValidConsultingReservation)
             val ag = computeAgenda(consultingManagerMap)
-            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.value.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val closeInvalidMemberConsultingRequest = closeConsulting(resId, member1.id)
             val managerWithReservation = ConsultingReservationManager(agendaId, ledgerId, consultingManagerMap)
@@ -220,7 +220,7 @@ class ConsultingReservationManagerTest : FreeSpec({
         "produce an error if are present empty parameters" - {
             val consultingManagerMap = consultingManager.produce(createValidConsultingReservation)
             val ag = computeAgenda(consultingManagerMap)
-            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.value.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingManagerMap)
             val updateInvalidEmptyFreelancer = updateConsulting(resId, invalidFreelancerId, updatedDate)
@@ -241,7 +241,7 @@ class ConsultingReservationManagerTest : FreeSpec({
         "produce an error if a closeConsultingReservation is updated" - {
             val consultingManagerMap = consultingManager.produce(createValidConsultingReservation)
             val ag = computeAgenda(consultingManagerMap)
-            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.value.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingManagerMap)
             val closeConsulting = closeConsulting(resId, createValidConsultingReservation.memberId)
@@ -256,7 +256,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             val createRes = consultingMap[createValidConsultingReservation.eventId]?.first() ?: fail("Success event not found")
             createRes.shouldBeInstanceOf<RequestSucceeded>()
             val ag = computeAgenda(consultingMap)
-            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.value.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingMap)
             val updateConsultingDate = updateConsulting(resId, createValidConsultingReservation.freelancer, updatedDate)
@@ -280,7 +280,7 @@ class ConsultingReservationManagerTest : FreeSpec({
         "produce an error if member not found" - {
             val consultingManagerMap = consultingManager.produce(createValidConsultingReservation)
             val ag = computeAgenda(consultingManagerMap)
-            ag.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
+            ag.retrieveConsultingReservation().first().freelancerId.value.shouldBe(freelancerId)
             val resId = ag.retrieveConsultingReservation().first().id
             val deleteInvalidMemberConsultingRequest = deleteConsulting(resId, member1.id)
             val manager = ConsultingReservationManager(agendaId, ledgerId, consultingManagerMap)
@@ -312,7 +312,7 @@ class ConsultingReservationManagerTest : FreeSpec({
             createMap[createValidConsultingReservation.eventId]?.first() ?: fail("Success event not found")
             val manager = ConsultingReservationManager(agendaId, ledgerId, createMap)
             val agenda = computeAgenda(createMap)
-            agenda.retrieveConsultingReservation().first().freelancerId.freelancerId.shouldBe(freelancerId)
+            agenda.retrieveConsultingReservation().first().freelancerId.value.shouldBe(freelancerId)
             val resId = agenda.retrieveConsultingReservation().first().id
             val deleteConsulting = deleteConsulting(resId, createValidConsultingReservation.memberId)
             val requestConsultingMap = manager.produce(deleteConsulting)
