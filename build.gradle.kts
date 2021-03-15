@@ -17,9 +17,7 @@ allprojects {
     repositories {
         jcenter()
     }
-
 }
-
 
 gitSemVer {
     version = computeGitSemVer()
@@ -28,7 +26,7 @@ gitSemVer {
 subprojects {
 
     apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin ="org.danilopianini.git-sensitive-semantic-versioning")
+    apply(plugin = "org.danilopianini.git-sensitive-semantic-versioning")
     apply(plugin = "org.gradle.jacoco")
     apply(plugin = "pl.droidsonroids.jacoco.testkit")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
