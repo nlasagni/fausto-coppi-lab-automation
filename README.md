@@ -27,5 +27,5 @@ gradlew build
 
 ## Run Reservation Microservice in interactive mode
 ```bash
-gradlew run -q --console=plain
+gradlew run
 ```
