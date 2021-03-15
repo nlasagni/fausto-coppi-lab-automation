@@ -11,7 +11,7 @@ class CommunicationManagerImpl : CommunicationManager {
     private val events: ArrayDeque<String> = ArrayDeque()
 
     /**
-     * Method used to pick from list the first event and returns a string which represents the request.
+     * Method used to pick the first event request from list and returns a string which represents the request.
      */
     override fun pickRequest(): String? {
         return events.removeFirstOrNull()
