@@ -19,10 +19,6 @@ allprojects {
     }
 }
 
-gitSemVer {
-    version = computeGitSemVer()
-}
-
 subprojects {
 
     apply(plugin = "org.jetbrains.kotlin.jvm")
@@ -41,6 +37,16 @@ subprojects {
         testImplementation("io.kotest:kotest-assertions-core:4.2.5")
         testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
+    }
+
+    gitSemVer {
+        version = computeGitSemVer()
+    }
+
+    detekt {
+        failFast = true
+        buildUponDefaultConfig = true
+        config = files(project.rootDir.resolve("detektConfig.yml"))
     }
 
     tasks.withType<Test> {

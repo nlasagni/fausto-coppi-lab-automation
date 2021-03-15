@@ -1,11 +1,5 @@
 val myMainClass = "it.unibo.lss.fcla.MainClassKt"
 
-detekt {
-    failFast = true
-    buildUponDefaultConfig = true
-    config = files("detektConfig.yml")
-}
-
 tasks.jar {
     // Otherwise it throws a "No main manifest attribute" error
     manifest {
@@ -32,4 +26,3 @@ tasks.jar {
         configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
     })
 }
-
