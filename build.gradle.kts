@@ -17,10 +17,6 @@ gitSemVer {
     version = computeGitSemVer()
 }
 
-val run by tasks.getting(JavaExec::class) {
-    standardInput = System.`in`
-}
-
 repositories {
     jcenter()
 }
@@ -69,6 +65,10 @@ tasks.jar {
         // configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
         configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
     })
+}
+
+tasks.withType(JavaExec::class) {
+    standardInput = System.`in`
 }
 
 tasks.withType<Test> {
