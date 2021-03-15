@@ -24,3 +24,8 @@ cd fausto-coppi-lab-automation
 ```bash
 gradlew build
 ```
+
+## Run Reservation Microservice in interactive mode
+```bash
+gradlew run -q --console=plain
+```
