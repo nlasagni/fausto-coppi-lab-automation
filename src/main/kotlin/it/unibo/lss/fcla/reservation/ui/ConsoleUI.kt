@@ -8,6 +8,12 @@ import java.util.Calendar
 import java.util.Date
 import java.util.UUID
 
+/**
+ * Console interactive interface that simulate partial functioning of this microservice.
+ *
+ * The only purpose is to show functionality of this microservice
+ *
+ */
 class ConsoleUI {
 
     private val freelancer1 = UUID.randomUUID()

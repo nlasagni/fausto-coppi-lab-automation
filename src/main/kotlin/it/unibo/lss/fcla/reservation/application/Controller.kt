@@ -10,6 +10,12 @@ import it.unibo.lss.fcla.reservation.persistence.RepositoryInMemory
 import it.unibo.lss.fcla.reservation.ui.ConsoleUI
 import java.util.UUID
 
+/**
+ * Controller class that handle application logic interacting with an UserInterface
+ *
+ * This class can be replaced with a similar one that use infrastructure instead of UI
+ *
+ */
 class Controller {
 
     private val agendaId = UUID.randomUUID()
