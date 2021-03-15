@@ -3,6 +3,9 @@ package it.unibo.lss.fcla.reservation.presentation
 import java.util.Date
 import java.util.UUID
 
+/**
+ * Interface used to group all request type
+ */
 interface Request
 
 /**
