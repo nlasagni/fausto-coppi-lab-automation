@@ -33,9 +33,3 @@ tasks.jar {
     })
 }
 
-tasks.jacocoTestReport {
-    reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-    }
-}

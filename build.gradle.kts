@@ -61,6 +61,13 @@ subprojects {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
     }
+
+    tasks.jacocoTestReport {
+        reports {
+            xml.isEnabled = true
+            html.isEnabled = true
+        }
+    }
 }
 
 application {

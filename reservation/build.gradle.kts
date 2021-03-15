@@ -32,10 +32,3 @@ tasks.jar {
         configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
     })
 }
-
-tasks.jacocoTestReport {
-    reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-    }
-}
