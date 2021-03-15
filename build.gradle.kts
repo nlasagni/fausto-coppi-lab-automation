@@ -17,13 +17,16 @@ allprojects {
     repositories {
         jcenter()
     }
+
 }
+
 
 gitSemVer {
     version = computeGitSemVer()
 }
 
 subprojects {
+
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin ="org.danilopianini.git-sensitive-semantic-versioning")
     apply(plugin = "org.gradle.jacoco")
