@@ -6,20 +6,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddWork
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
-import java.util.UUID
 
 /**
  * Projection used to update the [Member] given its events
  */
 class MemberProjection(override val init: Member) : Projection<Member> {
-
-    constructor(memberName: String, memberSurname: String, memberId: UUID) : this(
-        Member(
-            memberName,
-            memberSurname,
-            memberId
-        )
-    )
 
     /**
      * Return an updated [Member] based on the given event.
