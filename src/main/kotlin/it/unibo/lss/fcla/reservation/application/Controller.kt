@@ -22,7 +22,7 @@ class Controller {
 
     private val eventStore = EventStore(repository.readEvents())
 
-    private val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
+    private val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore, repository)
     private val queryReservationUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
 
     private val ui = ConsoleUI()
