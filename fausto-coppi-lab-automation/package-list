@@ -1,7 +1,6 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 
-it.unibo.lss.fcla
 it.unibo.lss.fcla.athleticpreparation.adapter.repository
 it.unibo.lss.fcla.athleticpreparation.domain.exception
 it.unibo.lss.fcla.athleticpreparation.domain.model
@@ -16,6 +15,9 @@ it.unibo.lss.fcla.consulting.domain.exceptions
 it.unibo.lss.fcla.consulting.domain.freelancer
 it.unibo.lss.fcla.consulting.domain.freelancer.events
 it.unibo.lss.fcla.consulting.usecases
+it.unibo.lss.fcla.reservation
+it.unibo.lss.fcla.reservation.application
+it.unibo.lss.fcla.reservation.application.interfaces
 it.unibo.lss.fcla.reservation.common
 it.unibo.lss.fcla.reservation.domain.entities.agenda
 it.unibo.lss.fcla.reservation.domain.entities.events.agenda
@@ -29,4 +31,8 @@ it.unibo.lss.fcla.reservation.domain.usecases.events.requests
 it.unibo.lss.fcla.reservation.domain.usecases.events.results
 it.unibo.lss.fcla.reservation.domain.usecases.facades
 it.unibo.lss.fcla.reservation.domain.usecases.projections
+it.unibo.lss.fcla.reservation.infrastructure
+it.unibo.lss.fcla.reservation.persistence
+it.unibo.lss.fcla.reservation.presentation
+it.unibo.lss.fcla.reservation.ui
 
