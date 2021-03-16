@@ -1,6 +1,5 @@
 package it.unibo.lss.fcla.reservation.domain.usecases.facades
 
-import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import java.util.Date
@@ -13,22 +12,22 @@ import java.util.UUID
  * the [id] of the facade and [isOpen] which is used to know if a reservation is open or close.
  */
 data class WorkoutReservationFacade(
-    override val date: Date,
-    override val aim: String,
-    override val id: UUID,
+    val date: Date,
+    val aim: String,
+    val id: UUID,
     val isOpen: Boolean
-) : WorkoutReservation {
+) {
 
     constructor(openWorkoutReservation: OpenWorkoutReservation) : this(
         openWorkoutReservation.date,
-        openWorkoutReservation.aim,
+        openWorkoutReservation.aim.value,
         openWorkoutReservation.id,
         isOpen = true
     )
 
     constructor(closeWorkoutReservation: CloseWorkoutReservation) : this(
         closeWorkoutReservation.date,
-        closeWorkoutReservation.aim,
+        closeWorkoutReservation.aim.value,
         closeWorkoutReservation.id,
         isOpen = false
     )

@@ -5,6 +5,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.shouldBe
+import it.unibo.lss.fcla.reservation.persistence.RepositoryInMemory
 import java.util.Calendar
 import java.util.UUID
 
@@ -31,11 +32,12 @@ class UseCaseTest : FreeSpec({
     calendar.set(invalidYear, feb, day)
     val invalidDate = calendar.time
     val successMessage = "The request succeeded"
+    val repository = RepositoryInMemory()
 
     "Command and Query use case, given valid data, should" - {
         "create, close, update and delete consulting reservations" - {
             val eventStore = EventStore()
-            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
+            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore, repository)
             val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
             val resultCCre = commandUseCase
                 .requestCreateConsultingReservation(validFreelancer, validDate, firstName, lastName, memberId)
@@ -62,7 +64,7 @@ class UseCaseTest : FreeSpec({
         }
         "create, close, update and delete workout reservations" - {
             val eventStore = EventStore()
-            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
+            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore, repository)
             val queryUseCase = QueryReservationUseCase(agendaId, ledgerId, eventStore)
             val resultWCre = commandUseCase
                 .requestCreateWorkoutReservation(validAim, validDate, firstName, lastName, memberId)
@@ -87,7 +89,7 @@ class UseCaseTest : FreeSpec({
     "Command and Query use case, given invalid data, should" - {
         "fail giving the specific error for consulting reservation" - {
             val eventStore = EventStore()
-            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
+            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore, repository)
             shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestCreateConsultingReservation(invalidFreelancer, validDate, firstName, lastName, memberId)
@@ -122,7 +124,7 @@ class UseCaseTest : FreeSpec({
         }
         "fail giving the specific error for workout reservation" - {
             val eventStore = EventStore()
-            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore)
+            val commandUseCase = CommandReservationUseCase(agendaId, ledgerId, eventStore, repository)
             shouldThrow<RequestFailedException> {
                 commandUseCase
                     .requestCreateWorkoutReservation(invalidAim, validDate, firstName, lastName, memberId)

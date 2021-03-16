@@ -5,7 +5,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeUUID
 import io.kotest.matchers.string.shouldNotBeEmpty
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.FreelancerIdCannotBeEmpty
 import java.util.Calendar
 import java.util.UUID
 
@@ -33,13 +33,13 @@ class CloseConsultingReservationTest : FreeSpec({
                 "Reservation consulting {$closeConsultingId} with freelancerId: " +
                     "$freelancerId in date $validDateOfConsulting"
             )
-            reservation.freelancerId.toString().shouldBeUUID()
-            reservation.freelancerId.shouldBe(freelancerId)
+            reservation.freelancerId.value.toString().shouldBeUUID()
+            reservation.freelancerId.value.shouldBe(freelancerId)
             reservation.id.hashCode().shouldBe(closeConsultingId.hashCode())
         }
 
         "have a freelancer that made a consulting" - {
-            shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {
+            shouldThrow<FreelancerIdCannotBeEmpty> {
                 CloseConsultingReservation(
                     validDateOfConsulting,
                     invalidFreelancer,

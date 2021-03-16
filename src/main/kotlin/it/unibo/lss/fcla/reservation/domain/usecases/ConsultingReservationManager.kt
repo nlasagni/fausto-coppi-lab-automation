@@ -10,7 +10,7 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddCons
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateDate
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.ConsultingReservationUpdateFreelancer
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.FreelancerIdCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
@@ -70,7 +70,7 @@ class ConsultingReservationManager(
             val updatedReservation = computeConsultingReservation(retrievedReservation as OpenConsultingReservation)
             val closedReservation = CloseConsultingReservation(
                 updatedReservation.date,
-                updatedReservation.freelancerId,
+                updatedReservation.freelancerId.value,
                 updatedReservation.id
             )
             val agendaDeleteReservationEvent =
@@ -109,7 +109,7 @@ class ConsultingReservationManager(
                 event.freelancer,
                 UUID.randomUUID()
             )
-        } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
+        } catch (exception: FreelancerIdCannotBeEmpty) {
             return errorInRequest(event.eventId, RequestFailedMessages.emptyConsultingFreelancer)
         } catch (exception: OpenReservationMustNotHavePastDate) {
             return errorInRequest(event.eventId, RequestFailedMessages.pastDateInReservation)
@@ -175,7 +175,7 @@ class ConsultingReservationManager(
         }
         try {
             OpenConsultingReservation(event.date, event.freelancer, event.eventId)
-        } catch (exception: ConsultingReservationFreelancerCannotBeEmpty) {
+        } catch (exception: FreelancerIdCannotBeEmpty) {
             return errorInRequest(event.eventId, RequestFailedMessages.emptyConsultingFreelancer)
         } catch (exception: OpenReservationMustNotHavePastDate) {
             return errorInRequest(event.eventId, RequestFailedMessages.pastDateInReservation)

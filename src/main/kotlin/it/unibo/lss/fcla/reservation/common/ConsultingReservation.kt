@@ -1,5 +1,6 @@
 package it.unibo.lss.fcla.reservation.common
 
+import it.unibo.lss.fcla.reservation.domain.entities.reservation.FreelancerId
 import java.util.Date
 import java.util.UUID
 
@@ -11,6 +12,6 @@ import java.util.UUID
  */
 interface ConsultingReservation {
     val date: Date
-    val freelancerId: UUID
+    val freelancerId: FreelancerId
     val id: UUID
 }

@@ -1,4 +1,4 @@
-val myMainClass = "it.unibo.lss.fcla.MainClassKt"
+val myMainClass = "it.unibo.lss.fcla.reservation.InteractiveReservationMicroserviceStarterClassKt"
 
 plugins {
     // In order to build a Kotlin project with Gradle:
@@ -65,6 +65,10 @@ tasks.jar {
         // configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
         configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
     })
+}
+
+tasks.withType(JavaExec::class) {
+    standardInput = System.`in`
 }
 
 tasks.withType<Test> {
