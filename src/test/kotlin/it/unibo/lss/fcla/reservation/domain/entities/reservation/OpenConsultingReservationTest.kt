@@ -6,7 +6,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeUUID
 import io.kotest.matchers.string.shouldNotBeEmpty
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.FreelancerIdCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import java.util.Calendar
 import java.util.UUID
@@ -41,7 +41,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 )
             }
 
-            shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {
+            shouldThrow<FreelancerIdCannotBeEmpty> {
                 OpenConsultingReservation(
                     validDateOfConsulting,
                     invalidFreelancer,
@@ -97,7 +97,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 updatedFreelancer.freelancerId.value.shouldBe(newFreelancerId)
             }
             "not to be able to update a reservation with an invalid freelancer" - {
-                shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {
+                shouldThrow<FreelancerIdCannotBeEmpty> {
                     reservation.updateFreelancerOfConsulting(invalidFreelancer)
                 }
             }

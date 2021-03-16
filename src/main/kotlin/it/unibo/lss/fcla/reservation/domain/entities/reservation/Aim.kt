@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.AimCannotBeEmpty
 
 /**
  * Aim value object.
@@ -11,7 +11,7 @@ data class Aim(val value: String) {
 
     init {
         if (value.isEmpty()) {
-            throw WorkoutReservationAimCannotBeEmpty()
+            throw AimCannotBeEmpty()
         }
     }
 }

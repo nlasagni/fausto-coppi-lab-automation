@@ -21,7 +21,7 @@ class PresenterImpl : Presenter {
     /**
      * convert a [Response] into the corresponding [String]
      */
-    override fun convertResult(response: Response): String {
+    override fun convertResponse(response: Response): String {
         TODO()
     }
 }

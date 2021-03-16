@@ -1,15 +1,15 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.AimCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
 import java.util.Date
 import java.util.UUID
 
 /**
  * It is referred to a reservation which can still be updated expressing [aim], [date] and [id]
  *
- * Throws [WorkoutReservationAimCannotBeEmpty] if an OpenWorkoutReservation is created without aim
+ * Throws [AimCannotBeEmpty] if an OpenWorkoutReservation is created without aim
  *
  * Throws [OpenReservationMustNotHavePastDate] if an OpenWorkoutReservation is created with a past date
  */

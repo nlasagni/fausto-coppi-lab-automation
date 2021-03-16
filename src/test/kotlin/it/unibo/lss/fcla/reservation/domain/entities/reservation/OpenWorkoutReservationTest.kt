@@ -6,8 +6,8 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeUUID
 import io.kotest.matchers.string.shouldNotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.AimCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
 import java.util.Calendar
 import java.util.UUID
 
@@ -41,7 +41,7 @@ class OpenWorkoutReservationTest : FreeSpec({
                 )
                 println(myReservation)
             }
-            shouldThrow<WorkoutReservationAimCannotBeEmpty> {
+            shouldThrow<AimCannotBeEmpty> {
                 OpenWorkoutReservation(
                     "",
                     validDateOfConsulting,
@@ -86,7 +86,7 @@ class OpenWorkoutReservationTest : FreeSpec({
                 updatedFreelancer.aim.value.shouldBe(newAim)
             }
             "not to be able to update a reservation with an invalid aim" - {
-                shouldThrow<WorkoutReservationAimCannotBeEmpty> {
+                shouldThrow<AimCannotBeEmpty> {
                     reservation.updateWorkoutReservationAim("")
                 }
             }

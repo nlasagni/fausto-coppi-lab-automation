@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.FreelancerIdCannotBeEmpty
 import java.util.UUID
 
 /**
@@ -12,7 +12,7 @@ class FreelancerId(val value: UUID) {
 
     init {
         if (value == UUID(0, 0)) {
-            throw ConsultingReservationFreelancerCannotBeEmpty()
+            throw FreelancerIdCannotBeEmpty()
         }
     }
 }

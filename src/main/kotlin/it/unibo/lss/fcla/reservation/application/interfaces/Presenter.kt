@@ -16,5 +16,5 @@ interface Presenter {
     /**
      * convert a [Response] into the corresponding [String]
      */
-    fun convertResult(response: Response): String
+    fun convertResponse(response: Response): String
 }

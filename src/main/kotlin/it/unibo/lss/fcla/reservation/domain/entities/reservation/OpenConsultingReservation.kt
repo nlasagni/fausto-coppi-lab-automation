@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.FreelancerIdCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import java.util.Date
 import java.util.UUID
@@ -9,7 +9,7 @@ import java.util.UUID
 /**
  * It is referred to a reservation which can still be updated expressing [date], [freelancerId] and [id]
  *
- * Throws [ConsultingReservationFreelancerCannotBeEmpty] if an OpenConsultingReservation
+ * Throws [FreelancerIdCannotBeEmpty] if an OpenConsultingReservation
  * is created without freelancer
  *
  * Throws [OpenReservationMustNotHavePastDate] if an OpenWorkoutReservation is created with a past date
@@ -44,12 +44,12 @@ class OpenConsultingReservation(
     /**
      * Returns a new [OpenConsultingReservation] updating the [freelancerId] of a consulting
      *
-     * Throws [ConsultingReservationFreelancerCannotBeEmpty] exception if the freelancer is not
+     * Throws [FreelancerIdCannotBeEmpty] exception if the freelancer is not
      * inserted in the moment of creation.
      */
     fun updateFreelancerOfConsulting(freelancerId: UUID): OpenConsultingReservation {
         if (freelancerId == UUID(0, 0)) {
-            throw ConsultingReservationFreelancerCannotBeEmpty()
+            throw FreelancerIdCannotBeEmpty()
         }
         return OpenConsultingReservation(date, freelancerId, id)
     }
