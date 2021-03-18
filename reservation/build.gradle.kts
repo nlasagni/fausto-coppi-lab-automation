@@ -1,3 +1,3 @@
-val myMainClass = "it.unibo.lss.fcla.MainClassKt"
+val myMainClass = "it.unibo.lss.fcla.reservation.InteractiveReservationMicroserviceStarterClassKt"
 
 ext.set("mainclass", myMainClass)
