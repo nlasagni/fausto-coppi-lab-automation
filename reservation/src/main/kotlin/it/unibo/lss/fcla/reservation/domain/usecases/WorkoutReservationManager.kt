@@ -10,8 +10,8 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberAddWork
 import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteWorkoutReservation
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateAim
 import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutReservationUpdateDate
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.AimCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseWorkoutReservation
@@ -72,7 +72,7 @@ class WorkoutReservationManager(
             }
             val updatedReservation = computeWorkoutReservation(retrievedReservation as OpenWorkoutReservation)
             val closedReservation = CloseWorkoutReservation(
-                updatedReservation.aim,
+                updatedReservation.aim.value,
                 updatedReservation.date,
                 updatedReservation.id
             )
@@ -108,7 +108,7 @@ class WorkoutReservationManager(
                 event.date,
                 UUID.randomUUID()
             )
-        } catch (exception: WorkoutReservationAimCannotBeEmpty) {
+        } catch (exception: AimCannotBeEmpty) {
             return errorMap(event.eventId, RequestFailedMessages.emptyWorkoutAim)
         } catch (exception: OpenReservationMustNotHavePastDate) {
             return errorMap(event.eventId, RequestFailedMessages.pastDateInReservation)
@@ -174,7 +174,7 @@ class WorkoutReservationManager(
         }
         try {
             OpenWorkoutReservation(event.aim, event.date, event.eventId)
-        } catch (exception: WorkoutReservationAimCannotBeEmpty) {
+        } catch (exception: AimCannotBeEmpty) {
             return errorMap(event.eventId, RequestFailedMessages.emptyWorkoutAim)
         } catch (exception: OpenReservationMustNotHavePastDate) {
             return errorMap(event.eventId, RequestFailedMessages.pastDateInReservation)

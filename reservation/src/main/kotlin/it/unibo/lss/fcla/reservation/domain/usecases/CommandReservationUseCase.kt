@@ -20,7 +20,8 @@ import java.util.UUID
 class CommandReservationUseCase(
     private val agendaId: UUID,
     private val ledgerId: UUID,
-    override val eventStore: EventStore
+    override val eventStore: EventStore,
+    private val repository: Repository
 ) : ReservationUseCase() {
 
     // Fake Id used to aggregate request event
@@ -31,6 +32,7 @@ class CommandReservationUseCase(
      */
     private fun handleRequestResult(event: Event, producer: Producer): String {
         eventStore.evolve(headquarterId, event, producer)
+        repository.writeEvents(eventStore.get())
         when (val resultEvent = eventStore.getStream(event.eventId).first()) {
             is RequestSucceeded -> return resultEvent.message
             is RequestFailed -> throw RequestFailedException(resultEvent.message)

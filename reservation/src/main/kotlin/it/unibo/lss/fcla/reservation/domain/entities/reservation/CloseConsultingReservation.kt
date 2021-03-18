@@ -1,7 +1,6 @@
 package it.unibo.lss.fcla.reservation.domain.entities.reservation
 
 import it.unibo.lss.fcla.reservation.common.ConsultingReservation
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
 import java.util.Date
 import java.util.UUID
 
@@ -10,17 +9,13 @@ import java.util.UUID
  */
 class CloseConsultingReservation(
     override val date: Date,
-    override val freelancerId: UUID,
+    private val myFreelancerId: UUID,
     override val id: UUID
 ) : ConsultingReservation {
 
-    init {
-        if (freelancerId == UUID(0, 0)) {
-            throw ConsultingReservationFreelancerCannotBeEmpty()
-        }
-    }
+    override val freelancerId = FreelancerId(myFreelancerId)
 
-    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $freelancerId in date $date"
+    override fun toString(): String = "Reservation consulting {$id} with freelancerId: $myFreelancerId in date $date"
 
     override fun equals(other: Any?): Boolean { return (other is CloseConsultingReservation) && other.id == this.id }
 

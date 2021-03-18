@@ -1,6 +1,5 @@
 package it.unibo.lss.fcla.reservation.domain.usecases.facades
 
-import it.unibo.lss.fcla.reservation.common.ConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.CloseConsultingReservation
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 import java.util.Date
@@ -14,22 +13,22 @@ import java.util.UUID
  * if a reservation is open or close.
  */
 data class ConsultingReservationFacade(
-    override val date: Date,
-    override val freelancerId: UUID,
-    override val id: UUID,
+    val date: Date,
+    val freelancerId: UUID,
+    val id: UUID,
     val isOpen: Boolean
-) : ConsultingReservation {
+) {
 
     constructor(openConsultingReservation: OpenConsultingReservation) : this(
         openConsultingReservation.date,
-        openConsultingReservation.freelancerId,
+        openConsultingReservation.freelancerId.value,
         openConsultingReservation.id,
         isOpen = true
     )
 
     constructor(closeConsultingReservation: CloseConsultingReservation) : this(
         closeConsultingReservation.date,
-        closeConsultingReservation.freelancerId,
+        closeConsultingReservation.freelancerId.value,
         closeConsultingReservation.id,
         isOpen = false
     )

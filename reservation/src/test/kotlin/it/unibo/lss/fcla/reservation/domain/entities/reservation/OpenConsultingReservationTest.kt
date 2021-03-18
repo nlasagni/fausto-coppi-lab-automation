@@ -6,7 +6,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeUUID
 import io.kotest.matchers.string.shouldNotBeEmpty
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.ConsultingReservationFreelancerCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.FreelancerIdCannotBeEmpty
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationMustNotHavePastDate
 import java.util.Calendar
 import java.util.UUID
@@ -41,7 +41,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 )
             }
 
-            shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {
+            shouldThrow<FreelancerIdCannotBeEmpty> {
                 OpenConsultingReservation(
                     validDateOfConsulting,
                     invalidFreelancer,
@@ -80,7 +80,7 @@ class OpenConsultingReservationTest : FreeSpec({
                 val newReservation = reservation.updateDateOfConsulting(newDateOfReservation)
                 println("test di correttezza valori")
                 println("NewDate $newDateOfReservation")
-                newReservation.freelancerId.shouldBe(freelancerId)
+                newReservation.freelancerId.value.shouldBe(freelancerId)
                 newReservation.date.shouldBe(newDateOfReservation)
                 newReservation.id.shouldBe(openConsultingReservationId)
             }
@@ -94,10 +94,10 @@ class OpenConsultingReservationTest : FreeSpec({
             "be able to update the freelancer of a reservation" - {
                 val newFreelancerId = UUID.randomUUID()
                 val updatedFreelancer = reservation.updateFreelancerOfConsulting(newFreelancerId)
-                updatedFreelancer.freelancerId.shouldBe(newFreelancerId)
+                updatedFreelancer.freelancerId.value.shouldBe(newFreelancerId)
             }
             "not to be able to update a reservation with an invalid freelancer" - {
-                shouldThrow<ConsultingReservationFreelancerCannotBeEmpty> {
+                shouldThrow<FreelancerIdCannotBeEmpty> {
                     reservation.updateFreelancerOfConsulting(invalidFreelancer)
                 }
             }

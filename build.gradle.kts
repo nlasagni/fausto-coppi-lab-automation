@@ -1,4 +1,4 @@
-val myMainClass = "it.unibo.lss.fcla.MainClassKt"
+val myMainClass = "it.unibo.lss.fcla.reservation.InteractiveReservationMicroserviceStarterClassKt"
 
 plugins {
     // In order to build a Kotlin project with Gradle:

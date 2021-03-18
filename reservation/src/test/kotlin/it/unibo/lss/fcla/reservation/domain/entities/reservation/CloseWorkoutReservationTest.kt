@@ -5,7 +5,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldBeUUID
 import io.kotest.matchers.string.shouldNotBeEmpty
-import it.unibo.lss.fcla.reservation.domain.entities.exceptions.WorkoutReservationAimCannotBeEmpty
+import it.unibo.lss.fcla.reservation.domain.entities.exceptions.AimCannotBeEmpty
 import java.util.Calendar
 import java.util.UUID
 
@@ -35,7 +35,7 @@ class CloseWorkoutReservationTest : FreeSpec({
             )
         }
         "have a aim of workout" - {
-            shouldThrow<WorkoutReservationAimCannotBeEmpty> {
+            shouldThrow<AimCannotBeEmpty> {
                 CloseWorkoutReservation("", dateOfConsulting, closeWorkoutId)
             }
         }
