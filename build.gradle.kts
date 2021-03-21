@@ -28,6 +28,8 @@ subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin = "io.gitlab.arturbosch.detekt")
     apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "org.gradle.distribution")
+    apply(plugin = "org.gradle.application")
 
     afterEvaluate {
         tasks.jar {
