@@ -56,6 +56,15 @@ subprojects {
             })
         }
 
+        tasks.assembleDist {
+            doLast {
+                copy {
+                    from("$buildDir/distributions")
+                    into("${rootProject.buildDir}/all-distributions")
+                }
+            }
+        }
+
         application {
             mainClass.set(mainClassName)
         }
