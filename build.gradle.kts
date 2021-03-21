@@ -17,6 +17,20 @@ allprojects {
     }
 }
 
+val mainClassVarName = "mainclass"
+val subprojectsDistributionDir = "${rootProject.buildDir}/all-distributions"
+val subprojectsJarDeployDir = "${rootProject.buildDir}/jarForDeploy"
+
+val jarForDeploy by tasks.creating(Copy::class) {
+    project.subprojects.forEach {
+        from("${it.buildDir}/libs")
+        into(subprojectsJarDeployDir)
+        it.afterEvaluate {
+            dependsOn(it.tasks.jar)
+        }
+    }
+}
+
 subprojects {
 
     apply(plugin = "org.jetbrains.kotlin.jvm")
@@ -30,7 +44,6 @@ subprojects {
     apply(plugin = "org.gradle.application")
 
     afterEvaluate {
-        val mainClassVarName = "mainclass"
         val mainClassName = ext.get(mainClassVarName) as String
 
         tasks.jar {
@@ -60,7 +73,7 @@ subprojects {
             doLast {
                 copy {
                     from("$buildDir/distributions")
-                    into("${rootProject.buildDir}/all-distributions")
+                    into(subprojectsDistributionDir)
                 }
             }
         }
