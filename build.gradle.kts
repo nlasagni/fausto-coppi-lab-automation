@@ -1,5 +1,3 @@
-val myMainClass = "it.unibo.lss.fcla.reservation.InteractiveReservationMicroserviceStarterClassKt"
-
 plugins {
     // In order to build a Kotlin project with Gradle:
     kotlin("jvm")
@@ -32,14 +30,16 @@ subprojects {
     apply(plugin = "org.gradle.application")
 
     afterEvaluate {
+        val mainClassVarName = "mainclass"
+        val mainClassName = ext.get(mainClassVarName) as String
+
         tasks.jar {
-            val mainClassVarName = "mainclass"
 
             manifest {
                 attributes(
                     // Otherwise it throws a "No main manifest attribute" error
                     mapOf(
-                        "Main-Class" to ext.get(mainClassVarName),
+                        "Main-Class" to mainClassName,
                         "Implementation-Version" to archiveVersion
                     )
                 )
@@ -54,6 +54,10 @@ subprojects {
                 // The result is a collection of ZIP file trees
                 configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
             })
+        }
+
+        application {
+            mainClass.set(mainClassName)
         }
     }
 
@@ -102,9 +106,4 @@ subprojects {
             html.isEnabled = true
         }
     }
-}
-
-application {
-    // Define the main class for the application
-    mainClass.set(myMainClass)
 }
