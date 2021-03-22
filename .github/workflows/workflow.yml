@@ -121,5 +121,5 @@ jobs:
           prerelease: false
           files: |
             LICENSE
-            ./build/distributions/*.zip
-            ./build/distributions/*.tar
+            ./build/all-distributions/*.zip
+            ./build/all-distributions/*.tar

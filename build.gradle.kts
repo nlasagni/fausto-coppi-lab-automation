@@ -1,5 +1,3 @@
-val myMainClass = "it.unibo.lss.fcla.reservation.InteractiveReservationMicroserviceStarterClassKt"
-
 plugins {
     // In order to build a Kotlin project with Gradle:
     kotlin("jvm")
@@ -19,6 +17,20 @@ allprojects {
     }
 }
 
+val mainClassVarName = "mainclass"
+val subprojectsDistributionDir = "${rootProject.buildDir}/all-distributions"
+val subprojectsJarDeployDir = "${rootProject.buildDir}/jarForDeploy"
+
+val jarForDeploy by tasks.creating(Copy::class) {
+    project.subprojects.forEach {
+        from("${it.buildDir}/libs")
+        into(subprojectsJarDeployDir)
+        it.afterEvaluate {
+            dependsOn(it.tasks.jar)
+        }
+    }
+}
+
 subprojects {
 
     apply(plugin = "org.jetbrains.kotlin.jvm")
@@ -28,16 +40,19 @@ subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin = "io.gitlab.arturbosch.detekt")
     apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "org.gradle.distribution")
+    apply(plugin = "org.gradle.application")
 
     afterEvaluate {
+        val mainClassName = ext.get(mainClassVarName) as String
+
         tasks.jar {
-            val mainClassVarName = "mainclass"
 
             manifest {
                 attributes(
                     // Otherwise it throws a "No main manifest attribute" error
                     mapOf(
-                        "Main-Class" to ext.get(mainClassVarName),
+                        "Main-Class" to mainClassName,
                         "Implementation-Version" to archiveVersion
                     )
                 )
@@ -52,6 +67,19 @@ subprojects {
                 // The result is a collection of ZIP file trees
                 configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
             })
+        }
+
+        tasks.assembleDist {
+            doLast {
+                copy {
+                    from("$buildDir/distributions")
+                    into(subprojectsDistributionDir)
+                }
+            }
+        }
+
+        application {
+            mainClass.set(mainClassName)
         }
     }
 
@@ -100,9 +128,4 @@ subprojects {
             html.isEnabled = true
         }
     }
-}
-
-application {
-    // Define the main class for the application
-    mainClass.set(myMainClass)
 }
