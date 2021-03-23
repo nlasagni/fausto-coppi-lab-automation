@@ -31,4 +31,5 @@ gradlew run
 ```
 
 ##DevOps Documentation
+Our documentation resides into Confluenze space.
 You can read it on the [DevOps page](https://stefanobraggion.atlassian.net/l/c/qVfgiRaV "Confluence DevOps page")
