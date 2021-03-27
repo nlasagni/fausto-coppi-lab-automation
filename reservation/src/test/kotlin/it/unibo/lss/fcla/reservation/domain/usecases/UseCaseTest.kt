@@ -21,7 +21,7 @@ class UseCaseTest : FreeSpec({
     val memberId = UUID.randomUUID()
     val calendar = Calendar.getInstance()
     val invalidYear = 2020
-    val validYear = 2022
+    val validYear = 2023
     val validYearLate = 2028
     val feb = Calendar.FEBRUARY
     val day = 25

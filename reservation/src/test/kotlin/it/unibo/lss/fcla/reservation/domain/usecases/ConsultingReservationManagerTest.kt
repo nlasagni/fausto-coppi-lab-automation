@@ -35,7 +35,7 @@ class ConsultingReservationManagerTest : FreeSpec({
     val ledgerId = UUID.randomUUID()
     val consultingManager = ConsultingReservationManager(agendaId, ledgerId, mapOf())
     val calendar = Calendar.getInstance()
-    val year = 2022
+    val year = 2023
     val feb = Calendar.FEBRUARY
     val day = 25
     calendar.set(year, feb, day)
