@@ -53,6 +53,21 @@ class Freelancer internal constructor(
     }
 
     /**
+     * Retrieve the first name of the freelancer
+     */
+    fun getFirstName() = personalData.firstName
+
+    /**
+     * Retrieve the last name of the freelancer
+     */
+    fun getLastName() = personalData.lastName
+
+    /**
+     * Retrieve the role of the freelancer
+     */
+    fun getRole() = personalData.role
+
+    /**
      * Add an availability day and hours with given [newAvailabilityDate], [fromTime], [toTime]
      */
     fun addAvailability(newAvailabilityDate: LocalDate, fromTime: LocalTime, toTime: LocalTime) {

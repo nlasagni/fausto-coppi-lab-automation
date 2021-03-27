@@ -8,6 +8,8 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.createAthleticTrainer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
 import it.unibo.lss.fcla.consulting.domain.freelancer.createNutritionist
 import it.unibo.lss.fcla.consulting.domain.freelancer.createPhysiotherapist
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerAvailabilityFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerFacade
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -24,45 +26,45 @@ class FreelancerUseCases(
     /**
      * FLAC-14 Create new [Freelancer]
      */
-    fun createAthleticTrainer(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
+    fun createAthleticTrainer(freelancerId: FreelancerId, firstName: String, lastName: String): FreelancerFacade {
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
         val freelancer = Freelancer.createAthleticTrainer(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
-        return freelancer
+        return FreelancerFacade.create(freelancer)
     }
 
     /**
      * FLAC-14 Create new [Freelancer]
      */
-    fun createPhysiotherapist(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
+    fun createPhysiotherapist(freelancerId: FreelancerId, firstName: String, lastName: String): FreelancerFacade {
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
         val freelancer = Freelancer.createPhysiotherapist(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
-        return freelancer
+        return FreelancerFacade.create(freelancer)
     }
 
     /**
      * FLAC-14 Create new [Freelancer]
      */
-    fun createNutritionist(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
+    fun createNutritionist(freelancerId: FreelancerId, firstName: String, lastName: String): FreelancerFacade {
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
         val freelancer = Freelancer.createNutritionist(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
-        return freelancer
+        return FreelancerFacade.create(freelancer)
     }
 
     /**
      * FLAC-14 Create new [Freelancer]
      */
-    fun createBiomechanical(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
+    fun createBiomechanical(freelancerId: FreelancerId, firstName: String, lastName: String): FreelancerFacade {
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
         val freelancer = Freelancer.createBiomechanical(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
-        return freelancer
+        return FreelancerFacade.create(freelancer)
     }
 
     /**
@@ -73,13 +75,13 @@ class FreelancerUseCases(
         day: LocalDate,
         fromTime: LocalTime,
         toTime: LocalTime
-    ): Freelancer {
+    ): FreelancerFacade {
         if (!freelancerExist(freelancerId)) throw FreelancerWithGivenIdDoesNotExist()
         val freelancer = rehydrateFreelancer(freelancerId)
         freelancer.updateAvailability(availabilityDate = day, fromTime = fromTime, toTime = toTime)
         repository.save(freelancer)
 
-        return freelancer
+        return FreelancerFacade.create(freelancer)
     }
 
     /**
@@ -90,35 +92,36 @@ class FreelancerUseCases(
         day: LocalDate,
         fromTime: LocalTime,
         toTime: LocalTime
-    ): Freelancer {
+    ): FreelancerFacade {
         if (!freelancerExist(freelancerId)) throw FreelancerWithGivenIdDoesNotExist()
         val freelancer = rehydrateFreelancer(freelancerId)
         freelancer.addAvailability(newAvailabilityDate = day, fromTime = fromTime, toTime = toTime)
         repository.save(freelancer)
 
-        return freelancer
+        return FreelancerFacade.create(freelancer)
     }
 
     /**
      * FLAC-15 Manage freelancer availabilities
      */
-    fun deleteFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): Freelancer {
+    fun deleteFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): FreelancerFacade {
 
         if (!freelancerExist(freelancerId)) throw FreelancerWithGivenIdDoesNotExist()
         val freelancer = rehydrateFreelancer(freelancerId)
         freelancer.deleteAvailability(availabilityDate = day)
         repository.save(freelancer)
 
-        return freelancer
+        return FreelancerFacade.create(freelancer)
     }
 
     /**
      * FLAC-16 Check freelancer availabilities
      */
-    fun getFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): AvailabilityHours {
+    fun getFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): FreelancerAvailabilityFacade {
         if (!freelancerExist(freelancerId)) throw FreelancerWithGivenIdDoesNotExist()
         val freelancer = rehydrateFreelancer(freelancerId)
-        return freelancer.getAvailabilityForDay(day)
+
+        return FreelancerAvailabilityFacade.create(day, freelancer.getAvailabilityForDay(day))
     }
 
     /**
