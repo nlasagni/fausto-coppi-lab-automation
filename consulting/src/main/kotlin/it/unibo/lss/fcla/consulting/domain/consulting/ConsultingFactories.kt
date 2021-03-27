@@ -2,6 +2,7 @@ package it.unibo.lss.fcla.consulting.domain.consulting
 
 import it.unibo.lss.fcla.consulting.domain.consulting.events.ConsultingCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import java.time.LocalDate
 
 /**
  * Extension method factory for Consulting. Creates a new consulting of type Physiotherapy
@@ -9,7 +10,7 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 fun Consulting.Companion.createPhysiotherapyConsulting(
     consultingId: ConsultingId,
     memberId: MemberId,
-    consultingDate: Date,
+    consultingDate: LocalDate,
     freelancerId: FreelancerId,
     description: String
 ): Consulting {
@@ -34,7 +35,7 @@ fun Consulting.Companion.createPhysiotherapyConsulting(
 fun Consulting.Companion.createNutritionistConsulting(
     consultingId: ConsultingId,
     memberId: MemberId,
-    consultingDate: Date,
+    consultingDate: LocalDate,
     freelancerId: FreelancerId,
     description: String
 ): Consulting {
@@ -59,7 +60,7 @@ fun Consulting.Companion.createNutritionistConsulting(
 fun Consulting.Companion.createAthleticTrainerConsulting(
     consultingId: ConsultingId,
     memberId: MemberId,
-    consultingDate: Date,
+    consultingDate: LocalDate,
     freelancerId: FreelancerId,
     description: String
 ): Consulting {
@@ -84,7 +85,7 @@ fun Consulting.Companion.createAthleticTrainerConsulting(
 fun Consulting.Companion.createBiomechanicalConsulting(
     consultingId: ConsultingId,
     memberId: MemberId,
-    consultingDate: Date,
+    consultingDate: LocalDate,
     freelancerId: FreelancerId,
     description: String
 ): Consulting {

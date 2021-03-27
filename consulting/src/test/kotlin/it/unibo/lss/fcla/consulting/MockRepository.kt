@@ -1,9 +1,9 @@
 package it.unibo.lss.fcla.consulting
 
 import it.unibo.lss.fcla.consulting.common.EventSourcedRepository
-import it.unibo.lss.fcla.consulting.persistence.EventStore
 import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
+import it.unibo.lss.fcla.consulting.persistence.EventStore
 
 /**
  * @author Stefano Braggion

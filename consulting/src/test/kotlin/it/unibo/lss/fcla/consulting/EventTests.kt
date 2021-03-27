@@ -1,13 +1,13 @@
 package it.unibo.lss.fcla.consulting
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.persistence.EventStore
 import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
+import it.unibo.lss.fcla.consulting.persistence.EventStore
+import java.time.LocalDate
 import java.time.LocalTime
 
 class EventTests : FreeSpec({
@@ -16,7 +16,7 @@ class EventTests : FreeSpec({
         var eventStore = EventStore()
         var aggregateRepository = FreelancerMockRepository(eventStore)
         val aggregateID = "123"
-        val date = Date(year = 2021, month = 1, day = 1)
+        val date = LocalDate.of(2021, 1, 1)
         val expectedEvents = 6
 
         val freelancer = Freelancer.createBiomechanical(
@@ -51,7 +51,7 @@ class EventTests : FreeSpec({
         var eventStore = EventStore()
         var aggregateRepository = ConsultingMockRepository(eventStore)
         val aggregateId = "C001"
-        val date = Date(year = 2021, month = 1, day = 1)
+        val date = LocalDate.of(2021, 1, 1)
         val expectedEvents = 3
 
         val consulting = Consulting.createPhysiotherapyConsulting(
@@ -83,7 +83,7 @@ class EventTests : FreeSpec({
         val firstAggregateId = "C001"
         val secondAggregateId = "C002"
         val thirdAggregateId = "C003"
-        val date = Date(year = 2021, month = 1, day = 1)
+        val date = LocalDate.of(2021, 1, 1)
 
         val firstConsulting = Consulting.createPhysiotherapyConsulting(
             firstAggregateId,

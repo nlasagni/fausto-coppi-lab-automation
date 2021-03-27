@@ -2,13 +2,13 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.persistence.EventStore
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
+import it.unibo.lss.fcla.consulting.persistence.EventStore
 import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
+import java.time.LocalDate
 import java.time.LocalTime
 
 class UseCasesFreelancerTest : FreeSpec({
@@ -28,7 +28,7 @@ class UseCasesFreelancerTest : FreeSpec({
         var aggregateRepository = FreelancerMockRepository(eventStore)
         val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
         val id = "F001"
-        val date = Date(2021, 1, 1)
+        val date = LocalDate.of(2021, 1, 1)
 
         useCasesFreelancer.createAthleticTrainer(freelancerId = id, firstName = "Alan", lastName = "Turing")
         useCasesFreelancer.createFreelancerAvailabilityForDay(
@@ -58,7 +58,7 @@ class UseCasesFreelancerTest : FreeSpec({
         var aggregateRepository = FreelancerMockRepository(eventStore)
         val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
         val id = "F001"
-        val date = Date(2021, 1, 1)
+        val date = LocalDate.of(2021, 1, 1)
 
         useCasesFreelancer.createAthleticTrainer(freelancerId = id, firstName = "Alan", lastName = "Turing")
         useCasesFreelancer.createFreelancerAvailabilityForDay(
@@ -89,7 +89,7 @@ class UseCasesFreelancerTest : FreeSpec({
         var aggregateRepository = FreelancerMockRepository(eventStore)
         val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
         val id = "F001"
-        val date = Date(2021, 1, 1)
+        val date = LocalDate.of(2021, 1, 1)
 
         useCasesFreelancer.createAthleticTrainer(freelancerId = id, firstName = "Alan", lastName = "Turing")
         useCasesFreelancer.createFreelancerAvailabilityForDay(

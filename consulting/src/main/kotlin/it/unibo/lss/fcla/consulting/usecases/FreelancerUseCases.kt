@@ -1,7 +1,6 @@
 package it.unibo.lss.fcla.consulting.usecases
 
 import it.unibo.lss.fcla.consulting.common.IRepository
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
@@ -9,6 +8,7 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.createAthleticTrainer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
 import it.unibo.lss.fcla.consulting.domain.freelancer.createNutritionist
 import it.unibo.lss.fcla.consulting.domain.freelancer.createPhysiotherapist
+import java.time.LocalDate
 import java.time.LocalTime
 
 /**
@@ -70,7 +70,7 @@ class FreelancerUseCases(
      */
     fun updateFreelancerAvailabilityForDay(
         freelancerId: FreelancerId,
-        day: Date,
+        day: LocalDate,
         fromTime: LocalTime,
         toTime: LocalTime
     ): Freelancer {
@@ -87,7 +87,7 @@ class FreelancerUseCases(
      */
     fun createFreelancerAvailabilityForDay(
         freelancerId: FreelancerId,
-        day: Date,
+        day: LocalDate,
         fromTime: LocalTime,
         toTime: LocalTime
     ): Freelancer {
@@ -102,7 +102,7 @@ class FreelancerUseCases(
     /**
      * FLAC-15 Manage freelancer availabilities
      */
-    fun deleteFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: Date): Freelancer {
+    fun deleteFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): Freelancer {
 
         if (!freelancerExist(freelancerId)) throw FreelancerWithGivenIdDoesNotExist()
         val freelancer = rehydrateFreelancer(freelancerId)
@@ -115,7 +115,7 @@ class FreelancerUseCases(
     /**
      * FLAC-16 Check freelancer availabilities
      */
-    fun getFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: Date): AvailabilityHours {
+    fun getFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): AvailabilityHours {
         if (!freelancerExist(freelancerId)) throw FreelancerWithGivenIdDoesNotExist()
         val freelancer = rehydrateFreelancer(freelancerId)
         return freelancer.getAvailabilityForDay(day)

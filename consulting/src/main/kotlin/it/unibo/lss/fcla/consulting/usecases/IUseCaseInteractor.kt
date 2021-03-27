@@ -6,5 +6,4 @@ import it.unibo.lss.fcla.consulting.presentation.IResponse
 /**
  *
  */
-interface IUseCaseInteractor<A: IRequest, B: IResponse> {
-}
+interface IUseCaseInteractor<A : IRequest, B : IResponse>

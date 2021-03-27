@@ -2,7 +2,6 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
@@ -11,6 +10,7 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
 import it.unibo.lss.fcla.consulting.domain.freelancer.createAthleticTrainer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
+import java.time.LocalDate
 import java.time.LocalTime
 
 class FreelancerTest : FreeSpec({
@@ -55,7 +55,7 @@ class FreelancerTest : FreeSpec({
             firstName = "Mario",
             lastName = "Rossi"
         )
-        val date = Date(2021, 1, 1)
+        val date = LocalDate.of(2021, 1, 1)
 
         freelancer.addAvailability(newAvailabilityDate = date, fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
 
@@ -71,7 +71,7 @@ class FreelancerTest : FreeSpec({
             lastName = "Rossi"
         )
 
-        val date = Date(2021, 1, 1)
+        val date = LocalDate.of(2021, 1, 1)
         freelancer.addAvailability(newAvailabilityDate = date, fromTime = LocalTime.MIN, toTime = LocalTime.MAX)
         freelancer.updateAvailability(availabilityDate = date, fromTime = LocalTime.MIDNIGHT, toTime = LocalTime.MAX)
 
@@ -88,7 +88,7 @@ class FreelancerTest : FreeSpec({
             lastName = "Rossi"
         )
 
-        val date = Date(2021, 1, 1)
+        val date = LocalDate.of(2021, 1, 1)
 
         shouldThrow<FreelancerAvailabilityDoesNotExist> {
             freelancer.updateAvailability(date, LocalTime.MIN, LocalTime.MAX)
@@ -103,7 +103,7 @@ class FreelancerTest : FreeSpec({
         )
 
         shouldThrow<FreelancerAvailabilityDoesNotExist> {
-            freelancer.getAvailabilityForDay(Date(2021, 1, 1))
+            freelancer.getAvailabilityForDay(LocalDate.of(2021, 1, 1))
         }
     }
 })

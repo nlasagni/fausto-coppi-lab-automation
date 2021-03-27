@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.consulting.presentation.freelancer
 
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import it.unibo.lss.fcla.consulting.presentation.IRequest
+import java.time.LocalDate
 import java.time.LocalTime
 
 /**
@@ -14,7 +14,7 @@ import java.time.LocalTime
  */
 class CreateFreelancerAvailabilityForDayRequest(
     val freelancerId: FreelancerId,
-    val availabilityDate: Date,
+    val availabilityDate: LocalDate,
     val fromTime: LocalTime,
     val toTime: LocalTime
 ) : IRequest
@@ -24,7 +24,7 @@ class CreateFreelancerAvailabilityForDayRequest(
  */
 class DeleteFreelancerAvailabilityForDayRequest(
     val freelancerId: FreelancerId,
-    val availabilityDate: Date
+    val availabilityDate: LocalDate
 ) : IRequest
 
 /**
@@ -32,7 +32,7 @@ class DeleteFreelancerAvailabilityForDayRequest(
  */
 class UpdateFreelancerAvailabilityForDayRequest(
     val freelancerId: FreelancerId,
-    val availabilityDate: Date,
+    val availabilityDate: LocalDate,
     val fromTime: LocalTime,
     val toTime: LocalTime
 ) : IRequest
@@ -41,5 +41,5 @@ class UpdateFreelancerAvailabilityForDayRequest(
  *
  */
 class GetFreelancerAvailabilityForDayRequest(
-    val availabilityDate: Date
+    val availabilityDate: LocalDate
 ) : IRequest

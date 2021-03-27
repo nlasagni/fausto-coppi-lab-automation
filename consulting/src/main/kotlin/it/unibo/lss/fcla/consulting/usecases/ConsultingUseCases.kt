@@ -4,7 +4,6 @@ import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.common.IRepository
 import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
 import it.unibo.lss.fcla.consulting.domain.consulting.createAthleticTrainerConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createBiomechanicalConsulting
@@ -12,6 +11,7 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulti
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import java.time.LocalDate
 
 /**
  * @author Stefano Braggion
@@ -37,7 +37,7 @@ class ConsultingUseCases(
     fun receivePhysiotherapyConsulting(
         consultingId: ConsultingId,
         memberId: MemberId,
-        consultingDate: Date,
+        consultingDate: LocalDate,
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
@@ -66,7 +66,7 @@ class ConsultingUseCases(
     fun receiveNutritionistConsulting(
         consultingId: ConsultingId,
         memberId: MemberId,
-        consultingDate: Date,
+        consultingDate: LocalDate,
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
@@ -95,7 +95,7 @@ class ConsultingUseCases(
     fun receiveBiomechanicalConsulting(
         consultingId: ConsultingId,
         memberId: MemberId,
-        consultingDate: Date,
+        consultingDate: LocalDate,
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
@@ -125,7 +125,7 @@ class ConsultingUseCases(
     fun receiveAthleticTrainerConsulting(
         consultingId: ConsultingId,
         memberId: MemberId,
-        consultingDate: Date,
+        consultingDate: LocalDate,
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
