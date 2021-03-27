@@ -16,7 +16,7 @@ class MemberTest : FreeSpec({
     val memberId = UUID.randomUUID()
     var member = Member("Mario", "Rossi", memberId)
     val calendar = Calendar.getInstance()
-    val year = 2021
+    val year = 2023
     val feb = 2
     val day = 25
     val freelancerId = UUID.randomUUID()

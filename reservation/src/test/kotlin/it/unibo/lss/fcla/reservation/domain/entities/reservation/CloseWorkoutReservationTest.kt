@@ -11,7 +11,7 @@ import java.util.UUID
 
 class CloseWorkoutReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()
-    val year = 2021
+    val year = 2023
     val feb = 2
     val day = 25
     calendar.set(year, feb, day)

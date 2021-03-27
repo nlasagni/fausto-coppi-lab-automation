@@ -36,7 +36,7 @@ class WorkoutReservationManagerTest : FreeSpec({
     val ledgerId = UUID.randomUUID()
     val workoutManager = WorkoutReservationManager(agendaId, ledgerId)
     val calendar = Calendar.getInstance()
-    val validYear = 2022
+    val validYear = 2023
     val invalidYear = 2020
     val feb = Calendar.FEBRUARY
     val day = 25

@@ -15,7 +15,7 @@ class MemberLedgerTest : FreeSpec({
     val member = Member("Mario", "Rossi", UUID.randomUUID())
 
     val calendar = Calendar.getInstance()
-    val year = 2022
+    val year = 2023
     val feb = Calendar.FEBRUARY
     val day = 25
     val freelancerId = UUID.randomUUID()
