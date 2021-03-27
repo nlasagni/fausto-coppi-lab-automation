@@ -12,6 +12,42 @@ import java.time.LocalTime
 /**
  *
  */
+class CreateAthleticTrainerFreelancerRequest(
+    val freelancerId: FreelancerId,
+    val firstName: String,
+    val lastName: String
+) : IRequest
+
+/**
+ *
+ */
+class CreatePhysiotherapistFreelancerRequest(
+    val freelancerId: FreelancerId,
+    val firstName: String,
+    val lastName: String
+) : IRequest
+
+/**
+ *
+ */
+class CreateNutritionistFreelancerRequest(
+    val freelancerId: FreelancerId,
+    val firstName: String,
+    val lastName: String
+) : IRequest
+
+/**
+ *
+ */
+class CreateBiomechanicalFreelancerRequest(
+    val freelancerId: FreelancerId,
+    val firstName: String,
+    val lastName: String
+) : IRequest
+
+/**
+ *
+ */
 class CreateFreelancerAvailabilityForDayRequest(
     val freelancerId: FreelancerId,
     val availabilityDate: LocalDate,
