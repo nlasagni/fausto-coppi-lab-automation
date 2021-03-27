@@ -1,4 +1,6 @@
 package it.unibo.lss.fcla.consulting.presentation
 
-interface IRequest {
-}
+/**
+ *
+ */
+interface IRequest
