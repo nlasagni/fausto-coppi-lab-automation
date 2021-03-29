@@ -31,7 +31,7 @@ class FreelancerResponse(
      * String representation of the [FreelancerResponse]
      */
     override fun toString(): String =
-        "FreelancerResponse(Id=${freelancerId}, Firstname=${firstName}, Lastname=${lastName}, Role=${role})"
+        "FreelancerResponse(Id=$freelancerId, Firstname=$firstName, Lastname=$lastName, Role=$role)"
 }
 
 /**
@@ -47,7 +47,7 @@ class FreelancerAvailabilityResponse(
      * String representation of the [FreelancerAvailabilityResponse]
      */
     override fun toString(): String =
-        "FreelancerAvailabilityResponse(On=${availabilityDate}, From=${fromTime}, To=${toTime})"
+        "FreelancerAvailabilityResponse(On=$availabilityDate, From=$fromTime, To=$toTime)"
 }
 
 /**
@@ -61,5 +61,5 @@ class FreelancerErrorResponse(
      * String representation of the [FreelancerErrorResponse]
      */
     override fun toString(): String =
-        "FreelancerError(${message})"
+        "FreelancerError($message)"
 }

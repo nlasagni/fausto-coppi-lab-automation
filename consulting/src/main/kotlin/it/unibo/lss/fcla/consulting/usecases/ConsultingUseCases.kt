@@ -11,7 +11,6 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulti
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
-import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingErrorFacade
 import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
 import java.time.LocalDate
 

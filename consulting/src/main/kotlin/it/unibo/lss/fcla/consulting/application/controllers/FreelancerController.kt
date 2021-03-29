@@ -11,7 +11,11 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreatePh
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.DeleteFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.GetFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.UpdateFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.domain.exceptions.*
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityNotValidTime
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
+import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
 import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
@@ -22,7 +26,7 @@ import it.unibo.lss.fcla.consulting.usecases.IPresenter
  * This is a concrete implementation of [BaseController]. This class take the requests
  * provided form the UI and execute the operations in the use case layer.
  */
-class FreelancerController(private val presenter: IPresenter) : BaseController() {
+class FreelancerController(private val presenter: IPresenter) : IController {
 
     private val freelancerUseCases: FreelancerUseCases =
         FreelancerUseCases(FreelancerRepository(EventStore()), presenter)
@@ -83,17 +87,17 @@ class FreelancerController(private val presenter: IPresenter) : BaseController()
                     )
                 else -> TODO()
             }
-        }catch (e: FreelancerShouldHaveAUniqueId) {
+        } catch (e: FreelancerShouldHaveAUniqueId) {
             presenter.onError(e)
-        }catch (e: FreelancerFirstNameCannotBeNull) {
+        } catch (e: FreelancerFirstNameCannotBeNull) {
             presenter.onError(e)
-        }catch (e: FreelancerLastNameCannotBeNull) {
+        } catch (e: FreelancerLastNameCannotBeNull) {
             presenter.onError(e)
-        }catch (e: FreelancerAvailabilityNotValidTime) {
+        } catch (e: FreelancerAvailabilityNotValidTime) {
             presenter.onError(e)
-        }catch (e: FreelancerAvailabilityAlreadyExist) {
+        } catch (e: FreelancerAvailabilityAlreadyExist) {
             presenter.onError(e)
-        }catch (e: FreelancerAvailabilityDoesNotExist) {
+        } catch (e: FreelancerAvailabilityDoesNotExist) {
             presenter.onError(e)
         }
     }

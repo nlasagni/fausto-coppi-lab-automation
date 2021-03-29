@@ -6,13 +6,15 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.Freelanc
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerErrorResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.MessageResponse
-import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingType
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidMember
 import it.unibo.lss.fcla.consulting.ui.IView
 import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
-import it.unibo.lss.fcla.consulting.usecases.facades.*
-import java.time.LocalDate
+import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerAvailabilityFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerErrorFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerFacade
 
 /**
  * @author Stefano Braggion
@@ -55,7 +57,7 @@ class PresenterImpl : IPresenter {
     /**
      * Method used to transform the [error] raised by the use case layer into a [IResponse]
      */
-    private fun transformErrorIntoResponse(error: Exception) : IResponse {
+    private fun transformErrorIntoResponse(error: Exception): IResponse {
         return when (error) {
             is ConsultingMustHaveAValidMember ->
                 ConsultingErrorResponse(
@@ -72,7 +74,7 @@ class PresenterImpl : IPresenter {
     /**
      * Method used to transform the [result] of an operation into a [IResponse]
      */
-    private fun transformResultIntoResponse(result: BaseFacade) : IResponse {
+    private fun transformResultIntoResponse(result: BaseFacade): IResponse {
         return when (result) {
             is FreelancerFacade ->
                 FreelancerResponse(

@@ -41,7 +41,6 @@ class ConsultingFacade internal constructor(
     }
 }
 
-
 /**
  *
  */

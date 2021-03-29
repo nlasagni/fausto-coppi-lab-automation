@@ -4,7 +4,9 @@ import it.unibo.lss.fcla.consulting.application.presentation.IRequest
 
 /**
  * @author Stefano Braggion
+ *
+ * Interface that each controller must implement
  */
-abstract class BaseController {
-    abstract fun execute(request: IRequest)
+interface IController {
+    fun execute(request: IRequest)
 }

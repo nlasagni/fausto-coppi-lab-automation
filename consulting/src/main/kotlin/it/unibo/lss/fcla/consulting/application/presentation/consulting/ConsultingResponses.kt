@@ -24,9 +24,9 @@ class ConsultingResponse(
      * String representation of the [ConsultingResponse]
      */
     override fun toString(): String =
-        "Consulting(Id=${consultingId}, Member=${memberId}, Date=${consultingDate}," +
-                " Freelancer=${freelancerId}, Type=${consultingType}) \n" +
-                "Summary(${description})"
+        "Consulting(Id=$consultingId, Member=$memberId, Date=$consultingDate," +
+            " Freelancer=$freelancerId, Type=$consultingType) \n" +
+            "Summary($description)"
 }
 
 /**
@@ -40,5 +40,5 @@ class ConsultingErrorResponse(
      * String representation of the [ConsultingErrorResponse]
      */
     override fun toString(): String =
-        "ConsultingError(${message})"
+        "ConsultingError($message)"
 }

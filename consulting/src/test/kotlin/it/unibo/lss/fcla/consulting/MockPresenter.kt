@@ -13,10 +13,8 @@ class MockPresenter : IPresenter {
     }
 
     override fun onError(error: Exception) {
-
     }
 
     override fun register(view: IView) {
-
     }
 }

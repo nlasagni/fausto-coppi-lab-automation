@@ -1,12 +1,18 @@
 package it.unibo.lss.fcla.consulting.ui
 
-import it.unibo.lss.fcla.consulting.application.controllers.BaseController
+import it.unibo.lss.fcla.consulting.application.controllers.IController
 import it.unibo.lss.fcla.consulting.application.presentation.IResponse
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveAthleticTrainerConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveBiomechanicalConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveNutritionistConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceivePhysiotherapyConsultingRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.*
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateAthleticTrainerFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateBiomechanicalFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateNutritionistFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreatePhysiotherapistFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.DeleteFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.UpdateFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import java.lang.Integer.parseInt
@@ -19,14 +25,14 @@ import java.time.LocalTime
  * This is a basic UI, a concrete implementation of a [IView].
  */
 class ConsoleUI(
-    private val freelancerController: BaseController,
-    private val consultingController: BaseController
+    private val freelancerController: IController,
+    private val consultingController: IController
 ) : IView {
 
     private var currentMenu: NestingMenu = NestingMenu.MainMenu
     private var running = true
 
-    private var nextConsultingId = 0;
+    private var nextConsultingId = 0
 
     /**
      * Enum representing the current menu displayed
@@ -40,9 +46,9 @@ class ConsoleUI(
      */
     private fun plotMainMenu() {
         val menu = "Select which operation to perform: \n" +
-                "1) Manage consulting \n" +
-                "2) Manage freelancers \n" +
-                "3) Exit application";
+            "1) Manage consulting \n" +
+            "2) Manage freelancers \n" +
+            "3) Exit application"
         println(menu)
     }
 
@@ -66,12 +72,12 @@ class ConsoleUI(
      */
     private fun plotFreelancerSubmenu() {
         val submenu = "Select which operation to perform in the freelancer management area: \n" +
-                "1) Create a new Athletic Trainer freelancer \n" +
-                "2) Create a new Physiotherapist freelancer \n" +
-                "3) Create a new Nutritionist freelancer \n" +
-                "4) Create a new Biomechanical freelancer \n" +
-                "5) Manage freelancers availabilities \n" +
-                "6) Back to previous menu";
+            "1) Create a new Athletic Trainer freelancer \n" +
+            "2) Create a new Physiotherapist freelancer \n" +
+            "3) Create a new Nutritionist freelancer \n" +
+            "4) Create a new Biomechanical freelancer \n" +
+            "5) Manage freelancers availabilities \n" +
+            "6) Back to previous menu"
         println(submenu)
     }
 
@@ -82,7 +88,7 @@ class ConsoleUI(
         val choice = readLine()
 
         when {
-            parseInt(choice) <= 4 -> {
+            choice == "1" || choice == "2" || choice == "3" || choice == "4" -> {
                 println("Insert a valid freelancer ID")
                 val id = readLine() as FreelancerId
                 println("Insert a valid firstName")
@@ -121,10 +127,10 @@ class ConsoleUI(
                     )
                 }
             }
-            parseInt(choice) == 5 -> {
+            choice == "5" -> {
                 currentMenu = NestingMenu.AvailabilityMenu
             }
-            parseInt(choice) == 6 -> {
+            choice == "6" -> {
                 currentMenu = NestingMenu.MainMenu
             }
         }
@@ -135,10 +141,10 @@ class ConsoleUI(
      */
     private fun plotAvailabilitiesSubmenu() {
         val submenu = "Select which operation to perform to manage freelancers availabilities: \n" +
-                "1) Create new availability \n" +
-                "2) Update an existing availability \n" +
-                "3) Delete an existing availability \n" +
-                "4) Back to previous menu";
+            "1) Create new availability \n" +
+            "2) Update an existing availability \n" +
+            "3) Delete an existing availability \n" +
+            "4) Back to previous menu"
         println(submenu)
     }
 
@@ -149,7 +155,7 @@ class ConsoleUI(
         val choice = readLine()
 
         when {
-            parseInt(choice) <= 3 -> {
+            choice == "1" || choice == "2" || choice == "3" -> {
                 println("Insert a valid freelancer ID to manages")
                 val id = readLine() as FreelancerId
 
@@ -191,7 +197,7 @@ class ConsoleUI(
                     }
                 }
             }
-            parseInt(choice) == 4 -> currentMenu = NestingMenu.FreelancerMenu
+            choice == "4" -> currentMenu = NestingMenu.FreelancerMenu
         }
     }
 
@@ -200,13 +206,13 @@ class ConsoleUI(
      */
     private fun plotConsultingSubmenu() {
         val submenu = "Select which operation to perform to manage consulting: \n" +
-                "1) Create a new athletic trainer consulting \n" +
-                "2) Create a new physiotherapist consulting \n" +
-                "3) Create a new nutritionist consulting \n" +
-                "4) Create a new biomechanical consulting \n" +
-                "5) Update an existing consulting summary \n" +
-                "6) Get all summaries for a member \n" +
-                "7) Back to previous menu";
+            "1) Create a new athletic trainer consulting \n" +
+            "2) Create a new physiotherapist consulting \n" +
+            "3) Create a new nutritionist consulting \n" +
+            "4) Create a new biomechanical consulting \n" +
+            "5) Update an existing consulting summary \n" +
+            "6) Get all summaries for a member \n" +
+            "7) Back to previous menu"
         println(submenu)
     }
 
@@ -218,7 +224,7 @@ class ConsoleUI(
         val choice = readLine()
 
         when {
-            parseInt(choice) <= 4 -> {
+            choice == "1" || choice == "2" || choice == "3" || choice == "4" -> {
 
                 val id = (++nextConsultingId).toString()
                 println("Insert a valid freelancer id")
@@ -276,14 +282,14 @@ class ConsoleUI(
                     }
                 }
             }
-            parseInt(choice) == 7 -> currentMenu = NestingMenu.MainMenu
+            choice == "5" -> currentMenu = NestingMenu.MainMenu
         }
     }
 
     /**
      * Utility method that take [Integer] as input and compose a [LocalDate]
      */
-    private fun parseDateFromInput(message: String) : LocalDate {
+    private fun parseDateFromInput(message: String): LocalDate {
         println(message)
         println("Insert the day")
         val day = readLine()
@@ -298,7 +304,7 @@ class ConsoleUI(
     /**
      * Utility method that take [Integer] as input and compose a [LocalTime]
      */
-    private fun parseTimeFromInput(message: String) : LocalTime {
+    private fun parseTimeFromInput(message: String): LocalTime {
         println(message)
         println("Insert hours")
         val hours = readLine()
@@ -311,8 +317,8 @@ class ConsoleUI(
     /**
      * Main loop
      */
-    fun startUI(){
-        while(running) {
+    fun startUI() {
+        while (running) {
             when (currentMenu) {
                 NestingMenu.MainMenu -> {
                     plotMainMenu()
@@ -332,7 +338,6 @@ class ConsoleUI(
                 }
             }
         }
-
     }
 
     /**

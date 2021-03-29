@@ -20,7 +20,7 @@ import it.unibo.lss.fcla.consulting.usecases.IPresenter
  * This is a concrete implementation of [BaseController]. This class take the requests
  * provided form the UI and execute the operations in the use case layer.
  */
-class ConsultingController(private val presenter: IPresenter) : BaseController() {
+class ConsultingController(private val presenter: IPresenter) : IController {
 
     private val consultingUseCases: ConsultingUseCases =
         ConsultingUseCases(ConsultingRepository(EventStore()), presenter)
@@ -65,15 +65,14 @@ class ConsultingController(private val presenter: IPresenter) : BaseController()
                     )
                 else -> TODO()
             }
-        }catch (e: ConsultingShouldHaveAUniqueId) {
+        } catch (e: ConsultingShouldHaveAUniqueId) {
             presenter.onError(e)
-        }catch (e: ConsultingMustHaveAValidId) {
+        } catch (e: ConsultingMustHaveAValidId) {
             presenter.onError(e)
-        }catch (e: ConsultingSummaryDescriptionCannotBeEmpty) {
+        } catch (e: ConsultingSummaryDescriptionCannotBeEmpty) {
             presenter.onError(e)
-        }catch (e: ConsultingSummaryMustHaveAValidFreelancer) {
+        } catch (e: ConsultingSummaryMustHaveAValidFreelancer) {
             presenter.onError(e)
         }
     }
-
 }
