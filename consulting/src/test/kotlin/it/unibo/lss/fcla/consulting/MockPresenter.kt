@@ -5,7 +5,5 @@ import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
 
 class MockPresenter : IPresenter {
     override fun onResult(result: BaseFacade) {
-
     }
-
 }

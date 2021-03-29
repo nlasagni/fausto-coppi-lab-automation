@@ -26,15 +26,15 @@ class FreelancerFacade internal constructor(
         /**
          * Factory
          */
-        fun create(freelancer: Freelancer) : FreelancerFacade {
+        fun create(freelancer: Freelancer): FreelancerFacade {
             val freelancerFacade = FreelancerFacade(
                 freelancerId = freelancer.freelancerId,
-                firstName = freelancer.getFirstName(),
-                lastName = freelancer.getLastName(),
-                role = freelancer.getRole()
-            );
+                firstName = freelancer.getPersonalData().firstName,
+                lastName = freelancer.getPersonalData().lastName,
+                role = freelancer.getPersonalData().role
+            )
 
-            return freelancerFacade;
+            return freelancerFacade
         }
     }
 }
@@ -53,7 +53,7 @@ class FreelancerAvailabilityFacade internal constructor(
         /**
          * Factory
          */
-        fun create(date: LocalDate, hours: AvailabilityHours) : FreelancerAvailabilityFacade {
+        fun create(date: LocalDate, hours: AvailabilityHours): FreelancerAvailabilityFacade {
             val availabilityFacade = FreelancerAvailabilityFacade(
                 availabilityDate = date,
                 fromTime = hours.fromTime,

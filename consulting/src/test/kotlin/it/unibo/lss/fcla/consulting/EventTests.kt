@@ -1,12 +1,12 @@
 package it.unibo.lss.fcla.consulting
 
 import io.kotest.core.spec.style.FreeSpec
+import it.unibo.lss.fcla.consulting.application.persistence.EventStore
 import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
-import it.unibo.lss.fcla.consulting.application.persistence.EventStore
 import java.time.LocalDate
 import java.time.LocalTime
 

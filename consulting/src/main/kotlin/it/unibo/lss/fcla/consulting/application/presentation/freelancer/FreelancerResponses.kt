@@ -17,6 +17,9 @@ class MessageResponse(
     val message: String
 ) : IResponse
 
+/**
+ *
+ */
 class FreelancerResponse(
     val freelancerId: FreelancerId,
     val firstName: String,
@@ -24,6 +27,9 @@ class FreelancerResponse(
     val role: FreelancerRole
 ) : IResponse
 
+/**
+ *
+ */
 class FreelancerAvailabilityResponse(
     val availabilityDate: LocalDate,
     val fromTime: LocalTime,

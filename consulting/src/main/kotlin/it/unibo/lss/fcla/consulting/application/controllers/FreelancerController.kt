@@ -3,7 +3,14 @@ package it.unibo.lss.fcla.consulting.application.controllers
 import it.unibo.lss.fcla.consulting.application.persistence.EventStore
 import it.unibo.lss.fcla.consulting.application.persistence.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.*
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateAthleticTrainerFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateBiomechanicalFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateNutritionistFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreatePhysiotherapistFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.DeleteFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.GetFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.UpdateFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
 
