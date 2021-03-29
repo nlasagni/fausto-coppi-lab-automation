@@ -13,7 +13,7 @@ class UseCasesConsultingTest : FreeSpec({
     "Cannot create two consulting with the same id" - {
         var eventStore = EventStore()
         var aggregateRepository = ConsultingMockRepository(eventStore)
-        val useCasesConsulting = ConsultingUseCases(aggregateRepository)
+        val useCasesConsulting = ConsultingUseCases(aggregateRepository, MockPresenter())
 
         useCasesConsulting.receiveAthleticTrainerConsulting(
             consultingId = "C001",
@@ -37,7 +37,7 @@ class UseCasesConsultingTest : FreeSpec({
     "Cannot update a summary for a non-existent consulting" - {
         var eventStore = EventStore()
         var aggregateRepository = ConsultingMockRepository(eventStore)
-        val useCasesConsulting = ConsultingUseCases(aggregateRepository)
+        val useCasesConsulting = ConsultingUseCases(aggregateRepository, MockPresenter())
 
         shouldThrow<ConsultingWithGivenIdDoesNotExist> {
             useCasesConsulting.updateConsultingSummary(consultingId = "C001", description = "new description")
@@ -47,7 +47,7 @@ class UseCasesConsultingTest : FreeSpec({
     "Retrieve profile for a given member" - {
         var eventStore = EventStore()
         var aggregateRepository = ConsultingMockRepository(eventStore)
-        val useCasesConsulting = ConsultingUseCases(aggregateRepository)
+        val useCasesConsulting = ConsultingUseCases(aggregateRepository, MockPresenter())
         val day = LocalDate.of(2021, 1, 1)
 
         val expectedSummaries = 2

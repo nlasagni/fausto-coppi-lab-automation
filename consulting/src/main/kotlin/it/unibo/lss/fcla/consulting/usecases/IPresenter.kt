@@ -8,5 +8,6 @@ import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
  */
 interface IPresenter {
     fun onResult(result: BaseFacade)
+    fun onError(error: Exception)
     fun register(view: IView)
 }

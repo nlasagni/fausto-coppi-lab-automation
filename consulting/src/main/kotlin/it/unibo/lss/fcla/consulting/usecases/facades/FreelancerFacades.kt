@@ -27,14 +27,13 @@ class FreelancerFacade internal constructor(
          * Factory
          */
         fun create(freelancer: Freelancer): FreelancerFacade {
-            val freelancerFacade = FreelancerFacade(
+
+            return FreelancerFacade(
                 freelancerId = freelancer.freelancerId,
                 firstName = freelancer.getPersonalData().firstName,
                 lastName = freelancer.getPersonalData().lastName,
                 role = freelancer.getPersonalData().role
             )
-
-            return freelancerFacade
         }
     }
 }
@@ -54,13 +53,12 @@ class FreelancerAvailabilityFacade internal constructor(
          * Factory
          */
         fun create(date: LocalDate, hours: AvailabilityHours): FreelancerAvailabilityFacade {
-            val availabilityFacade = FreelancerAvailabilityFacade(
+
+            return FreelancerAvailabilityFacade(
                 availabilityDate = date,
                 fromTime = hours.fromTime,
                 toTime = hours.toTime
             )
-
-            return availabilityFacade
         }
     }
 }
@@ -77,11 +75,10 @@ class FreelancerErrorFacade internal constructor(
         /**
          * Factory
          */
-        fun create(error: String) : FreelancerErrorFacade {
-            val errorFacade = FreelancerErrorFacade(
+        fun create(error: String): FreelancerErrorFacade {
+            return FreelancerErrorFacade(
                 message = error
             )
-            return errorFacade
         }
     }
 }

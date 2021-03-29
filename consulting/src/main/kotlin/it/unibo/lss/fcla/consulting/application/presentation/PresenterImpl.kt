@@ -1,9 +1,11 @@
 package it.unibo.lss.fcla.consulting.application.presentation
 
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ConsultingErrorResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerAvailabilityResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerErrorResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.MessageResponse
+import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidMember
 import it.unibo.lss.fcla.consulting.ui.IView
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
 import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
@@ -25,11 +27,28 @@ class PresenterImpl : IPresenter {
         }
     }
 
+    override fun onError(error: Exception) {
+        val translatedError = transformErrorIntoResponse(error)
+        viewList.forEach {
+            it.render(translatedError)
+        }
+    }
+
     override fun register(view: IView) {
         viewList.add(view)
     }
 
-    private fun transformResultIntoResponse(result: BaseFacade): IResponse {
+    private fun transformErrorIntoResponse(error: Exception) : IResponse {
+        return when (error) {
+            is ConsultingMustHaveAValidMember ->
+                ConsultingErrorResponse(
+                    message = error.message ?: ""
+                )
+            else -> TODO()
+        }
+    }
+
+    private fun transformResultIntoResponse(result: BaseFacade) : IResponse {
         return when (result) {
             is FreelancerFacade ->
                 FreelancerResponse(

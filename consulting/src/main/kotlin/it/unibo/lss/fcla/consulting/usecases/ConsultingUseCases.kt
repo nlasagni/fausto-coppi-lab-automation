@@ -11,6 +11,8 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulti
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingErrorFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
 import java.time.LocalDate
 
 /**
@@ -21,7 +23,8 @@ import java.time.LocalDate
  *
  */
 class ConsultingUseCases(
-    private val repository: IRepository<Consulting>
+    private val repository: IRepository<Consulting>,
+    private val presenter: IPresenter
 ) {
 
     /**
@@ -41,6 +44,7 @@ class ConsultingUseCases(
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
         /**
          * create a new physiotherapy consulting
          */
@@ -57,6 +61,8 @@ class ConsultingUseCases(
 
         repository.save(consulting)
 
+        presenter.onResult(ConsultingFacade.create(consulting))
+
         return consulting
     }
 
@@ -70,6 +76,7 @@ class ConsultingUseCases(
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
         /**
          * create a new nutritionist consulting
          */
@@ -86,6 +93,8 @@ class ConsultingUseCases(
 
         repository.save(consulting)
 
+        presenter.onResult(ConsultingFacade.create(consulting))
+
         return consulting
     }
 
@@ -99,8 +108,9 @@ class ConsultingUseCases(
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
         /**
-         * create a new biomechanics consulting
+         * create a new biomechanical consulting
          */
         if (repository.getById(consultingId).count() > 0) {
             throw ConsultingShouldHaveAUniqueId()
@@ -116,6 +126,8 @@ class ConsultingUseCases(
 
         repository.save(consulting)
 
+        presenter.onResult(ConsultingFacade.create(consulting))
+
         return consulting
     }
 
@@ -129,12 +141,14 @@ class ConsultingUseCases(
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
         /**
-         * create a new athletic trainer consulting
+         * create a new biomechanical consulting
          */
         if (repository.getById(consultingId).count() > 0) {
             throw ConsultingShouldHaveAUniqueId()
         }
+
         val consulting = Consulting.createAthleticTrainerConsulting(
             consultingId,
             memberId,
@@ -145,6 +159,8 @@ class ConsultingUseCases(
 
         repository.save(consulting)
 
+        presenter.onResult(ConsultingFacade.create(consulting))
+
         return consulting
     }
 
@@ -152,6 +168,7 @@ class ConsultingUseCases(
      * FCLAC-8 Manage Consulting Summaries (Update)
      */
     fun updateConsultingSummary(consultingId: ConsultingId, description: String): Consulting {
+
         /**
          * update the consulting with given id
          */
@@ -162,6 +179,8 @@ class ConsultingUseCases(
         val consulting = Consulting.rehydrateConsulting(consultingId, repository.getById(consultingId))
         consulting.updateSummaryDescription(description)
         repository.save(consulting)
+
+        presenter.onResult(ConsultingFacade.create(consulting))
 
         return consulting
     }
