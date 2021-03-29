@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.consulting.usecases
 
-import it.unibo.lss.fcla.consulting.ui.IViewModel
+import it.unibo.lss.fcla.consulting.ui.IView
 import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
 
 /**
@@ -8,5 +8,5 @@ import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
  */
 interface IPresenter {
     fun onResult(result: BaseFacade)
-    fun register(viewModel: IViewModel)
+    fun register(view: IView)
 }
