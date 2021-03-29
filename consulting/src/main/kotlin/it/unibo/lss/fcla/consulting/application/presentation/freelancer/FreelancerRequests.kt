@@ -10,7 +10,7 @@ import java.time.LocalTime
  */
 
 /**
- *
+ * [IRequest] representing the creation of a freelancer of type Athletic Trainer
  */
 class CreateAthleticTrainerFreelancerRequest(
     val freelancerId: FreelancerId,
@@ -19,7 +19,7 @@ class CreateAthleticTrainerFreelancerRequest(
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the creation of a freelancer of type Physiotherapist
  */
 class CreatePhysiotherapistFreelancerRequest(
     val freelancerId: FreelancerId,
@@ -28,7 +28,7 @@ class CreatePhysiotherapistFreelancerRequest(
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the creation of a freelancer of type Nutritionist
  */
 class CreateNutritionistFreelancerRequest(
     val freelancerId: FreelancerId,
@@ -37,7 +37,7 @@ class CreateNutritionistFreelancerRequest(
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the creation of a freelancer of type Biomechanical
  */
 class CreateBiomechanicalFreelancerRequest(
     val freelancerId: FreelancerId,
@@ -46,7 +46,7 @@ class CreateBiomechanicalFreelancerRequest(
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the creation of a freelancer availability
  */
 class CreateFreelancerAvailabilityForDayRequest(
     val freelancerId: FreelancerId,
@@ -56,7 +56,7 @@ class CreateFreelancerAvailabilityForDayRequest(
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the deletion of a freelancer availability
  */
 class DeleteFreelancerAvailabilityForDayRequest(
     val freelancerId: FreelancerId,
@@ -64,7 +64,7 @@ class DeleteFreelancerAvailabilityForDayRequest(
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the update of a freelancer availability
  */
 class UpdateFreelancerAvailabilityForDayRequest(
     val freelancerId: FreelancerId,
@@ -74,7 +74,7 @@ class UpdateFreelancerAvailabilityForDayRequest(
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the retrieving of a freelancer availability
  */
 class GetFreelancerAvailabilityForDayRequest(
     val freelancerId: FreelancerId,

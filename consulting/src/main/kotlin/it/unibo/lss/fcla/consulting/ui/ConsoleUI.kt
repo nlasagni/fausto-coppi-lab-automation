@@ -2,7 +2,12 @@ package it.unibo.lss.fcla.consulting.ui
 
 import it.unibo.lss.fcla.consulting.application.controllers.BaseController
 import it.unibo.lss.fcla.consulting.application.presentation.IResponse
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveAthleticTrainerConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveBiomechanicalConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveNutritionistConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceivePhysiotherapyConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.*
+import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import java.lang.Integer.parseInt
 import java.time.LocalDate
@@ -10,13 +15,18 @@ import java.time.LocalTime
 
 /**
  * @author Stefano Braggion
+ *
+ * This is a basic UI, a concrete implementation of a [IView].
  */
 class ConsoleUI(
-    private val freelancerController: BaseController
+    private val freelancerController: BaseController,
+    private val consultingController: BaseController
 ) : IView {
 
     private var currentMenu: NestingMenu = NestingMenu.MainMenu
     private var running = true
+
+    private var nextConsultingId = 0;
 
     /**
      * Enum representing the current menu displayed
@@ -37,7 +47,7 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Read the input of the user and change the showing menu
      */
     private fun readMainMenu() {
 
@@ -66,7 +76,7 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Read the input of the user and setup the requests to send to the controller
      */
     private fun readFreelancerSubmenu() {
         val choice = readLine()
@@ -121,7 +131,7 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Plot the submenu related to the management of freelancers availabilities
      */
     private fun plotAvailabilitiesSubmenu() {
         val submenu = "Select which operation to perform to manage freelancers availabilities: \n" +
@@ -133,7 +143,7 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Read the input of the user and setup the requests to send to the controller
      */
     private fun readAvailabilitiesSubmenu() {
         val choice = readLine()
@@ -186,7 +196,7 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Plot the submenu related to the management of consulting
      */
     private fun plotConsultingSubmenu() {
         val submenu = "Select which operation to perform to manage consulting: \n" +
@@ -201,17 +211,77 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Read the input of the user and setup the requests to send to the controller
      */
     private fun readConsultingSubmenu() {
-        when (readLine()) {
-            "1", "2", "3", "4", "5", "6" -> println("OK")
-            "7" -> currentMenu = NestingMenu.MainMenu
+
+        val choice = readLine()
+
+        when {
+            parseInt(choice) <= 4 -> {
+
+                val id = (++nextConsultingId).toString()
+                println("Insert a valid freelancer id")
+                val fId = readLine() as FreelancerId
+                println("Insert a valid member id")
+                val mId = readLine() as MemberId
+                val date = parseDateFromInput("Consulting date")
+                println("Insert the description")
+                val desc = readLine() ?: ""
+
+                when (choice) {
+                    "1" -> {
+                        consultingController.execute(
+                            ReceiveAthleticTrainerConsultingRequest(
+                                consultingId = id,
+                                memberId = mId,
+                                consultingDate = date,
+                                freelancerId = fId,
+                                description = desc
+                            )
+                        )
+                    }
+                    "2" -> {
+                        consultingController.execute(
+                            ReceivePhysiotherapyConsultingRequest(
+                                consultingId = id,
+                                memberId = mId,
+                                consultingDate = date,
+                                freelancerId = fId,
+                                description = desc
+                            )
+                        )
+                    }
+                    "3" -> {
+                        consultingController.execute(
+                            ReceiveNutritionistConsultingRequest(
+                                consultingId = id,
+                                memberId = mId,
+                                consultingDate = date,
+                                freelancerId = fId,
+                                description = desc
+                            )
+                        )
+                    }
+                    "4" -> {
+                        consultingController.execute(
+                            ReceiveBiomechanicalConsultingRequest(
+                                consultingId = id,
+                                memberId = mId,
+                                consultingDate = date,
+                                freelancerId = fId,
+                                description = desc
+                            )
+                        )
+                    }
+                }
+            }
+            parseInt(choice) == 7 -> currentMenu = NestingMenu.MainMenu
         }
     }
 
     /**
-     *
+     * Utility method that take [Integer] as input and compose a [LocalDate]
      */
     private fun parseDateFromInput(message: String) : LocalDate {
         println(message)
@@ -226,7 +296,7 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Utility method that take [Integer] as input and compose a [LocalTime]
      */
     private fun parseTimeFromInput(message: String) : LocalTime {
         println(message)
@@ -265,6 +335,9 @@ class ConsoleUI(
 
     }
 
+    /**
+     * Method that render the [response] of the operation requested
+     */
     override fun render(response: IResponse) {
         println(response.toString())
     }

@@ -11,7 +11,7 @@ import java.time.LocalDate
  */
 
 /**
- *
+ * [IRequest] representing the creation of a new consulting of type Physiotherapy
  */
 class ReceivePhysiotherapyConsultingRequest(
     val consultingId: ConsultingId,
@@ -22,49 +22,49 @@ class ReceivePhysiotherapyConsultingRequest(
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the creation of a new consulting of type Nutritionist
  */
 class ReceiveNutritionistConsultingRequest(
-    /* consultingId: ConsultingId,
-    memberId: MemberId,
-    consultingDate: LocalDate,
-    freelancerId: FreelancerId,
-    description: String */
-) : IRequest
-
-/**
- *
- */
-class ReceiveAthleticTrainerConsultingRequest(
-    /* consultingId: ConsultingId,
-    memberId: MemberId,
-    consultingDate: LocalDate,
-    freelancerId: FreelancerId,
-    description: String */
-) : IRequest
-
-/**
- *
- */
-class ReceiveBiomechanicalConsultingRequest(
-    /* consultingId: ConsultingId,
-    memberId: MemberId,
-    consultingDate: LocalDate,
-    freelancerId: FreelancerId,
-    description: String */
-) : IRequest
-
-/**
- *
- */
-class UpdateConsultingSummaryRequest(
-    /* val consultingId: ConsultingId, */
+    val consultingId: ConsultingId,
+    val memberId: MemberId,
+    val consultingDate: LocalDate,
+    val freelancerId: FreelancerId,
     val description: String
 ) : IRequest
 
 /**
- *
+ * [IRequest] representing the creation of a new consulting of type Athletic Trainer
+ */
+class ReceiveAthleticTrainerConsultingRequest(
+    val consultingId: ConsultingId,
+    val memberId: MemberId,
+    val consultingDate: LocalDate,
+    val freelancerId: FreelancerId,
+    val description: String
+) : IRequest
+
+/**
+ * [IRequest] representing the creation of a new consulting of type Biomechanical
+ */
+class ReceiveBiomechanicalConsultingRequest(
+    val consultingId: ConsultingId,
+    val memberId: MemberId,
+    val consultingDate: LocalDate,
+    val freelancerId: FreelancerId,
+    val description: String
+) : IRequest
+
+/**
+ * [IRequest] representing the update of an existing consulting summary
+ */
+class UpdateConsultingSummaryRequest(
+    val consultingId: ConsultingId,
+    val description: String
+) : IRequest
+
+/**
+ * [IRequest] representing the retrieving of an existing consulting summary
  */
 class ExamineConsultingSummaryRequest(
-    /* val consultingId: ConsultingId */
+    val consultingId: ConsultingId
 ) : IRequest
