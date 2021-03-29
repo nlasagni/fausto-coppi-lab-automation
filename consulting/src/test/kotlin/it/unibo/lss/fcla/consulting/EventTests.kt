@@ -6,7 +6,7 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsult
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
-import it.unibo.lss.fcla.consulting.persistence.EventStore
+import it.unibo.lss.fcla.consulting.application.persistence.EventStore
 import java.time.LocalDate
 import java.time.LocalTime
 

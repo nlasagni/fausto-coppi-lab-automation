@@ -5,7 +5,7 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
-import it.unibo.lss.fcla.consulting.persistence.EventStore
+import it.unibo.lss.fcla.consulting.application.persistence.EventStore
 import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
 import java.time.LocalDate

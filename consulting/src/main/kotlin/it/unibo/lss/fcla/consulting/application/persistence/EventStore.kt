@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.consulting.persistence
+package it.unibo.lss.fcla.consulting.application.persistence
 
 import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
