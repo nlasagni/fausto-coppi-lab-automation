@@ -19,7 +19,7 @@ class FreelancerFacade internal constructor(
     val firstName: String,
     val lastName: String,
     val role: FreelancerRole
-) {
+) : BaseFacade {
 
     companion object {
 
@@ -46,7 +46,7 @@ class FreelancerAvailabilityFacade internal constructor(
     val availabilityDate: LocalDate,
     val fromTime: LocalTime,
     val toTime: LocalTime
-) {
+) : BaseFacade {
 
     companion object {
 

@@ -1,10 +1,10 @@
 package it.unibo.lss.fcla.consulting.usecases
 
-import it.unibo.lss.fcla.consulting.application.presentation.IResponse
+import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
 
 /**
  * @author Stefano Braggion
  */
 interface IPresenter {
-    fun result(response: IResponse)
+    fun onResult(result: BaseFacade)
 }

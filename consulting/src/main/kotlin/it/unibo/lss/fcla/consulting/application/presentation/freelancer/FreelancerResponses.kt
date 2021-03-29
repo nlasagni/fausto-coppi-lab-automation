@@ -1,6 +1,6 @@
-package it.unibo.lss.fcla.consulting.presentation.freelancer
+package it.unibo.lss.fcla.consulting.application.presentation.freelancer
 
-import it.unibo.lss.fcla.consulting.presentation.IResponse
+import it.unibo.lss.fcla.consulting.application.presentation.IResponse
 
 /**
  * @author Stefano Braggion
