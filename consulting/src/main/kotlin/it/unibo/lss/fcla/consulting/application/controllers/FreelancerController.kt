@@ -3,6 +3,7 @@ package it.unibo.lss.fcla.consulting.application.controllers
 import it.unibo.lss.fcla.consulting.application.persistence.EventStore
 import it.unibo.lss.fcla.consulting.application.persistence.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
+import it.unibo.lss.fcla.consulting.application.presentation.PresenterImpl
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateAthleticTrainerFreelancerRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateBiomechanicalFreelancerRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateFreelancerAvailabilityForDayRequest
@@ -17,8 +18,9 @@ import it.unibo.lss.fcla.consulting.usecases.IPresenter
 /**
  * @author Stefano Braggion
  */
-class FreelancerController(presenter: IPresenter) : BaseController() {
+class FreelancerController : BaseController() {
 
+    private val presenter: IPresenter = PresenterImpl()
     private val freelancerUseCases: FreelancerUseCases =
         FreelancerUseCases(FreelancerRepository(EventStore()), presenter)
 
