@@ -1,12 +1,14 @@
 package it.unibo.lss.fcla.consulting.application.presentation
 
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerAvailabilityResponse
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerErrorResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.MessageResponse
 import it.unibo.lss.fcla.consulting.ui.IView
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
 import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
 import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerAvailabilityFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerErrorFacade
 import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerFacade
 
 /**
@@ -41,6 +43,10 @@ class PresenterImpl : IPresenter {
                     availabilityDate = result.availabilityDate,
                     fromTime = result.fromTime,
                     toTime = result.toTime
+                )
+            is FreelancerErrorFacade ->
+                FreelancerErrorResponse(
+                    message = result.message
                 )
             else -> MessageResponse("Bad response")
         }

@@ -64,3 +64,24 @@ class FreelancerAvailabilityFacade internal constructor(
         }
     }
 }
+
+/**
+ *
+ */
+class FreelancerErrorFacade internal constructor(
+    val message: String
+) : BaseFacade {
+
+    companion object {
+
+        /**
+         * Factory
+         */
+        fun create(error: String) : FreelancerErrorFacade {
+            val errorFacade = FreelancerErrorFacade(
+                message = error
+            )
+            return errorFacade
+        }
+    }
+}

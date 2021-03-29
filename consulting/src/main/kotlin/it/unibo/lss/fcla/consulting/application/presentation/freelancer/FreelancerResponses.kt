@@ -25,7 +25,11 @@ class FreelancerResponse(
     val firstName: String,
     val lastName: String,
     val role: FreelancerRole
-) : IResponse
+) : IResponse {
+
+    override fun toString(): String =
+        "FreelancerResponse(Id=${freelancerId}, Firstname=${firstName}, Lastname=${lastName}, Role=${role})"
+}
 
 /**
  *
@@ -35,3 +39,14 @@ class FreelancerAvailabilityResponse(
     val fromTime: LocalTime,
     val toTime: LocalTime
 ) : IResponse
+
+/**
+ *
+ */
+class FreelancerErrorResponse(
+    val message: String
+) : IResponse {
+
+    override fun toString(): String =
+        "FreelancerError(${message})"
+}

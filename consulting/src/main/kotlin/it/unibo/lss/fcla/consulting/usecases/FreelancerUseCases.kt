@@ -9,6 +9,7 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
 import it.unibo.lss.fcla.consulting.domain.freelancer.createNutritionist
 import it.unibo.lss.fcla.consulting.domain.freelancer.createPhysiotherapist
 import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerAvailabilityFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerErrorFacade
 import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerFacade
 import java.time.LocalDate
 import java.time.LocalTime
@@ -27,14 +28,20 @@ class FreelancerUseCases(
     /**
      * FLAC-14 Create new [Freelancer]
      */
-    fun createAthleticTrainer(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
-        if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
-        val freelancer = Freelancer.createAthleticTrainer(freelancerId, firstName, lastName)
-        repository.save(freelancer)
+    fun createAthleticTrainer(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer? {
 
-        presenter.onResult(FreelancerFacade.create(freelancer))
+        return try {
+            if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
+            val freelancer = Freelancer.createAthleticTrainer(freelancerId, firstName, lastName)
+            repository.save(freelancer)
 
-        return freelancer
+            presenter.onResult(FreelancerFacade.create(freelancer))
+
+            freelancer
+        }catch (e: FreelancerShouldHaveAUniqueId) {
+            presenter.onResult(FreelancerErrorFacade.create(e.message ?: ""))
+            null
+        }
     }
 
     /**
