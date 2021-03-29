@@ -4,6 +4,7 @@ import it.unibo.lss.fcla.consulting.application.persistence.EventStore
 import it.unibo.lss.fcla.consulting.application.persistence.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
 import it.unibo.lss.fcla.consulting.application.presentation.IResponse
+import it.unibo.lss.fcla.consulting.application.presentation.PresenterImpl
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.*
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
 
@@ -12,8 +13,9 @@ import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
  */
 class FreelancerController() : BaseController() {
 
+    private val freelancerPresenter: PresenterImpl = PresenterImpl()
     private val freelancerUseCases: FreelancerUseCases =
-        FreelancerUseCases(FreelancerRepository(EventStore()))
+        FreelancerUseCases(FreelancerRepository(EventStore()), presenter = freelancerPresenter)
 
     /**
      *

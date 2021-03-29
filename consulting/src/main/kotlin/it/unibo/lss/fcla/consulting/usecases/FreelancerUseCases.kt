@@ -8,6 +8,8 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.createAthleticTrainer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
 import it.unibo.lss.fcla.consulting.domain.freelancer.createNutritionist
 import it.unibo.lss.fcla.consulting.domain.freelancer.createPhysiotherapist
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerAvailabilityFacade
+import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerFacade
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -18,7 +20,8 @@ import java.time.LocalTime
  * behaviour and data of the [Freelancer] aggregate.
  */
 class FreelancerUseCases(
-    private val repository: IRepository<Freelancer>
+    private val repository: IRepository<Freelancer>,
+    private val presenter: IPresenter
 ) {
 
     /**
@@ -28,6 +31,8 @@ class FreelancerUseCases(
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
         val freelancer = Freelancer.createAthleticTrainer(freelancerId, firstName, lastName)
         repository.save(freelancer)
+
+        presenter.onResult(FreelancerFacade.create(freelancer))
 
         return freelancer
     }
@@ -40,6 +45,8 @@ class FreelancerUseCases(
         val freelancer = Freelancer.createPhysiotherapist(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
+        presenter.onResult(FreelancerFacade.create(freelancer))
+
         return freelancer
     }
 
@@ -51,6 +58,8 @@ class FreelancerUseCases(
         val freelancer = Freelancer.createNutritionist(freelancerId, firstName, lastName)
         repository.save(freelancer)
 
+        presenter.onResult(FreelancerFacade.create(freelancer))
+
         return freelancer
     }
 
@@ -61,6 +70,8 @@ class FreelancerUseCases(
         if (freelancerExist(freelancerId)) throw FreelancerShouldHaveAUniqueId()
         val freelancer = Freelancer.createBiomechanical(freelancerId, firstName, lastName)
         repository.save(freelancer)
+
+        presenter.onResult(FreelancerFacade.create(freelancer))
 
         return freelancer
     }
@@ -79,6 +90,8 @@ class FreelancerUseCases(
         freelancer.updateAvailability(availabilityDate = day, fromTime = fromTime, toTime = toTime)
         repository.save(freelancer)
 
+        presenter.onResult(FreelancerFacade.create(freelancer))
+
         return freelancer
     }
 
@@ -96,6 +109,8 @@ class FreelancerUseCases(
         freelancer.addAvailability(newAvailabilityDate = day, fromTime = fromTime, toTime = toTime)
         repository.save(freelancer)
 
+        presenter.onResult(FreelancerFacade.create(freelancer))
+
         return freelancer
     }
 
@@ -109,6 +124,8 @@ class FreelancerUseCases(
         freelancer.deleteAvailability(availabilityDate = day)
         repository.save(freelancer)
 
+        presenter.onResult(FreelancerFacade.create(freelancer))
+
         return freelancer
     }
 
@@ -118,6 +135,8 @@ class FreelancerUseCases(
     fun getFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): AvailabilityHours {
         if (!freelancerExist(freelancerId)) throw FreelancerWithGivenIdDoesNotExist()
         val freelancer = rehydrateFreelancer(freelancerId)
+
+        presenter.onResult(FreelancerAvailabilityFacade.create(day, freelancer.getAvailabilityForDay(day)))
 
         return freelancer.getAvailabilityForDay(day)
     }

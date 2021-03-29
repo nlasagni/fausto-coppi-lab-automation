@@ -15,7 +15,7 @@ class UseCasesFreelancerTest : FreeSpec({
     "Cannot create two freelancers with the same Id" - {
         var eventStore = EventStore()
         var aggregateRepository = FreelancerMockRepository(eventStore)
-        val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
+        val useCasesFreelancer = FreelancerUseCases(aggregateRepository, MockPresenter())
 
         useCasesFreelancer.createAthleticTrainer(freelancerId = "F001", firstName = "Alan", lastName = "Turing")
         shouldThrow<FreelancerShouldHaveAUniqueId> {
@@ -26,7 +26,7 @@ class UseCasesFreelancerTest : FreeSpec({
     "Test add day availabilities for freelancer" - {
         var eventStore = EventStore()
         var aggregateRepository = FreelancerMockRepository(eventStore)
-        val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
+        val useCasesFreelancer = FreelancerUseCases(aggregateRepository, MockPresenter())
         val id = "F001"
         val date = LocalDate.of(2021, 1, 1)
 
@@ -56,7 +56,7 @@ class UseCasesFreelancerTest : FreeSpec({
     "Test update day availabilities for freelancer" - {
         var eventStore = EventStore()
         var aggregateRepository = FreelancerMockRepository(eventStore)
-        val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
+        val useCasesFreelancer = FreelancerUseCases(aggregateRepository, MockPresenter())
         val id = "F001"
         val date = LocalDate.of(2021, 1, 1)
 
@@ -87,7 +87,7 @@ class UseCasesFreelancerTest : FreeSpec({
     "Test delete day availabilities for freelancer" - {
         var eventStore = EventStore()
         var aggregateRepository = FreelancerMockRepository(eventStore)
-        val useCasesFreelancer = FreelancerUseCases(aggregateRepository)
+        val useCasesFreelancer = FreelancerUseCases(aggregateRepository, MockPresenter())
         val id = "F001"
         val date = LocalDate.of(2021, 1, 1)
 

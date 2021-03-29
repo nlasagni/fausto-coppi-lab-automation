@@ -14,51 +14,51 @@ import java.time.LocalDate
  *
  */
 class ReceivePhysiotherapyConsultingRequest(
-    consultingId: ConsultingId,
+    /* consultingId: ConsultingId,
     memberId: MemberId,
     consultingDate: LocalDate,
     freelancerId: FreelancerId,
-    description: String
+    description: String */
 ) : IRequest
 
 /**
  *
  */
 class ReceiveNutritionistConsultingRequest(
-    consultingId: ConsultingId,
+    /* consultingId: ConsultingId,
     memberId: MemberId,
     consultingDate: LocalDate,
     freelancerId: FreelancerId,
-    description: String
+    description: String */
 ) : IRequest
 
 /**
  *
  */
 class ReceiveAthleticTrainerConsultingRequest(
-    consultingId: ConsultingId,
+    /* consultingId: ConsultingId,
     memberId: MemberId,
     consultingDate: LocalDate,
     freelancerId: FreelancerId,
-    description: String
+    description: String */
 ) : IRequest
 
 /**
  *
  */
 class ReceiveBiomechanicalConsultingRequest(
-    consultingId: ConsultingId,
+    /* consultingId: ConsultingId,
     memberId: MemberId,
     consultingDate: LocalDate,
     freelancerId: FreelancerId,
-    description: String
+    description: String */
 ) : IRequest
 
 /**
  *
  */
 class UpdateConsultingSummaryRequest(
-    val consultingId: ConsultingId,
+    /* val consultingId: ConsultingId, */
     val description: String
 ) : IRequest
 
@@ -66,5 +66,5 @@ class UpdateConsultingSummaryRequest(
  *
  */
 class ExamineConsultingSummaryRequest(
-    val consultingId: ConsultingId
+    /* val consultingId: ConsultingId */
 ) : IRequest
