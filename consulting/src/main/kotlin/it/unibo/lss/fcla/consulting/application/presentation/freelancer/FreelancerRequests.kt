@@ -77,5 +77,6 @@ class UpdateFreelancerAvailabilityForDayRequest(
  *
  */
 class GetFreelancerAvailabilityForDayRequest(
+    val freelancerId: FreelancerId,
     val availabilityDate: LocalDate
 ) : IRequest
