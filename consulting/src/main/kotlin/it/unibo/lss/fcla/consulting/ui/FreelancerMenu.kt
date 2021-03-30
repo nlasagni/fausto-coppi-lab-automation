@@ -2,11 +2,13 @@ package it.unibo.lss.fcla.consulting.ui
 
 /**
  * @author Stefano Braggion
+ *
  * Utility class that prints in the console the menu
  */
 sealed class FreelancerMenu {
 
     companion object {
+
         /**
          * Plot the submenu related to the management of freelancers
          */

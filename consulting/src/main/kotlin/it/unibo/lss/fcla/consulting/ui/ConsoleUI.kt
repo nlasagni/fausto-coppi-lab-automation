@@ -201,13 +201,13 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Prepare the request for freelancer creation
      */
     private fun packFreelancerRequest(type: FreelancerType): IRequest {
 
-        val freelancerId = MenuUtils.readFromConsole("Insert a valid freelancer id")
-        val firstName = MenuUtils.readFromConsole("Insert a valid firstName")
-        val lastName = MenuUtils.readFromConsole("Insert a valid lastName")
+        val freelancerId = readFromConsole("Insert a valid freelancer id")
+        val firstName = readFromConsole("Insert a valid firstName")
+        val lastName = readFromConsole("Insert a valid lastName")
 
         return when (type) {
             FreelancerType.AthleticTrainerFreelancer -> {
@@ -226,7 +226,7 @@ class ConsoleUI(
     }
 
     /**
-     *
+     * Prepare the request for consulting creation
      */
     private fun packConsultingRequest(type: ConsultingType): IRequest {
         val consultingId = (++nextConsultingId).toString()

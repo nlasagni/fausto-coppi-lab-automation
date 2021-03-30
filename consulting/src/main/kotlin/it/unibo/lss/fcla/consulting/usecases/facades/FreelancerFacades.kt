@@ -12,7 +12,7 @@ import java.time.LocalTime
  */
 
 /**
- *
+ * Represent a [Freelancer] facade model
  */
 class FreelancerFacade internal constructor(
     val freelancerId: FreelancerId,
@@ -39,7 +39,7 @@ class FreelancerFacade internal constructor(
 }
 
 /**
- *
+ * Represent a freelancer [AvailabilityHours] facade model
  */
 class FreelancerAvailabilityFacade internal constructor(
     val availabilityDate: LocalDate,
@@ -64,7 +64,7 @@ class FreelancerAvailabilityFacade internal constructor(
 }
 
 /**
- *
+ * Represent a freelancer error facade model
  */
 class FreelancerErrorFacade internal constructor(
     val message: String

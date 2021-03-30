@@ -5,6 +5,8 @@ import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
 
 /**
  * @author Stefano Braggion
+ *
+ * Interface that each presenter must implement
  */
 interface IPresenter {
     fun onResult(result: BaseFacade)

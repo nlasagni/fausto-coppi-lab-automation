@@ -2,6 +2,7 @@ package it.unibo.lss.fcla.consulting.application.controllers
 
 import it.unibo.lss.fcla.consulting.application.persistence.ConsultingRepository
 import it.unibo.lss.fcla.consulting.application.persistence.EventStore
+import it.unibo.lss.fcla.consulting.application.persistence.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveAthleticTrainerConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveBiomechanicalConsultingRequest
@@ -23,7 +24,10 @@ import it.unibo.lss.fcla.consulting.usecases.IPresenter
 class ConsultingController(private val presenter: IPresenter) : IController {
 
     private val consultingUseCases: ConsultingUseCases =
-        ConsultingUseCases(ConsultingRepository(EventStore()), presenter)
+        ConsultingUseCases(
+            ConsultingRepository(EventStore()),
+            FreelancerRepository(EventStore()),
+            presenter)
 
     /**
      * Method used to execute the operation based on the given [request]

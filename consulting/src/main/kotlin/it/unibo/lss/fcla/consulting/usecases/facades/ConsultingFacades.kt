@@ -12,7 +12,7 @@ import java.time.LocalDate
  */
 
 /**
- *
+ * Represent a [Consulting] facade model
  */
 class ConsultingFacade internal constructor(
     val consultingId: ConsultingId,
@@ -42,7 +42,7 @@ class ConsultingFacade internal constructor(
 }
 
 /**
- *
+ * Represent a consulting error facade
  */
 class ConsultingErrorFacade internal constructor(
     val message: String

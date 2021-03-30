@@ -10,6 +10,7 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createBiomechanicalConsult
 import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
+import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
 import java.time.LocalDate
@@ -23,6 +24,7 @@ import java.time.LocalDate
  */
 class ConsultingUseCases(
     private val repository: IRepository<Consulting>,
+    private val freelancerRepository: IRepository<Freelancer>,
     private val presenter: IPresenter
 ) {
 
@@ -43,6 +45,8 @@ class ConsultingUseCases(
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
+        if(!freelancerExist(freelancerId))
 
         /**
          * create a new physiotherapy consulting
@@ -197,4 +201,9 @@ class ConsultingUseCases(
 
         return entityList.filter { it.getMemberId() == memberId }
     }
+
+    /**
+     * Utility method that check if the given [freelancerId] exist
+     */
+    private fun freelancerExist(freelancerId: FreelancerId) = freelancerRepository.getById(freelancerId).count() > 0
 }

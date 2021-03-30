@@ -11,6 +11,9 @@ import java.time.LocalDate
  * @author Stefano Braggion
  */
 
+/**
+ * Represent a consulting response object
+ */
 class ConsultingResponse(
     val consultingId: ConsultingId,
     val memberId: MemberId,
