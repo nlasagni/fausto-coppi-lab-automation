@@ -1,11 +1,14 @@
 package it.unibo.lss.fcla.consulting.ui
 
 import it.unibo.lss.fcla.consulting.application.controllers.IController
+import it.unibo.lss.fcla.consulting.application.presentation.IRequest
 import it.unibo.lss.fcla.consulting.application.presentation.IResponse
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ExamineAllSummariesForMemberRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveAthleticTrainerConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveBiomechanicalConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveNutritionistConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceivePhysiotherapyConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.UpdateConsultingSummaryRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateAthleticTrainerFreelancerRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateBiomechanicalFreelancerRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateFreelancerAvailabilityForDayRequest
@@ -13,9 +16,9 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateNu
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreatePhysiotherapistFreelancerRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.DeleteFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.UpdateFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import it.unibo.lss.fcla.consulting.ui.MenuUtils.Companion.parseDateFromInput
 import it.unibo.lss.fcla.consulting.ui.MenuUtils.Companion.parseTimeFromInput
+import it.unibo.lss.fcla.consulting.ui.MenuUtils.Companion.readFromConsole
 
 /**
  * @author Stefano Braggion
@@ -37,6 +40,20 @@ class ConsoleUI(
      */
     private enum class NestingMenu {
         MainMenu, ConsultingMenu, FreelancerMenu, AvailabilityMenu
+    }
+
+    /**
+     * Helper enum representing a type of consulting
+     */
+    private enum class ConsultingType {
+        NutritionistConsulting, PhysiotherapyConsulting, AthleticTrainerConsulting, BiomechanicalConsulting
+    }
+
+    /**
+     * Helper enum representing a type of freelancer
+     */
+    private enum class FreelancerType {
+        NutritionistFreelancer, PhysiotherapyFreelancer, AthleticTrainerFreelancer, BiomechanicalFreelancer
     }
 
     /**
@@ -69,43 +86,19 @@ class ConsoleUI(
      * Read the input of the user and setup the requests to send to the controller
      */
     private fun readFreelancerSubmenu() {
-        when (val choice = readLine()) {
-            "1", "2", "3", "4" -> {
-                val id = MenuUtils.readFromConsole("Insert a valid freelancer id")
-                val fName = MenuUtils.readFromConsole("Insert a valid firstName")
-                val lName = MenuUtils.readFromConsole("Insert a valid lastName")
-
-                when (choice) {
-                    "1" -> freelancerController.execute(
-                        CreateAthleticTrainerFreelancerRequest(
-                            freelancerId = id,
-                            firstName = fName,
-                            lastName = lName
-                        )
-                    )
-                    "2" -> freelancerController.execute(
-                        CreatePhysiotherapistFreelancerRequest(
-                            freelancerId = id,
-                            firstName = fName,
-                            lastName = lName
-                        )
-                    )
-                    "3" -> freelancerController.execute(
-                        CreateNutritionistFreelancerRequest(
-                            freelancerId = id,
-                            firstName = fName,
-                            lastName = lName
-                        )
-                    )
-                    "4" -> freelancerController.execute(
-                        CreateBiomechanicalFreelancerRequest(
-                            freelancerId = id,
-                            firstName = fName,
-                            lastName = lName
-                        )
-                    )
-                }
-            }
+        when (readLine()) {
+            "1" -> freelancerController.execute(
+                packFreelancerRequest(FreelancerType.AthleticTrainerFreelancer)
+            )
+            "2" -> freelancerController.execute(
+                packFreelancerRequest(FreelancerType.PhysiotherapyFreelancer)
+            )
+            "3" -> freelancerController.execute(
+                packFreelancerRequest(FreelancerType.NutritionistFreelancer)
+            )
+            "4" -> freelancerController.execute(
+                packFreelancerRequest(FreelancerType.BiomechanicalFreelancer)
+            )
             "5" -> {
                 currentMenu = NestingMenu.AvailabilityMenu
             }
@@ -119,12 +112,10 @@ class ConsoleUI(
      * Read the input of the user and setup the requests to send to the controller
      */
     private fun readAvailabilitiesSubmenu() {
-        val choice = readLine()
 
-        when {
-            choice == "1" || choice == "2" || choice == "3" -> {
-                println("Insert a valid freelancer ID to manages")
-                val id = readLine() as FreelancerId
+        when (val choice = readLine()) {
+            "1", "2", "3" -> {
+                val id = readFromConsole("Insert a valid freelancer ID to manages")
 
                 when (choice) {
                     "1" -> {
@@ -164,7 +155,7 @@ class ConsoleUI(
                     }
                 }
             }
-            choice == "4" -> currentMenu = NestingMenu.FreelancerMenu
+            "4" -> currentMenu = NestingMenu.FreelancerMenu
         }
     }
 
@@ -173,62 +164,96 @@ class ConsoleUI(
      */
     private fun readConsultingSubmenu() {
 
-        when (val choice = readLine()) {
-            "1", "2", "3", "4" -> {
-                val id = (++nextConsultingId).toString()
-                val fId = MenuUtils.readFromConsole("Insert a valid freelancer id")
-                val mId = MenuUtils.readFromConsole("Insert a valid member id")
-                val date = parseDateFromInput("Consulting date")
-                val desc = MenuUtils.readFromConsole("Insert the description")
-
-                when (choice) {
-                    "1" -> {
-                        consultingController.execute(
-                            ReceiveAthleticTrainerConsultingRequest(
-                                consultingId = id,
-                                memberId = mId,
-                                consultingDate = date,
-                                freelancerId = fId,
-                                description = desc
-                            )
-                        )
-                    }
-                    "2" -> {
-                        consultingController.execute(
-                            ReceivePhysiotherapyConsultingRequest(
-                                consultingId = id,
-                                memberId = mId,
-                                consultingDate = date,
-                                freelancerId = fId,
-                                description = desc
-                            )
-                        )
-                    }
-                    "3" -> {
-                        consultingController.execute(
-                            ReceiveNutritionistConsultingRequest(
-                                consultingId = id,
-                                memberId = mId,
-                                consultingDate = date,
-                                freelancerId = fId,
-                                description = desc
-                            )
-                        )
-                    }
-                    "4" -> {
-                        consultingController.execute(
-                            ReceiveBiomechanicalConsultingRequest(
-                                consultingId = id,
-                                memberId = mId,
-                                consultingDate = date,
-                                freelancerId = fId,
-                                description = desc
-                            )
-                        )
-                    }
-                }
+        when (readLine()) {
+            "1" -> {
+                consultingController.execute(
+                    packConsultingRequest(ConsultingType.AthleticTrainerConsulting)
+                )
             }
-            "5" -> currentMenu = NestingMenu.MainMenu
+            "2" -> {
+                consultingController.execute(
+                    packConsultingRequest(ConsultingType.PhysiotherapyConsulting)
+                )
+            }
+            "3" -> {
+                consultingController.execute(
+                    packConsultingRequest(ConsultingType.NutritionistConsulting)
+                )
+            }
+            "4" -> {
+                consultingController.execute(
+                    packConsultingRequest(ConsultingType.BiomechanicalConsulting)
+                )
+            }
+            "5" -> {
+                val id = readFromConsole("Insert a valid consulting id")
+                val desc = readFromConsole("Insert the new description for the summary")
+                consultingController.execute(
+                    UpdateConsultingSummaryRequest(consultingId = id, description = desc)
+                )
+            }
+            "6" -> {
+                val id = readFromConsole("Insert a valid member id")
+                consultingController.execute(ExamineAllSummariesForMemberRequest(memberId = id))
+            }
+            "7" -> currentMenu = NestingMenu.MainMenu
+        }
+    }
+
+    /**
+     *
+     */
+    private fun packFreelancerRequest(type: FreelancerType): IRequest {
+
+        val freelancerId = MenuUtils.readFromConsole("Insert a valid freelancer id")
+        val firstName = MenuUtils.readFromConsole("Insert a valid firstName")
+        val lastName = MenuUtils.readFromConsole("Insert a valid lastName")
+
+        return when (type) {
+            FreelancerType.AthleticTrainerFreelancer -> {
+                CreateAthleticTrainerFreelancerRequest(freelancerId, firstName, lastName)
+            }
+            FreelancerType.BiomechanicalFreelancer -> {
+                CreateBiomechanicalFreelancerRequest(freelancerId, firstName, lastName)
+            }
+            FreelancerType.NutritionistFreelancer -> {
+                CreateNutritionistFreelancerRequest(freelancerId, firstName, lastName)
+            }
+            FreelancerType.PhysiotherapyFreelancer -> {
+                CreatePhysiotherapistFreelancerRequest(freelancerId, firstName, lastName)
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    private fun packConsultingRequest(type: ConsultingType): IRequest {
+        val consultingId = (++nextConsultingId).toString()
+        val freelancerId = readFromConsole("Insert a valid freelancer id")
+        val memberId = readFromConsole("Insert a valid member id")
+        val consultingDate = parseDateFromInput("Consulting date")
+        val description = readFromConsole("Insert the description")
+
+        return when (type) {
+            ConsultingType.AthleticTrainerConsulting -> {
+                ReceiveAthleticTrainerConsultingRequest(
+                    consultingId,
+                    memberId,
+                    consultingDate,
+                    freelancerId,
+                    description
+                )
+            }
+            ConsultingType.NutritionistConsulting -> {
+                ReceiveNutritionistConsultingRequest(consultingId, memberId, consultingDate, freelancerId, description)
+            }
+            ConsultingType.BiomechanicalConsulting -> {
+                ReceiveBiomechanicalConsultingRequest(consultingId, memberId, consultingDate, freelancerId, description)
+            }
+            ConsultingType.PhysiotherapyConsulting -> {
+                ReceivePhysiotherapyConsultingRequest(consultingId, memberId, consultingDate, freelancerId, description)
+            }
         }
     }
 

@@ -63,8 +63,8 @@ class UpdateConsultingSummaryRequest(
 ) : IRequest
 
 /**
- * [IRequest] representing the retrieving of an existing consulting summary
+ * [IRequest] representing the retrieving of all summaries for a given member
  */
-class ExamineConsultingSummaryRequest(
-    val consultingId: ConsultingId
+class ExamineAllSummariesForMemberRequest(
+    val memberId: MemberId
 ) : IRequest
