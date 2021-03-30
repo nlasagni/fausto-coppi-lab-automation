@@ -67,12 +67,12 @@ jobs:
       - name: Chmode gradlew
         run: chmod +x ./gradlew
       - name: Generate Dokka docs
-        run: ./gradlew dokkaHtml
+        run: ./gradlew dokkaHtmlCollector
       - name: Deploy Dokka docs to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
           branch: gh-pages
-          folder: build/dokka/html
+          folder: build/dokka/htmlCollector
   GenerateCoverageReportAndUploadToCodecov:
     needs: CompileAndCheckOnPush
     name: GenerateCoverageReportAndUploadToCodecov
@@ -121,5 +121,5 @@ jobs:
           prerelease: false
           files: |
             LICENSE
-            ./build/distributions/*.zip
-            ./build/distributions/*.tar
+            ./build/all-distributions/*.zip
+            ./build/all-distributions/*.tar

@@ -11,7 +11,7 @@ import java.util.UUID
 class MemberWorkoutReservationTest : FreeSpec({
     var workoutReservationList = MemberWorkoutReservation()
     val calendar = Calendar.getInstance()
-    val year = 2021
+    val year = 2023
     val feb = 2
     val day = 25
     val aim = "Recovery"
