@@ -11,7 +11,6 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateAt
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateNutritionistFreelancerRequest
 import it.unibo.lss.fcla.consulting.ui.ConsoleUI
-import it.unibo.lss.fcla.consulting.ui.IView
 import it.unibo.lss.fcla.consulting.ui.MenuUtils
 import java.time.LocalDate
 import java.time.LocalTime
@@ -44,7 +43,15 @@ class StarterApplication {
     /**
      * Setup initial data
      */
-    private fun setupSampleData(freelancerController: FreelancerController, consultingController: ConsultingController) {
+    private fun setupSampleData(
+        freelancerController: FreelancerController,
+        consultingController: ConsultingController
+    ) {
+
+        val date = LocalDate.now()
+        val time1 = LocalTime.now()
+        val time2 = time1.plusHours(1)
+
         freelancerController.execute(
             CreateAthleticTrainerFreelancerRequest(
                 freelancerId = "F1",
@@ -64,18 +71,18 @@ class StarterApplication {
         freelancerController.execute(
             CreateFreelancerAvailabilityForDayRequest(
                 freelancerId = "F1",
-                availabilityDate = LocalDate.of(2021, 1, 1),
-                fromTime = LocalTime.of(10, 0),
-                toTime = LocalTime.of(11, 0)
+                availabilityDate = date,
+                fromTime = time1,
+                toTime = time2
             )
         )
         println("Created availability for freelancer Mario Rossi")
         freelancerController.execute(
             CreateFreelancerAvailabilityForDayRequest(
                 freelancerId = "F2",
-                availabilityDate = LocalDate.of(2021, 1, 2),
-                fromTime = LocalTime.of(9, 0),
-                toTime = LocalTime.of(11, 0)
+                availabilityDate = date,
+                fromTime = time1,
+                toTime = time2
             )
         )
         println("Created availability for freelancer Giuseppe Bianchi")
@@ -83,7 +90,7 @@ class StarterApplication {
             ReceiveNutritionistConsultingRequest(
                 consultingId = "C1",
                 memberId = "M1",
-                consultingDate = LocalDate.of(2021, 1, 1),
+                consultingDate = date,
                 freelancerId = "F2",
                 description = "Sample description of consulting C1"
             )

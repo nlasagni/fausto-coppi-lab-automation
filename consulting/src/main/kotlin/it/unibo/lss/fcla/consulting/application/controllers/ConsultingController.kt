@@ -3,7 +3,11 @@ package it.unibo.lss.fcla.consulting.application.controllers
 import it.unibo.lss.fcla.consulting.application.persistence.ConsultingRepository
 import it.unibo.lss.fcla.consulting.application.persistence.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.*
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ExamineAllSummariesForMemberRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveAthleticTrainerConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveBiomechanicalConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveNutritionistConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceivePhysiotherapyConsultingRequest
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.usecases.ConsultingUseCases
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
@@ -24,7 +28,8 @@ class ConsultingController(
         ConsultingUseCases(
             consultingRepository,
             freelancerRepository,
-            presenter)
+            presenter
+        )
 
     /**
      * Method used to execute the operation based on the given [request]
