@@ -46,7 +46,9 @@ class ConsultingUseCases(
         description: String
     ): Consulting {
 
-        if(!freelancerExist(freelancerId))
+        if (!freelancerExist(freelancerId)) {
+            throw FreelancerWithGivenIdDoesNotExist()
+        }
 
         /**
          * create a new physiotherapy consulting
@@ -80,6 +82,10 @@ class ConsultingUseCases(
         description: String
     ): Consulting {
 
+        if (!freelancerExist(freelancerId)) {
+            throw FreelancerWithGivenIdDoesNotExist()
+        }
+
         /**
          * create a new nutritionist consulting
          */
@@ -111,6 +117,10 @@ class ConsultingUseCases(
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
+        if (!freelancerExist(freelancerId)) {
+            throw FreelancerWithGivenIdDoesNotExist()
+        }
 
         /**
          * create a new biomechanical consulting
@@ -144,6 +154,10 @@ class ConsultingUseCases(
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
+        if (!freelancerExist(freelancerId)) {
+            throw FreelancerWithGivenIdDoesNotExist()
+        }
 
         /**
          * create a new biomechanical consulting
@@ -198,6 +212,8 @@ class ConsultingUseCases(
         events.forEach {
             entityList += Consulting.rehydrateConsulting(it.key, it.value.toList())
         }
+
+        println(entityList.filter { it.getMemberId() == memberId })
 
         return entityList.filter { it.getMemberId() == memberId }
     }
