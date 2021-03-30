@@ -13,11 +13,9 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateNu
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreatePhysiotherapistFreelancerRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.DeleteFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.UpdateFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
-import java.lang.Integer.parseInt
-import java.time.LocalDate
-import java.time.LocalTime
+import it.unibo.lss.fcla.consulting.ui.MenuUtils.Companion.parseDateFromInput
+import it.unibo.lss.fcla.consulting.ui.MenuUtils.Companion.parseTimeFromInput
 
 /**
  * @author Stefano Braggion
@@ -68,84 +66,53 @@ class ConsoleUI(
     }
 
     /**
-     * Plot the submenu related to the management of freelancers
-     */
-    private fun plotFreelancerSubmenu() {
-        val submenu = "Select which operation to perform in the freelancer management area: \n" +
-            "1) Create a new Athletic Trainer freelancer \n" +
-            "2) Create a new Physiotherapist freelancer \n" +
-            "3) Create a new Nutritionist freelancer \n" +
-            "4) Create a new Biomechanical freelancer \n" +
-            "5) Manage freelancers availabilities \n" +
-            "6) Back to previous menu"
-        println(submenu)
-    }
-
-    /**
      * Read the input of the user and setup the requests to send to the controller
      */
     private fun readFreelancerSubmenu() {
-        val choice = readLine()
-
-        when {
-            choice == "1" || choice == "2" || choice == "3" || choice == "4" -> {
-                println("Insert a valid freelancer ID")
-                val id = readLine() as FreelancerId
-                println("Insert a valid firstName")
-                val firstName = readLine()
-                println("Insert a valid lastName")
-                val lastName = readLine()
+        when (val choice = readLine()) {
+            "1", "2", "3", "4" -> {
+                val id = MenuUtils.readFromConsole("Insert a valid freelancer id")
+                val fName = MenuUtils.readFromConsole("Insert a valid firstName")
+                val lName = MenuUtils.readFromConsole("Insert a valid lastName")
 
                 when (choice) {
                     "1" -> freelancerController.execute(
                         CreateAthleticTrainerFreelancerRequest(
                             freelancerId = id,
-                            firstName ?: "",
-                            lastName ?: ""
+                            firstName = fName,
+                            lastName = lName
                         )
                     )
                     "2" -> freelancerController.execute(
                         CreatePhysiotherapistFreelancerRequest(
                             freelancerId = id,
-                            firstName ?: "",
-                            lastName ?: ""
+                            firstName = fName,
+                            lastName = lName
                         )
                     )
                     "3" -> freelancerController.execute(
                         CreateNutritionistFreelancerRequest(
                             freelancerId = id,
-                            firstName ?: "",
-                            lastName ?: ""
+                            firstName = fName,
+                            lastName = lName
                         )
                     )
                     "4" -> freelancerController.execute(
                         CreateBiomechanicalFreelancerRequest(
                             freelancerId = id,
-                            firstName ?: "",
-                            lastName ?: ""
+                            firstName = fName,
+                            lastName = lName
                         )
                     )
                 }
             }
-            choice == "5" -> {
+            "5" -> {
                 currentMenu = NestingMenu.AvailabilityMenu
             }
-            choice == "6" -> {
+            "6" -> {
                 currentMenu = NestingMenu.MainMenu
             }
         }
-    }
-
-    /**
-     * Plot the submenu related to the management of freelancers availabilities
-     */
-    private fun plotAvailabilitiesSubmenu() {
-        val submenu = "Select which operation to perform to manage freelancers availabilities: \n" +
-            "1) Create new availability \n" +
-            "2) Update an existing availability \n" +
-            "3) Delete an existing availability \n" +
-            "4) Back to previous menu"
-        println(submenu)
     }
 
     /**
@@ -202,38 +169,17 @@ class ConsoleUI(
     }
 
     /**
-     * Plot the submenu related to the management of consulting
-     */
-    private fun plotConsultingSubmenu() {
-        val submenu = "Select which operation to perform to manage consulting: \n" +
-            "1) Create a new athletic trainer consulting \n" +
-            "2) Create a new physiotherapist consulting \n" +
-            "3) Create a new nutritionist consulting \n" +
-            "4) Create a new biomechanical consulting \n" +
-            "5) Update an existing consulting summary \n" +
-            "6) Get all summaries for a member \n" +
-            "7) Back to previous menu"
-        println(submenu)
-    }
-
-    /**
      * Read the input of the user and setup the requests to send to the controller
      */
     private fun readConsultingSubmenu() {
 
-        val choice = readLine()
-
-        when {
-            choice == "1" || choice == "2" || choice == "3" || choice == "4" -> {
-
+        when (val choice = readLine()) {
+            "1", "2", "3", "4" -> {
                 val id = (++nextConsultingId).toString()
-                println("Insert a valid freelancer id")
-                val fId = readLine() as FreelancerId
-                println("Insert a valid member id")
-                val mId = readLine() as MemberId
+                val fId = MenuUtils.readFromConsole("Insert a valid freelancer id")
+                val mId = MenuUtils.readFromConsole("Insert a valid member id")
                 val date = parseDateFromInput("Consulting date")
-                println("Insert the description")
-                val desc = readLine() ?: ""
+                val desc = MenuUtils.readFromConsole("Insert the description")
 
                 when (choice) {
                     "1" -> {
@@ -282,36 +228,8 @@ class ConsoleUI(
                     }
                 }
             }
-            choice == "5" -> currentMenu = NestingMenu.MainMenu
+            "5" -> currentMenu = NestingMenu.MainMenu
         }
-    }
-
-    /**
-     * Utility method that take [Integer] as input and compose a [LocalDate]
-     */
-    private fun parseDateFromInput(message: String): LocalDate {
-        println(message)
-        println("Insert the day")
-        val day = readLine()
-        println("Insert the month")
-        val month = readLine()
-        println("Insert the year")
-        val year = readLine()
-
-        return LocalDate.of(parseInt(year), parseInt(month), parseInt(day))
-    }
-
-    /**
-     * Utility method that take [Integer] as input and compose a [LocalTime]
-     */
-    private fun parseTimeFromInput(message: String): LocalTime {
-        println(message)
-        println("Insert hours")
-        val hours = readLine()
-        println("Insert minutes")
-        val minutes = readLine()
-
-        return LocalTime.of(parseInt(hours), parseInt(minutes))
     }
 
     /**
@@ -325,15 +243,15 @@ class ConsoleUI(
                     readMainMenu()
                 }
                 NestingMenu.FreelancerMenu -> {
-                    plotFreelancerSubmenu()
+                    FreelancerMenu.plotFreelancerSubmenu()
                     readFreelancerSubmenu()
                 }
                 NestingMenu.ConsultingMenu -> {
-                    plotConsultingSubmenu()
+                    ConsultingMenu.plotConsultingSubmenu()
                     readConsultingSubmenu()
                 }
                 NestingMenu.AvailabilityMenu -> {
-                    plotAvailabilitiesSubmenu()
+                    FreelancerMenu.plotAvailabilitiesSubmenu()
                     readAvailabilitiesSubmenu()
                 }
             }

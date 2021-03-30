@@ -11,12 +11,7 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreatePh
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.DeleteFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.GetFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.UpdateFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityNotValidTime
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
-import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
+import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
 
@@ -30,6 +25,13 @@ class FreelancerController(private val presenter: IPresenter) : IController {
 
     private val freelancerUseCases: FreelancerUseCases =
         FreelancerUseCases(FreelancerRepository(EventStore()), presenter)
+
+    /**
+     * Internal enum used to create the consulting request
+     */
+    internal enum class ConsultingType {
+        AthleticTrainer, Nutritionist, Physiotherapist, Biomechanical
+    }
 
     /**
      * Method used to execute the operation based on the given [request]
@@ -87,17 +89,7 @@ class FreelancerController(private val presenter: IPresenter) : IController {
                     )
                 else -> TODO()
             }
-        } catch (e: FreelancerShouldHaveAUniqueId) {
-            presenter.onError(e)
-        } catch (e: FreelancerFirstNameCannotBeNull) {
-            presenter.onError(e)
-        } catch (e: FreelancerLastNameCannotBeNull) {
-            presenter.onError(e)
-        } catch (e: FreelancerAvailabilityNotValidTime) {
-            presenter.onError(e)
-        } catch (e: FreelancerAvailabilityAlreadyExist) {
-            presenter.onError(e)
-        } catch (e: FreelancerAvailabilityDoesNotExist) {
+        } catch (e: ConsultingException) {
             presenter.onError(e)
         }
     }
