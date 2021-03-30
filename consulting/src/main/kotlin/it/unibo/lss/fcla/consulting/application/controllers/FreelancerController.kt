@@ -21,10 +21,12 @@ import it.unibo.lss.fcla.consulting.usecases.IPresenter
  * This is a concrete implementation of [BaseController]. This class take the requests
  * provided form the UI and execute the operations in the use case layer.
  */
-class FreelancerController(private val presenter: IPresenter) : IController {
+class FreelancerController(
+    private val freelancerRepository: FreelancerRepository,
+    private val presenter: IPresenter) : IController {
 
     private val freelancerUseCases: FreelancerUseCases =
-        FreelancerUseCases(FreelancerRepository(EventStore()), presenter)
+        FreelancerUseCases(freelancerRepository, presenter)
 
     /**
      * Internal enum used to create the consulting request

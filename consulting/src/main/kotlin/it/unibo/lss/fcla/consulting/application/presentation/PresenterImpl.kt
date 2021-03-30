@@ -6,9 +6,8 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.Freelanc
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerErrorResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.MessageResponse
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidMember
+import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.ui.IView
-import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
 import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
 import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
@@ -40,7 +39,7 @@ class PresenterImpl : IPresenter {
     /**
      * Method called when the use case throw an [error]
      */
-    override fun onError(error: Exception) {
+    override fun onError(error: ConsultingException) {
         val translatedError = transformErrorIntoResponse(error)
         viewList.forEach {
             it.render(translatedError)
@@ -57,18 +56,8 @@ class PresenterImpl : IPresenter {
     /**
      * Method used to transform the [error] raised by the use case layer into a [IResponse]
      */
-    private fun transformErrorIntoResponse(error: Exception): IResponse {
-        return when (error) {
-            is ConsultingMustHaveAValidMember ->
-                ConsultingErrorResponse(
-                    message = error.message ?: ""
-                )
-            is FreelancerShouldHaveAUniqueId ->
-                FreelancerErrorResponse(
-                    message = error.message ?: ""
-                )
-            else -> TODO()
-        }
+    private fun transformErrorIntoResponse(error: ConsultingException): IResponse {
+        return ConsultingErrorResponse(error.message ?: "")
     }
 
     /**

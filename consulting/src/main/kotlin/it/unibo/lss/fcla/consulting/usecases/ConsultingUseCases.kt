@@ -220,9 +220,13 @@ class ConsultingUseCases(
             entityList += Consulting.rehydrateConsulting(it.key, it.value.toList())
         }
 
-        println(entityList.filter { it.getMemberId() == memberId })
+        val entries = entityList.filter { it.getMemberId() == memberId }
 
-        return entityList.filter { it.getMemberId() == memberId }
+        entries.forEach {
+            presenter.onResult(ConsultingFacade.create(it))
+        }
+
+        return entries
     }
 
     /**
