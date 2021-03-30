@@ -2,16 +2,11 @@ package it.unibo.lss.fcla.consulting.usecases
 
 import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.common.IRepository
-import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
-import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
-import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
-import it.unibo.lss.fcla.consulting.domain.consulting.createAthleticTrainerConsulting
-import it.unibo.lss.fcla.consulting.domain.consulting.createBiomechanicalConsulting
-import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
-import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
+import it.unibo.lss.fcla.consulting.domain.consulting.*
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
 import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
 import java.time.LocalDate
 
@@ -50,6 +45,9 @@ class ConsultingUseCases(
             throw FreelancerWithGivenIdDoesNotExist()
         }
 
+        if (!checkFreelancerRole(freelancerId, ConsultingType.PhysiotherapyConsulting()))
+            throw IncompatibleFreelancerRoleForConsulting()
+
         /**
          * create a new physiotherapy consulting
          */
@@ -85,6 +83,9 @@ class ConsultingUseCases(
         if (!freelancerExist(freelancerId)) {
             throw FreelancerWithGivenIdDoesNotExist()
         }
+
+        if (!checkFreelancerRole(freelancerId, ConsultingType.NutritionConsulting()))
+            throw IncompatibleFreelancerRoleForConsulting()
 
         /**
          * create a new nutritionist consulting
@@ -122,6 +123,9 @@ class ConsultingUseCases(
             throw FreelancerWithGivenIdDoesNotExist()
         }
 
+        if (!checkFreelancerRole(freelancerId, ConsultingType.BiomechanicalConsulting()))
+            throw IncompatibleFreelancerRoleForConsulting()
+
         /**
          * create a new biomechanical consulting
          */
@@ -158,6 +162,9 @@ class ConsultingUseCases(
         if (!freelancerExist(freelancerId)) {
             throw FreelancerWithGivenIdDoesNotExist()
         }
+
+        if (!checkFreelancerRole(freelancerId, ConsultingType.AthleticTrainerConsulting()))
+            throw IncompatibleFreelancerRoleForConsulting()
 
         /**
          * create a new biomechanical consulting
@@ -222,4 +229,32 @@ class ConsultingUseCases(
      * Utility method that check if the given [freelancerId] exist
      */
     private fun freelancerExist(freelancerId: FreelancerId) = freelancerRepository.getById(freelancerId).count() > 0
+
+    /**
+     * Method that checks if the requested consulting is compatible with the freelancer role
+     */
+    private fun checkFreelancerRole(freelancerId: FreelancerId, consultingType: ConsultingType): Boolean {
+        val freelancer = Freelancer.rehydrateFreelancer(freelancerId, freelancerRepository.getById(freelancerId))
+
+        when (consultingType) {
+            is ConsultingType.NutritionConsulting -> {
+                if (freelancer.getPersonalData().role != FreelancerRole.Nutritionist())
+                    return false
+            }
+            is ConsultingType.AthleticTrainerConsulting -> {
+                if (freelancer.getPersonalData().role != FreelancerRole.AthleticTrainer())
+                    return false
+            }
+            is ConsultingType.BiomechanicalConsulting -> {
+                if (freelancer.getPersonalData().role != FreelancerRole.Biomechanical())
+                    return false
+            }
+            is ConsultingType.PhysiotherapyConsulting -> {
+                if (freelancer.getPersonalData().role != FreelancerRole.Physiotherapist())
+                    return false
+            }
+        }
+
+        return true
+    }
 }

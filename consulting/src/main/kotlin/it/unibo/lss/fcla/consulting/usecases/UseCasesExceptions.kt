@@ -25,3 +25,9 @@ class FreelancerShouldHaveAUniqueId :
  */
 class FreelancerWithGivenIdDoesNotExist :
     ConsultingException("A freelancer with the given Id does not exist")
+
+/**
+ * Thrown when the provided freelancer has an incompatible role with the requested consulting
+ */
+class IncompatibleFreelancerRoleForConsulting :
+    ConsultingException("The given freelancer role is incompatible for the requested consulting")

@@ -139,4 +139,29 @@ class UseCasesConsultingTest : FreeSpec({
             )
         }
     }
+
+    "A consulting should be executed by the compatible freelancer role" - {
+        var eventStore = EventStore()
+        var freelancerStore = EventStore()
+        var aggregateRepository = ConsultingMockRepository(eventStore)
+        var freelancerRepository = FreelancerMockRepository(freelancerStore)
+        val useCasesConsulting = ConsultingUseCases(aggregateRepository, freelancerRepository, MockPresenter())
+        val useCasesFreelancer = FreelancerUseCases(freelancerRepository, MockPresenter())
+
+        useCasesFreelancer.createAthleticTrainer(
+            freelancerId = "F1",
+            firstName = "Mario",
+            lastName = "Rossi"
+        )
+
+        shouldThrow<IncompatibleFreelancerRoleForConsulting> {
+            useCasesConsulting.receivePhysiotherapyConsulting(
+                consultingId = "C001",
+                memberId = "M1",
+                consultingDate = LocalDate.of(2021, 1, 1),
+                freelancerId = "F1",
+                description = "Sample data"
+            )
+        }
+    }
 })
