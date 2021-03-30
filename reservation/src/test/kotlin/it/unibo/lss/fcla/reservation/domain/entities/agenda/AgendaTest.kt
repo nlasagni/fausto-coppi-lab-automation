@@ -14,7 +14,7 @@ class AgendaTest : FreeSpec({
     val agendaId = UUID.randomUUID()
     var agenda = Agenda(agendaId)
     val calendar = Calendar.getInstance()
-    val year = 2022
+    val year = 2023
     val feb = 2
     val day = 25
     val freelancerId = UUID.randomUUID()

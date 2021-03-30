@@ -40,7 +40,7 @@ class ProjectionTest : FreeSpec({
     val ledgerProjection = MemberLedgerProjection(ledgerId)
     val memberProjection = MemberProjection(member)
     val calendar = Calendar.getInstance()
-    val validYear = 2022
+    val validYear = 2023
     val validYearLate = 2028
     val feb = Calendar.FEBRUARY
     val day = 25

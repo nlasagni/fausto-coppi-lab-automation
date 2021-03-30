@@ -13,8 +13,8 @@ import java.util.UUID
 
 class OpenWorkoutReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()
-    val year = 2022
-    val invalidYear = 2021
+    val year = 2023
+    val invalidYear = 2020
     val feb = Calendar.FEBRUARY
     val day = 25
     val aim = "recovery"
