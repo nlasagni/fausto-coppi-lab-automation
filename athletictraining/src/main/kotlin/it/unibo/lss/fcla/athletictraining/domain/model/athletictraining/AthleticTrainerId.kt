@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model
+package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 /**
  * The unique identifier of an AthleticTrainer aggregate.

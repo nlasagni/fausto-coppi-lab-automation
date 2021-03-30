@@ -1,10 +1,12 @@
-package it.unibo.lss.fcla.athletictraining.domain.model
+package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingAlreadyCompleted
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
 import it.unibo.lss.fcla.athletictraining.domain.exception.TrainingPlanMustBePreparedDuringPeriodOfPreparation
 import it.unibo.lss.fcla.athletictraining.domain.exception.TrainingPlanMustNotOverlap
+import it.unibo.lss.fcla.athletictraining.domain.model.MemberId
+import it.unibo.lss.fcla.athletictraining.domain.model.TrainingPlan
 
 /**
  * This is one of the main entities of the Athletic Preparation Bounded Context.

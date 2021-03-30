@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.exception
 
-import it.unibo.lss.fcla.athletictraining.domain.model.PeriodOfPreparation
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.PeriodOfPreparation
 
 /**
  * @author Nicola Lasagni on 22/02/2021.

@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model
+package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfPeriodCannotBeAfterEnd
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodCannotBeginOrEndBeforeToday

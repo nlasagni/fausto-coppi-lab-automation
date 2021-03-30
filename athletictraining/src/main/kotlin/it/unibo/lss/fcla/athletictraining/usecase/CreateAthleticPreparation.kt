@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.usecase
 
-import it.unibo.lss.fcla.athletictraining.domain.model.AthleticTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
 import it.unibo.lss.fcla.athletictraining.usecase.exception.AthleticPreparationWithSameIdAlreadyExists
 import it.unibo.lss.fcla.athletictraining.usecase.exception.AthleticPreparationWithSamePeriodAlreadyExists
 import it.unibo.lss.fcla.athletictraining.usecase.port.AthleticPreparationRepository
