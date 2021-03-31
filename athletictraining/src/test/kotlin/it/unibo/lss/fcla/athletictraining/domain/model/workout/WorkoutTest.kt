@@ -1,8 +1,10 @@
-package it.unibo.lss.fcla.athletictraining.domain.model
+package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.domain.exception.ExceededMaximumWorkoutDuration
 import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
+import it.unibo.lss.fcla.athletictraining.domain.model.Configuration
+import it.unibo.lss.fcla.athletictraining.domain.model.Exercise
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows

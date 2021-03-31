@@ -4,6 +4,7 @@ import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutOnSameDateTimeAlreadyExists
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import java.time.LocalDate
 
 /**

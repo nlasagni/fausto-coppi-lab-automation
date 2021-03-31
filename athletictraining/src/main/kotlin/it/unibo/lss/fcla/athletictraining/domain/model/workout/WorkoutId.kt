@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model
+package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 /**
  * The unique identifier of a [Workout] entity.

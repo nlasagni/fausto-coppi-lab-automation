@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutOnSameDateTimeAlreadyExists
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
