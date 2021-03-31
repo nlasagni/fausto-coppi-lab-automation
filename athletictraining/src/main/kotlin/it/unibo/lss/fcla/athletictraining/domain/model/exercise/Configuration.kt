@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model
+package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 /**
  * A Value Object representing the configuration of a gym machine.

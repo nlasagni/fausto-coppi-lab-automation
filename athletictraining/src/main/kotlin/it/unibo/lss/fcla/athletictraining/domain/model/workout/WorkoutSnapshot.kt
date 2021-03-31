@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
-import it.unibo.lss.fcla.athletictraining.domain.model.Exercise
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 import java.time.LocalDate
 import java.time.LocalTime
 

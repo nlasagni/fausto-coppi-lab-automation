@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model
+package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 import java.time.Duration
 
