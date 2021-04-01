@@ -6,8 +6,6 @@ import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodDoesNotMeetMini
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.Period
-
 /**
  * The period of an [AthleticTraining].
  *
@@ -45,6 +43,14 @@ data class Period(
         end = endDay.atTime(LocalTime.MAX)
     }
 
+    fun hasSameBeginning(period: Period): Boolean {
+        return beginningDay.isEqual(period.beginningDay)
+    }
+
+    fun endsAfter(period: Period): Boolean {
+        return endDay.isAfter(period.endDay)
+    }
+
     private fun doesNotMeetMinimumPreparationPeriodDuration(): Boolean =
-        Period.between(beginningDay, endDay).months < minimumPeriodDurationInMonth
+        java.time.Period.between(beginningDay, endDay).months < minimumPeriodDurationInMonth
 }

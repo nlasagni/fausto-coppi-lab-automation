@@ -3,6 +3,8 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingAlreadyCompleted
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
+import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
+import it.unibo.lss.fcla.athletictraining.domain.exception.PostponedPeriodMustHaveSameBeginningOfCurrentPeriod
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfPreparation
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutScheduleMustNotOverlap
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
@@ -32,7 +34,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 class AthleticTraining(
     private val athleticTrainerId: AthleticTrainerId,
     private val memberId: MemberId,
-    private val period: Period
+    private var period: Period
 ) {
 
     private enum class Status {
@@ -59,6 +61,23 @@ class AthleticTraining(
      */
     private fun generateId(): AthleticTrainingId =
         AthleticTrainingId("$athleticTrainerId-$memberId-${period.beginning.dayOfYear}")
+
+    /**
+     * Postpones the [period] of this athletic training.
+     * If the [postponedPeriod] doesn't begin the same day as the current [period],
+     * throws a [PostponedPeriodMustHaveSameBeginningOfCurrentPeriod].
+     * If the [postponedPeriod] ends before the current [period],
+     * throws a [PeriodExtensionCannotEndBeforeCurrentPeriod].
+     */
+    fun postponeTrainingPeriodEnd(postponedPeriod: Period) {
+        if (!postponedPeriod.hasSameBeginning(period)) {
+            throw PostponedPeriodMustHaveSameBeginningOfCurrentPeriod()
+        }
+        if (!postponedPeriod.endsAfter(period)) {
+            throw PeriodExtensionCannotEndBeforeCurrentPeriod()
+        }
+        period = postponedPeriod
+    }
 
     /**
      * Schedules a workout for this AthleticTraining.

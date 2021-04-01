@@ -4,6 +4,8 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingAlreadyCompleted
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
+import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
+import it.unibo.lss.fcla.athletictraining.domain.exception.PostponedPeriodMustHaveSameBeginningOfCurrentPeriod
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfPreparation
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutScheduleMustNotOverlap
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
@@ -79,7 +81,45 @@ class AthleticTrainingTest : FreeSpec({
             Assertions.assertEquals(fakeMemberId, snapshot.memberId)
             Assertions.assertEquals(validPeriod, snapshot.period)
         }
-        "allow the schedule of a workout" - {
+        "allow postponing the training period end" - {
+            val postponedEnd = validEnd.plusWeeks(1)
+            val postponedPeriod = Period(validBeginning, postponedEnd)
+            assertDoesNotThrow {
+                validAthleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
+            }
+            val snapshot = validAthleticTraining.snapshot()
+            Assertions.assertEquals(postponedPeriod.end, snapshot.period.end)
+        }
+        "not allow changing the training period beginning" - {
+            val beginning = LocalDate.now().plusMonths(1)
+            val end = beginning.plusMonths(Period.minimumPeriodDurationInMonth.toLong())
+            val period = Period(beginning, end)
+            val athleticTraining = AthleticTraining(
+                fakeAthleticTrainerId,
+                fakeMemberId,
+                period
+            )
+            val postponedBeginning = beginning.minusWeeks(1)
+            val postponedPeriod = Period(postponedBeginning, end)
+            assertThrows<PostponedPeriodMustHaveSameBeginningOfCurrentPeriod> {
+                athleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
+            }
+        }
+        "not allow anticipating the training period end" - {
+            val beginning = LocalDate.now().plusMonths(1)
+            val end = beginning.plusMonths(Period.minimumPeriodDurationInMonth.toLong() + 1)
+            val period = Period(beginning, end)
+            val athleticTraining = AthleticTraining(
+                fakeAthleticTrainerId,
+                fakeMemberId,
+                period
+            )
+            val postponedPeriod = Period(beginning, end.minusWeeks(1))
+            assertThrows<PeriodExtensionCannotEndBeforeCurrentPeriod> {
+                athleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
+            }
+        }
+        "allow to schedule a workout" - {
             val schedule = Schedule(
                 LocalDateTime.now(),
                 LocalDateTime.now().plusHours(1)
