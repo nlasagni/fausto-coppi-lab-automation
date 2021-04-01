@@ -6,6 +6,7 @@ import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodDoesNotMeetMini
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+
 /**
  * The period of an [AthleticTraining].
  *

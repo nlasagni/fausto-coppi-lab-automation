@@ -1,7 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athletictraining.domain.exception.ExceededMaximumWorkoutDuration
 import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Configuration
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
@@ -53,15 +52,6 @@ class WorkoutTest : FreeSpec({
             }
             val snapshot = workout.snapshot()
             Assertions.assertEquals(snapshot.exercises.size, 1)
-        }
-        "not allow the prepared exercises to exceed the permitted duration" - {
-            val workout = Workout(workoutName, today, todayTime)
-            val configuration = Configuration("")
-            val exerciseDuration = Duration.ofHours(3)
-            val exercise = Exercise(configuration, exerciseDuration, exerciseDuration)
-            assertThrows<ExceededMaximumWorkoutDuration> {
-                workout.prepareExercise(exercise)
-            }
         }
     }
 })
