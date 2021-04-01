@@ -10,46 +10,46 @@ import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 
 /**
- * Tests of the [PeriodOfPreparation] Value Object.
+ * Tests of the [Period] Value Object.
  *
  * @author Nicola Lasagni on 22/02/2021.
  */
 class PeriodOfPreparationTest : FreeSpec({
     "PeriodOfPreparation should" - {
         val validBeginning = LocalDate.now()
-        val validEnd = validBeginning.plusMonths(PeriodOfPreparation.minimumPeriodDurationInMonth.toLong())
+        val validEnd = validBeginning.plusMonths(Period.minimumPeriodDurationInMonth.toLong())
         "prevent that beginning is after end" - {
             assertThrows<BeginningOfPeriodCannotBeAfterEnd> {
-                PeriodOfPreparation(validEnd, validBeginning)
+                Period(validEnd, validBeginning)
             }
             assertDoesNotThrow {
-                PeriodOfPreparation(validBeginning, validEnd)
+                Period(validBeginning, validEnd)
             }
         }
         "prevent beginning before today" - {
             val invalidBeginning = LocalDate.now().minusDays(1)
             val invalidEnd = LocalDate.now().minusDays(1)
             assertThrows<PeriodCannotBeginOrEndBeforeToday> {
-                PeriodOfPreparation(validBeginning, invalidEnd)
+                Period(validBeginning, invalidEnd)
             }
             assertThrows<PeriodCannotBeginOrEndBeforeToday> {
-                PeriodOfPreparation(invalidBeginning, validEnd)
+                Period(invalidBeginning, validEnd)
             }
         }
         "be equal to another with same beginning and end" - {
-            val periodOne = PeriodOfPreparation(validBeginning, validEnd)
-            val periodTwo = PeriodOfPreparation(validBeginning, validEnd)
+            val periodOne = Period(validBeginning, validEnd)
+            val periodTwo = Period(validBeginning, validEnd)
             Assertions.assertEquals(periodOne, periodTwo)
         }
-        "last at least ${PeriodOfPreparation.minimumPeriodDurationInMonth} months" - {
+        "last at least ${Period.minimumPeriodDurationInMonth} months" - {
             val invalidEnd = validBeginning.plusMonths(
-                PeriodOfPreparation.minimumPeriodDurationInMonth.toLong() - 1
+                Period.minimumPeriodDurationInMonth.toLong() - 1
             )
             assertThrows<PeriodOfPreparationDoesNotMeetMinimumDuration> {
-                PeriodOfPreparation(validBeginning, invalidEnd)
+                Period(validBeginning, invalidEnd)
             }
             assertDoesNotThrow {
-                PeriodOfPreparation(validBeginning, validEnd)
+                Period(validBeginning, validEnd)
             }
         }
     }

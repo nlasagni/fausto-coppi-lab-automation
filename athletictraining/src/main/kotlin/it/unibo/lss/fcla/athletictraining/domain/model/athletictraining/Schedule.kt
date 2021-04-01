@@ -1,8 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfScheduleCannotBeAfterEnd
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.LocalDateTime
 
 /**
  * A ValueObject representing the schedule of a single
@@ -11,9 +10,8 @@ import java.time.LocalTime
  * @author Nicola Lasagni on 01/04/2021.
  */
 data class Schedule(
-    val day: LocalDate,
-    val startTime: LocalTime,
-    val endTime: LocalTime
+    val startTime: LocalDateTime,
+    val endTime: LocalDateTime
 ) {
 
     init {
@@ -23,8 +21,7 @@ data class Schedule(
     }
 
     fun overlaps(schedule: Schedule): Boolean {
-        return day.isEqual(schedule.day) &&
-            startTime.isBefore(schedule.endTime) &&
+        return startTime.isBefore(schedule.endTime) &&
             endTime.isAfter(schedule.startTime)
     }
 }

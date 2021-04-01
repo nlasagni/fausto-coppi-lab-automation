@@ -25,14 +25,14 @@ import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
  *
  * @property athleticTrainerId The id reference of the athletic trainer who is preparing the athletic training.
  * @property memberId The id reference of the member for whom the athletic training is being prepared.
- * @property periodOfPreparation The period of athletic traning. See [PeriodOfPreparation].
+ * @property period The period of athletic traning. See [Period].
  *
  * @author Nicola Lasagni on 22/02/2021.
  */
 class AthleticTraining(
     private val athleticTrainerId: AthleticTrainerId,
     private val memberId: MemberId,
-    private val periodOfPreparation: PeriodOfPreparation
+    private val period: Period
 ) {
 
     private enum class Status {
@@ -58,11 +58,11 @@ class AthleticTraining(
      * into the [id] private property.
      */
     private fun generateId(): AthleticTrainingId =
-        AthleticTrainingId("$athleticTrainerId-$memberId-${periodOfPreparation.beginning.dayOfYear}")
+        AthleticTrainingId("$athleticTrainerId-$memberId-${period.beginning.dayOfYear}")
 
     /**
      * Schedules a workout for this AthleticTraining.
-     * The workout must not be out of the [periodOfPreparation], otherwise
+     * The workout must not be out of the [period], otherwise
      * a [WorkoutMustBeScheduledDuringPeriodOfPreparation] exception will be thrown.
      * If another workout in the same date and time already exists, a
      * [WorkoutScheduleMustNotOverlap] exception will be thrown.
@@ -82,12 +82,10 @@ class AthleticTraining(
 
     /**
      * Checks if the desired [Schedule] of a workout is out of the
-     * [periodOfPreparation].
+     * [period].
      */
     private fun isScheduleOutOfPeriod(schedule: Schedule): Boolean {
-        val scheduleDay = schedule.day
-        return scheduleDay.isBefore(periodOfPreparation.beginning) ||
-            scheduleDay.isAfter(periodOfPreparation.end)
+        return schedule.endTime.isAfter(period.end)
     }
 
     /**
@@ -118,7 +116,7 @@ class AthleticTraining(
         id,
         athleticTrainerId,
         memberId,
-        periodOfPreparation,
+        period,
         scheduledWorkouts
     )
 }

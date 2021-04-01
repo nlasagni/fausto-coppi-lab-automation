@@ -9,6 +9,6 @@ data class AthleticTrainingSnapshot(
     val id: AthleticTrainingId,
     val athleticTrainerId: AthleticTrainerId,
     val memberId: MemberId,
-    val periodOfPreparation: PeriodOfPreparation,
+    val period: Period,
     val scheduledWorkout: List<ScheduledWorkout>
 )

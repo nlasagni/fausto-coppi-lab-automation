@@ -15,13 +15,13 @@ class CreateAthleticPreparation(private val repository: AthleticPreparationRepos
         if (repository.findById(snapshot.id) != null) {
             throw AthleticPreparationWithSameIdAlreadyExists()
         }
-        if (repository.findAllByPeriodOfPreparation(snapshot.periodOfPreparation).isNotEmpty()) {
+        if (repository.findAllByPeriodOfPreparation(snapshot.period).isNotEmpty()) {
             throw AthleticPreparationWithSamePeriodAlreadyExists()
         }
         val athleticPreparationToAdd = AthleticTraining(
             snapshot.athleticTrainerId,
             snapshot.memberId,
-            snapshot.periodOfPreparation
+            snapshot.period
         )
         return repository.add(athleticPreparationToAdd)
     }

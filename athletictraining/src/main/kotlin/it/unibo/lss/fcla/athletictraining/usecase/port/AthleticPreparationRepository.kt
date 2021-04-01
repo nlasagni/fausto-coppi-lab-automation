@@ -4,7 +4,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Athletic
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.MemberId
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.PeriodOfPreparation
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Period
 
 /**
  * @author Nicola Lasagni on 06/03/2021.
@@ -21,5 +21,5 @@ interface AthleticPreparationRepository {
 
     fun findAllByMemberId(memberId: MemberId): List<AthleticTraining>
 
-    fun findAllByPeriodOfPreparation(periodOfPreparation: PeriodOfPreparation): List<AthleticTraining>
+    fun findAllByPeriodOfPreparation(period: Period): List<AthleticTraining>
 }

@@ -4,37 +4,47 @@ import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfPeriodCann
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodCannotBeginOrEndBeforeToday
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodOfPreparationDoesNotMeetMinimumDuration
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.Period
 
 /**
- * The period of an athletic traning.
+ * The period of an [AthleticTraining].
  *
  * @see AthleticTraining
  *
  * @author Nicola Lasagni on 22/02/2021.
  *
- * @property beginning A [LocalDate] which represents the beginning of a period.
- * @property end A [LocalDate] which represents the end of a period.
+ * @property beginning A [LocalDateTime] which represents the beginning at time [LocalDateTime.MIN] of a period.
+ * @property end A [LocalDateTime] which represents the end at time [LocalDateTime.MAX] of a period.
  */
-data class PeriodOfPreparation(val beginning: LocalDate, val end: LocalDate) {
+data class Period(
+    private val beginningDay: LocalDate,
+    private val endDay: LocalDate
+) {
 
     companion object PeriodOfPreparation {
         const val minimumPeriodDurationInMonth: Int = 2
     }
 
+    val beginning: LocalDateTime
+    val end: LocalDateTime
+
     init {
         val now = LocalDate.now()
-        if (beginning.isBefore(now) || end.isBefore(now)) {
+        if (beginningDay.isBefore(now) || endDay.isBefore(now)) {
             throw PeriodCannotBeginOrEndBeforeToday()
         }
-        if (end.isBefore(beginning)) {
+        if (endDay.isBefore(beginningDay)) {
             throw BeginningOfPeriodCannotBeAfterEnd()
         }
         if (doesNotMeetMinimumPreparationPeriodDuration()) {
             throw PeriodOfPreparationDoesNotMeetMinimumDuration()
         }
+        beginning = beginningDay.atTime(LocalTime.MIN)
+        end = endDay.atTime(LocalTime.MAX)
     }
 
     private fun doesNotMeetMinimumPreparationPeriodDuration(): Boolean =
-        Period.between(beginning, end).months < minimumPeriodDurationInMonth
+        Period.between(beginningDay, endDay).months < minimumPeriodDurationInMonth
 }

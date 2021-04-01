@@ -4,7 +4,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Athletic
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.MemberId
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.PeriodOfPreparation
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Period
 import it.unibo.lss.fcla.athletictraining.usecase.port.AthleticPreparationRepository
 
 /**
@@ -38,7 +38,7 @@ class InMemoryAthleticPreparationRepository : AthleticPreparationRepository {
         return inMemoryStorage.values.filter { it.snapshot().memberId == memberId }
     }
 
-    override fun findAllByPeriodOfPreparation(periodOfPreparation: PeriodOfPreparation): List<AthleticTraining> {
-        return inMemoryStorage.values.filter { it.snapshot().periodOfPreparation == periodOfPreparation }
+    override fun findAllByPeriodOfPreparation(period: Period): List<AthleticTraining> {
+        return inMemoryStorage.values.filter { it.snapshot().period == period }
     }
 }

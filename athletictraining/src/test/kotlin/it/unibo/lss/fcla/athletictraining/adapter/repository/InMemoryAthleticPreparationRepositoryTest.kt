@@ -5,7 +5,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Athletic
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.MemberId
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.PeriodOfPreparation
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Period
 import it.unibo.lss.fcla.athletictraining.usecase.port.AthleticPreparationRepository
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
@@ -18,7 +18,7 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
     lateinit var repository: AthleticPreparationRepository
     lateinit var athleticTrainerId: AthleticTrainerId
     lateinit var memberId: MemberId
-    lateinit var periodOfPreparation: PeriodOfPreparation
+    lateinit var period: Period
     lateinit var athleticTraining: AthleticTraining
 
     beforeAny {
@@ -26,11 +26,11 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
         val now = LocalDate.now()
         athleticTrainerId = AthleticTrainerId("1234")
         memberId = MemberId("1234")
-        periodOfPreparation = PeriodOfPreparation(
+        period = Period(
             now,
-            now.plusMonths(PeriodOfPreparation.minimumPeriodDurationInMonth.toLong())
+            now.plusMonths(Period.minimumPeriodDurationInMonth.toLong())
         )
-        athleticTraining = AthleticTraining(athleticTrainerId, memberId, periodOfPreparation)
+        athleticTraining = AthleticTraining(athleticTrainerId, memberId, period)
     }
 
     "An InMemoryAthleticPreparationRepository should" - {
@@ -56,7 +56,7 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
         }
         "be able to find an AthleticPreparation by periodOfPreparation" - {
             repository.add(athleticTraining)
-            assert(repository.findAllByPeriodOfPreparation(periodOfPreparation).isNotEmpty())
+            assert(repository.findAllByPeriodOfPreparation(period).isNotEmpty())
         }
     }
 })

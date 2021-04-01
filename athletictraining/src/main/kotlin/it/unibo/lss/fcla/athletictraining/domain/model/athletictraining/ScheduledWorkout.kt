@@ -30,7 +30,7 @@ class ScheduledWorkout(
 
     private fun generateId(): ScheduledWorkoutId {
         return ScheduledWorkoutId(
-            "${schedule.day}-${schedule.startTime}-${schedule.endTime}"
+            "${schedule.startTime}-${schedule.endTime}"
         )
     }
 
