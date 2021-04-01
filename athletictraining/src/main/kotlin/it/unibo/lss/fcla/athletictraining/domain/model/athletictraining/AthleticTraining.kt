@@ -3,9 +3,9 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingAlreadyCompleted
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
-import it.unibo.lss.fcla.athletictraining.domain.exception.TrainingPlanMustBePreparedDuringPeriodOfPreparation
-import it.unibo.lss.fcla.athletictraining.domain.exception.TrainingPlanMustNotOverlap
-import it.unibo.lss.fcla.athletictraining.domain.model.TrainingPlan
+import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfPreparation
+import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutScheduleMustNotOverlap
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 
 /**
  * This is one of the main entities of the Athletic Preparation Bounded Context.
@@ -40,7 +40,7 @@ class AthleticTraining(
     }
 
     private val id: AthleticTrainingId
-    private var trainingPlans: List<TrainingPlan> = emptyList()
+    private var scheduledWorkouts: List<ScheduledWorkout> = emptyList()
     private var status: Status = Status.ACTIVE
 
     init {
@@ -61,50 +61,41 @@ class AthleticTraining(
         AthleticTrainingId("$athleticTrainerId-$memberId-${periodOfPreparation.beginning.dayOfYear}")
 
     /**
-     * Prepares a [TrainingPlan] for this AthleticPreparation.
-     * Throws [AthleticTrainingAlreadyCompleted] if there's an attempt to prepare a TrainingPlan
-     * for an already-completed AthleticPreparation.
-     * Throws [TrainingPlanMustBePreparedDuringPeriodOfPreparation] if the [trainingPlan] that is
-     * going to be prepared has a period that is not included by the [periodOfPreparation] of this athletic
-     * training.
-     * Throws [TrainingPlanMustNotOverlap] if the [trainingPlan] that is going to be prepared overlaps
-     * with an already-planned TrainingPlan.
+     * Schedules a workout for this AthleticTraining.
+     * The workout must not be out of the [periodOfPreparation], otherwise
+     * a [WorkoutMustBeScheduledDuringPeriodOfPreparation] exception will be thrown.
+     * If another workout in the same date and time already exists, a
+     * [WorkoutScheduleMustNotOverlap] exception will be thrown.
      */
-    fun prepareTrainingPlan(trainingPlan: TrainingPlan) {
+    fun scheduleWorkout(workoutId: WorkoutId, schedule: Schedule) {
         if (isAlreadyCompleted()) {
             throw AthleticTrainingAlreadyCompleted()
         }
-        if (isTrainingPlanOutOfPeriod(trainingPlan)) {
-            throw TrainingPlanMustBePreparedDuringPeriodOfPreparation()
+        if (isScheduleOutOfPeriod(schedule)) {
+            throw WorkoutMustBeScheduledDuringPeriodOfPreparation()
         }
-        if (trainingPlanOverlaps(trainingPlan)) {
-            throw TrainingPlanMustNotOverlap()
+        if (scheduleOverlaps(schedule)) {
+            throw WorkoutScheduleMustNotOverlap()
         }
-        trainingPlans = trainingPlans + trainingPlan
+        scheduledWorkouts = scheduledWorkouts + ScheduledWorkout(workoutId, schedule)
     }
 
     /**
-     * Checks if the [trainingPlan] that is going to be scheduled is out of the
+     * Checks if the desired [Schedule] of a workout is out of the
      * [periodOfPreparation].
      */
-    private fun isTrainingPlanOutOfPeriod(trainingPlan: TrainingPlan): Boolean {
-        val trainingPlanSnapshot = trainingPlan.snapshot()
-        val trainingPlanPeriodBeginning = trainingPlanSnapshot.periodOfTraining.beginning
-        val trainingPlanPeriodEnd = trainingPlanSnapshot.periodOfTraining.end
-        return trainingPlanPeriodBeginning.isBefore(periodOfPreparation.beginning) ||
-            trainingPlanPeriodEnd.isAfter(periodOfPreparation.end)
+    private fun isScheduleOutOfPeriod(schedule: Schedule): Boolean {
+        val scheduleDay = schedule.day
+        return scheduleDay.isBefore(periodOfPreparation.beginning) ||
+                scheduleDay.isAfter(periodOfPreparation.end)
     }
 
     /**
-     * Checks if the [trainingPlan] that is going to be prepared overlaps
-     * with another that has already been planned.
+     * Checks if the desired [Schedule] overlaps with an existing one.
      */
-    private fun trainingPlanOverlaps(trainingPlan: TrainingPlan): Boolean {
-        val trainingPlanSnapshot = trainingPlan.snapshot()
-        return trainingPlans.any {
-            val snapshot = it.snapshot()
-            snapshot.periodOfTraining.beginning.isBefore(trainingPlanSnapshot.periodOfTraining.end) &&
-                snapshot.periodOfTraining.end.isAfter(trainingPlanSnapshot.periodOfTraining.beginning)
+    private fun scheduleOverlaps(schedule: Schedule): Boolean {
+        return scheduledWorkouts.any {
+            it.snapshot().schedule.overlaps(schedule)
         }
     }
 
@@ -128,6 +119,6 @@ class AthleticTraining(
         athleticTrainerId,
         memberId,
         periodOfPreparation,
-        trainingPlans
+        scheduledWorkouts
     )
 }
