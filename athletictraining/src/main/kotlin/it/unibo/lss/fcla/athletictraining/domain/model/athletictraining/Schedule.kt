@@ -10,9 +10,11 @@ import java.time.LocalTime
  *
  * @author Nicola Lasagni on 01/04/2021.
  */
-data class Schedule(val day: LocalDate,
-                    val startTime: LocalTime,
-                    val endTime: LocalTime) {
+data class Schedule(
+    val day: LocalDate,
+    val startTime: LocalTime,
+    val endTime: LocalTime
+) {
 
     init {
         if (endTime.isBefore(startTime)) {
@@ -22,8 +24,7 @@ data class Schedule(val day: LocalDate,
 
     fun overlaps(schedule: Schedule): Boolean {
         return day.isEqual(schedule.day) &&
-                startTime.isBefore(schedule.endTime) &&
-                endTime.isAfter(schedule.startTime)
+            startTime.isBefore(schedule.endTime) &&
+            endTime.isAfter(schedule.startTime)
     }
-
 }

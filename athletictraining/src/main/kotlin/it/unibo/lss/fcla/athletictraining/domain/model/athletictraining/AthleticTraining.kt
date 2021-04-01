@@ -87,7 +87,7 @@ class AthleticTraining(
     private fun isScheduleOutOfPeriod(schedule: Schedule): Boolean {
         val scheduleDay = schedule.day
         return scheduleDay.isBefore(periodOfPreparation.beginning) ||
-                scheduleDay.isAfter(periodOfPreparation.end)
+            scheduleDay.isAfter(periodOfPreparation.end)
     }
 
     /**

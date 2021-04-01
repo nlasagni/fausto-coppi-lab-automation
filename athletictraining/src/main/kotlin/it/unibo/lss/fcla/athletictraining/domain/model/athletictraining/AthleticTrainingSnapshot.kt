@@ -1,7 +1,5 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
-import it.unibo.lss.fcla.athletictraining.domain.model.TrainingPlan
-
 /**
  * A snapshot class used to expose all the information about an [AthleticTraining].
  *

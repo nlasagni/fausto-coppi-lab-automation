@@ -4,14 +4,14 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingAlreadyCompleted
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
-import it.unibo.lss.fcla.athletictraining.domain.exception.TrainingPlanMustNotOverlap
-import it.unibo.lss.fcla.athletictraining.domain.model.PeriodOfTraining
-import it.unibo.lss.fcla.athletictraining.domain.model.Purpose
-import it.unibo.lss.fcla.athletictraining.domain.model.TrainingPlan
+import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfPreparation
+import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutScheduleMustNotOverlap
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
+import java.time.LocalTime
 
 /**
  * Tests of the [AthleticTraining] domain Entity.
@@ -21,9 +21,11 @@ import java.time.LocalDate
 class AthleticTrainingTest : FreeSpec({
     lateinit var fakeAthleticTrainerId: AthleticTrainerId
     lateinit var fakeMemberId: MemberId
+    lateinit var fakeWorkoutId: WorkoutId
     lateinit var validBeginning: LocalDate
     lateinit var validEnd: LocalDate
     lateinit var validPeriod: PeriodOfPreparation
+    lateinit var validAthleticTraining: AthleticTraining
 
     /**
      * Setup before every test.
@@ -31,9 +33,15 @@ class AthleticTrainingTest : FreeSpec({
     beforeAny {
         fakeAthleticTrainerId = AthleticTrainerId("1234")
         fakeMemberId = MemberId("1234")
+        fakeWorkoutId = WorkoutId("1234")
         validBeginning = LocalDate.now()
         validEnd = validBeginning.plusMonths(PeriodOfPreparation.minimumPeriodDurationInMonth.toLong())
         validPeriod = PeriodOfPreparation(validBeginning, validEnd)
+        validAthleticTraining = AthleticTraining(
+            fakeAthleticTrainerId,
+            fakeMemberId,
+            validPeriod
+        )
     }
 
     "An active athletic training should" - {
@@ -61,64 +69,54 @@ class AthleticTrainingTest : FreeSpec({
             }
         }
         "offer a snapshot of itself" - {
-            val athleticPreparation = AthleticTraining(
+            val athleticTraining = AthleticTraining(
                 fakeAthleticTrainerId,
                 fakeMemberId,
                 validPeriod
             )
-            val snapshot = athleticPreparation.snapshot()
+            val snapshot = athleticTraining.snapshot()
             Assertions.assertEquals(fakeAthleticTrainerId, snapshot.athleticTrainerId)
             Assertions.assertEquals(fakeMemberId, snapshot.memberId)
             Assertions.assertEquals(validPeriod, snapshot.periodOfPreparation)
         }
-        "allow the preparation of a TrainingPlan" - {
-            val athleticPreparation = AthleticTraining(
-                fakeAthleticTrainerId,
-                fakeMemberId,
-                PeriodOfPreparation(validBeginning, validEnd)
+        "allow the schedule of a workout" - {
+            val schedule = Schedule(
+                validBeginning,
+                LocalTime.now(),
+                LocalTime.now().plusHours(1)
             )
-            val trainingPlan = TrainingPlan(
-                "Strengthening Training Plan",
-                Purpose.Strengthening(),
-                PeriodOfTraining(validBeginning, validEnd)
-            )
-            assertDoesNotThrow { athleticPreparation.prepareTrainingPlan(trainingPlan) }
+            assertDoesNotThrow { validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule) }
         }
-        "not allow the preparation of a TrainingPlan that overlaps with another" - {
-            val athleticPreparation = AthleticTraining(
-                fakeAthleticTrainerId,
-                fakeMemberId,
-                PeriodOfPreparation(validBeginning, validEnd)
+        "not allow the scheduling of a workout that overlaps with another" - {
+            val schedule = Schedule(
+                validBeginning,
+                LocalTime.now(),
+                LocalTime.now().plusHours(1)
             )
-            val trainingPlan = TrainingPlan(
-                "Strengthening Training Plan",
-                Purpose.Strengthening(),
-                PeriodOfTraining(validBeginning, validEnd)
-            )
-            athleticPreparation.prepareTrainingPlan(trainingPlan)
-            val overlappingTrainingPlan = TrainingPlan(
-                "Overlapping Training Plan",
-                Purpose.Strengthening(),
-                PeriodOfTraining(validBeginning, validEnd)
-            )
-            assertThrows<TrainingPlanMustNotOverlap> {
-                athleticPreparation.prepareTrainingPlan(overlappingTrainingPlan)
+            validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
+            assertThrows<WorkoutScheduleMustNotOverlap> {
+                validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
             }
         }
-        "not allow the preparation of a TrainingPlan when completed" - {
-            val athleticPreparation = AthleticTraining(
-                fakeAthleticTrainerId,
-                fakeMemberId,
-                PeriodOfPreparation(validBeginning, validEnd)
+        "not allow scheduling of workout out of the period of training" - {
+            val schedule = Schedule(
+                validEnd.plusDays(1),
+                LocalTime.now(),
+                LocalTime.now().plusHours(1)
             )
-            athleticPreparation.complete()
-            val trainingPlan = TrainingPlan(
-                "Strengthening Training Plan",
-                Purpose.Strengthening(),
-                PeriodOfTraining(validBeginning, validEnd)
+            assertThrows<WorkoutMustBeScheduledDuringPeriodOfPreparation> {
+                validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
+            }
+        }
+        "not allow the scheduling of a workout when completed" - {
+            validAthleticTraining.complete()
+            val schedule = Schedule(
+                validBeginning,
+                LocalTime.now(),
+                LocalTime.now().plusHours(1)
             )
             assertThrows<AthleticTrainingAlreadyCompleted> {
-                athleticPreparation.prepareTrainingPlan(trainingPlan)
+                validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
             }
         }
     }
