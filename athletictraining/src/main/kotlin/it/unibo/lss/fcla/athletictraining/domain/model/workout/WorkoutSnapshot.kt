@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -13,5 +13,5 @@ class WorkoutSnapshot(
     val name: String,
     val day: LocalDate,
     val time: LocalTime,
-    val exercises: List<Exercise>
+    val exercises: List<ExerciseId>
 )

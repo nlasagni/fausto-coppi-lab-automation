@@ -2,12 +2,10 @@ package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Configuration
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -45,10 +43,9 @@ class WorkoutTest : FreeSpec({
         }
         "allow the preparation of exercises" - {
             val workout = Workout(workoutName, today, todayTime)
-            val configuration = Configuration("")
-            val exercise = Exercise(configuration, Duration.ZERO, Duration.ZERO)
+            val exerciseId = ExerciseId("1234")
             assertDoesNotThrow {
-                workout.prepareExercise(exercise)
+                workout.prepareExercise(exerciseId)
             }
             val snapshot = workout.snapshot()
             Assertions.assertEquals(snapshot.exercises.size, 1)

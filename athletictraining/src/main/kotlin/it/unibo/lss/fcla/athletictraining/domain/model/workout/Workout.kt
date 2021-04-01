@@ -2,11 +2,13 @@ package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
 import java.time.LocalDate
 import java.time.LocalTime
 
 /**
- * A Workout that is scheduled during a [TrainingPlan].
+ * A Workout that is scheduled during an
+ * [it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining].
  *
  * @author Nicola Lasagni on 25/02/2021.
  */
@@ -17,7 +19,7 @@ class Workout(
 ) {
 
     private val id: WorkoutId
-    private var exercises: List<Exercise> = emptyList()
+    private var exercises: List<ExerciseId> = emptyList()
 
     init {
         if (name.isEmpty()) {
@@ -40,7 +42,7 @@ class Workout(
     /**
      * Prepares an [Exercise] for this Workout.
      */
-    fun prepareExercise(exercise: Exercise) {
-        exercises = exercises + exercise
+    fun prepareExercise(exerciseId: ExerciseId) {
+        exercises = exercises + exerciseId
     }
 }
