@@ -4,7 +4,6 @@ import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfPeriodCannotBeAfterEnd
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodCannotBeginOrEndBeforeToday
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodOfPreparationDoesNotMeetMinimumDuration
-import it.unibo.lss.fcla.athletictraining.domain.model.PeriodOfTraining
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -31,10 +30,10 @@ class PeriodOfPreparationTest : FreeSpec({
             val invalidBeginning = LocalDate.now().minusDays(1)
             val invalidEnd = LocalDate.now().minusDays(1)
             assertThrows<PeriodCannotBeginOrEndBeforeToday> {
-                PeriodOfTraining(validBeginning, invalidEnd)
+                PeriodOfPreparation(validBeginning, invalidEnd)
             }
             assertThrows<PeriodCannotBeginOrEndBeforeToday> {
-                PeriodOfTraining(invalidBeginning, validEnd)
+                PeriodOfPreparation(invalidBeginning, validEnd)
             }
         }
         "be equal to another with same beginning and end" - {
