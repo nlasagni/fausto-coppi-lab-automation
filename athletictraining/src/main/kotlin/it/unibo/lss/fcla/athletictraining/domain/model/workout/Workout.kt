@@ -3,8 +3,6 @@ package it.unibo.lss.fcla.athletictraining.domain.model.workout
 import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
-import java.time.LocalDate
-import java.time.LocalTime
 
 /**
  * A Workout that is scheduled during an
@@ -13,9 +11,7 @@ import java.time.LocalTime
  * @author Nicola Lasagni on 25/02/2021.
  */
 class Workout(
-    private val name: String,
-    private val day: LocalDate,
-    private val time: LocalTime
+    private val name: String
 ) {
 
     private val id: WorkoutId
@@ -32,12 +28,12 @@ class Workout(
      * Returns a unique id of this Workout which will be stored
      * into the [id] private property.
      */
-    private fun generateId() = WorkoutId("$name-$day-$time")
+    private fun generateId() = WorkoutId("$name")
 
     /**
      * Generates an [WorkoutSnapshot] with the information about this Workout.
      */
-    fun snapshot(): WorkoutSnapshot = WorkoutSnapshot(name, day, time, exercises)
+    fun snapshot(): WorkoutSnapshot = WorkoutSnapshot(name, exercises)
 
     /**
      * Prepares an [Exercise] for this Workout.

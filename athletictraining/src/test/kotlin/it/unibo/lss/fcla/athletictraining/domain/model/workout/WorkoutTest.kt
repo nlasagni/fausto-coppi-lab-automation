@@ -6,8 +6,6 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import java.time.LocalDate
-import java.time.LocalTime
 
 /**
  * Test of the [Workout] domain Entity.
@@ -16,33 +14,27 @@ import java.time.LocalTime
  */
 class WorkoutTest : FreeSpec({
     lateinit var workoutName: String
-    lateinit var today: LocalDate
-    lateinit var todayTime: LocalTime
 
     /**
      * Setup before every test.
      */
     beforeAny {
         workoutName = "Workout"
-        today = LocalDate.now()
-        todayTime = LocalTime.now()
     }
 
     "Workout should" - {
         "have a name" - {
             assertThrows<NameMustNotBeEmpty> {
-                Workout("", today, todayTime)
+                Workout("")
             }
         }
         "offer a snapshot of itself" - {
-            val workout = Workout(workoutName, today, todayTime)
+            val workout = Workout(workoutName)
             val snapshot = workout.snapshot()
             Assertions.assertEquals(workoutName, snapshot.name)
-            Assertions.assertEquals(today, snapshot.day)
-            Assertions.assertEquals(todayTime, snapshot.time)
         }
         "allow the preparation of exercises" - {
-            val workout = Workout(workoutName, today, todayTime)
+            val workout = Workout(workoutName)
             val exerciseId = ExerciseId("1234")
             assertDoesNotThrow {
                 workout.prepareExercise(exerciseId)
