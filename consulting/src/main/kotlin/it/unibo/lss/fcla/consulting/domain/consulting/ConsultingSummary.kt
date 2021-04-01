@@ -3,6 +3,7 @@ package it.unibo.lss.fcla.consulting.domain.consulting
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryMustHaveAValidFreelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import java.time.LocalDate
 
 /**
  * @author Stefano Braggion
@@ -12,7 +13,7 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
  * freelancer identified with [freelancerId] in a specific [consultingDate]
  */
 data class ConsultingSummary(
-    val consultingDate: Date,
+    val consultingDate: LocalDate,
     val freelancerId: FreelancerId,
     val consultingType: ConsultingType,
     val description: String

@@ -56,6 +56,11 @@ class Consulting internal constructor(
     }
 
     /**
+     * Retrieve the consulting summary
+     */
+    fun getConsultingSummary(): ConsultingSummary = consultingSummary.copy()
+
+    /**
      * Update the summary description of a consulting replacing the existent
      * with [consultingDescription]
      */

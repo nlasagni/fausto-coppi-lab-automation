@@ -4,14 +4,18 @@ import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.common.IRepository
 import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
+import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingType
 import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
 import it.unibo.lss.fcla.consulting.domain.consulting.createAthleticTrainerConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createBiomechanicalConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
+import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
+import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
+import java.time.LocalDate
 
 /**
  * @author Stefano Braggion
@@ -21,7 +25,9 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
  *
  */
 class ConsultingUseCases(
-    private val repository: IRepository<Consulting>
+    private val repository: IRepository<Consulting>,
+    private val freelancerRepository: IRepository<Freelancer>,
+    private val presenter: IPresenter
 ) {
 
     /**
@@ -37,10 +43,19 @@ class ConsultingUseCases(
     fun receivePhysiotherapyConsulting(
         consultingId: ConsultingId,
         memberId: MemberId,
-        consultingDate: Date,
+        consultingDate: LocalDate,
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
+        if (!freelancerExist(freelancerId)) {
+            throw FreelancerWithGivenIdDoesNotExist()
+        }
+
+        if (!checkFreelancerRole(freelancerId, ConsultingType.PhysiotherapyConsulting())) {
+            throw IncompatibleFreelancerRoleForConsulting()
+        }
+
         /**
          * create a new physiotherapy consulting
          */
@@ -57,6 +72,8 @@ class ConsultingUseCases(
 
         repository.save(consulting)
 
+        presenter.onResult(ConsultingFacade.create(consulting))
+
         return consulting
     }
 
@@ -66,10 +83,19 @@ class ConsultingUseCases(
     fun receiveNutritionistConsulting(
         consultingId: ConsultingId,
         memberId: MemberId,
-        consultingDate: Date,
+        consultingDate: LocalDate,
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
+        if (!freelancerExist(freelancerId)) {
+            throw FreelancerWithGivenIdDoesNotExist()
+        }
+
+        if (!checkFreelancerRole(freelancerId, ConsultingType.NutritionConsulting())) {
+            throw IncompatibleFreelancerRoleForConsulting()
+        }
+
         /**
          * create a new nutritionist consulting
          */
@@ -86,6 +112,8 @@ class ConsultingUseCases(
 
         repository.save(consulting)
 
+        presenter.onResult(ConsultingFacade.create(consulting))
+
         return consulting
     }
 
@@ -95,12 +123,21 @@ class ConsultingUseCases(
     fun receiveBiomechanicalConsulting(
         consultingId: ConsultingId,
         memberId: MemberId,
-        consultingDate: Date,
+        consultingDate: LocalDate,
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
+        if (!freelancerExist(freelancerId)) {
+            throw FreelancerWithGivenIdDoesNotExist()
+        }
+
+        if (!checkFreelancerRole(freelancerId, ConsultingType.BiomechanicalConsulting())) {
+            throw IncompatibleFreelancerRoleForConsulting()
+        }
+
         /**
-         * create a new biomechanics consulting
+         * create a new biomechanical consulting
          */
         if (repository.getById(consultingId).count() > 0) {
             throw ConsultingShouldHaveAUniqueId()
@@ -116,6 +153,8 @@ class ConsultingUseCases(
 
         repository.save(consulting)
 
+        presenter.onResult(ConsultingFacade.create(consulting))
+
         return consulting
     }
 
@@ -125,16 +164,26 @@ class ConsultingUseCases(
     fun receiveAthleticTrainerConsulting(
         consultingId: ConsultingId,
         memberId: MemberId,
-        consultingDate: Date,
+        consultingDate: LocalDate,
         freelancerId: FreelancerId,
         description: String
     ): Consulting {
+
+        if (!freelancerExist(freelancerId)) {
+            throw FreelancerWithGivenIdDoesNotExist()
+        }
+
+        if (!checkFreelancerRole(freelancerId, ConsultingType.AthleticTrainerConsulting())) {
+            throw IncompatibleFreelancerRoleForConsulting()
+        }
+
         /**
-         * create a new athletic trainer consulting
+         * create a new biomechanical consulting
          */
         if (repository.getById(consultingId).count() > 0) {
             throw ConsultingShouldHaveAUniqueId()
         }
+
         val consulting = Consulting.createAthleticTrainerConsulting(
             consultingId,
             memberId,
@@ -145,6 +194,8 @@ class ConsultingUseCases(
 
         repository.save(consulting)
 
+        presenter.onResult(ConsultingFacade.create(consulting))
+
         return consulting
     }
 
@@ -152,6 +203,7 @@ class ConsultingUseCases(
      * FCLAC-8 Manage Consulting Summaries (Update)
      */
     fun updateConsultingSummary(consultingId: ConsultingId, description: String): Consulting {
+
         /**
          * update the consulting with given id
          */
@@ -162,6 +214,8 @@ class ConsultingUseCases(
         val consulting = Consulting.rehydrateConsulting(consultingId, repository.getById(consultingId))
         consulting.updateSummaryDescription(description)
         repository.save(consulting)
+
+        presenter.onResult(ConsultingFacade.create(consulting))
 
         return consulting
     }
@@ -177,6 +231,49 @@ class ConsultingUseCases(
             entityList += Consulting.rehydrateConsulting(it.key, it.value.toList())
         }
 
-        return entityList.filter { it.getMemberId() == memberId }
+        val entries = entityList.filter { it.getMemberId() == memberId }
+
+        entries.forEach {
+            presenter.onResult(ConsultingFacade.create(it))
+        }
+
+        return entries
+    }
+
+    /**
+     * Utility method that check if the given [freelancerId] exist
+     */
+    private fun freelancerExist(freelancerId: FreelancerId) = freelancerRepository.getById(freelancerId).count() > 0
+
+    /**
+     * Method that checks if the requested consulting is compatible with the freelancer role
+     */
+    private fun checkFreelancerRole(freelancerId: FreelancerId, consultingType: ConsultingType): Boolean {
+        val freelancer = Freelancer.rehydrateFreelancer(freelancerId, freelancerRepository.getById(freelancerId))
+
+        when (consultingType) {
+            is ConsultingType.NutritionConsulting -> {
+                if (freelancer.getPersonalData().role != FreelancerRole.Nutritionist()) {
+                    return false
+                }
+            }
+            is ConsultingType.AthleticTrainerConsulting -> {
+                if (freelancer.getPersonalData().role != FreelancerRole.AthleticTrainer()) {
+                    return false
+                }
+            }
+            is ConsultingType.BiomechanicalConsulting -> {
+                if (freelancer.getPersonalData().role != FreelancerRole.Biomechanical()) {
+                    return false
+                }
+            }
+            is ConsultingType.PhysiotherapyConsulting -> {
+                if (freelancer.getPersonalData().role != FreelancerRole.Physiotherapist()) {
+                    return false
+                }
+            }
+        }
+
+        return true
     }
 }

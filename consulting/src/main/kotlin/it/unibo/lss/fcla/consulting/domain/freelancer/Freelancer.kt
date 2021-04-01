@@ -2,7 +2,6 @@ package it.unibo.lss.fcla.consulting.domain.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.common.AggregateId
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
@@ -11,6 +10,7 @@ import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerMustHaveAValidId
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerAvailabilityCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerAvailabilityDeletedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerCreatedEvent
+import java.time.LocalDate
 import java.time.LocalTime
 
 typealias FreelancerId = String
@@ -53,9 +53,14 @@ class Freelancer internal constructor(
     }
 
     /**
+     *
+     */
+    fun getPersonalData(): FreelancerPersonalData = personalData.copy()
+
+    /**
      * Add an availability day and hours with given [newAvailabilityDate], [fromTime], [toTime]
      */
-    fun addAvailability(newAvailabilityDate: Date, fromTime: LocalTime, toTime: LocalTime) {
+    fun addAvailability(newAvailabilityDate: LocalDate, fromTime: LocalTime, toTime: LocalTime) {
         if (!fromTime.isBefore(toTime)) throw FreelancerAvailabilityNotValidTime()
 
         val exist = availabilities.firstOrNull { it.availabilityDate == newAvailabilityDate } != null
@@ -67,7 +72,7 @@ class Freelancer internal constructor(
     /**
      * Update an existing availability for the given [availabilityDate] with new [fromTime] and [toTime]
      */
-    fun updateAvailability(availabilityDate: Date, fromTime: LocalTime, toTime: LocalTime) {
+    fun updateAvailability(availabilityDate: LocalDate, fromTime: LocalTime, toTime: LocalTime) {
         if (!fromTime.isBefore(toTime)) throw FreelancerAvailabilityNotValidTime()
 
         val exist = availabilities.firstOrNull { it.availabilityDate == availabilityDate } != null
@@ -80,14 +85,14 @@ class Freelancer internal constructor(
     /**
      * Delete the availability for the given [availabilityDate]
      */
-    fun deleteAvailability(availabilityDate: Date) {
+    fun deleteAvailability(availabilityDate: LocalDate) {
         raiseEvent(FreelancerAvailabilityDeletedEvent(freelancerId, availabilityDate))
     }
 
     /**
      * Retrieve the freelancer availabilities for the given [date]
      */
-    fun getAvailabilityForDay(availabilityDate: Date): AvailabilityHours {
+    fun getAvailabilityForDay(availabilityDate: LocalDate): AvailabilityHours {
         val fromTime = availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.fromTime
         val toTime = availabilities.firstOrNull { it.availabilityDate == availabilityDate }?.toTime
 
