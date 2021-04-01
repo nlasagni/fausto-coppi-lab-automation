@@ -7,6 +7,12 @@ it.unibo.lss.fcla.athleticpreparation.domain.model
 it.unibo.lss.fcla.athleticpreparation.usecase
 it.unibo.lss.fcla.athleticpreparation.usecase.exception
 it.unibo.lss.fcla.athleticpreparation.usecase.port
+it.unibo.lss.fcla.consulting
+it.unibo.lss.fcla.consulting.application.adapters
+it.unibo.lss.fcla.consulting.application.controllers
+it.unibo.lss.fcla.consulting.application.presentation
+it.unibo.lss.fcla.consulting.application.presentation.consulting
+it.unibo.lss.fcla.consulting.application.presentation.freelancer
 it.unibo.lss.fcla.consulting.common
 it.unibo.lss.fcla.consulting.domain.consulting
 it.unibo.lss.fcla.consulting.domain.consulting.events
@@ -14,7 +20,9 @@ it.unibo.lss.fcla.consulting.domain.contracts
 it.unibo.lss.fcla.consulting.domain.exceptions
 it.unibo.lss.fcla.consulting.domain.freelancer
 it.unibo.lss.fcla.consulting.domain.freelancer.events
+it.unibo.lss.fcla.consulting.ui
 it.unibo.lss.fcla.consulting.usecases
+it.unibo.lss.fcla.consulting.usecases.facades
 it.unibo.lss.fcla.reservation
 it.unibo.lss.fcla.reservation.application
 it.unibo.lss.fcla.reservation.application.interfaces
