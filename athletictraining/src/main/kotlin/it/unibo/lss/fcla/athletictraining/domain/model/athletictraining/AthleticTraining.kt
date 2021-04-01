@@ -5,7 +5,6 @@ import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustH
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
 import it.unibo.lss.fcla.athletictraining.domain.exception.TrainingPlanMustBePreparedDuringPeriodOfPreparation
 import it.unibo.lss.fcla.athletictraining.domain.exception.TrainingPlanMustNotOverlap
-import it.unibo.lss.fcla.athletictraining.domain.model.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.TrainingPlan
 
 /**

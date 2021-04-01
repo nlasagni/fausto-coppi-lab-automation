@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.usecase.port
 
-import it.unibo.lss.fcla.athletictraining.domain.model.MemberId
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId

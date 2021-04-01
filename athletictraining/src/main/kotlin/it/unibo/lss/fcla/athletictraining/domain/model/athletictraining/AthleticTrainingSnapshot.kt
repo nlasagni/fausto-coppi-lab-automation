@@ -1,6 +1,5 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
-import it.unibo.lss.fcla.athletictraining.domain.model.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.TrainingPlan
 
 /**
