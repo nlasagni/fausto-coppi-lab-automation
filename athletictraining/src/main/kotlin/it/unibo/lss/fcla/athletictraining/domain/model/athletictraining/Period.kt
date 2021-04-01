@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfPeriodCannotBeAfterEnd
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodCannotBeginOrEndBeforeToday
-import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodOfPreparationDoesNotMeetMinimumDuration
+import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodDoesNotMeetMinimumDuration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -39,7 +39,7 @@ data class Period(
             throw BeginningOfPeriodCannotBeAfterEnd()
         }
         if (doesNotMeetMinimumPreparationPeriodDuration()) {
-            throw PeriodOfPreparationDoesNotMeetMinimumDuration()
+            throw PeriodDoesNotMeetMinimumDuration()
         }
         beginning = beginningDay.atTime(LocalTime.MIN)
         end = endDay.atTime(LocalTime.MAX)
