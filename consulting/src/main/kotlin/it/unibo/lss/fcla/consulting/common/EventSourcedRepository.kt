@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.consulting.common
 
-import it.unibo.lss.fcla.consulting.application.persistence.EventStore
+import it.unibo.lss.fcla.consulting.application.adapters.EventStore
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 
 /**

@@ -2,9 +2,9 @@ package it.unibo.lss.fcla.consulting
 
 import it.unibo.lss.fcla.consulting.application.controllers.ConsultingController
 import it.unibo.lss.fcla.consulting.application.controllers.FreelancerController
-import it.unibo.lss.fcla.consulting.application.persistence.ConsultingRepository
-import it.unibo.lss.fcla.consulting.application.persistence.EventStore
-import it.unibo.lss.fcla.consulting.application.persistence.FreelancerRepository
+import it.unibo.lss.fcla.consulting.application.adapters.ConsultingRepository
+import it.unibo.lss.fcla.consulting.application.adapters.EventStore
+import it.unibo.lss.fcla.consulting.application.adapters.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.PresenterImpl
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveNutritionistConsultingRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateAthleticTrainerFreelancerRequest

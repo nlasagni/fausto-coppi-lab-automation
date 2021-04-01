@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.consulting.application.controllers
 
-import it.unibo.lss.fcla.consulting.application.persistence.ConsultingRepository
-import it.unibo.lss.fcla.consulting.application.persistence.FreelancerRepository
+import it.unibo.lss.fcla.consulting.application.adapters.ConsultingRepository
+import it.unibo.lss.fcla.consulting.application.adapters.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ExamineAllSummariesForMemberRequest
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveAthleticTrainerConsultingRequest
@@ -15,8 +15,8 @@ import it.unibo.lss.fcla.consulting.usecases.IPresenter
 /**
  * @author Stefano Braggion
  *
- * This is a concrete implementation of [BaseController]. This class take the requests
- * provided form the UI and execute the operations in the use case layer.
+ * This is a concrete implementation of [IController]. This class take the requests
+ * provided from the UI and execute the operations in the use case layer.
  */
 class ConsultingController(
     private val consultingRepository: ConsultingRepository,

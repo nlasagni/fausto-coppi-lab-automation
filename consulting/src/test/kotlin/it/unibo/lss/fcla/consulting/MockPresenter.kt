@@ -6,7 +6,7 @@ import it.unibo.lss.fcla.consulting.usecases.IPresenter
 import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
 
 /**
- *
+ * Mock implementation of a presenter only for testing purpose.
  */
 class MockPresenter : IPresenter {
 

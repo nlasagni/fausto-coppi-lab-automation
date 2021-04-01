@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.application.persistence.EventStore
+import it.unibo.lss.fcla.consulting.application.adapters.EventStore
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours

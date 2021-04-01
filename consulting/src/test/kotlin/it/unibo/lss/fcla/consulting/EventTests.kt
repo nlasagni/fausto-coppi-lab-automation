@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.consulting
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.application.persistence.EventStore
+import it.unibo.lss.fcla.consulting.application.adapters.EventStore
 import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
