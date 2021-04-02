@@ -12,7 +12,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Distance.Compani
  *
  * @author Nicola Lasagni on 02/04/2021.
  */
-data class Distance(val value: Int) {
+data class Distance(val value: Int = MIN) {
 
     companion object {
         /**
