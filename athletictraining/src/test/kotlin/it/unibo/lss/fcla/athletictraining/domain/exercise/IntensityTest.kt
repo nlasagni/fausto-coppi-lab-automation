@@ -20,14 +20,14 @@ class IntensityTest : FreeSpec({
             val firstIntensity = Intensity()
             val secondIntensity = Intensity()
             val intensitySum = firstIntensity + secondIntensity
-            val expectedIntensitySum = Intensity(Intensity.MIN + 1)
+            val expectedIntensitySum = Intensity(Intensity.MIN + Intensity.MIN)
             Assertions.assertEquals(intensitySum, expectedIntensitySum)
         }
         "allow the subtraction of another Intensity" - {
-            val firstIntensity = Intensity(Intensity.MIN + 1)
+            val firstIntensity = Intensity(Intensity.MAX)
             val secondIntensity = Intensity()
             val intensitySubtraction = firstIntensity - secondIntensity
-            val expectedIntensitySubtraction = Intensity()
+            val expectedIntensitySubtraction = Intensity(Intensity.MAX - Intensity.MIN)
             Assertions.assertEquals(intensitySubtraction, expectedIntensitySubtraction)
         }
     }
