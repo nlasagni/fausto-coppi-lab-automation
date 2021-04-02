@@ -9,25 +9,25 @@ import org.junit.jupiter.api.assertThrows
  * @author Nicola Lasagni on 02/04/2021.
  */
 class IntensityTest : FreeSpec({
-    "The intensity should" - {
-        "not allow outside range values" - {
+    "The intensity of an exercise should" - {
+        "not allow outside-range values" - {
             assertThrows<IntensityDoesNotRespectRange> {
-                Intensity(Intensity.MAX + 1)
+                Intensity(Intensity.HIGH + 1)
             }
         }
-        "allow the sum of another Intensity" - {
+        "allow the sum of another intensity value" - {
             val firstIntensity = Intensity()
             val secondIntensity = Intensity()
             val intensitySum = firstIntensity + secondIntensity
-            val expectedIntensitySum = Intensity(Intensity.MIN + Intensity.MIN)
-            Assertions.assertEquals(intensitySum, expectedIntensitySum)
+            val expectedIntensitySum = Intensity(Intensity.LOW + Intensity.LOW)
+            Assertions.assertEquals(expectedIntensitySum, intensitySum)
         }
-        "allow the subtraction of another Intensity" - {
-            val firstIntensity = Intensity(Intensity.MAX)
+        "allow the subtraction of another intensity value" - {
+            val firstIntensity = Intensity(Intensity.HIGH)
             val secondIntensity = Intensity()
             val intensitySubtraction = firstIntensity - secondIntensity
-            val expectedIntensitySubtraction = Intensity(Intensity.MAX - Intensity.MIN)
-            Assertions.assertEquals(intensitySubtraction, expectedIntensitySubtraction)
+            val expectedIntensitySubtraction = Intensity(Intensity.HIGH - Intensity.LOW)
+            Assertions.assertEquals(expectedIntensitySubtraction, intensitySubtraction)
         }
     }
 })

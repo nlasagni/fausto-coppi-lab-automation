@@ -9,25 +9,25 @@ import org.junit.jupiter.api.assertThrows
  * @author Nicola Lasagni on 02/04/2021.
  */
 class DistanceTest : FreeSpec({
-    "The Distance should" - {
-        "not allow outside range values" - {
+    "The distance of an exercise should" - {
+        "not allow outside-range values" - {
             assertThrows<DistanceDoesNotRespectRange> {
-                Distance(Distance.MIN - 1)
+                Distance(Distance.ZERO - 1)
             }
         }
-        "allow the sum of another Distance" - {
+        "allow the sum of another distance value" - {
             val firstDistance = Distance()
             val secondDistance = Distance()
             val distanceSum = firstDistance + secondDistance
-            val expectedDistanceSum = Distance(Distance.MIN + Distance.MIN)
-            Assertions.assertEquals(distanceSum, expectedDistanceSum)
+            val expectedDistanceSum = Distance(Distance.ZERO + Distance.ZERO)
+            Assertions.assertEquals(expectedDistanceSum, distanceSum)
         }
-        "allow the subtraction of another Distance" - {
-            val firstDistance = Distance(Distance.MIN)
-            val secondDistance = Distance(Distance.MIN)
+        "allow the subtraction of another distance value" - {
+            val firstDistance = Distance(Distance.ZERO)
+            val secondDistance = Distance(Distance.ZERO)
             val distanceSubtraction = firstDistance - secondDistance
-            val expectedDistanceSubtraction = Distance(Distance.MIN - Distance.MIN)
-            Assertions.assertEquals(distanceSubtraction, expectedDistanceSubtraction)
+            val expectedDistanceSubtraction = Distance(Distance.ZERO - Distance.ZERO)
+            Assertions.assertEquals(expectedDistanceSubtraction, distanceSubtraction)
         }
     }
 })
