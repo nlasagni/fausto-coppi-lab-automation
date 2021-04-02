@@ -91,5 +91,4 @@ class Exercise(
     fun decrementDistance(distance: Distance) {
         configuration = configuration.decrementDistance(distance)
     }
-
 }

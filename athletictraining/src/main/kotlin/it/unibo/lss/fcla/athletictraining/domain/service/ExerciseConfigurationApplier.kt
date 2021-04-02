@@ -8,5 +8,4 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Configuration
 interface ExerciseConfigurationApplier {
 
     fun applyConfiguration(configuration: Configuration)
-
 }

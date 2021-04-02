@@ -7,7 +7,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Distance.Compani
 /**
  * ValueObject representing the distance made during an [Exercise] expressed in meters.
  *
- * The Distance must be inside the range [[MIN],[MAX]], otherwise a
+ * The Distance must be inside the range [[MIN], [MAX]], otherwise a
  * [DistanceDoesNotRespectRange] is thrown.
  *
  * @author Nicola Lasagni on 02/04/2021.
@@ -53,5 +53,4 @@ data class Distance(val value: Int) {
     operator fun minus(other: Distance): Distance {
         return Distance(value - other.value)
     }
-
 }

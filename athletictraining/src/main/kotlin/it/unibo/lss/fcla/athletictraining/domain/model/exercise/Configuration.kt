@@ -55,5 +55,4 @@ data class Configuration(
      */
     fun decrementDistance(distanceToDecrement: Distance): Configuration =
         Configuration(gymMachineId, intensity, distance - distanceToDecrement)
-
 }

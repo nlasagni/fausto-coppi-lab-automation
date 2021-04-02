@@ -7,12 +7,14 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Intensity.Compan
 /**
  * ValueObject representing the intensity of an [Exercise].
  *
- * The Distance must be inside the range [[MIN],[MAX]], otherwise a
+ * The Intensity must be inside the range [[MIN], [MAX]], otherwise a
  * [IntensityDoesNotRespectRange] is thrown.
+ *
+ * The default value of the Intensity is [MIN].
  *
  * @author Nicola Lasagni on 02/04/2021.
  */
-data class Intensity(val value: Int) {
+data class Intensity(val value: Int = MIN) {
 
     companion object {
         /**
@@ -53,5 +55,4 @@ data class Intensity(val value: Int) {
     operator fun minus(other: Intensity): Intensity {
         return Intensity(value - other.value)
     }
-
 }
