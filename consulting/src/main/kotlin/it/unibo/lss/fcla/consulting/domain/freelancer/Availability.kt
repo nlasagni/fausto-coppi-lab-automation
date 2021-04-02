@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.consulting.domain.freelancer
 
-import it.unibo.lss.fcla.consulting.domain.consulting.Date
+import java.time.LocalDate
 import java.time.LocalTime
 
 /**
@@ -8,7 +8,7 @@ import java.time.LocalTime
  *
  * Represents the freelancer availability based on days and hours
  */
-class Availability(val availabilityDate: Date, val fromTime: LocalTime, val toTime: LocalTime) {
+class Availability(val availabilityDate: LocalDate, val fromTime: LocalTime, val toTime: LocalTime) {
 
     private var availabilityHours: AvailabilityHours = AvailabilityHours(fromTime, toTime)
 
