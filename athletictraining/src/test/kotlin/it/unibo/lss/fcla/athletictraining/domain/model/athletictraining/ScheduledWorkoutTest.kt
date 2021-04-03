@@ -15,6 +15,8 @@ import java.time.LocalTime
  */
 class ScheduledWorkoutTest : FreeSpec({
 
+    val tenOClock = LocalTime.of(10, 0)
+
     lateinit var workoutId: WorkoutId
     lateinit var schedule: Schedule
     lateinit var scheduledWorkout: ScheduledWorkout
@@ -23,8 +25,8 @@ class ScheduledWorkoutTest : FreeSpec({
         workoutId = WorkoutId("1234")
         schedule = Schedule(
             LocalDate.now(),
-            LocalTime.now(),
-            LocalTime.now().plusHours(1)
+            tenOClock,
+            tenOClock.plusHours(1)
         )
         scheduledWorkout = ScheduledWorkout(workoutId, schedule)
     }
@@ -38,8 +40,8 @@ class ScheduledWorkoutTest : FreeSpec({
         "allow to be rescheduled" - {
             val newSchedule = Schedule(
                 LocalDate.now(),
-                LocalTime.now(),
-                LocalTime.now().plusHours(2)
+                tenOClock,
+                tenOClock.plusHours(2)
             )
             scheduledWorkout.reschedule(newSchedule)
             scheduledWorkout.scheduledOn().shouldBe(newSchedule)

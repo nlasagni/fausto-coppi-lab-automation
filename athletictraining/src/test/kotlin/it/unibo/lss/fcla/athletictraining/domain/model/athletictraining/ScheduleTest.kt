@@ -15,6 +15,7 @@ import java.time.LocalTime
  */
 class ScheduleTest : FreeSpec({
 
+    val eightOClock = LocalTime.of(8, 0)
     val today = LocalDate.now()
 
     "A schedule should" - {
@@ -22,21 +23,20 @@ class ScheduleTest : FreeSpec({
             assertThrows<BeginningOfScheduleCannotBeAfterEnd> {
                 Schedule(
                     today,
-                    LocalTime.now().plusHours(1),
-                    LocalTime.now()
+                    eightOClock.plusHours(1),
+                    eightOClock
                 )
             }
         }
         "allow to check if it overlaps with another schedule" - {
             val tomorrow = LocalDate.now().plusDays(1)
-            val now = LocalTime.now()
-            val inAnHour = now.plusHours(1)
-            val halfAnHourAgo = now.minusMinutes(30)
-            val oneHourAgo = now.minusHours(1)
-            val firstSchedule = Schedule(today, now, inAnHour)
+            val inAnHour = eightOClock.plusHours(1)
+            val halfAnHourAgo = eightOClock.minusMinutes(30)
+            val oneHourAgo = eightOClock.minusHours(1)
+            val firstSchedule = Schedule(today, eightOClock, inAnHour)
             val secondSchedule = Schedule(today, halfAnHourAgo, inAnHour)
-            val thirdSchedule = Schedule(today, oneHourAgo, now)
-            val fourthSchedule = Schedule(tomorrow, now, inAnHour)
+            val thirdSchedule = Schedule(today, oneHourAgo, eightOClock)
+            val fourthSchedule = Schedule(tomorrow, eightOClock, inAnHour)
             firstSchedule.overlapsWith(firstSchedule).shouldBeTrue()
             firstSchedule.overlapsWith(secondSchedule).shouldBeTrue()
             firstSchedule.overlapsWith(thirdSchedule).shouldBeFalse()

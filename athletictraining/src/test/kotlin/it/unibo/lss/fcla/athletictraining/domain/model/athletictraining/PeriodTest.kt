@@ -2,8 +2,6 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.BeginningOfPeriodCannotBeAfterEnd
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodCannotBeginOrEndBeforeToday
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodDoesNotMeetMinimumDuration
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -17,7 +15,7 @@ import java.time.LocalDate
 class PeriodTest : FreeSpec({
     "A period should" - {
         val validBeginning = LocalDate.now()
-        val validEnd = validBeginning.plusMonths(Period.minimumPeriodDurationInMonth.toLong())
+        val validEnd = validBeginning.plusMonths(1)
         "prevent that beginning is after end" - {
             assertThrows<BeginningOfPeriodCannotBeAfterEnd> {
                 Period(validEnd, validBeginning)
@@ -26,31 +24,10 @@ class PeriodTest : FreeSpec({
                 Period(validBeginning, validEnd)
             }
         }
-        "prevent beginning before today" - {
-            val invalidBeginning = LocalDate.now().minusDays(1)
-            val invalidEnd = LocalDate.now().minusDays(1)
-            assertThrows<PeriodCannotBeginOrEndBeforeToday> {
-                Period(validBeginning, invalidEnd)
-            }
-            assertThrows<PeriodCannotBeginOrEndBeforeToday> {
-                Period(invalidBeginning, validEnd)
-            }
-        }
         "be equal to another with same beginning and end" - {
             val periodOne = Period(validBeginning, validEnd)
             val periodTwo = Period(validBeginning, validEnd)
             Assertions.assertEquals(periodOne, periodTwo)
-        }
-        "last at least ${Period.minimumPeriodDurationInMonth} months" - {
-            val invalidEnd = validBeginning.plusMonths(
-                Period.minimumPeriodDurationInMonth.toLong() - 1
-            )
-            assertThrows<PeriodDoesNotMeetMinimumDuration> {
-                Period(validBeginning, invalidEnd)
-            }
-            assertDoesNotThrow {
-                Period(validBeginning, validEnd)
-            }
         }
     }
 })

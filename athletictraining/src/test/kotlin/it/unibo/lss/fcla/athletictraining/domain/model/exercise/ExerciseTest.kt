@@ -2,6 +2,8 @@ package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
+import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import org.junit.jupiter.api.assertThrows
@@ -14,6 +16,7 @@ import java.time.Duration
  */
 class ExerciseTest : FreeSpec({
 
+    lateinit var exerciseId: ExerciseId
     lateinit var name: String
     lateinit var durationOfExecution: Duration
     lateinit var durationOfRest: Duration
@@ -23,6 +26,7 @@ class ExerciseTest : FreeSpec({
     lateinit var validExercise: Exercise
 
     beforeAny {
+        exerciseId = ExerciseId(UuidGenerator().generate())
         name = "Exercise 1"
         durationOfExecution = Duration.ofHours(1)
         durationOfRest = Duration.ofMinutes(30)
@@ -34,6 +38,7 @@ class ExerciseTest : FreeSpec({
             distance
         )
         validExercise = Exercise(
+            exerciseId,
             name,
             configuration,
             durationOfExecution,
@@ -42,9 +47,26 @@ class ExerciseTest : FreeSpec({
     }
 
     "An exercise should" - {
+        "have a unique id" - {
+            assertThrows<ExerciseIdMissing> {
+                Exercise(
+                    ExerciseId(""),
+                    name,
+                    configuration,
+                    durationOfExecution,
+                    durationOfRest
+                )
+            }
+        }
         "have a name" - {
             assertThrows<NameMustNotBeEmpty> {
-                Exercise("", configuration, durationOfExecution, durationOfRest)
+                Exercise(
+                    exerciseId,
+                    "",
+                    configuration,
+                    durationOfExecution,
+                    durationOfRest
+                )
             }
         }
         "allow to be renamed" - {
