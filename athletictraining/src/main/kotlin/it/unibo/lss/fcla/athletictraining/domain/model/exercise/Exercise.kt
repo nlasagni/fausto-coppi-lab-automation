@@ -45,6 +45,17 @@ class Exercise(
         duration <= Duration.ZERO
 
     /**
+     * Generates an [ExerciseSnapshot] with the information about this Exercise.
+     */
+    fun snapshot() = ExerciseSnapshot(
+        id,
+        name,
+        configuration,
+        durationOfExecution,
+        durationOfRest
+    )
+
+    /**
      * Changes the name of this exercise.
      * The [newName] must not be empty, otherwise
      * a [NameMustNotBeEmpty] exception is thrown.
