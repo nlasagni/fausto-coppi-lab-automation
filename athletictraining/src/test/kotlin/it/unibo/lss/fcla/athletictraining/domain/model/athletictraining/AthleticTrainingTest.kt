@@ -1,6 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingAlreadyCompleted
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
@@ -13,7 +15,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 /**
@@ -137,6 +138,21 @@ class AthleticTrainingTest : FreeSpec({
         }
         "allow to schedule a workout" - {
             assertDoesNotThrow { validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule) }
+            val snapshot = validAthleticTraining.snapshot()
+            snapshot.scheduledWorkout.shouldHaveSize(1)
+        }
+        "allow to reschedule an already-scheduled workout" - {
+            validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
+            val newSchedule = Schedule(
+                validBeginning,
+                LocalTime.now(),
+                LocalTime.now().plusHours(2)
+            )
+            val beforeReschedulingSnapshot = validAthleticTraining.snapshot()
+            val scheduledWorkoutId = beforeReschedulingSnapshot.scheduledWorkout.first().id
+            assertDoesNotThrow { validAthleticTraining.rescheduleWorkout(scheduledWorkoutId, newSchedule) }
+            val postReschedulingSnapshot = validAthleticTraining.snapshot()
+            postReschedulingSnapshot.scheduledWorkout.first().schedule.shouldBe(newSchedule)
         }
         "not allow the scheduling of a workout that overlaps with another" - {
             validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)

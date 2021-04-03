@@ -5,6 +5,7 @@ import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustH
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
 import it.unibo.lss.fcla.athletictraining.domain.exception.PostponedPeriodMustHaveSameBeginningOfCurrentPeriod
+import it.unibo.lss.fcla.athletictraining.domain.exception.ScheduledWorkoutNotFound
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutScheduleMustNotOverlap
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
@@ -56,6 +57,36 @@ class AthleticTraining(
     }
 
     /**
+     * Retrieves the [AthleticTrainerId] that made this AthleticTraining.
+     * @return The [AthleticTrainerId] that made this AthleticTraining.
+     */
+    fun madeByAthleticTrainer(): AthleticTrainerId = athleticTrainerId
+
+    /**
+     * Retrieves the [MemberId] for which this AthleticTraining has been made.
+     * @return The [MemberId] for which this AthleticTraining has been made
+     */
+    fun madeForMember(): MemberId = memberId
+
+    /**
+     * Retrieves the [Purpose] that guides this AthleticTraining.
+     * @return The [Purpose] that guides this AthleticTraining.
+     */
+    fun madeWithPurpose(): Purpose = purpose
+
+    /**
+     * Retrieves the [Period] covered by this AthleticTraining.
+     * @return The [Period] covered by this AthleticTraining.
+     */
+    fun coversPeriod(): Period = period
+
+    /**
+     * Checks if this AthleticTraining is completed.
+     * @return True if this AthleticTraining is completed, false otherwise.
+     */
+    fun isCompleted() = status == Status.COMPLETED
+
+    /**
      * Returns a unique id of this AthleticTraining which will be stored
      * into the [id] private property.
      */
@@ -87,17 +118,38 @@ class AthleticTraining(
      * [WorkoutScheduleMustNotOverlap] exception will be thrown.
      */
     fun scheduleWorkout(workoutId: WorkoutId, schedule: Schedule) {
-        if (isAlreadyCompleted()) {
+        enforceSchedulingInvariants(schedule)
+        if (scheduleOverlaps(schedule)) {
+            throw WorkoutScheduleMustNotOverlap()
+        }
+        scheduledWorkouts = scheduledWorkouts + ScheduledWorkout(workoutId, schedule)
+    }
+
+    /**
+     * Changes the [Schedule] of an existing [ScheduledWorkout] that matches the provided
+     * [id], by using the specified [schedule].
+     */
+    fun rescheduleWorkout(scheduledWorkoutId: ScheduledWorkoutId, schedule: Schedule) {
+        enforceSchedulingInvariants(schedule)
+        val scheduledWorkout =
+            scheduledWorkouts.firstOrNull { it.id == scheduledWorkoutId }
+                ?: throw ScheduledWorkoutNotFound()
+        if (scheduleOverlaps(scheduledWorkout, schedule)) {
+            throw WorkoutScheduleMustNotOverlap()
+        }
+        scheduledWorkout.reschedule(schedule)
+    }
+
+    /***
+     * Enforces scheduling invariants.
+     */
+    private fun enforceSchedulingInvariants(schedule: Schedule) {
+        if (isCompleted()) {
             throw AthleticTrainingAlreadyCompleted()
         }
         if (isScheduleOutOfPeriod(schedule)) {
             throw WorkoutMustBeScheduledDuringPeriodOfTraining()
         }
-        val desiredScheduledWorkout = ScheduledWorkout(workoutId, schedule)
-        if (scheduleOverlaps(desiredScheduledWorkout)) {
-            throw WorkoutScheduleMustNotOverlap()
-        }
-        scheduledWorkouts = scheduledWorkouts + desiredScheduledWorkout
     }
 
     /**
@@ -112,10 +164,22 @@ class AthleticTraining(
     /**
      * Checks if the desired [Schedule] overlaps with an existing one.
      */
-    private fun scheduleOverlaps(scheduledWorkout: ScheduledWorkout): Boolean {
-        return scheduledWorkouts.any {
-            it.overlapsWith(scheduledWorkout)
-        }
+    private fun scheduleOverlaps(schedule: Schedule): Boolean {
+        return scheduledWorkouts
+            .any { it.scheduledOn().overlapsWith(schedule) }
+    }
+
+    /**
+     * Checks if the desired [Schedule] overlaps with an existing one, excluding
+     * the provided [scheduledWorkout].
+     */
+    private fun scheduleOverlaps(
+        scheduledWorkout: ScheduledWorkout,
+        schedule: Schedule
+    ): Boolean {
+        return scheduledWorkouts
+            .filter { it != scheduledWorkout }
+            .any { it.scheduledOn().overlapsWith(schedule) }
     }
 
     /**
@@ -126,12 +190,8 @@ class AthleticTraining(
     }
 
     /**
-     * Checks if this AthleticTraining is completed.
-     */
-    private fun isAlreadyCompleted() = status == Status.COMPLETED
-
-    /**
-     * Generates an [AthleticTrainingSnapshot] with the information about this AthleticTraining.
+     * Generates a snapshot with the information about this AthleticTraining.
+     * @return A [AthleticTrainingSnapshot] with the information about this AthleticTraining.
      */
     fun snapshot() = AthleticTrainingSnapshot(
         id,
@@ -139,6 +199,6 @@ class AthleticTraining(
         memberId,
         purpose,
         period,
-        scheduledWorkouts
+        scheduledWorkouts.map { it.snapshot() }
     )
 }
