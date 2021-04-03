@@ -32,17 +32,24 @@ class ScheduledWorkout(
     }
 
     /**
+     *
+     */
+    fun scheduledForWorkout(): WorkoutId {
+        return workoutId
+    }
+
+    /**
+     * Returns the [Schedule] of this [ScheduledWorkout].
+     */
+    fun scheduledOn(): Schedule {
+        return schedule
+    }
+
+    /**
      * Reschedules this ScheduledWorkout with the specified [schedule].
      */
     fun reschedule(newSchedule: Schedule) {
         schedule = newSchedule
-    }
-
-    /**
-     * Checks if the specified [scheduledWorkout] overlaps with this ScheduledWorkout.
-     */
-    fun overlapsWith(scheduledWorkout: ScheduledWorkout): Boolean {
-        return schedule.overlapsWith(scheduledWorkout.schedule)
     }
 
     /**
@@ -53,4 +60,17 @@ class ScheduledWorkout(
         workoutId,
         schedule
     )
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ScheduledWorkout) return false
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
 }

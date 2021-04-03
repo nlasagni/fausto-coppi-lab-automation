@@ -47,9 +47,5 @@ class ScheduledWorkoutTest : FreeSpec({
             val snapshot = scheduledWorkout.snapshot()
             snapshot.schedule.shouldBe(newSchedule)
         }
-        "be able to check if it overlaps with another" - {
-            val overlappingScheduledWorkout = ScheduledWorkout(workoutId, schedule)
-            scheduledWorkout.overlapsWith(overlappingScheduledWorkout).shouldBeTrue()
-        }
     }
 })
