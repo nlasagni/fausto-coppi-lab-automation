@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.adapter.repository
 
 import io.kotest.core.spec.style.FreeSpec
+import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
@@ -17,6 +18,7 @@ import java.time.LocalDate
 class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
 
     lateinit var repository: AthleticPreparationRepository
+    lateinit var athleticTrainingId: AthleticTrainingId
     lateinit var athleticTrainerId: AthleticTrainerId
     lateinit var memberId: MemberId
     lateinit var period: Period
@@ -26,14 +28,16 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
     beforeAny {
         repository = InMemoryAthleticPreparationRepository()
         val now = LocalDate.now()
+        athleticTrainingId = AthleticTrainingId(UuidGenerator().generate())
         athleticTrainerId = AthleticTrainerId("1234")
         memberId = MemberId("1234")
         period = Period(
             now,
-            now.plusMonths(Period.minimumPeriodDurationInMonth.toLong())
+            now.plusMonths(1)
         )
         purpose = Purpose.AthleticPreparation()
         athleticTraining = AthleticTraining(
+            athleticTrainingId,
             athleticTrainerId,
             memberId,
             purpose,

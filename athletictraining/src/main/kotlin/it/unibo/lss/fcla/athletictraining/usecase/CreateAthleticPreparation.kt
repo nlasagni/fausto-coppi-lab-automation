@@ -1,14 +1,19 @@
 package it.unibo.lss.fcla.athletictraining.usecase
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.usecase.exception.AthleticPreparationWithSameIdAlreadyExists
 import it.unibo.lss.fcla.athletictraining.usecase.exception.AthleticPreparationWithSamePeriodAlreadyExists
 import it.unibo.lss.fcla.athletictraining.usecase.port.AthleticPreparationRepository
+import it.unibo.lss.fcla.athletictraining.usecase.port.IdGenerator
 
 /**
  * @author Nicola Lasagni on 06/03/2021.
  */
-class CreateAthleticPreparation(private val repository: AthleticPreparationRepository) {
+class CreateAthleticPreparation(
+    private val idGenerator: IdGenerator,
+    private val repository: AthleticPreparationRepository
+) {
 
     fun create(athleticTraining: AthleticTraining): AthleticTraining {
         val snapshot = athleticTraining.snapshot()
@@ -19,6 +24,7 @@ class CreateAthleticPreparation(private val repository: AthleticPreparationRepos
             throw AthleticPreparationWithSamePeriodAlreadyExists()
         }
         val athleticPreparationToAdd = AthleticTraining(
+            AthleticTrainingId(idGenerator.generate()),
             snapshot.athleticTrainerId,
             snapshot.memberId,
             snapshot.purpose,
