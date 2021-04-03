@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  consulting:
+    build: './consulting'
+  reservation:
+    build: './reservation'
+  athleticpreparation:
+    build: './athleticpreparation'
