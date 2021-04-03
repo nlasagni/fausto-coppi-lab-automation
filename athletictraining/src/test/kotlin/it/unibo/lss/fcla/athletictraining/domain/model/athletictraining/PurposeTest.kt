@@ -12,10 +12,10 @@ class PurposeTest : FreeSpec({
 
     "AthleticTraining should" - {
         "be equal to another with same name" - {
-            Assertions.assertEquals(Purpose.AthleticTraining(), Purpose.AthleticTraining())
+            Assertions.assertEquals(Purpose.AthleticPreparation(), Purpose.AthleticPreparation())
         }
         "be different from another with different name" - {
-            Assertions.assertNotEquals(Purpose.AthleticTraining(), Purpose.Strengthening())
+            Assertions.assertNotEquals(Purpose.AthleticPreparation(), Purpose.Strengthening())
         }
     }
     "Strengthening should" - {
