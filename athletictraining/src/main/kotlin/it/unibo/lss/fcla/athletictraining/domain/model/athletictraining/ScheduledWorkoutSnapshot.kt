@@ -8,6 +8,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
  * @author Nicola Lasagni on 31/03/2021.
  */
 data class ScheduledWorkoutSnapshot(
+    val id: ScheduledWorkoutId,
     val workoutId: WorkoutId,
     val schedule: Schedule
 )
