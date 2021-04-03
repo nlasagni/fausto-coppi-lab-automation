@@ -34,7 +34,15 @@ class ScheduledWorkout(
         )
     }
 
+    /**
+     * Checks if the specified [scheduledWorkout] overlaps with this ScheduledWorkout.
+     */
+    fun overlapsWith(scheduledWorkout: ScheduledWorkout): Boolean {
+        return schedule.overlapsWith(scheduledWorkout.schedule)
+    }
+
     fun snapshot() = ScheduledWorkoutSnapshot(
+        id,
         workoutId,
         schedule
     )
