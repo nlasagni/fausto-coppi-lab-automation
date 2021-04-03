@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.exception
+package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exercise
 
 /**
  * @author Nicola Lasagni on 22/02/2021.

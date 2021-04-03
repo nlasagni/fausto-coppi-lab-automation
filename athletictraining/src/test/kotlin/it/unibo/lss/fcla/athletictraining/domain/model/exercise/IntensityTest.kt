@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athletictraining.domain.exception.IntensityDoesNotRespectRange
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.IntensityDoesNotRespectRange
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
 

@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
-import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import org.junit.jupiter.api.assertThrows
 import java.time.Duration

@@ -1,9 +1,9 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfPeriodCannotBeAfterEnd
-import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodCannotBeginOrEndBeforeToday
-import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodDoesNotMeetMinimumDuration
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.BeginningOfPeriodCannotBeAfterEnd
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodCannotBeginOrEndBeforeToday
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodDoesNotMeetMinimumDuration
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows

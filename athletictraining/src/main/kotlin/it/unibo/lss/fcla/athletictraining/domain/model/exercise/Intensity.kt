@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.exception.IntensityDoesNotRespectRange
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Intensity.Companion.HIGH
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Intensity.Companion.LOW
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.IntensityDoesNotRespectRange
 
 /**
  * ValueObject representing the intensity of an [Exercise].

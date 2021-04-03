@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.exception.DurationOfExerciseExecutionMustBeGreaterThanZero
-import it.unibo.lss.fcla.athletictraining.domain.exception.DurationOfExerciseRestMustBeGreaterThanZero
-import it.unibo.lss.fcla.athletictraining.domain.exception.NameMustNotBeEmpty
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseExecutionMustBeGreaterThanZero
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseRestMustBeGreaterThanZero
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import java.time.Duration
 

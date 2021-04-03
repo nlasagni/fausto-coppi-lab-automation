@@ -1,8 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
-import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfScheduleCannotBeAfterEnd
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.BeginningOfScheduleCannotBeAfterEnd
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 /**

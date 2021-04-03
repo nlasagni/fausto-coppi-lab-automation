@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.exception.DistanceDoesNotRespectRange
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DistanceDoesNotRespectRange
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Distance.Companion.MAX
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Distance.Companion.ZERO
 

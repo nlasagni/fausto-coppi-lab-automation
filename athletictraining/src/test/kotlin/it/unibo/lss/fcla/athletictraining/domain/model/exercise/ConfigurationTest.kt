@@ -1,8 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athletictraining.domain.exception.ConfigurationMustBeRelatedToGymMachine
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ConfigurationMustBeRelatedToGymMachine
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows

@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.exception.ConfigurationMustBeRelatedToGymMachine
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ConfigurationMustBeRelatedToGymMachine
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 
 /**

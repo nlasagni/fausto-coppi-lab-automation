@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
-import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfPeriodCannotBeAfterEnd
-import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodCannotBeginOrEndBeforeToday
-import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodDoesNotMeetMinimumDuration
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.BeginningOfPeriodCannotBeAfterEnd
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodCannotBeginOrEndBeforeToday
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodDoesNotMeetMinimumDuration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

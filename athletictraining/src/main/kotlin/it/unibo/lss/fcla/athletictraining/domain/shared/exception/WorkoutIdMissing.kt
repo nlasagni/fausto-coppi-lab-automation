@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.exception
+package it.unibo.lss.fcla.athletictraining.domain.shared.exception
 
 import java.lang.Exception
 

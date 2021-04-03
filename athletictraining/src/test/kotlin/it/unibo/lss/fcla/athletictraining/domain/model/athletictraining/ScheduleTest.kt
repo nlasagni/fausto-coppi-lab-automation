@@ -3,10 +3,9 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
-import it.unibo.lss.fcla.athletictraining.domain.exception.BeginningOfScheduleCannotBeAfterEnd
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.BeginningOfScheduleCannotBeAfterEnd
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 /**
