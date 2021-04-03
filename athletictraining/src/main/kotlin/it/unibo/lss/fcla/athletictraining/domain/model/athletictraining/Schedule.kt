@@ -29,14 +29,25 @@ data class Schedule(
         return hasSameDay(schedule) && (hasSameTimes(schedule) || timesOverlap(schedule))
     }
 
+    /**
+     * Checks if this Schedule has same [day] of the specified [schedule].
+     */
     private fun hasSameDay(schedule: Schedule): Boolean {
         return day.isEqual(schedule.day)
     }
 
+    /**
+     * Checks if this Schedule has same [startTime] and [endTime]
+     * of the specified [schedule].
+     */
     private fun hasSameTimes(schedule: Schedule): Boolean {
         return startTime == schedule.startTime && endTime == schedule.endTime
     }
 
+    /**
+     * Checks if times of this Schedule overlaps with the ones
+     * of the specified [schedule].
+     */
     private fun timesOverlap(schedule: Schedule): Boolean {
         return startTime.isBefore(schedule.endTime) && endTime.isAfter(schedule.startTime)
     }
