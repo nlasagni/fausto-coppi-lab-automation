@@ -6,7 +6,7 @@ import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustH
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
 import it.unibo.lss.fcla.athletictraining.domain.exception.PostponedPeriodMustHaveSameBeginningOfCurrentPeriod
-import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfPreparation
+import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutScheduleMustNotOverlap
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import org.junit.jupiter.api.Assertions
@@ -14,9 +14,10 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 /**
- * Tests of the [AthleticTraining] domain Entity.
+ * Tests of the [AthleticTraining] Aggregate Root.
  *
  * @author Nicola Lasagni on 24/02/2021.
  */
@@ -27,7 +28,9 @@ class AthleticTrainingTest : FreeSpec({
     lateinit var validBeginning: LocalDate
     lateinit var validEnd: LocalDate
     lateinit var validPeriod: Period
+    lateinit var validPurpose: Purpose
     lateinit var validAthleticTraining: AthleticTraining
+    lateinit var schedule: Schedule
 
     /**
      * Setup before every test.
@@ -39,10 +42,17 @@ class AthleticTrainingTest : FreeSpec({
         validBeginning = LocalDate.now()
         validEnd = validBeginning.plusMonths(Period.minimumPeriodDurationInMonth.toLong())
         validPeriod = Period(validBeginning, validEnd)
+        validPurpose = Purpose.AthleticPreparation()
         validAthleticTraining = AthleticTraining(
             fakeAthleticTrainerId,
             fakeMemberId,
+            validPurpose,
             validPeriod
+        )
+        schedule = Schedule(
+            validBeginning,
+            LocalTime.now(),
+            LocalTime.now().plusHours(1)
         )
     }
 
@@ -52,6 +62,7 @@ class AthleticTrainingTest : FreeSpec({
                 AthleticTraining(
                     fakeAthleticTrainerId,
                     fakeMemberId,
+                    validPurpose,
                     validPeriod
                 )
             }
@@ -59,6 +70,7 @@ class AthleticTrainingTest : FreeSpec({
                 AthleticTraining(
                     AthleticTrainerId(""),
                     fakeMemberId,
+                    validPurpose,
                     validPeriod
                 )
             }
@@ -66,6 +78,7 @@ class AthleticTrainingTest : FreeSpec({
                 AthleticTraining(
                     fakeAthleticTrainerId,
                     MemberId(""),
+                    validPurpose,
                     validPeriod
                 )
             }
@@ -74,6 +87,7 @@ class AthleticTrainingTest : FreeSpec({
             val athleticTraining = AthleticTraining(
                 fakeAthleticTrainerId,
                 fakeMemberId,
+                validPurpose,
                 validPeriod
             )
             val snapshot = athleticTraining.snapshot()
@@ -97,6 +111,7 @@ class AthleticTrainingTest : FreeSpec({
             val athleticTraining = AthleticTraining(
                 fakeAthleticTrainerId,
                 fakeMemberId,
+                validPurpose,
                 period
             )
             val postponedBeginning = beginning.minusWeeks(1)
@@ -112,6 +127,7 @@ class AthleticTrainingTest : FreeSpec({
             val athleticTraining = AthleticTraining(
                 fakeAthleticTrainerId,
                 fakeMemberId,
+                validPurpose,
                 period
             )
             val postponedPeriod = Period(beginning, end.minusWeeks(1))
@@ -120,38 +136,27 @@ class AthleticTrainingTest : FreeSpec({
             }
         }
         "allow to schedule a workout" - {
-            val schedule = Schedule(
-                LocalDateTime.now(),
-                LocalDateTime.now().plusHours(1)
-            )
             assertDoesNotThrow { validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule) }
         }
         "not allow the scheduling of a workout that overlaps with another" - {
-            val schedule = Schedule(
-                LocalDateTime.now(),
-                LocalDateTime.now().plusHours(1)
-            )
             validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
             assertThrows<WorkoutScheduleMustNotOverlap> {
                 validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
             }
         }
         "not allow scheduling of workout out of the period of training" - {
-            val invalidScheduleStartTime = validPeriod.end.plusDays(1)
-            val schedule = Schedule(
-                invalidScheduleStartTime,
-                invalidScheduleStartTime.plusHours(1)
+            val invalidScheduleDay = validPeriod.end.plusDays(1).toLocalDate()
+            val invalidSchedule = Schedule(
+                invalidScheduleDay,
+                LocalTime.now(),
+                LocalTime.now().plusHours(1)
             )
-            assertThrows<WorkoutMustBeScheduledDuringPeriodOfPreparation> {
-                validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
+            assertThrows<WorkoutMustBeScheduledDuringPeriodOfTraining> {
+                validAthleticTraining.scheduleWorkout(fakeWorkoutId, invalidSchedule)
             }
         }
         "not allow the scheduling of a workout when completed" - {
             validAthleticTraining.complete()
-            val schedule = Schedule(
-                LocalDateTime.now(),
-                LocalDateTime.now().plusHours(1)
-            )
             assertThrows<AthleticTrainingAlreadyCompleted> {
                 validAthleticTraining.scheduleWorkout(fakeWorkoutId, schedule)
             }

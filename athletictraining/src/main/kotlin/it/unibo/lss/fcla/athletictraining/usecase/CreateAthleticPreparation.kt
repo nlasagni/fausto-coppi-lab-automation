@@ -21,6 +21,7 @@ class CreateAthleticPreparation(private val repository: AthleticPreparationRepos
         val athleticPreparationToAdd = AthleticTraining(
             snapshot.athleticTrainerId,
             snapshot.memberId,
+            snapshot.purpose,
             snapshot.period
         )
         return repository.add(athleticPreparationToAdd)

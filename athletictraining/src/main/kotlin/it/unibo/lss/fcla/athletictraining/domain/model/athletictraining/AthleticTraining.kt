@@ -5,24 +5,23 @@ import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustH
 import it.unibo.lss.fcla.athletictraining.domain.exception.AthleticTrainingMustHaveMember
 import it.unibo.lss.fcla.athletictraining.domain.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
 import it.unibo.lss.fcla.athletictraining.domain.exception.PostponedPeriodMustHaveSameBeginningOfCurrentPeriod
-import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfPreparation
+import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
 import it.unibo.lss.fcla.athletictraining.domain.exception.WorkoutScheduleMustNotOverlap
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
+import java.time.LocalDateTime
 
 /**
- * This is one of the main entities of the Athletic Preparation Bounded Context.
+ * This is one of the main entities of the Athletic Training Bounded Context.
  *
- * An AthleticPreparation must be prepared by an athletic trainer and for a member.
- * It is identified by an auto-generated id based on the athleticTrainerId,
- * memberId and periodOfPreparation properties.
+ * An AthleticTraining must be prepared by an athletic trainer and for a member.
  *
- * The purpose of an AthleticPreparation is to organize the training plans
+ * The purpose of an AthleticTraining is to organize the training plans
  * which will bring the member to reach his/her athletic objectives.
  *
- * During a member's AthleticPreparation it is not possible to have two TrainingPlan
+ * During a member's AthleticTraining it is not possible to have two TrainingPlan
  * in the same PeriodOfTraining.
  *
- * The lifecycle of an AthleticPreparation ends when the athletic trainer
+ * The lifecycle of an AthleticTraining ends when the athletic trainer
  * decides that it is completed.
  *
  * @property athleticTrainerId The id reference of the athletic trainer who is preparing the athletic training.
@@ -34,6 +33,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 class AthleticTraining(
     private val athleticTrainerId: AthleticTrainerId,
     private val memberId: MemberId,
+    private val purpose: Purpose,
     private var period: Period
 ) {
 
@@ -56,7 +56,7 @@ class AthleticTraining(
     }
 
     /**
-     * Returns a unique id of this AthleticPreparation which will be stored
+     * Returns a unique id of this AthleticTraining which will be stored
      * into the [id] private property.
      */
     private fun generateId(): AthleticTrainingId =
@@ -82,7 +82,7 @@ class AthleticTraining(
     /**
      * Schedules a workout for this AthleticTraining.
      * The workout must not be out of the [period], otherwise
-     * a [WorkoutMustBeScheduledDuringPeriodOfPreparation] exception will be thrown.
+     * a [WorkoutMustBeScheduledDuringPeriodOfTraining] exception will be thrown.
      * If another workout in the same date and time already exists, a
      * [WorkoutScheduleMustNotOverlap] exception will be thrown.
      */
@@ -91,12 +91,13 @@ class AthleticTraining(
             throw AthleticTrainingAlreadyCompleted()
         }
         if (isScheduleOutOfPeriod(schedule)) {
-            throw WorkoutMustBeScheduledDuringPeriodOfPreparation()
+            throw WorkoutMustBeScheduledDuringPeriodOfTraining()
         }
-        if (scheduleOverlaps(schedule)) {
+        val desiredScheduledWorkout = ScheduledWorkout(workoutId, schedule)
+        if (scheduleOverlaps(desiredScheduledWorkout)) {
             throw WorkoutScheduleMustNotOverlap()
         }
-        scheduledWorkouts = scheduledWorkouts + ScheduledWorkout(workoutId, schedule)
+        scheduledWorkouts = scheduledWorkouts + desiredScheduledWorkout
     }
 
     /**
@@ -104,37 +105,39 @@ class AthleticTraining(
      * [period].
      */
     private fun isScheduleOutOfPeriod(schedule: Schedule): Boolean {
-        return schedule.endTime.isAfter(period.end)
+        val scheduleEndDateTime = LocalDateTime.of(schedule.day, schedule.endTime)
+        return scheduleEndDateTime.isAfter(period.end)
     }
 
     /**
      * Checks if the desired [Schedule] overlaps with an existing one.
      */
-    private fun scheduleOverlaps(schedule: Schedule): Boolean {
+    private fun scheduleOverlaps(scheduledWorkout: ScheduledWorkout): Boolean {
         return scheduledWorkouts.any {
-            it.snapshot().schedule.overlaps(schedule)
+            it.overlapsWith(scheduledWorkout)
         }
     }
 
     /**
-     * Completes this AthleticPreparation.
+     * Completes this AthleticTraining.
      */
     fun complete() {
         status = Status.COMPLETED
     }
 
     /**
-     * Checks if this AthleticPreparation is completed.
+     * Checks if this AthleticTraining is completed.
      */
     private fun isAlreadyCompleted() = status == Status.COMPLETED
 
     /**
-     * Generates an [AthleticTrainingSnapshot] with the information about this AthleticPreparation.
+     * Generates an [AthleticTrainingSnapshot] with the information about this AthleticTraining.
      */
     fun snapshot() = AthleticTrainingSnapshot(
         id,
         athleticTrainerId,
         memberId,
+        purpose,
         period,
         scheduledWorkouts
     )

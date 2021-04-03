@@ -6,6 +6,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Athletic
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Period
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Purpose
 import it.unibo.lss.fcla.athletictraining.usecase.port.AthleticPreparationRepository
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
@@ -19,6 +20,7 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
     lateinit var athleticTrainerId: AthleticTrainerId
     lateinit var memberId: MemberId
     lateinit var period: Period
+    lateinit var purpose: Purpose
     lateinit var athleticTraining: AthleticTraining
 
     beforeAny {
@@ -30,7 +32,13 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
             now,
             now.plusMonths(Period.minimumPeriodDurationInMonth.toLong())
         )
-        athleticTraining = AthleticTraining(athleticTrainerId, memberId, period)
+        purpose = Purpose.AthleticPreparation()
+        athleticTraining = AthleticTraining(
+            athleticTrainerId,
+            memberId,
+            purpose,
+            period
+        )
     }
 
     "An InMemoryAthleticPreparationRepository should" - {
