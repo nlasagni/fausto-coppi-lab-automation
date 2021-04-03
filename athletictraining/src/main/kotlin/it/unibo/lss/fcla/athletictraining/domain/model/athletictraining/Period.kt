@@ -1,8 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.BeginningOfPeriodCannotBeAfterEnd
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodCannotBeginOrEndBeforeToday
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodDoesNotMeetMinimumDuration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -21,10 +19,6 @@ data class Period(
     private val endDay: LocalDate
 ) {
 
-    companion object PeriodOfPreparation {
-        const val minimumPeriodDurationInMonth: Int = 2
-    }
-
     val beginning: LocalDateTime
     val end: LocalDateTime
 
@@ -35,15 +29,8 @@ data class Period(
     }
 
     private fun enforceInvariants() {
-        val now = LocalDate.now()
-        if (beginningDay.isBefore(now) || endDay.isBefore(now)) {
-            throw PeriodCannotBeginOrEndBeforeToday()
-        }
         if (endDay.isBefore(beginningDay)) {
             throw BeginningOfPeriodCannotBeAfterEnd()
-        }
-        if (doesNotMeetMinimumPreparationPeriodDuration()) {
-            throw PeriodDoesNotMeetMinimumDuration()
         }
     }
 
@@ -55,6 +42,4 @@ data class Period(
         return endDay.isAfter(period.endDay)
     }
 
-    private fun doesNotMeetMinimumPreparationPeriodDuration(): Boolean =
-        java.time.Period.between(beginningDay, endDay).months < minimumPeriodDurationInMonth
 }
