@@ -2,8 +2,8 @@ package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.WorkoutIdMissing
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow

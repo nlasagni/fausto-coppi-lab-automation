@@ -3,8 +3,8 @@ package it.unibo.lss.fcla.athletictraining.adapter.repository
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
-import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Period
+import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.usecase.port.AthleticPreparationRepository
 
 /**

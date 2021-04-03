@@ -18,5 +18,4 @@ interface ExerciseConfigurationApplier {
      * @return true if the operation completed successfully, false otherwise.
      */
     fun applyConfiguration(configuration: Configuration): Boolean
-
 }

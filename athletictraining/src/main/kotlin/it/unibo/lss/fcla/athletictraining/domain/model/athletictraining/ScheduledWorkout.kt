@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.WorkoutIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.WorkoutIdMissing
 
 /**
  * A ScheduledWorkout is a workout that has been scheduled during an [AthleticTraining].

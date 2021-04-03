@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.adapter.idgenerator
 
 import it.unibo.lss.fcla.athletictraining.usecase.port.IdGenerator
-import java.util.*
+import java.util.UUID
 
 /**
  * An [IdGenerator] that generates random [UUID]s.

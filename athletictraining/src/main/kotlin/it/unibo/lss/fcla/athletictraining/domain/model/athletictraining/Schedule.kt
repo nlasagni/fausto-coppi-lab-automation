@@ -56,5 +56,4 @@ data class Schedule(
     private fun timesOverlap(schedule: Schedule): Boolean {
         return startTime.isBefore(schedule.endTime) && endTime.isAfter(schedule.startTime)
     }
-
 }

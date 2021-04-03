@@ -4,8 +4,8 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import org.junit.jupiter.api.assertThrows
 import java.time.Duration
 

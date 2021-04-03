@@ -1,9 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.WorkoutIdMissing
 
 /**

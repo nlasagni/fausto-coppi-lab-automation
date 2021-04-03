@@ -14,5 +14,4 @@ interface GymOpenChecker {
      * @return true if the gym is open, false otherwise.
      */
     fun isGymOpenAtDateTime(dateTime: LocalDateTime): Boolean
-
 }

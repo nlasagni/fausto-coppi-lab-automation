@@ -41,5 +41,4 @@ data class Period(
     fun endsAfter(period: Period): Boolean {
         return endDay.isAfter(period.endDay)
     }
-
 }

@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DistanceDoesNotRespectRange
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Distance.Companion.MAX
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Distance.Companion.ZERO
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DistanceDoesNotRespectRange
 
 /**
  * ValueObject representing the distance made during an [Exercise] expressed in meters.

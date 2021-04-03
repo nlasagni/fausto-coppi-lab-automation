@@ -1,10 +1,10 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseExecutionMustBeGreaterThanZero
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseRestMustBeGreaterThanZero
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import java.time.Duration
 
 /**
