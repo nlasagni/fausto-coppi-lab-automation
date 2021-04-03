@@ -99,6 +99,7 @@ class AthleticTraining(
      * throws a [PeriodExtensionCannotEndBeforeCurrentPeriod].
      */
     fun postponeTrainingPeriodEnd(postponedPeriod: Period) {
+        enforceCompletionInvariant()
         if (!postponedPeriod.hasSameBeginning(period)) {
             throw PostponedPeriodMustHaveSameBeginningOfCurrentPeriod()
         }
@@ -116,6 +117,7 @@ class AthleticTraining(
      * [WorkoutScheduleMustNotOverlap] exception will be thrown.
      */
     fun scheduleWorkout(workoutId: WorkoutId, schedule: Schedule) {
+        enforceCompletionInvariant()
         enforceSchedulingInvariants(schedule)
         if (scheduleOverlaps(schedule)) {
             throw WorkoutScheduleMustNotOverlap()
@@ -128,6 +130,7 @@ class AthleticTraining(
      * [id], by using the specified [schedule].
      */
     fun rescheduleWorkout(scheduledWorkoutId: ScheduledWorkoutId, schedule: Schedule) {
+        enforceCompletionInvariant()
         enforceSchedulingInvariants(schedule)
         val scheduledWorkout =
             scheduledWorkouts.firstOrNull { it.id == scheduledWorkoutId }
@@ -138,13 +141,19 @@ class AthleticTraining(
         scheduledWorkout.reschedule(schedule)
     }
 
+    /**
+     * Enforces completion invariants.
+     */
+    private fun enforceCompletionInvariant() {
+        if (isCompleted()) {
+            throw AthleticTrainingAlreadyCompleted()
+        }
+    }
+
     /***
      * Enforces scheduling invariants.
      */
     private fun enforceSchedulingInvariants(schedule: Schedule) {
-        if (isCompleted()) {
-            throw AthleticTrainingAlreadyCompleted()
-        }
         if (isScheduleOutOfPeriod(schedule)) {
             throw WorkoutMustBeScheduledDuringPeriodOfTraining()
         }

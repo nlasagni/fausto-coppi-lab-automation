@@ -1,7 +1,7 @@
 complexity:
   TooManyFunctions:
-    thresholdInFiles: 15
-    thresholdInClasses: 15
+    thresholdInFiles: 20
+    thresholdInClasses: 20
 style:
   active: true
   ThrowsCount:
