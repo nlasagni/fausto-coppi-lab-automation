@@ -8,6 +8,8 @@ import org.junit.jupiter.api.assertThrows
 import java.time.Duration
 
 /**
+ * Tests of the [Exercise] Aggregate Root.
+ *
  * @author Nicola Lasagni on 02/04/2021.
  */
 class ExerciseTest : FreeSpec({

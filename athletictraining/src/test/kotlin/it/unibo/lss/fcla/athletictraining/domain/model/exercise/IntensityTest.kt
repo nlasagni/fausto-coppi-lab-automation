@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
 
 /**
+ * Tests of the [Intensity] Value Object.
+ *
  * @author Nicola Lasagni on 02/04/2021.
  */
 class IntensityTest : FreeSpec({

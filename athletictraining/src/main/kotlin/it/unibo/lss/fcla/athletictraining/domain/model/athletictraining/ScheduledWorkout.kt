@@ -8,7 +8,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
  * A ScheduledWorkout is a workout that has been scheduled during an [AthleticTraining].
  *
  * A ScheduledWorkout must refer to a [Workout], otherwise a [WorkoutIdMissing] is thrown.
- * Furthermore it must have a valid [schedule].
+ * Furthermore it must have a valid [Schedule].
  *
  * @author Nicola Lasagni on 31/03/2021.
  */
@@ -16,7 +16,7 @@ class ScheduledWorkout(
     private val workoutId: WorkoutId,
     private var schedule: Schedule
 ) {
-    private val id: ScheduledWorkoutId
+    val id: ScheduledWorkoutId
 
     init {
         if (workoutId.value.isEmpty()) {
@@ -27,19 +27,21 @@ class ScheduledWorkout(
 
     private fun generateId(): ScheduledWorkoutId {
         return ScheduledWorkoutId(
-            "${schedule.startTime}-${schedule.endTime}"
+            "$workoutId-${schedule.day}-${schedule.startTime}-${schedule.endTime}"
         )
     }
 
     /**
-     *
+     * Retrieves the [WorkoutId] of this [ScheduledWorkout].
+     * @return The [WorkoutId] of this [ScheduledWorkout].
      */
     fun scheduledForWorkout(): WorkoutId {
         return workoutId
     }
 
     /**
-     * Returns the [Schedule] of this [ScheduledWorkout].
+     * Retrieves the [Schedule] of this [ScheduledWorkout].
+     * @return The [Schedule] of this [ScheduledWorkout].
      */
     fun scheduledOn(): Schedule {
         return schedule
@@ -53,24 +55,12 @@ class ScheduledWorkout(
     }
 
     /**
-     * Generates an [ScheduledWorkoutSnapshot] with the information about this ScheduledWorkout.
+     * Generates a snapshot with the information about this ScheduledWorkout.
+     * @return A [ScheduledWorkoutSnapshot] with the information about this ScheduledWorkout.
      */
     fun snapshot() = ScheduledWorkoutSnapshot(
         id,
         workoutId,
         schedule
     )
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is ScheduledWorkout) return false
-
-        if (id != other.id) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
 }

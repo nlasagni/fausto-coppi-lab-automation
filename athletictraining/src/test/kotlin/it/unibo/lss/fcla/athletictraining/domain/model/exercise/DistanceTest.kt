@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertThrows
 
 /**
+ * Tests of the [Distance] Value Object.
+ *
  * @author Nicola Lasagni on 02/04/2021.
  */
 class DistanceTest : FreeSpec({

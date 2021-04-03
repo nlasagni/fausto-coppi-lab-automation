@@ -10,12 +10,11 @@ import java.time.LocalTime
 /**
  * The period of an [AthleticTraining].
  *
- * @see AthleticTraining
+ * A period is composed by a [LocalDate] which represents its beginning at time [LocalDateTime.MIN]
+ * and a [LocalDate] which represents its end at time [LocalDateTime.MAX].
  *
  * @author Nicola Lasagni on 22/02/2021.
  *
- * @property beginning A [LocalDateTime] which represents the beginning at time [LocalDateTime.MIN] of a period.
- * @property end A [LocalDateTime] which represents the end at time [LocalDateTime.MAX] of a period.
  */
 data class Period(
     private val beginningDay: LocalDate,

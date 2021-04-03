@@ -24,6 +24,7 @@ data class Schedule(
 
     /**
      * Checks if the specified [schedule] overlaps with this Schedule.
+     * @return True if the specified [schedule] overlaps with this Schedule, false otherwise.
      */
     fun overlapsWith(schedule: Schedule): Boolean {
         return hasSameDay(schedule) && (hasSameTimes(schedule) || timesOverlap(schedule))
@@ -31,6 +32,7 @@ data class Schedule(
 
     /**
      * Checks if this Schedule has same [day] of the specified [schedule].
+     * @return True if this Schedule has same [day] of the specified [schedule], false otherwise.
      */
     private fun hasSameDay(schedule: Schedule): Boolean {
         return day.isEqual(schedule.day)
@@ -39,6 +41,8 @@ data class Schedule(
     /**
      * Checks if this Schedule has same [startTime] and [endTime]
      * of the specified [schedule].
+     * @return True if this Schedule has same [startTime] and [endTime]
+     * of the specified [schedule], false otherwise.
      */
     private fun hasSameTimes(schedule: Schedule): Boolean {
         return startTime == schedule.startTime && endTime == schedule.endTime
@@ -46,6 +50,8 @@ data class Schedule(
 
     /**
      * Checks if times of this Schedule overlaps with the ones
+     * of the specified [schedule].
+     * @return True if times of this Schedule overlaps with the ones
      * of the specified [schedule].
      */
     private fun timesOverlap(schedule: Schedule): Boolean {
