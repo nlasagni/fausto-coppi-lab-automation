@@ -14,8 +14,8 @@ import java.time.LocalDate
  *
  * @author Nicola Lasagni on 22/02/2021.
  */
-class PeriodOfPreparationTest : FreeSpec({
-    "PeriodOfPreparation should" - {
+class PeriodTest : FreeSpec({
+    "A period should" - {
         val validBeginning = LocalDate.now()
         val validEnd = validBeginning.plusMonths(Period.minimumPeriodDurationInMonth.toLong())
         "prevent that beginning is after end" - {

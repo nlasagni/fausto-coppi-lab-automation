@@ -30,6 +30,12 @@ data class Period(
     val end: LocalDateTime
 
     init {
+        enforceInvariants()
+        beginning = beginningDay.atTime(LocalTime.MIN)
+        end = endDay.atTime(LocalTime.MAX)
+    }
+
+    private fun enforceInvariants() {
         val now = LocalDate.now()
         if (beginningDay.isBefore(now) || endDay.isBefore(now)) {
             throw PeriodCannotBeginOrEndBeforeToday()
@@ -40,8 +46,6 @@ data class Period(
         if (doesNotMeetMinimumPreparationPeriodDuration()) {
             throw PeriodDoesNotMeetMinimumDuration()
         }
-        beginning = beginningDay.atTime(LocalTime.MIN)
-        end = endDay.atTime(LocalTime.MAX)
     }
 
     fun hasSameBeginning(period: Period): Boolean {
