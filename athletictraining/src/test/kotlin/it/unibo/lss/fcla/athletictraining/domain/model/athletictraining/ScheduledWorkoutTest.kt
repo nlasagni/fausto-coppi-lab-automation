@@ -44,8 +44,7 @@ class ScheduledWorkoutTest : FreeSpec({
                 LocalTime.now().plusHours(2)
             )
             scheduledWorkout.reschedule(newSchedule)
-            val snapshot = scheduledWorkout.snapshot()
-            snapshot.schedule.shouldBe(newSchedule)
+            scheduledWorkout.scheduledOn().shouldBe(newSchedule)
         }
     }
 })
