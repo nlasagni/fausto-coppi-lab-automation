@@ -1,10 +1,10 @@
 package it.unibo.lss.fcla.athletictraining.adapter.repository
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainerId
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.AthleticTrainingId
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.MemberId
+import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Period
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Purpose
 import it.unibo.lss.fcla.athletictraining.usecase.port.AthleticPreparationRepository

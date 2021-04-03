@@ -1,5 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
+import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
+
 /**
  * A snapshot class used to expose all the information about an [AthleticTraining].
  *

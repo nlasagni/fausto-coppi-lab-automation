@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exercise
+package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption
 
 /**
  * @author Nicola Lasagni on 03/03/2021.

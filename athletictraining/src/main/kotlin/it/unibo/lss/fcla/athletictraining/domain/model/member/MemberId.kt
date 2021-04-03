@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
+package it.unibo.lss.fcla.athletictraining.domain.model.member
 
 /**
  * The unique identifier of a Member aggregate.

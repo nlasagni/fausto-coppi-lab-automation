@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exercise
+package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.Period
 

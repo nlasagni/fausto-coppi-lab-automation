@@ -1,5 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingAlreadyCompleted
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingMustHaveMember
@@ -8,6 +9,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.ScheduledWorkoutNotFound
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.WorkoutMustBeScheduledDuringPeriodOfTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.WorkoutScheduleMustNotOverlap
+import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import java.time.LocalDateTime
 
