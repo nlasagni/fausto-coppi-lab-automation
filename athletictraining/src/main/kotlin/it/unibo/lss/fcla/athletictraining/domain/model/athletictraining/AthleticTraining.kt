@@ -2,6 +2,7 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingAlreadyCompleted
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingMustHaveAthleticTrainer
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingMustHaveMember
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodExtensionCannotEndBeforeCurrentPeriod
@@ -27,15 +28,16 @@ import java.time.LocalDateTime
  * The lifecycle of an AthleticTraining ends when the athletic trainer
  * decides that it is completed.
  *
- * @property athleticTrainerId The id reference of the athletic trainer who is preparing the athletic training.
- * @property memberId The id reference of the member for whom the athletic training is being prepared.
+ * @property athleticTrainer The id reference of the athletic trainer who is preparing the athletic training.
+ * @property member The id reference of the member for whom the athletic training is being prepared.
  * @property period The period of athletic traning. See [Period].
  *
  * @author Nicola Lasagni on 22/02/2021.
  */
 class AthleticTraining(
-    private val athleticTrainerId: AthleticTrainerId,
-    private val memberId: MemberId,
+    private val id: AthleticTrainingId,
+    private val athleticTrainer: AthleticTrainerId,
+    private val member: MemberId,
     private val purpose: Purpose,
     private var period: Period
 ) {
@@ -44,31 +46,32 @@ class AthleticTraining(
         ACTIVE, COMPLETED
     }
 
-    private val id: AthleticTrainingId
     private var scheduledWorkouts: List<ScheduledWorkout> = emptyList()
     private var status: Status = Status.ACTIVE
 
     init {
-        if (athleticTrainerId.value.isEmpty()) {
+        if (id.value.isEmpty()) {
+            throw AthleticTrainingIdMissing()
+        }
+        if (athleticTrainer.value.isEmpty()) {
             throw AthleticTrainingMustHaveAthleticTrainer()
         }
-        if (memberId.value.isEmpty()) {
+        if (member.value.isEmpty()) {
             throw AthleticTrainingMustHaveMember()
         }
-        id = generateId()
     }
 
     /**
      * Retrieves the [AthleticTrainerId] that made this AthleticTraining.
      * @return The [AthleticTrainerId] that made this AthleticTraining.
      */
-    fun madeByAthleticTrainer(): AthleticTrainerId = athleticTrainerId
+    fun madeByAthleticTrainer(): AthleticTrainerId = athleticTrainer
 
     /**
      * Retrieves the [MemberId] for which this AthleticTraining has been made.
      * @return The [MemberId] for which this AthleticTraining has been made
      */
-    fun madeForMember(): MemberId = memberId
+    fun madeForMember(): MemberId = member
 
     /**
      * Retrieves the [Purpose] that guides this AthleticTraining.
@@ -87,13 +90,6 @@ class AthleticTraining(
      * @return True if this AthleticTraining is completed, false otherwise.
      */
     fun isCompleted() = status == Status.COMPLETED
-
-    /**
-     * Returns a unique id of this AthleticTraining which will be stored
-     * into the [id] private property.
-     */
-    private fun generateId(): AthleticTrainingId =
-        AthleticTrainingId("$athleticTrainerId-$memberId-${period.beginning.dayOfYear}")
 
     /**
      * Postpones the [period] of this athletic training.
@@ -197,8 +193,8 @@ class AthleticTraining(
      */
     fun snapshot() = AthleticTrainingSnapshot(
         id,
-        athleticTrainerId,
-        memberId,
+        athleticTrainer,
+        member,
         purpose,
         period,
         scheduledWorkouts.map { it.snapshot() }

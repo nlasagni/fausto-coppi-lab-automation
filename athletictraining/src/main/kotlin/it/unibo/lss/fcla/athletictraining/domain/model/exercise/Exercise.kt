@@ -3,6 +3,7 @@ package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseExecutionMustBeGreaterThanZero
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseRestMustBeGreaterThanZero
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import java.time.Duration
 
@@ -13,15 +14,17 @@ import java.time.Duration
  * @author Nicola Lasagni on 28/02/2021.
  */
 class Exercise(
+    private val id: ExerciseId,
     private var name: String,
     private var configuration: Configuration,
     private var durationOfExecution: Duration,
     private var durationOfRest: Duration
 ) {
 
-    private val id: ExerciseId
-
     init {
+        if (id.value.isEmpty()) {
+            throw ExerciseIdMissing()
+        }
         if (name.isEmpty()) {
             throw NameMustNotBeEmpty()
         }
@@ -31,15 +34,7 @@ class Exercise(
         if (isLowerThanOrEqualToZero(durationOfRest)) {
             throw DurationOfExerciseRestMustBeGreaterThanZero()
         }
-        id = generateId()
     }
-
-    /**
-     * Returns a unique id of this Exercise which will be stored
-     * into the [id] private property.
-     */
-    private fun generateId(): ExerciseId =
-        ExerciseId("$name-${configuration.gymMachineId}-$durationOfExecution-$durationOfRest")
 
     private fun isLowerThanOrEqualToZero(duration: Duration): Boolean =
         duration <= Duration.ZERO
