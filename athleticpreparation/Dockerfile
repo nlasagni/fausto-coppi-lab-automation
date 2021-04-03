@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk13
+FROM adoptopenjdk/openjdk15
 
 COPY "build/libs/athleticpreparation*.jar" ./athleticpreparation/athleticpreparation-latest.jar
 

@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk13
+FROM adoptopenjdk/openjdk15
 
 COPY "build/libs/consulting*.jar" ./consulting/consulting-latest.jar
 
