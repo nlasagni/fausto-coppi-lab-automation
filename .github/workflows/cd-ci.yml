@@ -1,4 +1,4 @@
-name: workflow
+name: Project CD/CI
 on:
   push:
   pull_request:
@@ -6,8 +6,8 @@ on:
       - main
       - develop
 jobs:
-  CompileAndCheckOnPush:
-    name: CompileAndCheckOnPush
+  check-on-push:
+    name: Check project on push
     if: ${{ contains(github.event_name, 'push') }}
     strategy:
       matrix:
@@ -28,8 +28,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: ActionChecks
         uses: ./.github/actions
-  CompileAndCheckOnPullRequest:
-    name: CompileAndCheckOnPullRequest
+  check-on-pull-request:
+    name: Check project on pull request
     if: ${{ contains(github.event_name, 'pull_request') }}
     strategy:
       matrix:
@@ -50,9 +50,9 @@ jobs:
         run: chmod +x ./gradlew
       - name: ActionChecks
         uses: ./.github/actions
-  GenerateProjectDocsAndDeployToGithubPages:
-    needs: CompileAndCheckOnPush
-    name: GenerateProjectDocsAndDeployToGithubPages
+  generate-docs:
+    needs: check-on-push
+    name: Generate docs and deploy to GithubPages
     if: ${{ contains(github.event_name, 'push') && github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-latest
     steps:
@@ -73,9 +73,9 @@ jobs:
         with:
           branch: gh-pages
           folder: build/dokka/htmlCollector
-  GenerateCoverageReportAndUploadToCodecov:
-    needs: CompileAndCheckOnPush
-    name: GenerateCoverageReportAndUploadToCodecov
+  generate-coverage:
+    needs: check-on-push
+    name: Generate coverage and deploy to Codecov
     if: ${{ contains(github.event_name, 'push') && github.ref == 'refs/heads/develop' }}
     runs-on: ubuntu-latest
     steps:
@@ -95,10 +95,10 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           fail_ci_if_error: true
-  Release:
-    needs: CompileAndCheckOnPush
+  release:
+    needs: check-on-push
     if: ${{ contains(github.ref, 'refs/tags/') }}
-    name: Release
+    name: Release project on GitHub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
