@@ -42,11 +42,9 @@ jobs:
       - name: Chmode gradlew
         run: chmod +x ./gradlew
       - name: Generate Jacoco report
-        run: ./gradlew test jacocoTestReport
+        run: ./gradlew aggregateJacocoReport
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
-          override_pr: ${{ github.event.number }}
-          override_sha: ${{ github.event.pull_request.head.sha }}
           directory: build/reports/jacoco/aggregate/
           fail_ci_if_error: true
