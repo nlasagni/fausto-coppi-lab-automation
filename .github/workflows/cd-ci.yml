@@ -90,10 +90,11 @@ jobs:
       - name: Chmode gradlew
         run: chmod +x ./gradlew
       - name: Generate Jacoco report
-        run: ./gradlew test jacocoTestReport
+        run: ./gradlew test aggregateJacocoReport
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
+          directory: build/reports/jacoco/aggregate/
           fail_ci_if_error: true
   release:
     needs: check-on-push
