@@ -3,7 +3,8 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.WorkoutIdMissing
+import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.WorkoutIdMissing
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 import java.time.LocalTime

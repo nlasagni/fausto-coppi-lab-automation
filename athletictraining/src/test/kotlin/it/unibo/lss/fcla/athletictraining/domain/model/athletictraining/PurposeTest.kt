@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import io.kotest.core.spec.style.FreeSpec
+import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose
 import org.junit.jupiter.api.Assertions
 
 /**

@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer
 
 /**
- * The unique identifier of an AthleticTrainer aggregate.
+ * The unique identifier of an athletic trainer.
  *
  * @property value The value of the unique identifier.
  *

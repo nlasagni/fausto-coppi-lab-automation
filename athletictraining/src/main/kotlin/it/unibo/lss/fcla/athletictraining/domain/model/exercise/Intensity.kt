@@ -12,13 +12,16 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.Intens
  *
  * The default value of the Intensity is [LOW].
  *
+ * @property amount The amount of this Intensity.
+ *
  * @author Nicola Lasagni on 02/04/2021.
  */
-data class Intensity(val value: Int = LOW) {
+data class Intensity(val amount: Int = LOW) {
 
     companion object {
         /**
-         * The minimum value allowed for an [Intensity].
+         * The minimum value allowed for an [Intensity], this is the default value of
+         * a .
          */
         const val LOW = 1
         /**
@@ -40,7 +43,7 @@ data class Intensity(val value: Int = LOW) {
     /**
      * Checks if this intensity is not inside the [[LOW], [HIGH]] range.
      */
-    private fun isNotInRange() = value !in LOW..HIGH
+    private fun isNotInRange() = amount !in LOW..HIGH
 
     /**
      * Operator that sums [other] intensity to this intensity.
@@ -48,7 +51,7 @@ data class Intensity(val value: Int = LOW) {
      * an [IntensityDoesNotRespectRange] is thrown.
      */
     operator fun plus(other: Intensity): Intensity {
-        return Intensity(value + other.value)
+        return Intensity(amount + other.amount)
     }
 
     /**
@@ -57,6 +60,6 @@ data class Intensity(val value: Int = LOW) {
      * an [IntensityDoesNotRespectRange] is thrown.
      */
     operator fun minus(other: Intensity): Intensity {
-        return Intensity(value - other.value)
+        return Intensity(amount - other.amount)
     }
 }

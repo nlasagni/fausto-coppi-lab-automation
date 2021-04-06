@@ -1,34 +1,33 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
-import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutReferenceMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.WorkoutIdMissing
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.WorkoutIdMissing
+import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
 
 /**
- * A ScheduledWorkout is a workout that has been scheduled during an [AthleticTraining].
+ * A ScheduledWorkout is a workout that has been scheduled during an athletic training.
  *
- * A ScheduledWorkout must refer to a [Workout], otherwise a [WorkoutIdMissing] is thrown.
+ * A ScheduledWorkout must refer to a Workout, otherwise a [WorkoutIdMissing] is thrown.
  * Furthermore it must have a valid [Schedule].
  *
  * @author Nicola Lasagni on 31/03/2021.
  */
 class ScheduledWorkout(
-    private val workoutId: WorkoutId,
+    private val workout: WorkoutId,
     private var schedule: Schedule
 ) {
     val id: ScheduledWorkoutId
 
     init {
-        if (workoutId.value.isEmpty()) {
-            throw WorkoutIdMissing()
+        if (workout.value.isEmpty()) {
+            throw WorkoutReferenceMissing()
         }
         id = generateId()
     }
 
     private fun generateId(): ScheduledWorkoutId {
-        return ScheduledWorkoutId(
-            "$workoutId-${schedule.day}-${schedule.startTime}-${schedule.endTime}"
-        )
+        return ScheduledWorkoutId(workout, schedule)
     }
 
     /**
@@ -36,7 +35,7 @@ class ScheduledWorkout(
      * @return The [WorkoutId] of this [ScheduledWorkout].
      */
     fun scheduledForWorkout(): WorkoutId {
-        return workoutId
+        return workout
     }
 
     /**
@@ -60,7 +59,7 @@ class ScheduledWorkout(
      */
     fun snapshot() = ScheduledWorkoutSnapshot(
         id,
-        workoutId,
+        workout,
         schedule
     )
 }

@@ -1,5 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
+import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
+
 /**
  * The unique identifier of a [ScheduledWorkout] entity.
  *
@@ -7,4 +10,7 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
  *
  * @author Nicola Lasagni on 31/03/2021.
  */
-data class ScheduledWorkoutId(private val value: String)
+data class ScheduledWorkoutId(
+    private val workoutId: WorkoutId,
+    private val schedule: Schedule
+)

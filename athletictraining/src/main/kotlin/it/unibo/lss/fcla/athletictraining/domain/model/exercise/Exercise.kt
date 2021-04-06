@@ -8,13 +8,14 @@ import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeE
 import java.time.Duration
 
 /**
- * The Exercise that can be prepared for a
- * [it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout].
+ * The Exercise that can be prepared for a workout.
+ *
+ * @property id The unique [ExerciseId] of this Exercise.
  *
  * @author Nicola Lasagni on 28/02/2021.
  */
 class Exercise(
-    private val id: ExerciseId,
+    val id: ExerciseId,
     private var name: String,
     private var configuration: Configuration,
     private var durationOfExecution: Duration,
@@ -28,16 +29,16 @@ class Exercise(
         if (name.isEmpty()) {
             throw NameMustNotBeEmpty()
         }
-        if (isLowerThanOrEqualToZero(durationOfExecution)) {
+        if (!isGreaterThanZero(durationOfExecution)) {
             throw DurationOfExerciseExecutionMustBeGreaterThanZero()
         }
-        if (isLowerThanOrEqualToZero(durationOfRest)) {
+        if (!isGreaterThanZero(durationOfRest)) {
             throw DurationOfExerciseRestMustBeGreaterThanZero()
         }
     }
 
-    private fun isLowerThanOrEqualToZero(duration: Duration): Boolean =
-        duration <= Duration.ZERO
+    private fun isGreaterThanZero(duration: Duration): Boolean =
+        duration > Duration.ZERO
 
     /**
      * Generates an [ExerciseSnapshot] with the information about this Exercise.
@@ -45,7 +46,9 @@ class Exercise(
     fun snapshot() = ExerciseSnapshot(
         id,
         name,
-        configuration,
+        configuration.gymMachine,
+        configuration.intensity,
+        configuration.distance,
         durationOfExecution,
         durationOfRest
     )
@@ -62,6 +65,9 @@ class Exercise(
         name = newName
     }
 
+    /**
+     * Changes the gym machine to which this exercise refers.
+     */
     fun changeGymMachine(gymMachineId: GymMachineId) {
         configuration = configuration.changeGymMachine(gymMachineId)
     }

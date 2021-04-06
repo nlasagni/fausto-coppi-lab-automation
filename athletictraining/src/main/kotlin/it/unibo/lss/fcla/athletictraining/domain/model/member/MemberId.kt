@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.member
 
 /**
- * The unique identifier of a Member aggregate.
+ * The unique identifier of a member.
  *
  * @property value The value of the unique identifier.
  *

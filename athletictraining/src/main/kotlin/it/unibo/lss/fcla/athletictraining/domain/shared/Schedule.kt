@@ -1,11 +1,15 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
+package it.unibo.lss.fcla.athletictraining.domain.shared
 
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.BeginningOfScheduleCannotBeAfterEnd
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.BeginningOfScheduleCannotBeAfterEnd
 import java.time.LocalDate
 import java.time.LocalTime
 
 /**
- * A Value Object representing the schedule of a single [ScheduledWorkout].
+ * A Value Object representing the schedule of a single ScheduledWorkout.
+ *
+ * @property day The day of the schedule.
+ * @property startTime The start time of this schedule.
+ * @property endTime The end time of this schedule.
  *
  * @author Nicola Lasagni on 01/04/2021.
  */

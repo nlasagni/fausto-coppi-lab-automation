@@ -5,15 +5,16 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingAlreadyCompleted
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingMustHaveAthleticTrainer
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.AthleticTrainingMustHaveMember
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PeriodExtensionCannotEndBeforeCurrentPeriod
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.PostponedPeriodMustHaveSameBeginningOfCurrentPeriod
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.WorkoutMustBeScheduledDuringPeriodOfTraining
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption.WorkoutScheduleMustNotOverlap
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveAthleticTrainer
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveMember
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutScheduleMustNotOverlap
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
+import it.unibo.lss.fcla.athletictraining.domain.shared.Period
+import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose
+import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -21,7 +22,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 /**
- * Tests of the [AthleticTraining] Aggregate Root.
+ * Tests of the [ActiveAthleticTraining] Aggregate Root.
  *
  * @author Nicola Lasagni on 24/02/2021.
  */
@@ -29,7 +30,7 @@ class AthleticTrainingTest : FreeSpec({
 
     val tenOClock = LocalTime.of(10, 0)
 
-    lateinit var athleticTrainingId: AthleticTrainingId
+    lateinit var activeAthleticTrainingId: ActiveAthleticTrainingId
     lateinit var athleticTrainer: AthleticTrainerId
     lateinit var member: MemberId
     lateinit var workout: WorkoutId
@@ -37,14 +38,14 @@ class AthleticTrainingTest : FreeSpec({
     lateinit var end: LocalDate
     lateinit var period: Period
     lateinit var purpose: Purpose
-    lateinit var athleticTraining: AthleticTraining
+    lateinit var activeAthleticTraining: ActiveAthleticTraining
     lateinit var schedule: Schedule
 
     /**
      * Setup before every test.
      */
     beforeAny {
-        athleticTrainingId = AthleticTrainingId(UuidGenerator().generate())
+        activeAthleticTrainingId = ActiveAthleticTrainingId(UuidGenerator().generate())
         athleticTrainer = AthleticTrainerId("1234")
         member = MemberId("1234")
         workout = WorkoutId("1234")
@@ -52,8 +53,8 @@ class AthleticTrainingTest : FreeSpec({
         end = beginning.plusMonths(1)
         period = Period(beginning, end)
         purpose = Purpose.AthleticPreparation()
-        athleticTraining = AthleticTraining(
-            athleticTrainingId,
+        activeAthleticTraining = ActiveAthleticTraining(
+            activeAthleticTrainingId,
             athleticTrainer,
             member,
             purpose,
@@ -69,8 +70,8 @@ class AthleticTrainingTest : FreeSpec({
     "An active athletic training should" - {
         "be planned for a member, by an athletic trainer, and have a valid period" - {
             Assertions.assertDoesNotThrow {
-                AthleticTraining(
-                    athleticTrainingId,
+                ActiveAthleticTraining(
+                    activeAthleticTrainingId,
                     athleticTrainer,
                     member,
                     purpose,
@@ -78,8 +79,8 @@ class AthleticTrainingTest : FreeSpec({
                 )
             }
             assertThrows<AthleticTrainingMustHaveAthleticTrainer> {
-                AthleticTraining(
-                    athleticTrainingId,
+                ActiveAthleticTraining(
+                    activeAthleticTrainingId,
                     AthleticTrainerId(""),
                     member,
                     purpose,
@@ -87,8 +88,8 @@ class AthleticTrainingTest : FreeSpec({
                 )
             }
             assertThrows<AthleticTrainingMustHaveMember> {
-                AthleticTraining(
-                    athleticTrainingId,
+                ActiveAthleticTraining(
+                    activeAthleticTrainingId,
                     athleticTrainer,
                     MemberId(""),
                     purpose,
@@ -97,55 +98,55 @@ class AthleticTrainingTest : FreeSpec({
             }
         }
         "offer a snapshot of itself" - {
-            val snapshot = athleticTraining.snapshot()
-            Assertions.assertEquals(athleticTrainer, snapshot.athleticTrainerId)
-            Assertions.assertEquals(member, snapshot.memberId)
+            val snapshot = activeAthleticTraining.snapshot()
+            Assertions.assertEquals(athleticTrainer, snapshot.athleticTrainer)
+            Assertions.assertEquals(member, snapshot.member)
             Assertions.assertEquals(period, snapshot.period)
         }
         "allow postponing the training period end" - {
             val postponedEnd = end.plusWeeks(1)
             val postponedPeriod = Period(beginning, postponedEnd)
             assertDoesNotThrow {
-                athleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
+                activeAthleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
             }
-            val snapshot = athleticTraining.snapshot()
+            val snapshot = activeAthleticTraining.snapshot()
             Assertions.assertEquals(postponedPeriod.end, snapshot.period.end)
         }
         "not allow changing the training period beginning" - {
             val invalidBeginning = beginning.minusWeeks(1)
             val postponedPeriod = Period(invalidBeginning, end)
             assertThrows<PostponedPeriodMustHaveSameBeginningOfCurrentPeriod> {
-                athleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
+                activeAthleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
             }
         }
         "not allow anticipating the training period end" - {
             val invalidPeriod = Period(beginning, end.minusWeeks(1))
             assertThrows<PeriodExtensionCannotEndBeforeCurrentPeriod> {
-                athleticTraining.postponeTrainingPeriodEnd(invalidPeriod)
+                activeAthleticTraining.postponeTrainingPeriodEnd(invalidPeriod)
             }
         }
         "allow to schedule a workout" - {
-            assertDoesNotThrow { athleticTraining.scheduleWorkout(workout, schedule) }
-            val snapshot = athleticTraining.snapshot()
-            snapshot.scheduledWorkout.shouldHaveSize(1)
+            assertDoesNotThrow { activeAthleticTraining.scheduleWorkout(workout, schedule) }
+            val snapshot = activeAthleticTraining.snapshot()
+            snapshot.scheduledWorkouts.shouldHaveSize(1)
         }
         "allow to reschedule an already-scheduled workout" - {
-            athleticTraining.scheduleWorkout(workout, schedule)
+            activeAthleticTraining.scheduleWorkout(workout, schedule)
             val newSchedule = Schedule(
                 beginning,
                 tenOClock,
                 tenOClock.plusHours(2)
             )
-            val beforeReschedulingSnapshot = athleticTraining.snapshot()
-            val scheduledWorkoutId = beforeReschedulingSnapshot.scheduledWorkout.first().id
-            assertDoesNotThrow { athleticTraining.rescheduleWorkout(scheduledWorkoutId, newSchedule) }
-            val postReschedulingSnapshot = athleticTraining.snapshot()
-            postReschedulingSnapshot.scheduledWorkout.first().schedule.shouldBe(newSchedule)
+            val beforeReschedulingSnapshot = activeAthleticTraining.snapshot()
+            val scheduledWorkoutId = beforeReschedulingSnapshot.scheduledWorkouts.first().id
+            assertDoesNotThrow { activeAthleticTraining.rescheduleWorkout(scheduledWorkoutId, newSchedule) }
+            val postReschedulingSnapshot = activeAthleticTraining.snapshot()
+            postReschedulingSnapshot.scheduledWorkouts.first().schedule.shouldBe(newSchedule)
         }
         "not allow the scheduling of a workout that overlaps with another" - {
-            athleticTraining.scheduleWorkout(workout, schedule)
+            activeAthleticTraining.scheduleWorkout(workout, schedule)
             assertThrows<WorkoutScheduleMustNotOverlap> {
-                athleticTraining.scheduleWorkout(workout, schedule)
+                activeAthleticTraining.scheduleWorkout(workout, schedule)
             }
         }
         "not allow scheduling of workout out of the period of training" - {
@@ -156,13 +157,13 @@ class AthleticTrainingTest : FreeSpec({
                 tenOClock.plusHours(1)
             )
             assertThrows<WorkoutMustBeScheduledDuringPeriodOfTraining> {
-                athleticTraining.scheduleWorkout(workout, invalidSchedule)
+                activeAthleticTraining.scheduleWorkout(workout, invalidSchedule)
             }
         }
         "not allow the scheduling of a workout when completed" - {
-            athleticTraining.complete()
+            activeAthleticTraining.complete()
             assertThrows<AthleticTrainingAlreadyCompleted> {
-                athleticTraining.scheduleWorkout(workout, schedule)
+                activeAthleticTraining.scheduleWorkout(workout, schedule)
             }
         }
     }

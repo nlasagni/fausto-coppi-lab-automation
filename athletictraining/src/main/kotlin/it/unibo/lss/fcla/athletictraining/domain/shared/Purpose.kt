@@ -1,8 +1,8 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
+package it.unibo.lss.fcla.athletictraining.domain.shared
 
 /**
  * The purpose that an athletic trainer wants a member to reach
- * through an [AthleticTraining].
+ * through an athletic training.
  *
  * @author Nicola Lasagni on 22/02/2021.
  */
