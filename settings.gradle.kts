@@ -10,4 +10,4 @@ bootstrapRefreshVersions()
 rootProject.name = "fausto-coppi-lab-automation"
 include("consulting")
 include("reservation")
-include("athleticpreparation")
+include("athletictraining")
