@@ -1,3 +1,3 @@
-val myMainClass = "it.unibo.lss.fcla.consulting.StarterApplication"
+val myMainClass = "it.unibo.lss.fcla.consulting.StarterApplicationKt"
 
 ext.set("mainclass", myMainClass)
