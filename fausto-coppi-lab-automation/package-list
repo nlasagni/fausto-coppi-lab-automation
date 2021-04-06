@@ -1,12 +1,21 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 
-it.unibo.lss.fcla.athleticpreparation.adapter.repository
-it.unibo.lss.fcla.athleticpreparation.domain.exception
-it.unibo.lss.fcla.athleticpreparation.domain.model
-it.unibo.lss.fcla.athleticpreparation.usecase
-it.unibo.lss.fcla.athleticpreparation.usecase.exception
-it.unibo.lss.fcla.athleticpreparation.usecase.port
+it.unibo.lss.fcla.athletictraining.adapter.idgenerator
+it.unibo.lss.fcla.athletictraining.adapter.repository
+it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer
+it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
+it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exeption
+it.unibo.lss.fcla.athletictraining.domain.model.exercise
+it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception
+it.unibo.lss.fcla.athletictraining.domain.model.gymmachine
+it.unibo.lss.fcla.athletictraining.domain.model.member
+it.unibo.lss.fcla.athletictraining.domain.model.workout
+it.unibo.lss.fcla.athletictraining.domain.service
+it.unibo.lss.fcla.athletictraining.domain.shared.exception
+it.unibo.lss.fcla.athletictraining.usecase
+it.unibo.lss.fcla.athletictraining.usecase.exception
+it.unibo.lss.fcla.athletictraining.usecase.port
 it.unibo.lss.fcla.consulting
 it.unibo.lss.fcla.consulting.application.adapters
 it.unibo.lss.fcla.consulting.application.controllers
