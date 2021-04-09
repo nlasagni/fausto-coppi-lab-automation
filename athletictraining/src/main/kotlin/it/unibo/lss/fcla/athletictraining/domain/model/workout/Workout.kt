@@ -2,8 +2,8 @@ package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.WorkoutIdMissing
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 
 /**
  * A Workout that is scheduled during an ActiveAthleticTraining.
@@ -47,9 +47,9 @@ class Workout(
     }
 
     /**
-     * Cancels the last [Exercise] prepared for this Workout.
+     * Cancels the last prepared [Exercise] prepared for this Workout.
      */
-    fun cancelLastExercise(orderNumber: Int) {
+    fun cancelLastExercise() {
         if (exercises.isNotEmpty()) {
             exercises = exercises - exercises.last()
         }
