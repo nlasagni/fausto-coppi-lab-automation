@@ -70,6 +70,14 @@ class ActiveAthleticTraining(
     }
 
     /**
+     * Checks if the specified [period] overlaps with an existing one.
+     * @return True if the specified [period] overlaps with the one of this athletic training, false otherwise.
+     */
+    fun overlapsWithPeriod(period: Period): Boolean {
+        return this.period.overlapsWith(period)
+    }
+
+    /**
      * Schedules a workout for this AthleticTraining.
      * The workout must not be out of the [period], otherwise
      * a [WorkoutMustBeScheduledDuringPeriodOfTraining] exception will be thrown.
@@ -98,6 +106,16 @@ class ActiveAthleticTraining(
             throw WorkoutScheduleMustNotOverlap()
         }
         scheduledWorkout.reschedule(newSchedule)
+    }
+
+    /**
+     * Cancels the [workout] that has the specified [schedule] in this athletic training.
+     */
+    fun cancelScheduledWorkout(workout: WorkoutId, schedule: Schedule) {
+        val scheduledWorkoutToCancel =
+            scheduledWorkouts.firstOrNull { it.id == ScheduledWorkoutId(workout, schedule) }
+                ?: throw ScheduledWorkoutNotFound()
+        scheduledWorkouts = scheduledWorkouts - scheduledWorkoutToCancel
     }
 
     /***
