@@ -1,11 +1,9 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseExecutionMustBeGreaterThanZero
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseRestMustBeGreaterThanZero
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationMustBeGreaterThanZero
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
-import java.time.Duration
 
 /**
  * The Exercise that can be prepared for a workout.
@@ -29,16 +27,7 @@ class Exercise(
         if (name.isEmpty()) {
             throw NameMustNotBeEmpty()
         }
-        if (!isGreaterThanZero(durationOfExecution)) {
-            throw DurationOfExerciseExecutionMustBeGreaterThanZero()
-        }
-        if (!isGreaterThanZero(durationOfRest)) {
-            throw DurationOfExerciseRestMustBeGreaterThanZero()
-        }
     }
-
-    private fun isGreaterThanZero(duration: Duration): Boolean =
-        duration > Duration.ZERO
 
     /**
      * Generates an [ExerciseSnapshot] with the information about this Exercise.

@@ -1,7 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
-import java.time.Duration
 
 /**
  * A snapshot class used to expose all the relevant information about an [Exercise].
