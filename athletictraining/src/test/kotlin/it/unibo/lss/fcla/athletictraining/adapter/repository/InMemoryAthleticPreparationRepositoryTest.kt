@@ -5,10 +5,10 @@ import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTrainingId
+import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
 import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose
-import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
-import it.unibo.lss.fcla.athletictraining.usecase.port.ActiveAthleticTrainingRepository
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
 
@@ -58,17 +58,9 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
             val persistedId = persistedAthleticPreparation.snapshot().id
             assert(repository.findById(persistedId) != null)
         }
-        "be able to find an AthleticPreparation by athleticTrainerId" - {
-            repository.add(activeAthleticTraining)
-            assert(repository.findAllByAthleticTrainerId(athleticTrainerId).isNotEmpty())
-        }
         "be able to find an AthleticPreparation by memberId" - {
             repository.add(activeAthleticTraining)
             assert(repository.findAllByMemberId(memberId).isNotEmpty())
-        }
-        "be able to find an AthleticPreparation by periodOfPreparation" - {
-            repository.add(activeAthleticTraining)
-            assert(repository.findAllByPeriodOfPreparation(period).isNotEmpty())
         }
     }
 })
