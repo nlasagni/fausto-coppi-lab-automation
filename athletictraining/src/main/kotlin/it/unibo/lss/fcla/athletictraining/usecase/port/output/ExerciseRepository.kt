@@ -33,4 +33,10 @@ interface ExerciseRepository {
      * @return The [Exercise] found if present.
      */
     fun findById(id: ExerciseId): Exercise?
+
+    /**
+     * Finds all the [Exercise]s present in this repository.
+     * @return All the [Exercise]s present in this repository.
+     */
+    fun findAll(): Collection<Exercise>
 }

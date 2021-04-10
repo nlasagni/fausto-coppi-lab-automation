@@ -27,4 +27,10 @@ interface WorkoutRepository {
      * @return The [Workout] found if present.
      */
     fun findById(id: WorkoutId): Workout?
+
+    /**
+     * Finds all the [Workout]s present in this repository.
+     * @return The collection of [Workout]s present in this repository.
+     */
+    fun findAll(): Collection<Workout>
 }
