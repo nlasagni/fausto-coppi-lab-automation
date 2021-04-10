@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.BeginningOfPeriodCannotBeAfterEnd
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.BeginningOfPeriodCannotBeAfterEnd
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows

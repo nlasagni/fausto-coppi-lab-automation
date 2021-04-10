@@ -21,13 +21,14 @@ import java.time.LocalDateTime
  */
 class CompletedAthleticTraining(
     val id: CompletedAthleticTrainingId,
-    private val completionDateTime: LocalDateTime,
     private val athleticTrainer: AthleticTrainerId,
     private val member: MemberId,
     private val purpose: Purpose,
     private val period: Period,
     private val completedWorkouts: List<CompletedWorkout>
 ) {
+
+    private val completionDateTime: LocalDateTime
 
     init {
         if (id.value.isEmpty()) {
@@ -39,6 +40,7 @@ class CompletedAthleticTraining(
         if (member.value.isEmpty()) {
             throw AthleticTrainingMustHaveMember()
         }
+        completionDateTime = LocalDateTime.now()
     }
 
     /**
@@ -76,5 +78,4 @@ class CompletedAthleticTraining(
      * @return The collection of [CompletedWorkout] during this AthleticTraining.
      */
     fun workouts(): Collection<CompletedWorkout> = completedWorkouts
-
 }

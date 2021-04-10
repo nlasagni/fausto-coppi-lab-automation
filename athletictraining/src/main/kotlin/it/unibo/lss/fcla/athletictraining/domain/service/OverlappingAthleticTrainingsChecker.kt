@@ -19,5 +19,4 @@ interface OverlappingAthleticTrainingsChecker {
         athleticTrainings: Collection<ActiveAthleticTraining>,
         period: Period
     ): Boolean
-
 }

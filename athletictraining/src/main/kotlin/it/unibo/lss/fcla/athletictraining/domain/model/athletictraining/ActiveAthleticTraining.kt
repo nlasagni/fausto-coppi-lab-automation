@@ -2,8 +2,6 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.ActiveAthleticTrainingIdMissing
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveAthleticTrainer
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveMember
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.ScheduledWorkoutNotFound
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
@@ -13,6 +11,8 @@ import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
 import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose
 import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveAthleticTrainer
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveMember
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -95,9 +95,11 @@ class ActiveAthleticTraining(
     /**
      * Changes the [currentSchedule] of the specified [workout] with the desired [newSchedule].
      */
-    fun rescheduleWorkout(workout: WorkoutId,
-                          currentSchedule: Schedule,
-                          newSchedule: Schedule) {
+    fun rescheduleWorkout(
+        workout: WorkoutId,
+        currentSchedule: Schedule,
+        newSchedule: Schedule
+    ) {
         enforceSchedulingInvariants(newSchedule)
         val scheduledWorkout =
             scheduledWorkouts.firstOrNull { it.id == ScheduledWorkoutId(workout, currentSchedule) }

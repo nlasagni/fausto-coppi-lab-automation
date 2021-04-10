@@ -5,8 +5,6 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveAthleticTrainer
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveMember
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutScheduleMustNotOverlap
@@ -15,6 +13,8 @@ import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
 import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose
 import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveAthleticTrainer
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.AthleticTrainingMustHaveMember
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -105,22 +105,14 @@ class AthleticTrainingTest : FreeSpec({
         }
         "allow postponing the training period end" - {
             val postponedEnd = end.plusWeeks(1)
-            val postponedPeriod = Period(beginning, postponedEnd)
             assertDoesNotThrow {
-                activeAthleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
+                activeAthleticTraining.postponeTrainingPeriodEnd(postponedEnd)
             }
             val snapshot = activeAthleticTraining.snapshot()
-            Assertions.assertEquals(postponedPeriod.end, snapshot.period.end)
-        }
-        "not allow changing the training period beginning" - {
-            val invalidBeginning = beginning.minusWeeks(1)
-            val postponedPeriod = Period(invalidBeginning, end)
-            assertThrows<PostponedPeriodMustHaveSameBeginningOfCurrentPeriod> {
-                activeAthleticTraining.postponeTrainingPeriodEnd(postponedPeriod)
-            }
+            Assertions.assertEquals(postponedEnd, snapshot.period.endDay())
         }
         "not allow anticipating the training period end" - {
-            val invalidPeriod = Period(beginning, end.minusWeeks(1))
+            val invalidPeriod = end.minusWeeks(1)
             assertThrows<PeriodExtensionCannotEndBeforeCurrentPeriod> {
                 activeAthleticTraining.postponeTrainingPeriodEnd(invalidPeriod)
             }
@@ -138,8 +130,14 @@ class AthleticTrainingTest : FreeSpec({
                 tenOClock.plusHours(2)
             )
             val beforeReschedulingSnapshot = activeAthleticTraining.snapshot()
-            val scheduledWorkoutId = beforeReschedulingSnapshot.scheduledWorkouts.first().id
-            assertDoesNotThrow { activeAthleticTraining.rescheduleWorkout(scheduledWorkoutId, newSchedule) }
+            val scheduledWorkout = beforeReschedulingSnapshot.scheduledWorkouts.first()
+            assertDoesNotThrow {
+                activeAthleticTraining.rescheduleWorkout(
+                    scheduledWorkout.workout,
+                    scheduledWorkout.schedule,
+                    newSchedule
+                )
+            }
             val postReschedulingSnapshot = activeAthleticTraining.snapshot()
             postReschedulingSnapshot.scheduledWorkouts.first().schedule.shouldBe(newSchedule)
         }
@@ -150,7 +148,7 @@ class AthleticTrainingTest : FreeSpec({
             }
         }
         "not allow scheduling of workout out of the period of training" - {
-            val invalidScheduleDay = period.end.plusDays(1).toLocalDate()
+            val invalidScheduleDay = period.endDay().plusDays(1)
             val invalidSchedule = Schedule(
                 invalidScheduleDay,
                 tenOClock,
@@ -158,12 +156,6 @@ class AthleticTrainingTest : FreeSpec({
             )
             assertThrows<WorkoutMustBeScheduledDuringPeriodOfTraining> {
                 activeAthleticTraining.scheduleWorkout(workout, invalidSchedule)
-            }
-        }
-        "not allow the scheduling of a workout when completed" - {
-            activeAthleticTraining.complete()
-            assertThrows<AthleticTrainingAlreadyCompleted> {
-                activeAthleticTraining.scheduleWorkout(workout, schedule)
             }
         }
     }

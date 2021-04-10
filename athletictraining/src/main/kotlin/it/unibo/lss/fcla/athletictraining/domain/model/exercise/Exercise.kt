@@ -1,6 +1,5 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationMustBeGreaterThanZero
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
@@ -35,9 +34,7 @@ class Exercise(
     fun snapshot() = ExerciseSnapshot(
         id,
         name,
-        configuration.gymMachine,
-        configuration.intensity,
-        configuration.distance,
+        configuration,
         durationOfExecution,
         durationOfRest
     )

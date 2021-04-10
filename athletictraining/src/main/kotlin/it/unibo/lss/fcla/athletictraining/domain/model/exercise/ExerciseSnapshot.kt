@@ -1,15 +1,10 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
-
 /**
  * A snapshot class used to expose all the relevant information about an [Exercise].
  *
  * @property id The [ExerciseId] to which this snapshot refers.
  * @property name The name of the [Exercise] to which this snapshot refers.
- * @property gymMachineId  The gym machine related to the exercise to which this snapshot refers.
- * @property intensity  The [Intensity] of the exercise to which this snapshot refers.
- * @property distance  The [Distance] of the exercise to which this snapshot refers.
  * @property durationOfExecution The [Duration] of execution of the exercise to which this snapshot refers.
  * @property durationOfRest The [Duration] of rest of the exercise to which this snapshot refers.
  *
@@ -18,9 +13,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 class ExerciseSnapshot(
     val id: ExerciseId,
     val name: String,
-    val gymMachineId: GymMachineId,
-    val intensity: Intensity,
-    val distance: Distance,
+    val configuration: Configuration,
     val durationOfExecution: Duration,
     val durationOfRest: Duration
 )

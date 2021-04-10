@@ -13,7 +13,7 @@ import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose
  * @property member The [MemberId] of the [ActiveAthleticTraining] to which this snapshot refers.
  * @property purpose The [Purpose] of the [ActiveAthleticTraining] to which this snapshot refers.
  * @property period The [Period] of the [ActiveAthleticTraining] to which this snapshot refers.
- * @property scheduledWorkouts The [ScheduledWorkoutSnapshot] of the workout scheduled during the [ActiveAthleticTraining].
+ * @property scheduledWorkouts The snapshot of the workout scheduled during the [ActiveAthleticTraining].
  *
  * @author Nicola Lasagni on 03/03/2021.
  */

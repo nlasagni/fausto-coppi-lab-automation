@@ -67,7 +67,7 @@ data class Period(
      */
     fun overlapsWith(period: Period): Boolean {
         return hasSameDay(period) ||
-                (beginningDay.isBefore(period.endDay) && endDay.isAfter(period.beginningDay))
+            (beginningDay.isBefore(period.endDay) && endDay.isAfter(period.beginningDay))
     }
 
     /**

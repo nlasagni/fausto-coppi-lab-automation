@@ -10,10 +10,23 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.Durati
  */
 class Duration(val seconds: Int) {
 
+    companion object {
+
+        private const val MINUTES_TO_SECONDS = 60
+        private const val HOURS_TO_SECONDS = MINUTES_TO_SECONDS * 60
+
+        fun ofMinutes(minutes: Int): Duration {
+            return Duration(minutes * MINUTES_TO_SECONDS)
+        }
+
+        fun ofHours(hours: Int): Duration {
+            return Duration(hours * HOURS_TO_SECONDS)
+        }
+    }
+
     init {
         if (seconds <= 0) {
             throw DurationMustBeGreaterThanZero()
         }
     }
-
 }

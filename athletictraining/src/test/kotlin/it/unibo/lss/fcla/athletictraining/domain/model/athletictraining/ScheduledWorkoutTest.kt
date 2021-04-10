@@ -2,9 +2,9 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
 
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutReferenceMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
-import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.WorkoutIdMissing
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 import java.time.LocalTime
@@ -34,7 +34,7 @@ class ScheduledWorkoutTest : FreeSpec({
 
     "A scheduled workout should" - {
         "refer to a workout" - {
-            assertThrows<WorkoutIdMissing> {
+            assertThrows<WorkoutReferenceMissing> {
                 ScheduledWorkout(WorkoutId(""), schedule)
             }
         }

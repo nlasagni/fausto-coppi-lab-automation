@@ -7,7 +7,6 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.Exerci
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 import org.junit.jupiter.api.assertThrows
-import java.time.Duration
 
 /**
  * Tests of the [Exercise] Aggregate Root.
@@ -79,7 +78,7 @@ class ExerciseTest : FreeSpec({
             val newGymMachineId = GymMachineId("2345")
             validExercise.changeGymMachine(newGymMachineId)
             val snapshot = validExercise.snapshot()
-            snapshot.configuration.gymMachineId.shouldBe(newGymMachineId)
+            snapshot.configuration.gymMachine.shouldBe(newGymMachineId)
         }
         "allow the increment of intensity" - {
             val intensityToIncrement = Intensity()

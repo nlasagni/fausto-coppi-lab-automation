@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining
 
-import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.WorkoutIdMissing
+import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
 
 /**
  * A CompletedWorkout is a workout that has been completed during an athletic training.
@@ -38,5 +38,4 @@ class CompletedWorkout(
     fun scheduledOn(): Schedule {
         return schedule
     }
-
 }
