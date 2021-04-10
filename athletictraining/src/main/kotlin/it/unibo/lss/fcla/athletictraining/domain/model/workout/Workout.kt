@@ -2,14 +2,14 @@ package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.InvalidExerciseIndex
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.WorkoutIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 
 /**
- * A Workout that is scheduled during an ActiveAthleticTraining.
+ * A Workout that can be scheduled during an ActiveAthleticTraining.
  *
- * It is possible to prepare or cancel one or more exercises for a Workout, following the LIFO
- * order.
+ * It is possible to prepare or cancel one or more exercises for a Workout.
  *
  * @property id The unique id of this [Workout].
  *
@@ -47,11 +47,11 @@ class Workout(
     }
 
     /**
-     * Cancels the last prepared [Exercise] prepared for this Workout.
+     * Cancels the exercise of this Workout at the [index] specified.
+     * If the [index] provided is invalid, an [InvalidExerciseIndex] is thrown.
      */
-    fun cancelLastExercise() {
-        if (exercises.isNotEmpty()) {
-            exercises = exercises - exercises.last()
-        }
+    fun cancelExercise(index: Int) {
+        val exercise = exercises.getOrNull(index) ?: throw InvalidExerciseIndex()
+        exercises = exercises - exercise
     }
 }
