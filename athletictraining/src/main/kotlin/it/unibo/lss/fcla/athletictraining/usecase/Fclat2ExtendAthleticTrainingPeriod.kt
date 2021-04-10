@@ -38,5 +38,4 @@ class Fclat2ExtendAthleticTrainingPeriod(
         memberProfileUpdater.updateProfile(activeAthleticTraining.member)
         return repository.update(activeAthleticTraining)
     }
-
 }

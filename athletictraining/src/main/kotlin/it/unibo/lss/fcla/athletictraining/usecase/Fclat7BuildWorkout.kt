@@ -3,8 +3,6 @@ package it.unibo.lss.fcla.athletictraining.usecase
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.usecase.model.BuildWorkoutRequest
-import it.unibo.lss.fcla.athletictraining.usecase.model.UseCaseResponse
-import it.unibo.lss.fcla.athletictraining.usecase.port.input.UseCaseInput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.IdGenerator
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
@@ -24,5 +22,4 @@ class Fclat7BuildWorkout(
         val workout = Workout(WorkoutId(idGenerator.generate()), request.name)
         return workoutRepository.add(workout)
     }
-
 }

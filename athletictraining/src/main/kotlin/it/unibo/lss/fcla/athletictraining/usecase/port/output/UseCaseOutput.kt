@@ -19,5 +19,4 @@ interface UseCaseOutput<T> {
      * Handles the [error] generated from the processing of the input port request.
      */
     fun handleError(error: UseCaseError)
-
 }

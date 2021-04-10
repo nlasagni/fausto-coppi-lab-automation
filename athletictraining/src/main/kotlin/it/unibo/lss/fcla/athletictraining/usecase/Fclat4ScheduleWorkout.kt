@@ -8,8 +8,6 @@ import it.unibo.lss.fcla.athletictraining.domain.service.MemberProfileUpdater
 import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTrainingNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.exception.GymClosedAtSchedule
 import it.unibo.lss.fcla.athletictraining.usecase.model.ScheduleWorkoutRequest
-import it.unibo.lss.fcla.athletictraining.usecase.model.UseCaseResponse
-import it.unibo.lss.fcla.athletictraining.usecase.port.input.UseCaseInput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 
@@ -39,5 +37,4 @@ class Fclat4ScheduleWorkout(
         memberProfileUpdater.updateProfile(activeAthleticTraining.member)
         return repository.update(activeAthleticTraining)
     }
-
 }

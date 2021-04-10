@@ -4,8 +4,6 @@ import it.unibo.lss.fcla.athletictraining.domain.service.MemberProfileUpdater
 import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTrainingNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.exception.WorkoutNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.model.CancelScheduledWorkoutRequest
-import it.unibo.lss.fcla.athletictraining.usecase.model.UseCaseResponse
-import it.unibo.lss.fcla.athletictraining.usecase.port.input.UseCaseInput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository

@@ -38,5 +38,4 @@ abstract class AthleticTrainingManagement<REQUEST, RESPONSE>(
      * the related [RESPONSE].
      */
     abstract fun processRequest(request: REQUEST): RESPONSE
-
 }

@@ -33,5 +33,4 @@ interface ExerciseRepository {
      * @return The [Exercise] found if present.
      */
     fun findById(id: ExerciseId): Exercise?
-
 }

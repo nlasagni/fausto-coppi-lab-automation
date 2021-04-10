@@ -7,13 +7,10 @@ import it.unibo.lss.fcla.athletictraining.domain.service.MemberProfileUpdater
 import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTrainingNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTrainingNotRemoved
 import it.unibo.lss.fcla.athletictraining.usecase.model.CompleteAthleticTrainingRequest
-import it.unibo.lss.fcla.athletictraining.usecase.model.UseCaseResponse
-import it.unibo.lss.fcla.athletictraining.usecase.port.input.UseCaseInput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.CompletedAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.IdGenerator
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
-import java.time.LocalDateTime
 
 /**
  * Completes an athletic training, refers to requirement FCLAT-3.
@@ -37,7 +34,6 @@ class Fclat3CompleteAthleticTraining(
             snapshot.scheduledWorkouts.map { CompletedWorkout(it.workout, it.schedule) }
         val completedAthleticTraining = CompletedAthleticTraining(
             CompletedAthleticTrainingId(idGenerator.generate()),
-            LocalDateTime.now(),
             snapshot.athleticTrainer,
             snapshot.member,
             snapshot.purpose,

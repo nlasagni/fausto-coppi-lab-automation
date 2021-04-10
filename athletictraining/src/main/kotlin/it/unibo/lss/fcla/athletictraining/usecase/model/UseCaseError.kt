@@ -1,7 +1,5 @@
 package it.unibo.lss.fcla.athletictraining.usecase.model
 
-import java.lang.Exception
-
 /**
  * Class that represents the error generated from the
  * processing of a use case input request.

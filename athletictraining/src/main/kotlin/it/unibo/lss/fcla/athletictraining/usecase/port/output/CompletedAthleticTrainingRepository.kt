@@ -14,5 +14,4 @@ interface CompletedAthleticTrainingRepository {
      * @return The [CompletedAthleticTraining] just added.
      */
     fun add(completedAthleticTraining: CompletedAthleticTraining): CompletedAthleticTraining
-
 }

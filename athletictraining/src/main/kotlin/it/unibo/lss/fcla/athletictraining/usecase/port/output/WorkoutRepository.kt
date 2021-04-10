@@ -27,5 +27,4 @@ interface WorkoutRepository {
      * @return The [Workout] found if present.
      */
     fun findById(id: WorkoutId): Workout?
-
 }

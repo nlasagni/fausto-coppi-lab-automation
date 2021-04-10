@@ -8,8 +8,6 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Intensity
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import it.unibo.lss.fcla.athletictraining.usecase.model.CreateExerciseRequest
-import it.unibo.lss.fcla.athletictraining.usecase.model.UseCaseResponse
-import it.unibo.lss.fcla.athletictraining.usecase.port.input.UseCaseInput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ExerciseRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.IdGenerator
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
@@ -40,5 +38,4 @@ class Fclat10CreateExercise(
         )
         return repository.add(exercise)
     }
-
 }

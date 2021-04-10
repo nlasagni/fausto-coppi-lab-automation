@@ -2,11 +2,7 @@ package it.unibo.lss.fcla.athletictraining.usecase
 
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import it.unibo.lss.fcla.athletictraining.usecase.exception.WorkoutNotFound
-import it.unibo.lss.fcla.athletictraining.usecase.model.ChooseExerciseRequest
 import it.unibo.lss.fcla.athletictraining.usecase.model.RemoveExerciseRequest
-import it.unibo.lss.fcla.athletictraining.usecase.model.UseCaseResponse
-import it.unibo.lss.fcla.athletictraining.usecase.port.input.UseCaseInput
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.ExerciseRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
 
@@ -26,5 +22,4 @@ class Fclat9RemoveExerciseFromWorkout(
         workout.cancelExercise(request.exerciseIndex)
         return workoutRepository.update(workout)
     }
-
 }

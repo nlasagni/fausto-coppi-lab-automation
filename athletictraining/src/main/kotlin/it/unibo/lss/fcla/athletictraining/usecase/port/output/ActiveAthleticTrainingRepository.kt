@@ -1,9 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.usecase.port.output
 
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTrainingId
-import it.unibo.lss.fcla.athletictraining.domain.shared.Period
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 
 /**
@@ -42,5 +40,4 @@ interface ActiveAthleticTrainingRepository {
      * @return The collection of [ActiveAthleticTraining]s found if present.
      */
     fun findAllByMemberId(memberId: MemberId): Collection<ActiveAthleticTraining>
-
 }

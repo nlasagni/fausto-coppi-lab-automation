@@ -1,10 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.usecase
 
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
 import it.unibo.lss.fcla.athletictraining.usecase.exception.ExerciseNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.model.DeleteExerciseRequest
-import it.unibo.lss.fcla.athletictraining.usecase.model.UseCaseResponse
-import it.unibo.lss.fcla.athletictraining.usecase.port.input.UseCaseInput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ExerciseRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 
@@ -20,7 +17,6 @@ class Fclat11DeleteExercise(
 
     override fun processRequest(request: DeleteExerciseRequest): Boolean {
         val exercise = repository.findById(request.exerciseId) ?: throw ExerciseNotFound()
-        return repository.remove(exercise.id)
+        return repository.remove(exercise)
     }
-
 }

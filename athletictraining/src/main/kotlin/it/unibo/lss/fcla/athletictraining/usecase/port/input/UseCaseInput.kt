@@ -11,5 +11,4 @@ interface UseCaseInput<T> {
      * Executes the task related to the [request] specified.
      */
     fun execute(request: T)
-
 }
