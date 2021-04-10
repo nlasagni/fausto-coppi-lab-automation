@@ -10,7 +10,6 @@ import it.unibo.lss.fcla.athletictraining.usecase.model.PlanActiveAthleticTraini
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.IdGenerator
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.PlanAthleticTrainingOutput
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 
 /**
  * Plans a new athletic training, refers to requirement FCLAT-1.

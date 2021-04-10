@@ -4,7 +4,6 @@ import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import it.unibo.lss.fcla.athletictraining.usecase.exception.WorkoutNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.model.RemoveExerciseRequest
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.RemoveExerciseFromWorkoutOutput
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
 
 /**

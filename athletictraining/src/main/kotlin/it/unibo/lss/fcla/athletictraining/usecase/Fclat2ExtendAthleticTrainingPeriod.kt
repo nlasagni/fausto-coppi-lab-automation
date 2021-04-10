@@ -9,7 +9,6 @@ import it.unibo.lss.fcla.athletictraining.usecase.exception.OverlappingAthleticT
 import it.unibo.lss.fcla.athletictraining.usecase.model.ExtendAthleticTrainingPeriodRequest
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ExtendAthleticTrainingPeriodOutput
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 
 /**
  * Extends the period of an athletic training, refers to requirement FCLAT-2.
