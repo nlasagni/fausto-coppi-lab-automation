@@ -1,5 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception
 
+import it.unibo.lss.fcla.athletictraining.domain.shared.exception.DomainException
 import java.lang.Exception
 
 /**
@@ -9,4 +10,4 @@ import java.lang.Exception
  * @author Nicola Lasagni on 31/03/2021.
  */
 class WorkoutReferenceMissing :
-    Exception("Workout reference is missing so it cannot be scheduled.")
+    DomainException("Workout reference is missing so it cannot be scheduled.")
