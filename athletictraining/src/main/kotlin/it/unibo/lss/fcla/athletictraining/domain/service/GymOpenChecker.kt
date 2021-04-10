@@ -13,5 +13,5 @@ interface GymOpenChecker {
      * Checks if the gym is open at the given [schedule].
      * @return true if the gym is open, false otherwise.
      */
-    fun isGymOpenAtDateTime(schedule: Schedule): Boolean
+    fun isGymOpenForSchedule(schedule: Schedule): Boolean
 }
