@@ -9,6 +9,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.exception.OverlappingAthleticT
 import it.unibo.lss.fcla.athletictraining.usecase.model.PlanActiveAthleticTrainingRequest
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.IdGenerator
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.PlanAthleticTrainingOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 
 /**
@@ -17,7 +18,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
  * @author Nicola Lasagni on 06/03/2021.
  */
 class Fclat1PlanAthleticTraining(
-    useCaseOutput: UseCaseOutput<ActiveAthleticTraining>,
+    useCaseOutput: PlanAthleticTrainingOutput,
     private val idGenerator: IdGenerator,
     private val memberProfileUpdater: MemberProfileUpdater,
     private val repository: ActiveAthleticTrainingRepository,

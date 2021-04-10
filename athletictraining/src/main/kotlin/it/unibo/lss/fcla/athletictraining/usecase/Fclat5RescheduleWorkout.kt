@@ -9,7 +9,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTraini
 import it.unibo.lss.fcla.athletictraining.usecase.exception.GymClosedAtSchedule
 import it.unibo.lss.fcla.athletictraining.usecase.model.RescheduleWorkoutRequest
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.RescheduleWorkoutOutput
 
 /**
  * Reschedules a workout for an athletic training, refers to requirement FCLAT-5.
@@ -17,7 +17,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
  * @author Nicola Lasagni on 05/04/2021.
  */
 class Fclat5RescheduleWorkout(
-    useCaseOutput: UseCaseOutput<ActiveAthleticTraining>,
+    useCaseOutput: RescheduleWorkoutOutput,
     private val gymOpenChecker: GymOpenChecker,
     private val memberProfileUpdater: MemberProfileUpdater,
     private val repository: ActiveAthleticTrainingRepository

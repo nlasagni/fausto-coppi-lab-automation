@@ -8,9 +8,9 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Intensity
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import it.unibo.lss.fcla.athletictraining.usecase.model.CreateExerciseRequest
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.CreateExerciseOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ExerciseRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.IdGenerator
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 
 /**
  * Creates a new exercise, refers to requirement FCLAT-10.
@@ -18,7 +18,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
  * @author Nicola Lasagni on 05/04/2021.
  */
 class Fclat10CreateExercise(
-    useCaseOutput: UseCaseOutput<Exercise>,
+    useCaseOutput: CreateExerciseOutput,
     private val idGenerator: IdGenerator,
     private val repository: ExerciseRepository
 ) : AthleticTrainingManagement<CreateExerciseRequest, Exercise>(useCaseOutput) {

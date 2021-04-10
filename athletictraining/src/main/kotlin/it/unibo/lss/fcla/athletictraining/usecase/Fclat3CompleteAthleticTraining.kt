@@ -8,9 +8,9 @@ import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTraini
 import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTrainingNotRemoved
 import it.unibo.lss.fcla.athletictraining.usecase.model.CompleteAthleticTrainingRequest
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.CompleteAthleticTrainingOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.CompletedAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.IdGenerator
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 
 /**
  * Completes an athletic training, refers to requirement FCLAT-3.
@@ -18,7 +18,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
  * @author Nicola Lasagni on 05/04/2021.
  */
 class Fclat3CompleteAthleticTraining(
-    useCaseOutput: UseCaseOutput<CompletedAthleticTraining>,
+    useCaseOutput: CompleteAthleticTrainingOutput,
     private val idGenerator: IdGenerator,
     private val memberProfileUpdater: MemberProfileUpdater,
     private val activeAthleticTrainingRepository: ActiveAthleticTrainingRepository,

@@ -9,7 +9,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTraini
 import it.unibo.lss.fcla.athletictraining.usecase.exception.GymClosedAtSchedule
 import it.unibo.lss.fcla.athletictraining.usecase.model.ScheduleWorkoutRequest
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.ScheduleWorkoutOutput
 
 /**
  * Schedules a workout for an athletic training, refers to requirement FCLAT-4.
@@ -17,7 +17,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
  * @author Nicola Lasagni on 05/04/2021.
  */
 class Fclat4ScheduleWorkout(
-    useCaseOutput: UseCaseOutput<ActiveAthleticTraining>,
+    useCaseOutput: ScheduleWorkoutOutput,
     private val gymOpenChecker: GymOpenChecker,
     private val memberProfileUpdater: MemberProfileUpdater,
     private val repository: ActiveAthleticTrainingRepository

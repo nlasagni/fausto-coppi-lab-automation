@@ -3,8 +3,8 @@ package it.unibo.lss.fcla.athletictraining.usecase
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.usecase.model.BuildWorkoutRequest
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.BuildWorkoutOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.IdGenerator
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
 
 /**
@@ -13,7 +13,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
  * @author Nicola Lasagni on 05/04/2021.
  */
 class Fclat7BuildWorkout(
-    useCaseOutput: UseCaseOutput<Workout>,
+    useCaseOutput: BuildWorkoutOutput,
     private val idGenerator: IdGenerator,
     private val workoutRepository: WorkoutRepository
 ) : AthleticTrainingManagement<BuildWorkoutRequest, Workout>(useCaseOutput) {

@@ -3,6 +3,7 @@ package it.unibo.lss.fcla.athletictraining.usecase
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import it.unibo.lss.fcla.athletictraining.usecase.exception.WorkoutNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.model.RemoveExerciseRequest
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.RemoveExerciseFromWorkoutOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
 
@@ -12,7 +13,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
  * @author Nicola Lasagni on 09/04/2021.
  */
 class Fclat9RemoveExerciseFromWorkout(
-    useCaseOutput: UseCaseOutput<Workout>,
+    useCaseOutput: RemoveExerciseFromWorkoutOutput,
     private val workoutRepository: WorkoutRepository
 ) : AthleticTrainingManagement<RemoveExerciseRequest, Workout>(useCaseOutput) {
 

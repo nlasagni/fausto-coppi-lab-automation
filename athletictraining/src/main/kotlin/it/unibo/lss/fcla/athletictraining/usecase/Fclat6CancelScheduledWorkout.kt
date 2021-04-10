@@ -5,7 +5,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.exception.ActiveAthleticTraini
 import it.unibo.lss.fcla.athletictraining.usecase.exception.WorkoutNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.model.CancelScheduledWorkoutRequest
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.CancelScheduledWorkoutOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
 
 /**
@@ -14,7 +14,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
  * @author Nicola Lasagni on 09/04/2021.
  */
 class Fclat6CancelScheduledWorkout(
-    useCaseOutput: UseCaseOutput<Boolean>,
+    useCaseOutput: CancelScheduledWorkoutOutput,
     private val memberProfileUpdater: MemberProfileUpdater,
     private val activeAthleticTrainingRepository: ActiveAthleticTrainingRepository,
     private val workoutRepository: WorkoutRepository

@@ -2,7 +2,7 @@ package it.unibo.lss.fcla.athletictraining.usecase
 
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import it.unibo.lss.fcla.athletictraining.usecase.model.CheckWorkoutsRequest
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.UseCaseOutput
+import it.unibo.lss.fcla.athletictraining.usecase.port.output.CheckWorkoutsOutput
 import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
 
 /**
@@ -11,7 +11,7 @@ import it.unibo.lss.fcla.athletictraining.usecase.port.output.WorkoutRepository
  * @author Nicola Lasagni on 10/04/2021.
  */
 class Fclat13CheckWorkouts(
-    useCaseOutput: UseCaseOutput<Collection<Workout>>,
+    useCaseOutput: CheckWorkoutsOutput,
     private val repository: WorkoutRepository
 ) : AthleticTrainingManagement<CheckWorkoutsRequest, Collection<Workout>>(useCaseOutput) {
 
