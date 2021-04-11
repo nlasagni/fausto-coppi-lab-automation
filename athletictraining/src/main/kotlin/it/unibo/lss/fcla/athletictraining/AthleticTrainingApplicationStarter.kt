@@ -7,6 +7,5 @@ import it.unibo.lss.fcla.athletictraining.config.AthleticTrainingApplication
  */
 fun main() {
     val application = AthleticTrainingApplication()
-    application.fillRepositoriesWithExamples()
     application.start()
 }

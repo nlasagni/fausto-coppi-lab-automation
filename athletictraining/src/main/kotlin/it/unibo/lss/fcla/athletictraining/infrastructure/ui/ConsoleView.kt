@@ -1,13 +1,31 @@
 package it.unibo.lss.fcla.athletictraining.infrastructure.ui
 
+import it.unibo.lss.fcla.athletictraining.adapter.controller.BuildWorkoutControllerRequest
 import it.unibo.lss.fcla.athletictraining.adapter.controller.ControllerInput
+import it.unibo.lss.fcla.athletictraining.adapter.controller.CreateExerciseControllerRequest
+import it.unibo.lss.fcla.athletictraining.adapter.controller.PlanTrainingControllerRequest
 import it.unibo.lss.fcla.athletictraining.adapter.presenter.PresenterOutput
 import it.unibo.lss.fcla.athletictraining.adapter.presenter.ViewModel
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Intensity
+import java.time.LocalDate
 
 /**
  * @author Nicola Lasagni on 10/04/2021.
  */
 class ConsoleView : View, PresenterOutput {
+
+    companion object {
+        private const val demoAthleticTrainerId = "1"
+        private const val demoMemberId = "1"
+        private const val demoGymMachineId = "1"
+        private const val demoPurpose = "Athletic Preparation"
+        private const val demoTrainingWeeks = 5L
+        private const val demoExerciseName = "Demo Exercise"
+        private const val demoExerciseDuration = 1000
+        private const val demoExerciseIntensity = Intensity.NORMAL
+        private const val demoExerciseDistance = 10000
+        private const val demoWorkoutName = "Demo Workout"
+    }
 
     private val commands = arrayOf(
         Pair(ConsoleUtil.Commands.trainingListCommand, "List of Active Athletic Trainings"),
@@ -41,6 +59,14 @@ class ConsoleView : View, PresenterOutput {
 
     override fun start() {
         println("Welcome to the AthleticTraining microservice demo version.")
+        // TODO The 'demo' methods below have been introduced for demo purposes, remove them when no more needed.
+        println("Filling in some example data for demo purposes...")
+        println()
+        planDemoTraining()
+        createDemoExercises()
+        buildDemoWorkout()
+        println("Demo setup completed successfully.")
+        println()
         printAllCommands()
         while (!stopped) {
             print("Please enter a command number, 'h' for help, or 'q' for quitting: ")
@@ -57,9 +83,48 @@ class ConsoleView : View, PresenterOutput {
         }
     }
 
+    private fun planDemoTraining() {
+        println("Creating example of planned training...")
+        controllerInput.executeRequest(
+            PlanTrainingControllerRequest(
+                demoAthleticTrainerId,
+                demoMemberId,
+                demoPurpose,
+                LocalDate.now(),
+                LocalDate.now().plusWeeks(demoTrainingWeeks)
+            )
+        )
+    }
+
+    private fun createDemoExercises() {
+        println("Creating example of exercise...")
+        controllerInput.executeRequest(
+            CreateExerciseControllerRequest(
+                demoGymMachineId,
+                demoExerciseName,
+                demoExerciseDuration,
+                demoExerciseDuration,
+                demoExerciseIntensity,
+                demoExerciseDistance
+            )
+        )
+    }
+
+    private fun buildDemoWorkout() {
+        println("Creating example of workout...")
+        controllerInput.executeRequest(
+            BuildWorkoutControllerRequest(
+                demoWorkoutName
+            )
+        )
+    }
+
     override fun renderViewModel(viewModel: ViewModel) {
         println("Operation completed.")
-        println("Result: ${viewModel.content}")
+        println("Result:")
+        println()
+        println(viewModel.content)
+        println()
     }
 
     private fun processInput(input: Int) {
@@ -86,9 +151,11 @@ class ConsoleView : View, PresenterOutput {
 
     private fun printAllCommands() {
         println("List of possible commands:")
+        println()
         commands.forEach {
             println("${it.first}) ${it.second}")
         }
+        println()
     }
 
     private fun quit() {

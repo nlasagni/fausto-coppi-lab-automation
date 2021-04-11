@@ -1,11 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.config
 
 import it.unibo.lss.fcla.athletictraining.adapter.controller.AthleticTrainingController
-import it.unibo.lss.fcla.athletictraining.adapter.controller.BuildWorkoutControllerRequest
 import it.unibo.lss.fcla.athletictraining.adapter.controller.ControllerManager
-import it.unibo.lss.fcla.athletictraining.adapter.controller.CreateExerciseControllerRequest
 import it.unibo.lss.fcla.athletictraining.adapter.controller.ExerciseController
-import it.unibo.lss.fcla.athletictraining.adapter.controller.PlanTrainingControllerRequest
 import it.unibo.lss.fcla.athletictraining.adapter.controller.WorkoutController
 import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.IncrementalGenerator
 import it.unibo.lss.fcla.athletictraining.adapter.presenter.BuildWorkoutPresenter
@@ -26,7 +23,6 @@ import it.unibo.lss.fcla.athletictraining.adapter.repository.InMemoryActiveAthle
 import it.unibo.lss.fcla.athletictraining.adapter.repository.InMemoryCompletedAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.adapter.repository.InMemoryExerciseRepository
 import it.unibo.lss.fcla.athletictraining.adapter.repository.InMemoryWorkoutRepository
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Intensity
 import it.unibo.lss.fcla.athletictraining.domain.service.OverlappingAthleticTrainingsCheckerImpl
 import it.unibo.lss.fcla.athletictraining.domain.service.WorkoutTotalDurationCalculatorImpl
 import it.unibo.lss.fcla.athletictraining.infrastructure.service.GymOpenCheckerImpl
@@ -46,25 +42,11 @@ import it.unibo.lss.fcla.athletictraining.usecase.fclat6.Fclat6CancelScheduledWo
 import it.unibo.lss.fcla.athletictraining.usecase.fclat7.Fclat7BuildWorkout
 import it.unibo.lss.fcla.athletictraining.usecase.fclat8.Fclat8ChooseExerciseForWorkout
 import it.unibo.lss.fcla.athletictraining.usecase.fclat9.Fclat9RemoveExerciseFromWorkout
-import java.time.LocalDate
 
 /**
  * @author Nicola Lasagni on 05/04/2021.
  */
 class AthleticTrainingApplication {
-
-    companion object {
-        private const val demoAthleticTrainerId = "1"
-        private const val demoMemberId = "1"
-        private const val demoGymMachineId = "1"
-        private const val demoPurpose = "Athletic Preparation"
-        private const val demoTrainingWeeks = 5L
-        private const val demoExerciseName = "Demo Exercise"
-        private const val demoExerciseDuration = 1000
-        private const val demoExerciseIntensity = Intensity.NORMAL
-        private const val demoExerciseDistance = 10000
-        private const val demoWorkoutName = "Demo Workout"
-    }
 
     // Repositories and Services
     private val activeAthleticTrainingRepository = InMemoryActiveAthleticTrainingRepository()
@@ -205,45 +187,6 @@ class AthleticTrainingApplication {
         workoutController,
         exerciseController
     )
-
-    fun fillRepositoriesWithExamples() {
-        planDemoTraining()
-        createDemoExercises()
-        buildDemoWorkout()
-    }
-
-    private fun planDemoTraining() {
-        controllerManager.executeRequest(
-            PlanTrainingControllerRequest(
-                demoAthleticTrainerId,
-                demoMemberId,
-                demoPurpose,
-                LocalDate.now(),
-                LocalDate.now().plusWeeks(demoTrainingWeeks)
-            )
-        )
-    }
-
-    private fun createDemoExercises() {
-        controllerManager.executeRequest(
-            CreateExerciseControllerRequest(
-                demoGymMachineId,
-                demoExerciseName,
-                demoExerciseDuration,
-                demoExerciseDuration,
-                demoExerciseIntensity,
-                demoExerciseDistance
-            )
-        )
-    }
-
-    private fun buildDemoWorkout() {
-        controllerManager.executeRequest(
-            BuildWorkoutControllerRequest(
-                demoWorkoutName
-            )
-        )
-    }
 
     fun start() {
         view.registerController(controllerManager)
