@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
+package it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId

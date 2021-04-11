@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat3
 
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTrainingId
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedAthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedWorkout

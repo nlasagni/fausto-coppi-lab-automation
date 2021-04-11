@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.adapter.presenter
 
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout

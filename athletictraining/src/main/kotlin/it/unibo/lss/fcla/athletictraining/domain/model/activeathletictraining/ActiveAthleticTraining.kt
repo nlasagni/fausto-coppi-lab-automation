@@ -1,11 +1,11 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
+package it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.ActiveAthleticTrainingIdMissing
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.ScheduledWorkoutNotFound
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutScheduleMustNotOverlap
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.ActiveAthleticTrainingIdMissing
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.ScheduledWorkoutNotFound
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.WorkoutScheduleMustNotOverlap
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period

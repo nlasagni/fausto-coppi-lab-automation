@@ -1,4 +1,4 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception
+package it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception
 
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.DomainException
 

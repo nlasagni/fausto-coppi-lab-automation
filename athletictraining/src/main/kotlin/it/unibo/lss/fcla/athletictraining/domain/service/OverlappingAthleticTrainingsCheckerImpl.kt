@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.domain.service
 
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
 
 /**
