@@ -1,13 +1,15 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
+package it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining
 
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutScheduleMustNotOverlap
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.PeriodExtensionCannotEndBeforeCurrentPeriod
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.WorkoutMustBeScheduledDuringPeriodOfTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.WorkoutScheduleMustNotOverlap
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
@@ -103,6 +105,9 @@ class AthleticTrainingTest : FreeSpec({
             Assertions.assertEquals(member, snapshot.member)
             Assertions.assertEquals(period, snapshot.period)
         }
+        "be able to check if it overlaps with another training period" - {
+            activeAthleticTraining.overlapsWithPeriod(period).shouldBeTrue()
+        }
         "allow postponing the training period end" - {
             val postponedEnd = end.plusWeeks(1)
             assertDoesNotThrow {
@@ -140,6 +145,19 @@ class AthleticTrainingTest : FreeSpec({
             }
             val postReschedulingSnapshot = activeAthleticTraining.snapshot()
             postReschedulingSnapshot.scheduledWorkouts.first().schedule.shouldBe(newSchedule)
+        }
+        "allow to cancel a scheduled workout" - {
+            activeAthleticTraining.scheduleWorkout(workout, schedule)
+            val beforeReschedulingSnapshot = activeAthleticTraining.snapshot()
+            val scheduledWorkout = beforeReschedulingSnapshot.scheduledWorkouts.first()
+            assertDoesNotThrow {
+                activeAthleticTraining.cancelScheduledWorkout(
+                    scheduledWorkout.workout,
+                    scheduledWorkout.schedule
+                )
+            }
+            val postCancellationSnapshot = activeAthleticTraining.snapshot()
+            postCancellationSnapshot.scheduledWorkouts.shouldBeEmpty()
         }
         "not allow the scheduling of a workout that overlaps with another" - {
             activeAthleticTraining.scheduleWorkout(workout, schedule)

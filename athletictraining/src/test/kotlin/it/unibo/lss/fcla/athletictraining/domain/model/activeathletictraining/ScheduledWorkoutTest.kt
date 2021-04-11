@@ -1,8 +1,8 @@
-package it.unibo.lss.fcla.athletictraining.domain.model.athletictraining
+package it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining
 
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.exception.WorkoutReferenceMissing
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.exception.WorkoutReferenceMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
 import org.junit.jupiter.api.assertThrows
