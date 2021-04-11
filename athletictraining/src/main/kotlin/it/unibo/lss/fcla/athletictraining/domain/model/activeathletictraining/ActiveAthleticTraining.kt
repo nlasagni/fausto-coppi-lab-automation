@@ -42,6 +42,25 @@ class ActiveAthleticTraining(
     private var period: Period
 ) {
 
+    companion object {
+        fun rehydrate(snapshot: ActiveAthleticTrainingSnapshot): ActiveAthleticTraining {
+            val activeAthleticTraining = ActiveAthleticTraining(
+                snapshot.id,
+                snapshot.athleticTrainer,
+                snapshot.member,
+                snapshot.purpose,
+                snapshot.period
+            )
+            for (scheduledWorkout in snapshot.scheduledWorkouts) {
+                activeAthleticTraining.scheduleWorkout(
+                    scheduledWorkout.workout,
+                    scheduledWorkout.schedule
+                )
+            }
+            return activeAthleticTraining
+        }
+    }
+
     private var scheduledWorkouts: List<ScheduledWorkout> = emptyList()
 
     init {

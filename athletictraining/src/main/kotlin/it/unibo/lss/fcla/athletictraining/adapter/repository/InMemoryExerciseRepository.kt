@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.adapter.repository
 
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseSnapshot
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ExerciseRepository
 
 /**
@@ -11,27 +11,27 @@ import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ExerciseReposito
  */
 class InMemoryExerciseRepository : ExerciseRepository {
 
-    private val inMemoryStorage: MutableMap<ExerciseId, Exercise> = mutableMapOf()
+    private val inMemoryStorage: MutableMap<ExerciseId, ExerciseSnapshot> = mutableMapOf()
 
-    override fun add(exercise: Exercise): Exercise {
-        return addOrUpdate(exercise)
+    override fun add(snapshot: ExerciseSnapshot): ExerciseSnapshot {
+        return addOrUpdate(snapshot)
     }
 
-    override fun update(exercise: Exercise): Exercise {
-        return addOrUpdate(exercise)
+    override fun update(snapshot: ExerciseSnapshot): ExerciseSnapshot {
+        return addOrUpdate(snapshot)
     }
 
-    private fun addOrUpdate(exercise: Exercise): Exercise {
-        val id = exercise.id
-        inMemoryStorage[id] = exercise
-        return exercise
+    private fun addOrUpdate(snapshot: ExerciseSnapshot): ExerciseSnapshot {
+        val id = snapshot.id
+        inMemoryStorage[id] = snapshot
+        return snapshot
     }
 
-    override fun remove(exercise: Exercise): Boolean {
-        return inMemoryStorage.remove(exercise.id) != null
+    override fun remove(snapshot: ExerciseSnapshot): Boolean {
+        return inMemoryStorage.remove(snapshot.id) != null
     }
 
-    override fun findById(id: ExerciseId): Exercise? = inMemoryStorage[id]
+    override fun findById(id: ExerciseId): ExerciseSnapshot? = inMemoryStorage[id]
 
-    override fun findAll(): Collection<Exercise> = inMemoryStorage.values.toList()
+    override fun findAll(): Collection<ExerciseSnapshot> = inMemoryStorage.values.toList()
 }

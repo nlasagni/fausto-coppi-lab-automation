@@ -1,9 +1,10 @@
 package it.unibo.lss.fcla.athletictraining.usecase.shared.output
 
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedAthleticTraining
 
 /**
- * Repository that refers to the Completed Athletic Training aggregate.
+ * Repository that persist information about Completed Athletic Trainings.
  *
  * @author Nicola Lasagni on 06/04/2021.
  */
@@ -14,4 +15,10 @@ interface CompletedAthleticTrainingRepository {
      * @return The [CompletedAthleticTraining] just added.
      */
     fun add(completedAthleticTraining: CompletedAthleticTraining): CompletedAthleticTraining
+
+    /**
+     * Finds all the [CompletedAthleticTraining]s in this repository.
+     * @return The collection of [CompletedAthleticTraining]s found.
+     */
+    fun findAll(): Collection<CompletedAthleticTraining>
 }

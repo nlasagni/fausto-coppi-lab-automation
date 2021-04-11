@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.adapter.repository
 
-import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutSnapshot
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.WorkoutRepository
 
 /**
@@ -11,23 +11,23 @@ import it.unibo.lss.fcla.athletictraining.usecase.shared.output.WorkoutRepositor
  */
 class InMemoryWorkoutRepository : WorkoutRepository {
 
-    private val inMemoryStorage: MutableMap<WorkoutId, Workout> = mutableMapOf()
+    private val inMemoryStorage: MutableMap<WorkoutId, WorkoutSnapshot> = mutableMapOf()
 
-    override fun add(workout: Workout): Workout {
-        return addOrUpdate(workout)
+    override fun add(snapshot: WorkoutSnapshot): WorkoutSnapshot {
+        return addOrUpdate(snapshot)
     }
 
-    override fun update(workout: Workout): Workout {
-        return addOrUpdate(workout)
+    override fun update(snapshot: WorkoutSnapshot): WorkoutSnapshot {
+        return addOrUpdate(snapshot)
     }
 
-    private fun addOrUpdate(workout: Workout): Workout {
+    private fun addOrUpdate(workout: WorkoutSnapshot): WorkoutSnapshot {
         val id = workout.id
         inMemoryStorage[id] = workout
         return workout
     }
 
-    override fun findById(id: WorkoutId): Workout? = inMemoryStorage[id]
+    override fun findById(id: WorkoutId): WorkoutSnapshot? = inMemoryStorage[id]
 
-    override fun findAll(): Collection<Workout> = inMemoryStorage.values.toList()
+    override fun findAll(): Collection<WorkoutSnapshot> = inMemoryStorage.values.toList()
 }

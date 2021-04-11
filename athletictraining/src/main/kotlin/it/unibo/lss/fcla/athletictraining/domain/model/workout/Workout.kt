@@ -20,6 +20,19 @@ class Workout(
     private val name: String
 ) {
 
+    companion object {
+        fun rehydrate(snapshot: WorkoutSnapshot): Workout {
+            val workout = Workout(
+                snapshot.id,
+                snapshot.name
+            )
+            for (exercise in snapshot.exercises) {
+               workout.prepareExercise(exercise)
+            }
+            return workout
+        }
+    }
+
     private var exercises: List<ExerciseId> = emptyList()
 
     init {
@@ -35,6 +48,7 @@ class Workout(
      * Generates a [WorkoutSnapshot] with the information about this Workout.
      */
     fun snapshot(): WorkoutSnapshot = WorkoutSnapshot(
+        id,
         name,
         exercises
     )

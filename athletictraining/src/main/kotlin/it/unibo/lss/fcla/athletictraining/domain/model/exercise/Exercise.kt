@@ -2,6 +2,8 @@ package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutSnapshot
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 
 /**
@@ -18,6 +20,19 @@ class Exercise(
     private var durationOfExecution: Duration,
     private var durationOfRest: Duration
 ) {
+
+    companion object {
+        fun rehydrate(snapshot: ExerciseSnapshot): Exercise {
+            val exercise = Exercise(
+                snapshot.id,
+                snapshot.name,
+                snapshot.configuration,
+                snapshot.durationOfExecution,
+                snapshot.durationOfRest
+            )
+            return exercise
+        }
+    }
 
     init {
         if (id.value.isEmpty()) {

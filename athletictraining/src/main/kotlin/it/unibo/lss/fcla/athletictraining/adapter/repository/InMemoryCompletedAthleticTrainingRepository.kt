@@ -18,4 +18,6 @@ class InMemoryCompletedAthleticTrainingRepository : CompletedAthleticTrainingRep
         inMemoryStorage[completedAthleticTraining.id] = completedAthleticTraining
         return completedAthleticTraining
     }
+
+    override fun findAll(): Collection<CompletedAthleticTraining> = inMemoryStorage.values.toList()
 }
