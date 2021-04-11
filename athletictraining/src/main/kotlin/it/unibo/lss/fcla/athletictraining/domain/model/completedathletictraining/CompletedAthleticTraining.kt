@@ -25,7 +25,7 @@ class CompletedAthleticTraining(
     private val member: MemberId,
     private val purpose: Purpose,
     private val period: Period,
-    private val completedWorkouts: List<CompletedWorkout>
+    private val completedWorkouts: Collection<CompletedWorkout>
 ) {
 
     private val completionDateTime: LocalDateTime
@@ -78,6 +78,7 @@ class CompletedAthleticTraining(
      * @return The collection of [CompletedWorkout] during this AthleticTraining.
      */
     fun workouts(): Collection<CompletedWorkout> = completedWorkouts
+
     override fun toString(): String {
         return "CompletedAthleticTraining(id=$id, " +
             "athleticTrainer=$athleticTrainer, " +
