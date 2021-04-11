@@ -35,7 +35,7 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
             now,
             now.plusMonths(1)
         )
-        purpose = Purpose.AthleticPreparation()
+        purpose = Purpose("AthleticPreparation")
         activeAthleticTraining = ActiveAthleticTraining(
             activeAthleticTrainingId,
             athleticTrainerId,
