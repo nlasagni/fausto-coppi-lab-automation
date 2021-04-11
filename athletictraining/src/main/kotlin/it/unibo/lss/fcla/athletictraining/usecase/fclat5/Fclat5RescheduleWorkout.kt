@@ -5,9 +5,9 @@ import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAt
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.domain.service.GymOpenChecker
 import it.unibo.lss.fcla.athletictraining.domain.service.MemberProfileUpdater
-import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.ActiveAthleticTrainingNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.GymClosedAtSchedule
+import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ActiveAthleticTrainingRepository
 
 /**

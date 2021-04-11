@@ -5,8 +5,8 @@ import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAt
 import it.unibo.lss.fcla.athletictraining.domain.service.MemberProfileUpdater
 import it.unibo.lss.fcla.athletictraining.domain.service.OverlappingAthleticTrainingsChecker
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
-import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.OverlappingAthleticTraining
+import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.IdGenerator
 

@@ -1,9 +1,9 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat6
 
 import it.unibo.lss.fcla.athletictraining.domain.service.MemberProfileUpdater
-import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.ActiveAthleticTrainingNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.WorkoutNotFound
+import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.WorkoutRepository
 

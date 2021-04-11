@@ -1,10 +1,10 @@
 package it.unibo.lss.fcla.athletictraining.usecase.shared.input
 
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.DomainException
-import it.unibo.lss.fcla.athletictraining.usecase.shared.model.UseCaseError
-import it.unibo.lss.fcla.athletictraining.usecase.shared.output.UseCaseOutput
-import it.unibo.lss.fcla.athletictraining.usecase.shared.model.UseCaseResponse
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.UseCaseException
+import it.unibo.lss.fcla.athletictraining.usecase.shared.model.UseCaseError
+import it.unibo.lss.fcla.athletictraining.usecase.shared.model.UseCaseResponse
+import it.unibo.lss.fcla.athletictraining.usecase.shared.output.UseCaseOutput
 
 /**
  * Abstract class that represent a generic use case input

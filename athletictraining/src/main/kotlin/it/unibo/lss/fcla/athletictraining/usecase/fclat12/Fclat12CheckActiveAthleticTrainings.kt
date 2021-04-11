@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat12
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTraining
+import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ActiveAthleticTrainingRepository
 

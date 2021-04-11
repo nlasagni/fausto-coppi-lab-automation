@@ -4,9 +4,9 @@ import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedAthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedWorkout
 import it.unibo.lss.fcla.athletictraining.domain.service.MemberProfileUpdater
-import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.ActiveAthleticTrainingNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.ActiveAthleticTrainingNotRemoved
+import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ActiveAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.CompletedAthleticTrainingRepository
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.IdGenerator
