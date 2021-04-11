@@ -43,9 +43,6 @@ class ActiveAthleticTrainingTest : FreeSpec({
     lateinit var activeAthleticTraining: ActiveAthleticTraining
     lateinit var schedule: Schedule
 
-    /**
-     * Setup before every test.
-     */
     beforeAny {
         activeAthleticTrainingId = ActiveAthleticTrainingId(UuidGenerator().generate())
         athleticTrainer = AthleticTrainerId("1234")
