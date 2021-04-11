@@ -8,7 +8,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAt
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
 import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
+import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ActiveAthleticTrainingRepository
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
 
