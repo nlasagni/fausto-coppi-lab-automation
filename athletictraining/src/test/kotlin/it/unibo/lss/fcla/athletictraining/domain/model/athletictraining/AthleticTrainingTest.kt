@@ -52,7 +52,7 @@ class AthleticTrainingTest : FreeSpec({
         beginning = LocalDate.now()
         end = beginning.plusMonths(1)
         period = Period(beginning, end)
-        purpose = Purpose.AthleticPreparation()
+        purpose = Purpose("Athletic Preparation")
         activeAthleticTraining = ActiveAthleticTraining(
             activeAthleticTrainingId,
             athleticTrainer,
