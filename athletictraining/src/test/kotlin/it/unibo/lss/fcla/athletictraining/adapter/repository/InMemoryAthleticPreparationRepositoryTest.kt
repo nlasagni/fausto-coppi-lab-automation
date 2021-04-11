@@ -47,19 +47,19 @@ class InMemoryAthleticPreparationRepositoryTest : FreeSpec({
 
     "An InMemoryAthleticPreparationRepository should" - {
         "be able to persist AthleticPreparation" - {
-            val persistedAthleticPreparation = repository.add(activeAthleticTraining)
+            val persistedAthleticPreparation = repository.add(activeAthleticTraining.snapshot())
             val snapshot = activeAthleticTraining.snapshot()
-            val persistedSnapshot = persistedAthleticPreparation.snapshot()
+            val persistedSnapshot = persistedAthleticPreparation
             Assertions.assertEquals(snapshot, persistedSnapshot)
         }
         "be able to find an AthleticPreparation by id" - {
             assert(repository.findById(ActiveAthleticTrainingId("0")) == null)
-            val persistedAthleticPreparation = repository.add(activeAthleticTraining)
-            val persistedId = persistedAthleticPreparation.snapshot().id
+            val persistedAthleticPreparation = repository.add(activeAthleticTraining.snapshot())
+            val persistedId = persistedAthleticPreparation.id
             assert(repository.findById(persistedId) != null)
         }
         "be able to find an AthleticPreparation by memberId" - {
-            repository.add(activeAthleticTraining)
+            repository.add(activeAthleticTraining.snapshot())
             assert(repository.findAllByMemberId(memberId).isNotEmpty())
         }
     }
