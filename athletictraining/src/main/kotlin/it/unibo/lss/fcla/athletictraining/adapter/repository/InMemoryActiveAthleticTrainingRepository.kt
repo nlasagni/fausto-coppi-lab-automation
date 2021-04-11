@@ -3,14 +3,17 @@ package it.unibo.lss.fcla.athletictraining.adapter.repository
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
-import it.unibo.lss.fcla.athletictraining.usecase.port.output.ActiveAthleticTrainingRepository
+import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ActiveAthleticTrainingRepository
 
 /**
+ * An [ActiveAthleticTrainingRepository] that stores information in application memory.
+ *
  * @author Nicola Lasagni on 07/03/2021.
  */
 class InMemoryActiveAthleticTrainingRepository : ActiveAthleticTrainingRepository {
 
-    private val inMemoryStorage: MutableMap<ActiveAthleticTrainingId, ActiveAthleticTraining> = mutableMapOf()
+    private val inMemoryStorage: MutableMap<ActiveAthleticTrainingId, ActiveAthleticTraining> =
+        mutableMapOf()
 
     override fun add(activeAthleticTraining: ActiveAthleticTraining): ActiveAthleticTraining {
         return addOrUpdate(activeAthleticTraining)
@@ -25,7 +28,7 @@ class InMemoryActiveAthleticTrainingRepository : ActiveAthleticTrainingRepositor
     }
 
     private fun addOrUpdate(activeAthleticTraining: ActiveAthleticTraining): ActiveAthleticTraining {
-        val id = activeAthleticTraining.snapshot().id
+        val id = activeAthleticTraining.id
         inMemoryStorage[id] = activeAthleticTraining
         return activeAthleticTraining
     }
