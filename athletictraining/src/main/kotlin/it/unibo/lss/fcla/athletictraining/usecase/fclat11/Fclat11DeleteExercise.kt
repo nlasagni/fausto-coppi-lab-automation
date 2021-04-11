@@ -1,8 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat11
 
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
-import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.ExerciseNotFound
+import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
 import it.unibo.lss.fcla.athletictraining.usecase.shared.output.ExerciseRepository
 
 /**

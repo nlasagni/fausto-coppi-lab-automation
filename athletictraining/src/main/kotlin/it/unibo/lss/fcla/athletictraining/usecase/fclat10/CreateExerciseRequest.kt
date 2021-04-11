@@ -9,8 +9,8 @@ package it.unibo.lss.fcla.athletictraining.usecase.fclat10
 data class CreateExerciseRequest(
     val gymMachine: String,
     val name: String,
-    val durationOfExecution: Int,
-    val durationOfRest: Int,
+    val durationOfExecutionInSeconds: Int,
+    val durationOfRestInSeconds: Int,
     val intensity: Int,
     val distance: Int
 )

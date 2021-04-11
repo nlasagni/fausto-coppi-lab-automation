@@ -33,8 +33,8 @@ class Fclat10CreateExercise(
             ExerciseId(idGenerator.generate()),
             request.name,
             configuration,
-            Duration(request.durationOfExecution),
-            Duration(request.durationOfRest)
+            Duration(request.durationOfExecutionInSeconds.toLong()),
+            Duration(request.durationOfRestInSeconds.toLong())
         )
         return repository.add(exercise)
     }
