@@ -27,7 +27,7 @@ class Workout(
                 snapshot.name
             )
             for (exercise in snapshot.exercises) {
-               workout.prepareExercise(exercise)
+                workout.prepareExercise(exercise)
             }
             return workout
         }

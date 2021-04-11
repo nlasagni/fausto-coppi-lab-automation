@@ -2,8 +2,6 @@ package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
-import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
-import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutSnapshot
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
 
 /**

@@ -1,6 +1,5 @@
 package it.unibo.lss.fcla.athletictraining.usecase.shared.output
 
-import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedAthleticTraining
 
 /**
