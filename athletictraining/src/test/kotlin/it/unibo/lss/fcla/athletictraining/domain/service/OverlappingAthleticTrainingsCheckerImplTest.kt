@@ -16,7 +16,7 @@ import java.time.LocalDate
  *
  * @author Nicola Lasagni on 11/04/2021.
  */
-class OverlappingAthleticTrainingsCheckerImplTest : FreeSpec ({
+class OverlappingAthleticTrainingsCheckerImplTest : FreeSpec({
 
     lateinit var activeAthleticTrainingId: ActiveAthleticTrainingId
     lateinit var athleticTrainer: AthleticTrainerId
@@ -54,5 +54,4 @@ class OverlappingAthleticTrainingsCheckerImplTest : FreeSpec ({
             service.existsOverlappingAthleticTraining(athleticTrainings, period).shouldBeTrue()
         }
     }
-
 })

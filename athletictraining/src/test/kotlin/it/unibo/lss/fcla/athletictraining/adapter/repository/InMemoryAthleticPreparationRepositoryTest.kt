@@ -2,9 +2,9 @@ package it.unibo.lss.fcla.athletictraining.adapter.repository
 
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTrainingId
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
 import it.unibo.lss.fcla.athletictraining.domain.shared.Period
 import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose

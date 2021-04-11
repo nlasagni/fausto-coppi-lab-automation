@@ -63,5 +63,4 @@ class WorkoutTotalDurationCalculatorImplTest : FreeSpec({
             service.computeTotalDuration(exercises).shouldBe(Duration(totalDuration))
         }
     }
-
 })

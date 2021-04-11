@@ -38,5 +38,4 @@ class CompletedWorkoutTest : FreeSpec({
             assertDoesNotThrow { CompletedWorkout(workoutId, schedule) }
         }
     }
-
 })
