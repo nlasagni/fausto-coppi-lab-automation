@@ -44,6 +44,12 @@ import it.unibo.lss.fcla.athletictraining.usecase.fclat8.Fclat8ChooseExerciseFor
 import it.unibo.lss.fcla.athletictraining.usecase.fclat9.Fclat9RemoveExerciseFromWorkout
 
 /**
+ * Class that represents the whole application.
+ *
+ * It wraps up all the configuration steps of this microservice.
+ *
+ * It is responsible of creating components of all layers and to assemble them.
+ *
  * @author Nicola Lasagni on 05/04/2021.
  */
 class AthleticTrainingApplication {
@@ -188,6 +194,9 @@ class AthleticTrainingApplication {
         exerciseController
     )
 
+    /**
+     * Starts the application.
+     */
     fun start() {
         view.registerController(controllerManager)
         view.start()

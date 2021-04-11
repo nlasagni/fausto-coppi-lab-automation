@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 /**
+ * Utility class that contains common constants and methods for reading from standard input.
+ *
  * @author Nicola Lasagni on 11/04/2021.
  */
 object ConsoleUtil {
@@ -13,6 +15,9 @@ object ConsoleUtil {
     private val dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
     private val timeFormatter = DateTimeFormatter.ofPattern("HH.mm")
 
+    /**
+     * The available commands of the [ConsoleView].
+     */
     object Commands {
         const val trainingListCommand = 1
         const val workoutListCommand = 2
@@ -30,11 +35,18 @@ object ConsoleUtil {
         const val deleteExerciseCommand = 14
     }
 
+    /**
+     * Displays the specified [message] and reads a [String] from standard input.
+     */
     fun requestStringField(message: String): String {
         print("$message: ")
         return readLine() ?: ""
     }
 
+    /**
+     * Displays the specified [message] and reads an [Int] from standard input.
+     * If the input cannot be parsed, a [ViewValidationException] is thrown.
+     */
     fun requestIntField(message: String): Int {
         print("$message: ")
         return try {
@@ -44,6 +56,11 @@ object ConsoleUtil {
         }
     }
 
+    /**
+     * Displays the specified [message] and reads a [LocalDate] from standard input.
+     * The date must have format 'dd-MM-yyyy'.
+     * If the input cannot be parsed, a [ViewValidationException] is thrown.
+     */
     fun requestDateField(message: String): LocalDate {
         try {
             print("$message (dd-MM-yyyy): ")
@@ -58,6 +75,11 @@ object ConsoleUtil {
         }
     }
 
+    /**
+     * Displays the specified [message] and reads a [LocalTime] from standard input.
+     * The date must have format 'HH.mm'.
+     * If the input cannot be parsed, a [ViewValidationException] is thrown.
+     */
     fun requestTimeField(message: String): LocalTime {
         try {
             print("$message (HH.mm): ")

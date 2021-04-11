@@ -8,6 +8,8 @@ import it.unibo.lss.fcla.athletictraining.adapter.controller.ListOfExercisesCont
 import it.unibo.lss.fcla.athletictraining.adapter.controller.RemoveExerciseControllerRequest
 
 /**
+ * Class that executes [ConsoleUtil.Commands] related to exercises.
+ *
  * @author Nicola Lasagni on 11/04/2021.
  */
 class ExerciseCommandExecutor(private val controllerInput: ControllerInput) {

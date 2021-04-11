@@ -8,6 +8,8 @@ import it.unibo.lss.fcla.athletictraining.adapter.controller.RescheduleWorkoutCo
 import it.unibo.lss.fcla.athletictraining.adapter.controller.ScheduleWorkoutControllerRequest
 
 /**
+ * Class that executes [ConsoleUtil.Commands] related to workouts.
+ *
  * @author Nicola Lasagni on 11/04/2021.
  */
 class WorkoutCommandExecutor(private val controllerInput: ControllerInput) {

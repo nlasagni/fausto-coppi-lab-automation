@@ -12,6 +12,9 @@ import it.unibo.lss.fcla.athletictraining.usecase.fclat7.BuildWorkoutInput
 import it.unibo.lss.fcla.athletictraining.usecase.fclat7.BuildWorkoutRequest
 
 /**
+ * A [ControllerInput] that executes only [ControllerRequest] related
+ * to workouts.
+ *
  * @author Nicola Lasagni on 10/04/2021.
  */
 class WorkoutController(
@@ -35,7 +38,7 @@ class WorkoutController(
             is RescheduleWorkoutControllerRequest -> rescheduleWorkoutInput.execute(
                 RescheduleWorkoutRequest(
                     request.trainingId,
-                    request.scheduledWorkoutId,
+                    request.workoutId,
                     request.currentDay,
                     request.currentTime,
                     request.newDay,

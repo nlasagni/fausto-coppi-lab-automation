@@ -25,6 +25,11 @@ import it.unibo.lss.fcla.athletictraining.usecase.shared.output.UseCaseOutput
 /**
  * @author Nicola Lasagni on 10/04/2021.
  */
+
+/**
+ * A generic [UseCaseOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 abstract class AbstractPresenter<T>(
     private val presenterOutput: PresenterOutput
 ) : UseCaseOutput<T> {
@@ -39,58 +44,114 @@ abstract class AbstractPresenter<T>(
     }
 }
 
+/**
+ * A [PlanAthleticTrainingOutput]  which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class PlanAthleticTrainingPresenter(presenterOutput: PresenterOutput) :
     PlanAthleticTrainingOutput,
     AbstractPresenter<ActiveAthleticTraining>(presenterOutput)
 
+/**
+ * An [ExtendAthleticTrainingPeriodOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class ExtendAthleticTrainingPeriodPresenter(presenterOutput: PresenterOutput) :
     ExtendAthleticTrainingPeriodOutput,
     AbstractPresenter<ActiveAthleticTraining>(presenterOutput)
 
+/**
+ * A [CompleteAthleticTrainingOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class CompleteAthleticTrainingPresenter(presenterOutput: PresenterOutput) :
     CompleteAthleticTrainingOutput,
     AbstractPresenter<CompletedAthleticTraining>(presenterOutput)
 
+/**
+ * A [CancelScheduledWorkoutOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class ScheduleWorkoutPresenter(presenterOutput: PresenterOutput) :
     ScheduleWorkoutOutput,
     AbstractPresenter<ActiveAthleticTraining>(presenterOutput)
 
+/**
+ * A [RescheduleWorkoutOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class RescheduleWorkoutPresenter(presenterOutput: PresenterOutput) :
     RescheduleWorkoutOutput,
     AbstractPresenter<ActiveAthleticTraining>(presenterOutput)
 
+/**
+ * A [CancelScheduledWorkoutOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class CancelScheduledWorkoutPresenter(presenterOutput: PresenterOutput) :
     CancelScheduledWorkoutOutput,
     AbstractPresenter<Boolean>(presenterOutput)
 
+/**
+ * A [BuildWorkoutOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class BuildWorkoutPresenter(presenterOutput: PresenterOutput) :
     BuildWorkoutOutput,
     AbstractPresenter<Workout>(presenterOutput)
 
+/**
+ * A [CheckExercisesOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class ChooseExerciseForWorkoutPresenter(presenterOutput: PresenterOutput) :
     ChooseExerciseForWorkoutOutput,
     AbstractPresenter<Workout>(presenterOutput)
 
+/**
+ * A [RemoveExerciseFromWorkoutOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class RemoveExerciseFromWorkoutPresenter(presenterOutput: PresenterOutput) :
     RemoveExerciseFromWorkoutOutput,
     AbstractPresenter<Workout>(presenterOutput)
 
+/**
+ * A [CreateExerciseOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class CreateExercisePresenter(presenterOutput: PresenterOutput) :
     CreateExerciseOutput,
     AbstractPresenter<Exercise>(presenterOutput)
 
+/**
+ * A [DeleteExerciseOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class DeleteExercisePresenter(presenterOutput: PresenterOutput) :
     DeleteExerciseOutput,
     AbstractPresenter<Boolean>(presenterOutput)
 
+/**
+ * A [CheckActiveAthleticTrainingsOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class CheckActiveAthleticTrainingsPresenter(presenterOutput: PresenterOutput) :
     CheckActiveAthleticTrainingsOutput,
     AbstractPresenter<Collection<ActiveAthleticTraining>>(presenterOutput)
 
+/**
+ * A [CheckWorkoutsOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class CheckWorkoutsPresenter(presenterOutput: PresenterOutput) :
     CheckWorkoutsOutput,
     AbstractPresenter<Collection<Workout>>(presenterOutput)
 
+/**
+ * A [CheckExercisesOutput] which processes output data coming from use cases for presentation
+ * purposes.
+ */
 class CheckExercisesPresenter(presenterOutput: PresenterOutput) :
     CheckExercisesOutput,
     AbstractPresenter<Collection<Exercise>>(presenterOutput)

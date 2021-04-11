@@ -12,6 +12,9 @@ import it.unibo.lss.fcla.athletictraining.usecase.fclat9.RemoveExerciseFromWorko
 import it.unibo.lss.fcla.athletictraining.usecase.fclat9.RemoveExerciseRequest
 
 /**
+ * A [ControllerInput] that executes only [ControllerRequest] related
+ * to exercises.
+ *
  * @author Nicola Lasagni on 10/04/2021.
  */
 class ExerciseController(

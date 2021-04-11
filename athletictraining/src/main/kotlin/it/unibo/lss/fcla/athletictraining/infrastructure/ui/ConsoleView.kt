@@ -10,6 +10,10 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Intensity
 import java.time.LocalDate
 
 /**
+ * The [View] component of this application. It has been introduced for demo purposes.
+ * It reads commands from standard input and execute requests by mean of the [ControllerInput] port.
+ * Furthermore, it is the [PresenterOutput] port implementation for presenter components.
+ *
  * @author Nicola Lasagni on 10/04/2021.
  */
 class ConsoleView : View, PresenterOutput {

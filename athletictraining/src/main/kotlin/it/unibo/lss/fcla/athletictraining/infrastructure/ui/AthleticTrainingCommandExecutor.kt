@@ -7,6 +7,8 @@ import it.unibo.lss.fcla.athletictraining.adapter.controller.ListOfTrainingsCont
 import it.unibo.lss.fcla.athletictraining.adapter.controller.PlanTrainingControllerRequest
 
 /**
+ * Class that executes [ConsoleUtil.Commands] related to athletic training.
+ *
  * @author Nicola Lasagni on 11/04/2021.
  */
 class AthleticTrainingCommandExecutor(private val controllerInput: ControllerInput) {

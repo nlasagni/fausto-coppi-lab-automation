@@ -12,6 +12,9 @@ import it.unibo.lss.fcla.athletictraining.usecase.fclat3.CompleteAthleticTrainin
 import it.unibo.lss.fcla.athletictraining.usecase.fclat3.CompleteAthleticTrainingRequest
 
 /**
+ * A [ControllerInput] that executes only [ControllerRequest] related
+ * to athletic training.
+ *
  * @author Nicola Lasagni on 10/04/2021.
  */
 class AthleticTrainingController(
@@ -35,7 +38,7 @@ class AthleticTrainingController(
             is ExtendTrainingPeriodControllerRequest -> extendTrainingPeriodInput.execute(
                 ExtendAthleticTrainingPeriodRequest(
                     request.trainingId,
-                    request.endDay
+                    request.newEndDay
                 )
             )
             is CompleteTrainingControllerRequest -> completeTrainingInput.execute(

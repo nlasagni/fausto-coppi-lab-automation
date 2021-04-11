@@ -1,6 +1,9 @@
 package it.unibo.lss.fcla.athletictraining.adapter.controller
 
 /**
+ * The main [ControllerInput] component which orchestrates all
+ * the [ControllerRequest]s received.
+ *
  * @author Nicola Lasagni on 11/04/2021.
  */
 class ControllerManager(
