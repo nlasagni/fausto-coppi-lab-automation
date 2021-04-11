@@ -104,7 +104,10 @@ class ActiveAthleticTraining(
         val scheduledWorkout =
             scheduledWorkouts.firstOrNull { it.id == ScheduledWorkoutId(workout, currentSchedule) }
                 ?: throw ScheduledWorkoutNotFound()
-        if (scheduleOverlaps(scheduledWorkout, newSchedule)) {
+        val scheduleOverlaps = scheduledWorkouts
+            .filter { it != scheduledWorkout }
+            .any { it.scheduledOn().overlapsWith(newSchedule) }
+        if (scheduleOverlaps) {
             throw WorkoutScheduleMustNotOverlap()
         }
         scheduledWorkout.reschedule(newSchedule)
@@ -147,19 +150,6 @@ class ActiveAthleticTraining(
     }
 
     /**
-     * Checks if the desired [Schedule] overlaps with an existing one, excluding
-     * the provided [scheduledWorkout].
-     */
-    private fun scheduleOverlaps(
-        scheduledWorkout: ScheduledWorkout,
-        schedule: Schedule
-    ): Boolean {
-        return scheduledWorkouts
-            .filter { it != scheduledWorkout }
-            .any { it.scheduledOn().overlapsWith(schedule) }
-    }
-
-    /**
      * Generates a snapshot with the information about this AthleticTraining.
      * @return A [ActiveAthleticTrainingSnapshot] with the information about this AthleticTraining.
      */
@@ -171,4 +161,13 @@ class ActiveAthleticTraining(
         period,
         scheduledWorkouts.map { it.snapshot() }
     )
+
+    override fun toString(): String {
+        return "ActiveAthleticTraining(id=$id," +
+            "athleticTrainer=$athleticTrainer, " +
+            "member=$member, " +
+            "purpose=$purpose, " +
+            "period=$period, " +
+            "scheduledWorkouts=$scheduledWorkouts)"
+    }
 }

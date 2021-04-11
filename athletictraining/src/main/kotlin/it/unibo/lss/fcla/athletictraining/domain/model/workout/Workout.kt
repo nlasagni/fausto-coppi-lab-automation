@@ -54,4 +54,8 @@ class Workout(
         val exercise = exercises.getOrNull(index) ?: throw InvalidExerciseIndex()
         exercises = exercises - exercise
     }
+
+    override fun toString(): String {
+        return "Workout(id=$id, name='$name', exercises=$exercises)"
+    }
 }

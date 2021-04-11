@@ -10,7 +10,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
  *
  * @author Nicola Lasagni on 04/03/2021.
  */
-class WorkoutSnapshot(
+data class WorkoutSnapshot(
     val name: String,
     val exercises: List<ExerciseId>
 )

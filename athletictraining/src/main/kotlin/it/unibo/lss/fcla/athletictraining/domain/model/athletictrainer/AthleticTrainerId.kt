@@ -7,4 +7,4 @@ package it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer
  *
  * @author Nicola Lasagni on 11/03/2021.
  */
-class AthleticTrainerId(val value: String)
+data class AthleticTrainerId(val value: String)

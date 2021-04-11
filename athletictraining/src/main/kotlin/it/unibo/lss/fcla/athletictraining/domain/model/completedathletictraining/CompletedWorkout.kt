@@ -38,4 +38,8 @@ class CompletedWorkout(
     fun scheduledOn(): Schedule {
         return schedule
     }
+
+    override fun toString(): String {
+        return "CompletedWorkout(workout=$workout, schedule=$schedule)"
+    }
 }

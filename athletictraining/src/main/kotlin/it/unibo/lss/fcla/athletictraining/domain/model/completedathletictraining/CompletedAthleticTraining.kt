@@ -78,4 +78,12 @@ class CompletedAthleticTraining(
      * @return The collection of [CompletedWorkout] during this AthleticTraining.
      */
     fun workouts(): Collection<CompletedWorkout> = completedWorkouts
+    override fun toString(): String {
+        return "CompletedAthleticTraining(id=$id, " +
+            "athleticTrainer=$athleticTrainer, " +
+            "member=$member, purpose=$purpose, " +
+            "period=$period, " +
+            "completedWorkouts=$completedWorkouts, " +
+            "completionDateTime=$completionDateTime)"
+    }
 }

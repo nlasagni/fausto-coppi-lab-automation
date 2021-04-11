@@ -89,4 +89,12 @@ class Exercise(
     fun decrementDistance(distance: Distance) {
         configuration = configuration.decrementDistance(distance)
     }
+
+    override fun toString(): String {
+        return "Exercise(id=$id, " +
+            "name='$name', " +
+            "configuration=$configuration, " +
+            "durationOfExecution=$durationOfExecution, " +
+            "durationOfRest=$durationOfRest)"
+    }
 }

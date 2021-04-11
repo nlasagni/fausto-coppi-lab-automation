@@ -62,4 +62,8 @@ class ScheduledWorkout(
         workout,
         schedule
     )
+
+    override fun toString(): String {
+        return "ScheduledWorkout(workout=$workout, schedule=$schedule, id=$id)"
+    }
 }

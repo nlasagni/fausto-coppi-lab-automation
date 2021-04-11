@@ -10,7 +10,7 @@ package it.unibo.lss.fcla.athletictraining.domain.model.exercise
  *
  * @author Nicola Lasagni on 03/04/2021.
  */
-class ExerciseSnapshot(
+data class ExerciseSnapshot(
     val id: ExerciseId,
     val name: String,
     val configuration: Configuration,

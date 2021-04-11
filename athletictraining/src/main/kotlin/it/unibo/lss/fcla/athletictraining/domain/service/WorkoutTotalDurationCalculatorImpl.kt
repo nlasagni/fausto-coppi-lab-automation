@@ -9,7 +9,7 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 class WorkoutTotalDurationCalculatorImpl : WorkoutTotalDurationCalculator {
 
     override fun computeTotalDuration(exercises: Collection<Exercise>): Duration {
-        var totalSeconds = 0
+        var totalSeconds = 0L
         for (exercise in exercises) {
             val snapshot = exercise.snapshot()
             totalSeconds +=
