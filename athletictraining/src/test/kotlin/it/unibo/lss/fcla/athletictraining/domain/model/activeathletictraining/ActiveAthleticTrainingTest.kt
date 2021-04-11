@@ -28,7 +28,7 @@ import java.time.LocalTime
  *
  * @author Nicola Lasagni on 24/02/2021.
  */
-class AthleticTrainingTest : FreeSpec({
+class ActiveAthleticTrainingTest : FreeSpec({
 
     val tenOClock = LocalTime.of(10, 0)
 
