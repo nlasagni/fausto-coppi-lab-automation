@@ -2,7 +2,6 @@ package it.unibo.lss.fcla.athletictraining.usecase.fclat1
 
 import it.unibo.lss.fcla.athletictraining.domain.model.athletictrainer.AthleticTrainerId
 import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
-import it.unibo.lss.fcla.athletictraining.domain.shared.Purpose
 import java.time.LocalDate
 
 /**
@@ -14,7 +13,7 @@ import java.time.LocalDate
 data class PlanActiveAthleticTrainingRequest(
     val athleticTrainerId: AthleticTrainerId,
     val memberId: MemberId,
-    val purpose: Purpose,
+    val purpose: String,
     val startDay: LocalDate,
     val endDay: LocalDate
 )

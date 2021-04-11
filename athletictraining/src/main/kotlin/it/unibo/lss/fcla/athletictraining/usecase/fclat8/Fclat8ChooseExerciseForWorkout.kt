@@ -1,6 +1,8 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat8
 
+import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.ExerciseNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.shared.exception.WorkoutNotFound
 import it.unibo.lss.fcla.athletictraining.usecase.shared.input.AthleticTrainingManagement
@@ -20,9 +22,9 @@ class Fclat8ChooseExerciseForWorkout(
     AthleticTrainingManagement<ChooseExerciseRequest, Workout>(useCaseOutput) {
 
     override fun processRequest(request: ChooseExerciseRequest): Workout {
-        val workout = workoutRepository.findById(request.workoutId)
+        val workout = workoutRepository.findById(WorkoutId(request.workoutId))
             ?: throw WorkoutNotFound()
-        val exercise = exerciseRepository.findById(request.exerciseId)
+        val exercise = exerciseRepository.findById(ExerciseId(request.exerciseId))
             ?: throw ExerciseNotFound()
         workout.prepareExercise(exercise.id)
         return workoutRepository.update(workout)

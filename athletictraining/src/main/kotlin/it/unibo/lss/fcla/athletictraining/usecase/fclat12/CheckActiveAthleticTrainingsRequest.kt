@@ -8,4 +8,4 @@ import it.unibo.lss.fcla.athletictraining.domain.model.member.MemberId
  *
  * @author Nicola Lasagni on 10/04/2021.
  */
-data class CheckActiveAthleticTrainingsRequest(val memberId: MemberId)
+data class CheckActiveAthleticTrainingsRequest(val memberId: String)

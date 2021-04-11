@@ -1,5 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat3
 
+import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedAthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.completedathletictraining.CompletedWorkout
@@ -27,7 +28,7 @@ class Fclat3CompleteAthleticTraining(
 
     override fun processRequest(request: CompleteAthleticTrainingRequest): CompletedAthleticTraining {
         val athleticTraining =
-            activeAthleticTrainingRepository.findById(request.id)
+            activeAthleticTrainingRepository.findById(ActiveAthleticTrainingId(request.id))
                 ?: throw ActiveAthleticTrainingNotFound()
         val snapshot = athleticTraining.snapshot()
         val completedWorkouts =

@@ -1,6 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat5
 
-import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
+import java.time.LocalDate
+import java.time.LocalTime
 
 /**
  * Class that represents the request coming from outer layer of
@@ -11,6 +12,8 @@ import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
 data class RescheduleWorkoutRequest(
     val activeAthleticTrainingId: String,
     val workoutId: String,
-    val oldSchedule: Schedule,
-    val newSchedule: Schedule
+    val currentDay: LocalDate,
+    val currentTime: LocalTime,
+    val newDay: LocalDate,
+    val newTime: LocalTime
 )

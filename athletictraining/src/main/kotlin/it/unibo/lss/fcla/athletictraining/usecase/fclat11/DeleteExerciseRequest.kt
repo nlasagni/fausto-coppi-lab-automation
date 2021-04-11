@@ -8,4 +8,4 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
  *
  * @author Nicola Lasagni on 09/04/2021.
  */
-data class DeleteExerciseRequest(val exerciseId: ExerciseId)
+data class DeleteExerciseRequest(val exerciseId: String)

@@ -1,8 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat6
 
-import it.unibo.lss.fcla.athletictraining.domain.model.athletictraining.ActiveAthleticTrainingId
-import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
-import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
+import java.time.LocalDate
+import java.time.LocalTime
 
 /**
  * Class that represents the request coming from outer layer of
@@ -11,7 +10,8 @@ import it.unibo.lss.fcla.athletictraining.domain.shared.Schedule
  * @author Nicola Lasagni on 09/04/2021.
  */
 data class CancelScheduledWorkoutRequest(
-    val activeAthleticTrainingId: ActiveAthleticTrainingId,
-    val workoutId: WorkoutId,
-    val schedule: Schedule
+    val activeAthleticTrainingId: String,
+    val workoutId: String,
+    val day: LocalDate,
+    val time: LocalTime
 )
