@@ -16,6 +16,6 @@ class Fclat13CheckWorkouts(
     AthleticTrainingManagement<CheckWorkoutsRequest, Collection<Workout>>(useCaseOutput) {
 
     override fun processRequest(request: CheckWorkoutsRequest): Collection<Workout> {
-        return repository.findAll()
+        return repository.findAll().map { Workout.rehydrate(it) }
     }
 }

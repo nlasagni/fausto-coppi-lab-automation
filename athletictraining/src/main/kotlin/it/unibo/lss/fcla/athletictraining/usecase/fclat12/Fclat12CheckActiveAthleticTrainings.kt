@@ -17,6 +17,6 @@ class Fclat12CheckActiveAthleticTrainings(
     AthleticTrainingManagement<CheckActiveAthleticTrainingsRequest, Collection<ActiveAthleticTraining>>(useCaseOutput) {
 
     override fun processRequest(request: CheckActiveAthleticTrainingsRequest): Collection<ActiveAthleticTraining> {
-        return repository.findAllByMemberId(MemberId(request.memberId))
+        return repository.findAllByMemberId(MemberId(request.memberId)).map { ActiveAthleticTraining.rehydrate(it) }
     }
 }

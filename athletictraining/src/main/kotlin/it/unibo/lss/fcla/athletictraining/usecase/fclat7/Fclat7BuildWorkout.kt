@@ -20,6 +20,7 @@ class Fclat7BuildWorkout(
 
     override fun processRequest(request: BuildWorkoutRequest): Workout {
         val workout = Workout(WorkoutId(idGenerator.generate()), request.name)
-        return workoutRepository.add(workout)
+        workoutRepository.add(workout.snapshot())
+        return workout
     }
 }

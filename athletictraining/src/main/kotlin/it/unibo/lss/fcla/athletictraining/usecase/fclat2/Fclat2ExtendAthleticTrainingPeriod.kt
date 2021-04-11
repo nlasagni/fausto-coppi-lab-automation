@@ -23,19 +23,21 @@ class Fclat2ExtendAthleticTrainingPeriod(
     AthleticTrainingManagement<ExtendAthleticTrainingPeriodRequest, ActiveAthleticTraining>(useCaseOutput) {
 
     override fun processRequest(request: ExtendAthleticTrainingPeriodRequest): ActiveAthleticTraining {
-        val activeAthleticTraining =
+        val activeAthleticTrainingSnapshot =
             repository.findById(ActiveAthleticTrainingId(request.id))
                 ?: throw ActiveAthleticTrainingNotFound()
-        val snapshot = activeAthleticTraining.snapshot()
-        val newPeriod = snapshot.period.changeEndDay(request.newPeriodEnd)
+        val newPeriod = activeAthleticTrainingSnapshot.period.changeEndDay(request.newPeriodEnd)
         val memberOtherAthleticTrainings =
-            repository.findAllByMemberId(activeAthleticTraining.member)
-                .filter { it.id != activeAthleticTraining.id }
+            repository.findAllByMemberId(activeAthleticTrainingSnapshot.member)
+                .filter { it.id != activeAthleticTrainingSnapshot.id }
+                .map { ActiveAthleticTraining.rehydrate(it) }
         if (overlappingService.existsOverlappingAthleticTraining(memberOtherAthleticTrainings, newPeriod)) {
             throw OverlappingAthleticTraining()
         }
+        val activeAthleticTraining = ActiveAthleticTraining.rehydrate(activeAthleticTrainingSnapshot)
         activeAthleticTraining.postponeTrainingPeriodEnd(request.newPeriodEnd)
         memberProfileUpdater.updateProfile(activeAthleticTraining.member)
-        return repository.update(activeAthleticTraining)
+        repository.update(activeAthleticTraining.snapshot())
+        return activeAthleticTraining
     }
 }

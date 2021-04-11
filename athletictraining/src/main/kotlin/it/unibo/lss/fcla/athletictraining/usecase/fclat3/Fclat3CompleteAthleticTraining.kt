@@ -27,21 +27,20 @@ class Fclat3CompleteAthleticTraining(
     AthleticTrainingManagement<CompleteAthleticTrainingRequest, CompletedAthleticTraining>(useCaseOutput) {
 
     override fun processRequest(request: CompleteAthleticTrainingRequest): CompletedAthleticTraining {
-        val athleticTraining =
+        val athleticTrainingSnapshot =
             activeAthleticTrainingRepository.findById(ActiveAthleticTrainingId(request.id))
                 ?: throw ActiveAthleticTrainingNotFound()
-        val snapshot = athleticTraining.snapshot()
         val completedWorkouts =
-            snapshot.scheduledWorkouts.map { CompletedWorkout(it.workout, it.schedule) }
+            athleticTrainingSnapshot.scheduledWorkouts.map { CompletedWorkout(it.workout, it.schedule) }
         val completedAthleticTraining = CompletedAthleticTraining(
             CompletedAthleticTrainingId(idGenerator.generate()),
-            snapshot.athleticTrainer,
-            snapshot.member,
-            snapshot.purpose,
-            snapshot.period,
+            athleticTrainingSnapshot.athleticTrainer,
+            athleticTrainingSnapshot.member,
+            athleticTrainingSnapshot.purpose,
+            athleticTrainingSnapshot.period,
             completedWorkouts
         )
-        val activeRemoved = activeAthleticTrainingRepository.remove(athleticTraining)
+        val activeRemoved = activeAthleticTrainingRepository.remove(athleticTrainingSnapshot)
         if (!activeRemoved) {
             throw ActiveAthleticTrainingNotRemoved()
         }

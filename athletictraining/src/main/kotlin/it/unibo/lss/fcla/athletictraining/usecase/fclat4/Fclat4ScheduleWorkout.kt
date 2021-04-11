@@ -34,14 +34,13 @@ class Fclat4ScheduleWorkout(
 
     override fun processRequest(request: ScheduleWorkoutRequest): ActiveAthleticTraining {
         val workoutId = WorkoutId(request.workoutId)
-        val workout = workoutRepository.findById(workoutId) ?: throw WorkoutNotFound()
-        val workoutSnapshot = workout.snapshot()
+        val workoutSnapshot = workoutRepository.findById(workoutId) ?: throw WorkoutNotFound()
         val exerciseIds = workoutSnapshot.exercises
         val exercises = mutableListOf<Exercise>()
         for (exerciseId in exerciseIds) {
-            val exercise = exerciseRepository.findById(exerciseId)
-            if (exercise != null) {
-                exercises.add(exercise)
+            val exerciseSnapshot = exerciseRepository.findById(exerciseId)
+            if (exerciseSnapshot != null) {
+                exercises.add(Exercise.rehydrate(exerciseSnapshot))
             }
         }
         val workoutDuration = workoutTotalDurationCalculator.computeTotalDuration(exercises)
@@ -49,14 +48,16 @@ class Fclat4ScheduleWorkout(
         if (!gymOpenChecker.isGymOpenForSchedule(schedule)) {
             throw GymClosedAtSchedule()
         }
-        val activeAthleticTraining =
+        val activeAthleticTrainingSnapshot =
             activeAthleticTrainingRepository.findById(ActiveAthleticTrainingId(request.activeAthleticTrainingId))
                 ?: throw ActiveAthleticTrainingNotFound()
+        val activeAthleticTraining = ActiveAthleticTraining.rehydrate(activeAthleticTrainingSnapshot)
         activeAthleticTraining.scheduleWorkout(
             WorkoutId(request.workoutId),
             schedule
         )
         memberProfileUpdater.updateProfile(activeAthleticTraining.member)
-        return activeAthleticTrainingRepository.update(activeAthleticTraining)
+        activeAthleticTrainingRepository.update(activeAthleticTraining.snapshot())
+        return activeAthleticTraining
     }
 }

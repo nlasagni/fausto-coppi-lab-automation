@@ -36,6 +36,7 @@ class Fclat10CreateExercise(
             Duration(request.durationOfExecutionInSeconds.toLong()),
             Duration(request.durationOfRestInSeconds.toLong())
         )
-        return repository.add(exercise)
+        repository.add(exercise.snapshot())
+        return exercise
     }
 }

@@ -17,7 +17,8 @@ class Fclat11DeleteExercise(
     AthleticTrainingManagement<DeleteExerciseRequest, Boolean>(useCaseOutput) {
 
     override fun processRequest(request: DeleteExerciseRequest): Boolean {
-        val exercise = repository.findById(ExerciseId(request.exerciseId)) ?: throw ExerciseNotFound()
-        return repository.remove(exercise)
+        val exerciseSnapshot =
+            repository.findById(ExerciseId(request.exerciseId)) ?: throw ExerciseNotFound()
+        return repository.remove(exerciseSnapshot)
     }
 }

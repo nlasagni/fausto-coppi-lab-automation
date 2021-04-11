@@ -18,9 +18,11 @@ class Fclat9RemoveExerciseFromWorkout(
     AthleticTrainingManagement<RemoveExerciseRequest, Workout>(useCaseOutput) {
 
     override fun processRequest(request: RemoveExerciseRequest): Workout {
-        val workout = workoutRepository.findById(WorkoutId(request.workoutId))
+        val workoutSnapshot = workoutRepository.findById(WorkoutId(request.workoutId))
             ?: throw WorkoutNotFound()
+        val workout = Workout.rehydrate(workoutSnapshot)
         workout.cancelExercise(request.exerciseIndex)
-        return workoutRepository.update(workout)
+        workoutRepository.update(workout.snapshot())
+        return workout
     }
 }

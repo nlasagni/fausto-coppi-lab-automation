@@ -1,5 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.usecase.fclat6
 
+import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTraining
 import it.unibo.lss.fcla.athletictraining.domain.model.activeathletictraining.ActiveAthleticTrainingId
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.Exercise
 import it.unibo.lss.fcla.athletictraining.domain.model.workout.WorkoutId
@@ -29,26 +30,26 @@ class Fclat6CancelScheduledWorkout(
     AthleticTrainingManagement<CancelScheduledWorkoutRequest, Boolean>(useCaseOutput) {
 
     override fun processRequest(request: CancelScheduledWorkoutRequest): Boolean {
-        val activeAthleticTraining = activeAthleticTrainingRepository.findById(
+        val activeAthleticTrainingSnapshot = activeAthleticTrainingRepository.findById(
             ActiveAthleticTrainingId(request.activeAthleticTrainingId)
         ) ?: throw ActiveAthleticTrainingNotFound()
         val workoutId = WorkoutId(request.workoutId)
-        val workout = workoutRepository.findById(workoutId)
+        val workoutSnapshot = workoutRepository.findById(workoutId)
             ?: throw WorkoutNotFound()
-        val workoutSnapshot = workout.snapshot()
         val exerciseIds = workoutSnapshot.exercises
         val exercises = mutableListOf<Exercise>()
         for (exerciseId in exerciseIds) {
-            val exercise = exerciseRepository.findById(exerciseId)
-            if (exercise != null) {
-                exercises.add(exercise)
+            val exerciseSnapshot = exerciseRepository.findById(exerciseId)
+            if (exerciseSnapshot != null) {
+                exercises.add(Exercise.rehydrate(exerciseSnapshot))
             }
         }
         val workoutDuration = workoutTotalDurationCalculator.computeTotalDuration(exercises)
         val schedule = Schedule(request.day, request.time, request.time.plusSeconds(workoutDuration.seconds))
+        val activeAthleticTraining = ActiveAthleticTraining.rehydrate(activeAthleticTrainingSnapshot)
         activeAthleticTraining.cancelScheduledWorkout(workoutId, schedule)
-        activeAthleticTrainingRepository.update(activeAthleticTraining)
         memberProfileUpdater.updateProfile(activeAthleticTraining.member)
+        activeAthleticTrainingRepository.update(activeAthleticTraining.snapshot())
         return true
     }
 }

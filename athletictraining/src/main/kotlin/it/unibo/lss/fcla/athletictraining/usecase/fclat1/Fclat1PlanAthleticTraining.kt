@@ -27,19 +27,20 @@ class Fclat1PlanAthleticTraining(
 
     override fun processRequest(request: PlanActiveAthleticTrainingRequest): ActiveAthleticTraining {
         val period = Period(request.startDay, request.endDay)
-        val memberAthleticTrainings = repository.findAllByMemberId(request.memberId)
+        val memberAthleticTrainings =
+            repository.findAllByMemberId(request.memberId).map { ActiveAthleticTraining.rehydrate(it) }
         if (overlappingService.existsOverlappingAthleticTraining(memberAthleticTrainings, period)) {
             throw OverlappingAthleticTraining()
         }
-        val athleticPreparationToAdd = ActiveAthleticTraining(
+        val athleticTraining = ActiveAthleticTraining(
             ActiveAthleticTrainingId(idGenerator.generate()),
             request.athleticTrainerId,
             request.memberId,
             Purpose(request.purpose),
             period
         )
-        val activeAthleticTraining = repository.add(athleticPreparationToAdd)
-        memberProfileUpdater.updateProfile(activeAthleticTraining.member)
-        return activeAthleticTraining
+        repository.add(athleticTraining.snapshot())
+        memberProfileUpdater.updateProfile(athleticTraining.member)
+        return athleticTraining
     }
 }
