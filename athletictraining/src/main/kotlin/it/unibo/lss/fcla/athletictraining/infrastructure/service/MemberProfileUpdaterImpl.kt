@@ -10,6 +10,6 @@ import it.unibo.lss.fcla.athletictraining.domain.service.MemberProfileUpdater
  */
 class MemberProfileUpdaterImpl : MemberProfileUpdater {
     override fun updateProfile(memberId: MemberId) {
-        //TODO Add implementation
+        // TODO Add implementation
     }
 }
