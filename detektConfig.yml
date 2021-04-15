@@ -1,3 +1,6 @@
+complexity:
+  LongParameterList:
+    constructorThreshold: 8
 style:
   active: true
   ThrowsCount:
