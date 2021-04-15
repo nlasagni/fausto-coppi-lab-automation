@@ -20,17 +20,6 @@ allprojects {
 
 val mainClassVarName = "mainclass"
 val subprojectsDistributionDir = "${rootProject.buildDir}/all-distributions"
-val subprojectsJarDir = "${rootProject.buildDir}/all-jars"
-
-val allJars by tasks.creating(Copy::class) {
-    project.subprojects.forEach {
-        from("${it.buildDir}/libs")
-        into(subprojectsJarDir)
-        it.afterEvaluate {
-            dependsOn(it.tasks.jar)
-        }
-    }
-}
 
 subprojects {
 
