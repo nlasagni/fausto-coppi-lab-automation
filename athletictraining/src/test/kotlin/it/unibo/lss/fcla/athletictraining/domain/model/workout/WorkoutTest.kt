@@ -3,8 +3,9 @@ package it.unibo.lss.fcla.athletictraining.domain.model.workout
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.athletictraining.adapter.idgenerator.UuidGenerator
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.ExerciseId
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.InvalidExerciseIndex
+import it.unibo.lss.fcla.athletictraining.domain.model.workout.exception.WorkoutIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
-import it.unibo.lss.fcla.athletictraining.domain.shared.exception.WorkoutIdMissing
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -50,6 +51,16 @@ class WorkoutTest : FreeSpec({
             }
             val snapshot = workout.snapshot()
             Assertions.assertEquals(snapshot.exercises.size, 1)
+        }
+        "allow the cancellation of exercises" - {
+            val workout = Workout(workoutId, workoutName)
+            val exerciseId = ExerciseId("1234")
+            workout.prepareExercise(exerciseId)
+            assertThrows<InvalidExerciseIndex> {
+                workout.cancelExercise(2)
+            }
+            val snapshot = workout.snapshot()
+            assertDoesNotThrow { workout.cancelExercise(snapshot.exercises.indexOf(exerciseId)) }
         }
     }
 })

@@ -8,17 +8,20 @@ import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
  *
  * It's composed by an [Intensity] and a [Distance], and refers to a [GymMachineId].
  *
+ * @property gymMachine The gym machine to which this Configuration refers.
+ * @property intensity The intensity of an Exercise with this Configuration.
+ * @property distance The distance that must be done in an Exercise with this Configuration.
  *
  * @author Nicola Lasagni on 28/02/2021.
  */
 data class Configuration(
-    val gymMachineId: GymMachineId,
+    val gymMachine: GymMachineId,
     val intensity: Intensity,
     val distance: Distance
 ) {
 
     init {
-        if (gymMachineId.value.isEmpty()) {
+        if (gymMachine.value.isEmpty()) {
             throw ConfigurationMustBeRelatedToGymMachine()
         }
     }
@@ -34,25 +37,25 @@ data class Configuration(
      * by the specified [intensityToIncrement] parameter.
      */
     fun incrementIntensity(intensityToIncrement: Intensity) =
-        Configuration(gymMachineId, intensity + intensityToIncrement, distance)
+        Configuration(gymMachine, intensity + intensityToIncrement, distance)
 
     /**
      * Creates a new [Configuration] with an intensity decremented
      * by the specified [intensityToDecrement] parameter.
      */
     fun decrementIntensity(intensityToDecrement: Intensity): Configuration =
-        Configuration(gymMachineId, intensity - intensityToDecrement, distance)
+        Configuration(gymMachine, intensity - intensityToDecrement, distance)
 
     /**
      * Creates a new [Configuration] with a distance incremented
      * by the specified [distanceToIncrement] parameter.
      */
     fun incrementDistance(distanceToIncrement: Distance): Configuration =
-        Configuration(gymMachineId, intensity, distance + distanceToIncrement)
+        Configuration(gymMachine, intensity, distance + distanceToIncrement)
     /**
      * Creates a new [Configuration] with a distance decremented
      * by the specified [distanceToDecrement] parameter.
      */
     fun decrementDistance(distanceToDecrement: Distance): Configuration =
-        Configuration(gymMachineId, intensity, distance - distanceToDecrement)
+        Configuration(gymMachine, intensity, distance - distanceToDecrement)
 }

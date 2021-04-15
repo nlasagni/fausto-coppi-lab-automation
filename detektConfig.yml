@@ -1,7 +1,6 @@
 complexity:
-  TooManyFunctions:
-    thresholdInFiles: 20
-    thresholdInClasses: 20
+  LongParameterList:
+    constructorThreshold: 8
 style:
   active: true
   ThrowsCount:

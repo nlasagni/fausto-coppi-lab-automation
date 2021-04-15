@@ -1,25 +1,36 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.exercise
 
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseExecutionMustBeGreaterThanZero
-import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.DurationOfExerciseRestMustBeGreaterThanZero
 import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.ExerciseIdMissing
 import it.unibo.lss.fcla.athletictraining.domain.model.gymmachine.GymMachineId
 import it.unibo.lss.fcla.athletictraining.domain.shared.exception.NameMustNotBeEmpty
-import java.time.Duration
 
 /**
- * The Exercise that can be prepared for a
- * [it.unibo.lss.fcla.athletictraining.domain.model.workout.Workout].
+ * The Exercise that can be prepared for a workout.
+ *
+ * @property id The unique [ExerciseId] of this Exercise.
  *
  * @author Nicola Lasagni on 28/02/2021.
  */
 class Exercise(
-    private val id: ExerciseId,
+    val id: ExerciseId,
     private var name: String,
     private var configuration: Configuration,
     private var durationOfExecution: Duration,
     private var durationOfRest: Duration
 ) {
+
+    companion object {
+        fun rehydrate(snapshot: ExerciseSnapshot): Exercise {
+            val exercise = Exercise(
+                snapshot.id,
+                snapshot.name,
+                snapshot.configuration,
+                snapshot.durationOfExecution,
+                snapshot.durationOfRest
+            )
+            return exercise
+        }
+    }
 
     init {
         if (id.value.isEmpty()) {
@@ -28,16 +39,7 @@ class Exercise(
         if (name.isEmpty()) {
             throw NameMustNotBeEmpty()
         }
-        if (isLowerThanOrEqualToZero(durationOfExecution)) {
-            throw DurationOfExerciseExecutionMustBeGreaterThanZero()
-        }
-        if (isLowerThanOrEqualToZero(durationOfRest)) {
-            throw DurationOfExerciseRestMustBeGreaterThanZero()
-        }
     }
-
-    private fun isLowerThanOrEqualToZero(duration: Duration): Boolean =
-        duration <= Duration.ZERO
 
     /**
      * Generates an [ExerciseSnapshot] with the information about this Exercise.
@@ -62,6 +64,9 @@ class Exercise(
         name = newName
     }
 
+    /**
+     * Changes the gym machine to which this exercise refers.
+     */
     fun changeGymMachine(gymMachineId: GymMachineId) {
         configuration = configuration.changeGymMachine(gymMachineId)
     }
@@ -96,5 +101,13 @@ class Exercise(
      */
     fun decrementDistance(distance: Distance) {
         configuration = configuration.decrementDistance(distance)
+    }
+
+    override fun toString(): String {
+        return "Exercise(id=$id, " +
+            "name='$name', " +
+            "configuration=$configuration, " +
+            "durationOfExecution=$durationOfExecution, " +
+            "durationOfRest=$durationOfRest)"
     }
 }

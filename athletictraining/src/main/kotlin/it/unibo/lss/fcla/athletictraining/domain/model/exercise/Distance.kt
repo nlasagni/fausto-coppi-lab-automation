@@ -10,9 +10,11 @@ import it.unibo.lss.fcla.athletictraining.domain.model.exercise.exception.Distan
  * The Distance must be inside the range [[ZERO], [MAX]], otherwise a
  * [DistanceDoesNotRespectRange] is thrown.
  *
+ * @property meters The meters amount of this Distance.
+ *
  * @author Nicola Lasagni on 02/04/2021.
  */
-data class Distance(val value: Int = ZERO) {
+data class Distance(val meters: Int = ZERO) {
 
     companion object {
         /**
@@ -34,7 +36,7 @@ data class Distance(val value: Int = ZERO) {
     /**
      * Checks if this distance is not inside the [[ZERO], [MAX]] range.
      */
-    private fun isNotInRange() = value !in ZERO..MAX
+    private fun isNotInRange() = meters !in ZERO..MAX
 
     /**
      * Operator that sums [other] distance to this distance.
@@ -42,7 +44,7 @@ data class Distance(val value: Int = ZERO) {
      * a [DistanceDoesNotRespectRange] is thrown.
      */
     operator fun plus(other: Distance): Distance {
-        return Distance(value + other.value)
+        return Distance(meters + other.meters)
     }
 
     /**
@@ -51,6 +53,6 @@ data class Distance(val value: Int = ZERO) {
      * a [DistanceDoesNotRespectRange] is thrown.
      */
     operator fun minus(other: Distance): Distance {
-        return Distance(value - other.value)
+        return Distance(meters - other.meters)
     }
 }

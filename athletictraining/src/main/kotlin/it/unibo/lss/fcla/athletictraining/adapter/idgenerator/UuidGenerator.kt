@@ -1,6 +1,6 @@
 package it.unibo.lss.fcla.athletictraining.adapter.idgenerator
 
-import it.unibo.lss.fcla.athletictraining.usecase.port.IdGenerator
+import it.unibo.lss.fcla.athletictraining.usecase.shared.output.IdGenerator
 import java.util.UUID
 
 /**

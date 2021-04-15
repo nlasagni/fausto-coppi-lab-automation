@@ -1,7 +1,7 @@
 package it.unibo.lss.fcla.athletictraining.domain.model.workout
 
 /**
- * The unique identifier of a [Workout] entity.
+ * The unique identifier of a workout.
  *
  * @property value The value of the unique identifier.
  *
