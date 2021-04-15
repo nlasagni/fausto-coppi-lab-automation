@@ -15,6 +15,11 @@ import java.util.Date
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Facade class used to have access to all consulting reservation information.
  *
  * The information are: the [date] of the reservation, the [freelancerId] which is related

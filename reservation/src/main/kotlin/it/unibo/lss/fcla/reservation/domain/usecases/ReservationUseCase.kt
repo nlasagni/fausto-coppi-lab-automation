@@ -13,6 +13,11 @@ import it.unibo.lss.fcla.reservation.domain.usecases.projections.Projection
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Abstract class for reservation use case
  */
 abstract class ReservationUseCase {

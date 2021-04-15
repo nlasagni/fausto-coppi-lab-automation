@@ -15,6 +15,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.member.MemberLedger
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Projection used to update the [MemberLedger] given its events
  */
 class MemberLedgerProjection(override val init: MemberLedger) : Projection<MemberLedger> {

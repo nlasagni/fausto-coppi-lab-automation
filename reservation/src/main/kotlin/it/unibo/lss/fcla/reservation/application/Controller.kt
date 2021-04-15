@@ -20,6 +20,11 @@ import it.unibo.lss.fcla.reservation.ui.ConsoleUI
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Controller class that handle application logic interacting with an UserInterface
  *
  * This class can be replaced with a similar one that use infrastructure instead of UI

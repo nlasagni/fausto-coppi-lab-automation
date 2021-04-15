@@ -15,6 +15,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.WorkoutR
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Projection used to update the [OpenWorkoutReservation] given its events
  */
 class OpenWorkoutReservationProjection(override val init: OpenWorkoutReservation) : Projection<OpenWorkoutReservation> {

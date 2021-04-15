@@ -14,6 +14,11 @@ import java.util.Date
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * An event representing an update to a consulting reservation date
  */
 data class ConsultingReservationUpdateDate(

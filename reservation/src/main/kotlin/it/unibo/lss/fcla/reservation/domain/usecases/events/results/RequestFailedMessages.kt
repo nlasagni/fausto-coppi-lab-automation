@@ -10,6 +10,11 @@
 package it.unibo.lss.fcla.reservation.domain.usecases.events.results
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Companion object used to express the error message that occurred during a particular workout or consulting request
  */
 object RequestFailedMessages {

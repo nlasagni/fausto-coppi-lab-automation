@@ -13,6 +13,11 @@ import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * The producer of events which will be stored into the vent Store
  */
 interface Producer {

@@ -10,6 +10,11 @@
 package it.unibo.lss.fcla.reservation.domain.entities.exceptions
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * [Exception] that occur when a consulting reservation is created without a freelancer
  */
 class FreelancerIdCannotBeEmpty :

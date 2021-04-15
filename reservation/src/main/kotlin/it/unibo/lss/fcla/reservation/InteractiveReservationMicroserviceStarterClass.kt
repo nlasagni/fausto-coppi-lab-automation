@@ -11,6 +11,11 @@ package it.unibo.lss.fcla.reservation
 
 import it.unibo.lss.fcla.reservation.application.Controller
 
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
 class InteractiveReservationMicroserviceStarterClass {
     fun launchReservationMicroservice() {
         Controller().start()

@@ -20,6 +20,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.exceptions.OpenReservationM
 import java.util.Calendar
 import java.util.UUID
 
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
 class OpenConsultingReservationTest : FreeSpec({
     val calendar = Calendar.getInstance()
     val year = 2023

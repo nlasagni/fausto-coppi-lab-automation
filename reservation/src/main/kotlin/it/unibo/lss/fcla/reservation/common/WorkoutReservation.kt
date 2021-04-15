@@ -14,6 +14,11 @@ import java.util.Date
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * This is the interface of a Workout Reservation.
  *
  * A Consulting Reservation requires a [date] of the consulting, the [aim]

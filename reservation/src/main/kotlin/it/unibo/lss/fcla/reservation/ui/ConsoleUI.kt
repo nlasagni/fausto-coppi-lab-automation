@@ -18,6 +18,11 @@ import java.util.Date
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Console interactive interface that simulate partial functioning of this microservice.
  *
  * The only purpose is to show functionality of this microservice

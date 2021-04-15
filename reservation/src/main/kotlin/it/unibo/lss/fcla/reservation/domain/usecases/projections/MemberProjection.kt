@@ -17,6 +17,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.member.MemberDeleteW
 import it.unibo.lss.fcla.reservation.domain.entities.member.Member
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Projection used to update the [Member] given its events
  */
 class MemberProjection(override val init: Member) : Projection<Member> {

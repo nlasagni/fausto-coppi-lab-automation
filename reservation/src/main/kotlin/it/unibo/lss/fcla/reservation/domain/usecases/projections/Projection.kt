@@ -12,6 +12,11 @@ package it.unibo.lss.fcla.reservation.domain.usecases.projections
 import it.unibo.lss.fcla.reservation.common.Event
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Used to work with information stored.
  *
  * It has an initial state [init] and an [update] function

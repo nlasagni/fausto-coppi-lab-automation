@@ -21,6 +21,11 @@ import it.unibo.lss.fcla.reservation.domain.usecases.events.results.RequestSucce
 import java.util.Calendar
 import java.util.UUID
 
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
 class EventStoreTest : FreeSpec({
     val reservationId = UUID.randomUUID()
     val agendaID = UUID.randomUUID()

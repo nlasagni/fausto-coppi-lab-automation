@@ -15,6 +15,11 @@ import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationD
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationFacade
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Interface used to group all result type
  */
 interface Response

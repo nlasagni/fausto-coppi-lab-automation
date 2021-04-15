@@ -18,6 +18,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.agenda.AgendaDeleteW
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Projection used to update the [Agenda] given its events
  */
 class AgendaProjection(override val init: Agenda) : Projection<Agenda> {

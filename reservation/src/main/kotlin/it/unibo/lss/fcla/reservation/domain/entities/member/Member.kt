@@ -15,6 +15,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.exceptions.MemberDataMustNo
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * An aggregate root used to identify a specific member giving the [firstName], [lastName] and [id].
  *
  * Throws [MemberDataMustNotBeEmpty] if a member is created with empty data

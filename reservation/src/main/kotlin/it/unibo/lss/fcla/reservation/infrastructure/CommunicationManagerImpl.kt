@@ -12,6 +12,11 @@ package it.unibo.lss.fcla.reservation.infrastructure
 import it.unibo.lss.fcla.reservation.application.interfaces.CommunicationManager
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Class to handle the means of communication.
  *
  * It implements the [CommunicationManager] interface exposed by application layer.

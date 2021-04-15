@@ -14,6 +14,11 @@ import it.unibo.lss.fcla.reservation.domain.usecases.Repository
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Class used to access to data stored into data layer.
  *
  * This class implements the interface [Repository] exposed by the use case layer.

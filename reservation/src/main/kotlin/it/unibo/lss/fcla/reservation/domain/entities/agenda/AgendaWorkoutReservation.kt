@@ -12,6 +12,11 @@ package it.unibo.lss.fcla.reservation.domain.entities.agenda
 import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * An immutable Entity that is about the storage of workout
  * reservations inside the [workoutReservationList].
  */

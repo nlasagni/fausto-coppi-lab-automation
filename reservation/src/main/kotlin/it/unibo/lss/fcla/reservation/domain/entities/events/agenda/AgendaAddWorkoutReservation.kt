@@ -14,6 +14,11 @@ import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * An event representing an added workout reservation to the Agenda
  */
 data class AgendaAddWorkoutReservation(

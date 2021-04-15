@@ -12,6 +12,11 @@ package it.unibo.lss.fcla.reservation.presentation
 import it.unibo.lss.fcla.reservation.application.interfaces.Presenter
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Implementation of [Request] interface
  *
  * This class handle the conversion logic from and to [String].

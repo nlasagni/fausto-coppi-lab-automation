@@ -7,6 +7,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
 val myMainClass = "it.unibo.lss.fcla.reservation.InteractiveReservationMicroserviceStarterClassKt"
 
 ext.set("mainclass", myMainClass)

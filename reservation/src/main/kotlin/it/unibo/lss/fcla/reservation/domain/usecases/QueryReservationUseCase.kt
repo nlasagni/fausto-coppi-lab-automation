@@ -29,6 +29,11 @@ import it.unibo.lss.fcla.reservation.domain.usecases.projections.OpenWorkoutRese
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * A query [ReservationUseCase] which handles the query requests
  */
 class QueryReservationUseCase(

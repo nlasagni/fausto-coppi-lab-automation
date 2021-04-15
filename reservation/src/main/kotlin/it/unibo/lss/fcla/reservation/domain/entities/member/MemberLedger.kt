@@ -14,6 +14,11 @@ import it.unibo.lss.fcla.reservation.common.WorkoutReservation
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * An aggregate root that is about referencing all the member present into
  * the system and stored into [members] map.
  */

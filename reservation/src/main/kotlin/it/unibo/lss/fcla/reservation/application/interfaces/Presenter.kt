@@ -13,6 +13,11 @@ import it.unibo.lss.fcla.reservation.presentation.Request
 import it.unibo.lss.fcla.reservation.presentation.Response
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Interface to handle the conversion logic from and to string
  */
 interface Presenter {

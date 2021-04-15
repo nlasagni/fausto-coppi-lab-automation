@@ -14,6 +14,11 @@ import java.util.Date
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * An event representing the creation of a workout reservation.
  *
  * It needs the [eventId] of this event, the [aim] of the workout reservation,

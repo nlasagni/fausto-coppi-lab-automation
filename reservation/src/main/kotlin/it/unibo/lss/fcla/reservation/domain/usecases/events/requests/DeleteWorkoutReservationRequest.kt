@@ -13,6 +13,11 @@ import it.unibo.lss.fcla.reservation.common.Event
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * An event representing the deletion of a workout reservation.
  *
  * It needs the [eventId] of this event, the [reservationToDeleteId] of the consulting reservation

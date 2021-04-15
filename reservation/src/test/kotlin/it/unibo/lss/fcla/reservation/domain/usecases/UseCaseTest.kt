@@ -18,6 +18,11 @@ import it.unibo.lss.fcla.reservation.persistence.RepositoryInMemory
 import java.util.Calendar
 import java.util.UUID
 
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
 class UseCaseTest : FreeSpec({
     val agendaId = UUID.randomUUID()
     val ledgerId = UUID.randomUUID()

@@ -14,6 +14,11 @@ import java.util.Date
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * It is referred to a workout reservation that cannot be updated anymore
  */
 class CloseWorkoutReservation(

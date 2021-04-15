@@ -13,6 +13,11 @@ import java.util.Date
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Facade used to have access to a consulting reservation and associate the [reservationId] to its [date].
  */
 class WorkoutReservationDateFacade(val reservationId: UUID, val date: Date)

@@ -16,6 +16,11 @@ import java.util.Date
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * It is referred to a reservation which can still be updated expressing [date], [freelancerId] and [id]
  *
  * Throws [FreelancerIdCannotBeEmpty] if an OpenConsultingReservation

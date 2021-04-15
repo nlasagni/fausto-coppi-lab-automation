@@ -21,6 +21,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutRese
 import java.util.Calendar
 import java.util.UUID
 
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
 class MemberTest : FreeSpec({
     val memberId = UUID.randomUUID()
     var member = Member("Mario", "Rossi", memberId)

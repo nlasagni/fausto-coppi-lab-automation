@@ -10,6 +10,11 @@
 package it.unibo.lss.fcla.reservation.domain.usecases
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Throws [RequestFailedException] is an error occurred during a request of a reservation
  * showing the error [message].
  */

@@ -15,6 +15,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.events.reservation.Consulti
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingReservation
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Projection used to update the [OpenConsultingReservation] given its events
  */
 class OpenConsultingReservationProjection(override val init: OpenConsultingReservation) :

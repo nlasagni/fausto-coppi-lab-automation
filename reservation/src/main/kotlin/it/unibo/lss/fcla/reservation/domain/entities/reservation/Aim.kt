@@ -12,6 +12,11 @@ package it.unibo.lss.fcla.reservation.domain.entities.reservation
 import it.unibo.lss.fcla.reservation.domain.entities.exceptions.AimCannotBeEmpty
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Aim value object.
  *
  * It is the unique identifier of a workout [value]

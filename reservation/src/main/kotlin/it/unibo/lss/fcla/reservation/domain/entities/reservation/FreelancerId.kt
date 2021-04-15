@@ -13,6 +13,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.exceptions.FreelancerIdCann
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Freelancer value object.
  *
  * It is the unique identifier of a Freelancer identified by its [value]

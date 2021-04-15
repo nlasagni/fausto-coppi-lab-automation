@@ -12,6 +12,11 @@ package it.unibo.lss.fcla.reservation.common
 import java.util.UUID
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * This is the interface of Event which have an [eventId]
  */
 interface Event {

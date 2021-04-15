@@ -10,6 +10,11 @@
 package it.unibo.lss.fcla.reservation.application.interfaces
 
 /**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
+
+/**
  * Interface to handle the means of communication.
  */
 interface CommunicationManager {
