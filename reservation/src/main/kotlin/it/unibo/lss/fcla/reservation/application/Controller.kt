@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (C) 2021, Stefano Braggion, Alessia Cerami, Andrea Giordano, Nicola Lasagni.
+ *
+ * This file is part of Fausto Coppi Lab Automation, and is distributed under the terms of the
+ * GNU General Public License, as described in the file LICENSE in the
+ * Fausto Coppi Lab Automation distribution's top directory.
+ *
+ ******************************************************************************/
+
 package it.unibo.lss.fcla.reservation.application
 
 import it.unibo.lss.fcla.reservation.domain.usecases.CommandReservationUseCase
@@ -9,6 +18,11 @@ import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationD
 import it.unibo.lss.fcla.reservation.persistence.RepositoryInMemory
 import it.unibo.lss.fcla.reservation.ui.ConsoleUI
 import java.util.UUID
+
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
 
 /**
  * Controller class that handle application logic interacting with an UserInterface

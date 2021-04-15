@@ -1,9 +1,23 @@
+/*******************************************************************************
+ * Copyright (C) 2021, Stefano Braggion, Alessia Cerami, Andrea Giordano, Nicola Lasagni.
+ *
+ * This file is part of Fausto Coppi Lab Automation, and is distributed under the terms of the
+ * GNU General Public License, as described in the file LICENSE in the
+ * Fausto Coppi Lab Automation distribution's top directory.
+ *
+ ******************************************************************************/
+
 package it.unibo.lss.fcla.reservation.presentation
 
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.ConsultingReservationDateFacade
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.ConsultingReservationFacade
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationDateFacade
 import it.unibo.lss.fcla.reservation.domain.usecases.facades.WorkoutReservationFacade
+
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
 
 /**
  * Interface used to group all result type
