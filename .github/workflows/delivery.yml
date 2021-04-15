@@ -25,8 +25,8 @@ jobs:
       - name: Chmode gradlew
         if: ${{ ! contains(matrix.os, 'windows') }}
         run: chmod +x ./gradlew
-      - name: ActionChecks
-        uses: ./.github/actions
+      - name: Check project
+        run: ./gradlew check
   delivery-to-github:
     needs: check-on-push
     name: Delivery to GitHub
