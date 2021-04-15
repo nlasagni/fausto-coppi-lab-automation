@@ -1,13 +1,62 @@
-name: delivery
+name: Delivery
 on:
   push:
     branches:
       - main
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
-
+      - "[0-9]+.[0-9]+.[0-9]+"
 jobs:
-  Delivery:
+  check-on-push:
+    name: Check project on push
+    strategy:
+      matrix:
+        os: [ windows-latest, ubuntu-latest, macos-latest ]
+        java: [ 1.8, 15 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Chmode gradlew
+        if: ${{ ! contains(matrix.os, 'windows') }}
+        run: chmod +x ./gradlew
+      - name: ActionChecks
+        uses: ./.github/actions
+  delivery-to-github:
+    needs: check-on-push
+    name: Delivery to GitHub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      - name: re-fetch all tags to get annotations
+        run: git fetch --force --tags
+      - name: Chmode gradlew
+        run: chmod +x ./gradlew
+      - name: Assemble dist
+        run: ./gradlew assembleDist
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            LICENSE
+            ./build/all-distributions/*.zip
+            ./build/all-distributions/*.tar
+  delivery-to-docker:
+    needs: check-on-push
+    name: Delivery to Docker Hub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

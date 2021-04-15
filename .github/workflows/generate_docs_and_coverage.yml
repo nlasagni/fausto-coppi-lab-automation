@@ -1,4 +1,4 @@
-name: Generate coverage
+name: Generate docs and coverage
 on:
   push:
     branches:
@@ -6,7 +6,6 @@ on:
 jobs:
   check-on-push:
     name: Check project on push
-    if: ${{ contains(github.event_name, 'push') }}
     strategy:
       matrix:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
@@ -26,6 +25,28 @@ jobs:
         run: chmod +x ./gradlew
       - name: ActionChecks
         uses: ./.github/actions
+  generate-docs:
+    needs: check-on-push
+    name: Generate docs and deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      - name: Chmode gradlew
+        run: chmod +x ./gradlew
+      - name: Generate Dokka docs
+        run: ./gradlew dokkaHtmlMultiModule
+      - name: Deploy Dokka docs to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: gh-pages
+          folder: build/dokka/htmlMultiModule
   generate-coverage:
     needs: check-on-push
     name: Generate coverage report and upload to Codecov
