@@ -18,9 +18,7 @@ import java.time.LocalDate
 
 /**
  * @author Stefano Braggion
- */
-
-/**
+ *
  * Represent a [Consulting] facade model
  */
 class ConsultingFacade internal constructor(
@@ -45,26 +43,6 @@ class ConsultingFacade internal constructor(
                 freelancerId = consulting.getConsultingSummary().freelancerId,
                 consultingType = consulting.getConsultingSummary().consultingType,
                 description = consulting.getSummaryDescription()
-            )
-        }
-    }
-}
-
-/**
- * Represent a consulting error facade
- */
-class ConsultingErrorFacade internal constructor(
-    val message: String
-) : BaseFacade {
-
-    companion object {
-
-        /**
-         * Factory
-         */
-        fun create(error: String): ConsultingErrorFacade {
-            return ConsultingErrorFacade(
-                message = error
             )
         }
     }
