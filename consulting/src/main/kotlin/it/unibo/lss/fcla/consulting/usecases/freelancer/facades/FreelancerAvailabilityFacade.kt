@@ -7,9 +7,10 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.facades
+package it.unibo.lss.fcla.consulting.usecases.freelancer.facades
 
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
+import it.unibo.lss.fcla.consulting.usecases.BaseFacade
 import java.time.LocalDate
 import java.time.LocalTime
 

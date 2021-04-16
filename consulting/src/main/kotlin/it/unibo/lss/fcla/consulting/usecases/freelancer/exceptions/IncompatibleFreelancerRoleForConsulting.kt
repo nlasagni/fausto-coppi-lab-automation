@@ -7,14 +7,14 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.exceptions
+package it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions
 
 import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * @author Stefano Braggion
  *
- * Thrown when the provided freelancer Id does not exist
+ * Thrown when the provided freelancer has an incompatible role with the requested consulting
  */
-class FreelancerWithGivenIdDoesNotExist :
-    ConsultingException("A freelancer with the given Id does not exist")
+class IncompatibleFreelancerRoleForConsulting :
+    ConsultingException("The given freelancer role is incompatible for the requested consulting")

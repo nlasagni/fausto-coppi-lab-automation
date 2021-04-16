@@ -7,26 +7,14 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.facades
+package it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions
+
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * @author Stefano Braggion
  *
- * Represent a consulting error facade
+ * Thrown when the provided freelancer Id does not exist
  */
-class ConsultingErrorFacade internal constructor(
-    val message: String
-) : BaseFacade {
-
-    companion object {
-
-        /**
-         * Factory
-         */
-        fun create(error: String): ConsultingErrorFacade {
-            return ConsultingErrorFacade(
-                message = error
-            )
-        }
-    }
-}
+class FreelancerWithGivenIdDoesNotExist :
+    ConsultingException("A freelancer with the given Id does not exist")

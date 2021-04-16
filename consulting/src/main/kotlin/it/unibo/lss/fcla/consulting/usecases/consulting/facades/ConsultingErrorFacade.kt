@@ -7,14 +7,16 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.facades
+package it.unibo.lss.fcla.consulting.usecases.consulting.facades
+
+import it.unibo.lss.fcla.consulting.usecases.BaseFacade
 
 /**
  * @author Stefano Braggion
  *
- * Represent a freelancer error facade model
+ * Represent a consulting error facade
  */
-class FreelancerErrorFacade internal constructor(
+class ConsultingErrorFacade internal constructor(
     val message: String
 ) : BaseFacade {
 
@@ -23,8 +25,8 @@ class FreelancerErrorFacade internal constructor(
         /**
          * Factory
          */
-        fun create(error: String): FreelancerErrorFacade {
-            return FreelancerErrorFacade(
+        fun create(error: String): ConsultingErrorFacade {
+            return ConsultingErrorFacade(
                 message = error
             )
         }

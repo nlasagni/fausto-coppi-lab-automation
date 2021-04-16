@@ -7,14 +7,11 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.exceptions
-
-import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
+package it.unibo.lss.fcla.consulting.usecases
 
 /**
  * @author Stefano Braggion
  *
- * Thrown when the provided consulting Id does not exist
+ * Interface that each facade model must implement
  */
-class ConsultingWithGivenIdDoesNotExist :
-    ConsultingException("A consulting with the given Id does not exist")
+interface BaseFacade

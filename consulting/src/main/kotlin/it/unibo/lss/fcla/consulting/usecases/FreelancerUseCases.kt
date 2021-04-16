@@ -17,10 +17,10 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.createAthleticTrainer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
 import it.unibo.lss.fcla.consulting.domain.freelancer.createNutritionist
 import it.unibo.lss.fcla.consulting.domain.freelancer.createPhysiotherapist
-import it.unibo.lss.fcla.consulting.usecases.exceptions.FreelancerShouldHaveAUniqueId
-import it.unibo.lss.fcla.consulting.usecases.exceptions.FreelancerWithGivenIdDoesNotExist
-import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerAvailabilityFacade
-import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerFacade
+import it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions.FreelancerShouldHaveAUniqueId
+import it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions.FreelancerWithGivenIdDoesNotExist
+import it.unibo.lss.fcla.consulting.usecases.freelancer.facades.FreelancerAvailabilityFacade
+import it.unibo.lss.fcla.consulting.usecases.freelancer.facades.FreelancerFacade
 import java.time.LocalDate
 import java.time.LocalTime
 

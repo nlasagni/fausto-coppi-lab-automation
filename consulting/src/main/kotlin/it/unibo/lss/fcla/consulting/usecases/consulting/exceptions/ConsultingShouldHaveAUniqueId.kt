@@ -7,11 +7,14 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.facades
+package it.unibo.lss.fcla.consulting.usecases.consulting.exceptions
+
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * @author Stefano Braggion
  *
- * Interface that each facade model must implement
+ * Thrown when a consulting is created with an already existing Id
  */
-interface BaseFacade
+class ConsultingShouldHaveAUniqueId :
+    ConsultingException("A consulting with the same Id already exist")

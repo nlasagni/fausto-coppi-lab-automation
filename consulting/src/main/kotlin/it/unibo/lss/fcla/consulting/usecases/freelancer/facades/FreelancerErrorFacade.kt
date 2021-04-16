@@ -7,14 +7,28 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.exceptions
+package it.unibo.lss.fcla.consulting.usecases.freelancer.facades
 
-import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
+import it.unibo.lss.fcla.consulting.usecases.BaseFacade
 
 /**
  * @author Stefano Braggion
  *
- * Thrown when a consulting is created with an already existing Id
+ * Represent a freelancer error facade model
  */
-class ConsultingShouldHaveAUniqueId :
-    ConsultingException("A consulting with the same Id already exist")
+class FreelancerErrorFacade internal constructor(
+    val message: String
+) : BaseFacade {
+
+    companion object {
+
+        /**
+         * Factory
+         */
+        fun create(error: String): FreelancerErrorFacade {
+            return FreelancerErrorFacade(
+                message = error
+            )
+        }
+    }
+}

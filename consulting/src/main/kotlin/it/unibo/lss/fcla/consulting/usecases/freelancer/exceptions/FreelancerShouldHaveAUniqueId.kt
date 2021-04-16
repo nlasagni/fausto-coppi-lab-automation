@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.exceptions
+package it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions
 
 import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
