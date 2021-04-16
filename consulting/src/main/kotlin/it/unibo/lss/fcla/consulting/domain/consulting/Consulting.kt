@@ -13,9 +13,9 @@ import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.common.AggregateId
 import it.unibo.lss.fcla.consulting.domain.consulting.events.ConsultingCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.consulting.events.ConsultingSummaryUpdatedDescriptionEvent
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingMustHaveAValidId
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingMustHaveAValidMember
 import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidId
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidMember
 
 typealias ConsultingId = String
 typealias MemberId = String

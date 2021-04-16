@@ -9,7 +9,7 @@
 
 package it.unibo.lss.fcla.consulting.usecases
 
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * Thrown when a consulting is created with an already existing Id

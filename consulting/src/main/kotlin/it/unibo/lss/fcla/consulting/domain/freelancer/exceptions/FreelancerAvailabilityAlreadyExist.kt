@@ -7,16 +7,13 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.exceptions
+package it.unibo.lss.fcla.consulting.domain.freelancer.exceptions
+
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
- * Thrown when a consulting summary is created without a description
+ * @author Stefano Braggion
+ *
+ * Thrown when a freelancer availability is created for a specific date, but another one already exist in that date
  */
-class ConsultingSummaryDescriptionCannotBeEmpty :
-    ConsultingException("A consulting summary must have a description")
-
-/**
- * Thrown when a consulting summary is created without a valid Freelancer Id
- */
-class ConsultingSummaryMustHaveAValidFreelancer :
-    ConsultingException("A consulting summary must have a valid freelancer")
+class FreelancerAvailabilityAlreadyExist : ConsultingException("An availability already exists for the given date")

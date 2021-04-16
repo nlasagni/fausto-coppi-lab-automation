@@ -19,7 +19,7 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.DeleteFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.GetFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.UpdateFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
 

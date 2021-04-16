@@ -11,14 +11,14 @@ package it.unibo.lss.fcla.consulting
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityDoesNotExist
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
 import it.unibo.lss.fcla.consulting.domain.freelancer.createAthleticTrainer
 import it.unibo.lss.fcla.consulting.domain.freelancer.createBiomechanical
+import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerAvailabilityDoesNotExist
+import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerFirstNameCannotBeNull
+import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerLastNameCannotBeNull
 import java.time.LocalDate
 import java.time.LocalTime
 

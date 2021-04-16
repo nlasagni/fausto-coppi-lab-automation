@@ -9,8 +9,8 @@
 
 package it.unibo.lss.fcla.consulting.domain.freelancer
 
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerFirstNameCannotBeNull
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerLastNameCannotBeNull
+import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerFirstNameCannotBeNull
+import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerLastNameCannotBeNull
 
 /**
  * @author Stefano Braggion

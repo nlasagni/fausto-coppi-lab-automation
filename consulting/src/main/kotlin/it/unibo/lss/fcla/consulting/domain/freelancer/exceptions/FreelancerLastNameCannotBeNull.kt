@@ -7,23 +7,13 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.freelancer
+package it.unibo.lss.fcla.consulting.domain.freelancer.exceptions
 
-import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerAvailabilityNotValidTime
-import java.time.LocalTime
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * @author Stefano Braggion
  *
- * Represents the hours of availability in a day for a freelancer, in a form
- * of a time slot with given [fromTime] and [toTime]
- *
+ * Thrown when a freelancer is created without a Last Name
  */
-data class AvailabilityHours(val fromTime: LocalTime, val toTime: LocalTime) {
-
-    init {
-        if (fromTime.isAfter(toTime)) {
-            throw FreelancerAvailabilityNotValidTime()
-        }
-    }
-}
+class FreelancerLastNameCannotBeNull : ConsultingException("Freelancer last name cannot be null or empty")
