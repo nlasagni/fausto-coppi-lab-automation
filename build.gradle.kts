@@ -1,10 +1,11 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     // In order to build a Kotlin project with Gradle:
     kotlin("jvm")
     // A Gradle plugin that forces semantic versioning and relies on git to detect the project state
     id("org.danilopianini.git-sensitive-semantic-versioning")
     jacoco
-    id("org.kordamp.gradle.jacoco") version "0.45.0"
     id("pl.droidsonroids.jacoco.testkit")
     id("org.jlleitschuh.gradle.ktlint")
     id("io.gitlab.arturbosch.detekt")
@@ -19,6 +20,7 @@ allprojects {
 }
 
 val mainClassVarName = "mainclass"
+val excludeVarName = "excludes"
 val subprojectsDistributionDir = "${rootProject.buildDir}/all-distributions"
 
 subprojects {
@@ -33,8 +35,31 @@ subprojects {
     apply(plugin = "org.gradle.distribution")
     apply(plugin = "org.gradle.application")
 
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50")
+        testImplementation(gradleTestKit())
+        testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
+        testImplementation("io.kotest:kotest-assertions-core:4.2.5")
+        testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
+    }
+
     afterEvaluate {
         val mainClassName = ext.get(mainClassVarName) as String
+        val excludesVal = if (ext.has(excludeVarName)) ext.get(excludeVarName) as List<String> else emptyList()
+
+        tasks.jacocoTestReport {
+            reports {
+                xml.isEnabled = true
+                html.isEnabled = true
+            }
+            classDirectories.setFrom(classDirectories.files.map {
+                fileTree(it).matching {
+                    exclude(excludesVal)
+                }
+            })
+        }
 
         tasks.jar {
 
@@ -73,16 +98,6 @@ subprojects {
         }
     }
 
-    dependencies {
-        implementation(kotlin("stdlib-jdk8"))
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50")
-        testImplementation(gradleTestKit())
-        testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
-        testImplementation("io.kotest:kotest-assertions-core:4.2.5")
-        testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
-    }
-
     gitSemVer {
         version = computeGitSemVer()
     }
@@ -105,17 +120,30 @@ subprojects {
         }
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    tasks.withType<KotlinCompile> {
         kotlinOptions {
             allWarningsAsErrors = true
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
     }
 
-    tasks.jacocoTestReport {
-        reports {
-            xml.isEnabled = true
-            html.isEnabled = true
-        }
+}
+
+val jacocoAggregatedReport by tasks.creating(JacocoReport::class) {
+    var classDirs: FileCollection = files()
+    subprojects.forEach {
+        dependsOn(it.tasks.test)
+        dependsOn(it.tasks.jacocoTestReport)
+        sourceSets(it.sourceSets.main.get())
+        classDirs += files(it.tasks.jacocoTestReport.get().classDirectories)
+    }
+    classDirectories.setFrom(classDirs)
+    executionData.setFrom(
+        fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+    )
+    reports {
+        xml.isEnabled = true
+        html.isEnabled = true
+        csv.isEnabled = false
     }
 }
