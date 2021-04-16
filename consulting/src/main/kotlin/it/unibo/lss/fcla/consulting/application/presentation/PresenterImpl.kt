@@ -17,8 +17,8 @@ import it.unibo.lss.fcla.consulting.application.presentation.freelancer.response
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.responses.MessageResponse
 import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.ui.IView
-import it.unibo.lss.fcla.consulting.usecases.IPresenter
 import it.unibo.lss.fcla.consulting.usecases.BaseFacade
+import it.unibo.lss.fcla.consulting.usecases.IPresenter
 import it.unibo.lss.fcla.consulting.usecases.consulting.facades.ConsultingFacade
 import it.unibo.lss.fcla.consulting.usecases.freelancer.facades.FreelancerAvailabilityFacade
 import it.unibo.lss.fcla.consulting.usecases.freelancer.facades.FreelancerErrorFacade

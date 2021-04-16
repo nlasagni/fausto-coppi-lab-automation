@@ -25,9 +25,9 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
 import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import it.unibo.lss.fcla.consulting.usecases.consulting.exceptions.ConsultingShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.consulting.exceptions.ConsultingWithGivenIdDoesNotExist
+import it.unibo.lss.fcla.consulting.usecases.consulting.facades.ConsultingFacade
 import it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions.FreelancerWithGivenIdDoesNotExist
 import it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions.IncompatibleFreelancerRoleForConsulting
-import it.unibo.lss.fcla.consulting.usecases.consulting.facades.ConsultingFacade
 import java.time.LocalDate
 
 /**
