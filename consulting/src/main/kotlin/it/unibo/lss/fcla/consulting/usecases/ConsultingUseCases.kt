@@ -19,10 +19,14 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createAthleticTrainerConsu
 import it.unibo.lss.fcla.consulting.domain.consulting.createBiomechanicalConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
-import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
+import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
+import it.unibo.lss.fcla.consulting.usecases.exceptions.ConsultingShouldHaveAUniqueId
+import it.unibo.lss.fcla.consulting.usecases.exceptions.ConsultingWithGivenIdDoesNotExist
+import it.unibo.lss.fcla.consulting.usecases.exceptions.FreelancerWithGivenIdDoesNotExist
+import it.unibo.lss.fcla.consulting.usecases.exceptions.IncompatibleFreelancerRoleForConsulting
 import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
 import java.time.LocalDate
 

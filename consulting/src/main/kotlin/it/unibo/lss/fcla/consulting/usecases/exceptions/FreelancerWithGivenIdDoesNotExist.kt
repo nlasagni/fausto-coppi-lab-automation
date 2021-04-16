@@ -7,18 +7,14 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.freelancer.events
+package it.unibo.lss.fcla.consulting.usecases.exceptions
 
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
-import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
-import java.time.LocalDate
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * @author Stefano Braggion
  *
- * Event representing a deleted freelancer availability
+ * Thrown when the provided freelancer Id does not exist
  */
-data class FreelancerAvailabilityDeletedEvent(
-    val freelancerId: FreelancerId,
-    val availabilityDate: LocalDate
-) : DomainEvent
+class FreelancerWithGivenIdDoesNotExist :
+    ConsultingException("A freelancer with the given Id does not exist")

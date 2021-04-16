@@ -11,7 +11,6 @@ package it.unibo.lss.fcla.consulting.domain.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.common.AggregateId
-import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerAvailabilityCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerAvailabilityDeletedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerCreatedEvent
@@ -19,6 +18,7 @@ import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerAvail
 import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerAvailabilityDoesNotExist
 import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerAvailabilityNotValidTime
 import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerMustHaveAValidId
+import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import java.time.LocalDate
 import java.time.LocalTime
 

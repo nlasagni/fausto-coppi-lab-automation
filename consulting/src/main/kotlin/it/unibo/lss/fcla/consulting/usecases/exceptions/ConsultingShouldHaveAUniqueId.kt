@@ -7,18 +7,14 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.freelancer.events
+package it.unibo.lss.fcla.consulting.usecases.exceptions
 
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
-import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
-import java.time.LocalDate
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * @author Stefano Braggion
  *
- * Event representing a deleted freelancer availability
+ * Thrown when a consulting is created with an already existing Id
  */
-data class FreelancerAvailabilityDeletedEvent(
-    val freelancerId: FreelancerId,
-    val availabilityDate: LocalDate
-) : DomainEvent
+class ConsultingShouldHaveAUniqueId :
+    ConsultingException("A consulting with the same Id already exist")

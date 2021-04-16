@@ -15,8 +15,8 @@ import it.unibo.lss.fcla.consulting.application.adapters.EventStore
 import it.unibo.lss.fcla.consulting.domain.freelancer.AvailabilityHours
 import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerAvailabilityAlreadyExist
 import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerAvailabilityDoesNotExist
-import it.unibo.lss.fcla.consulting.usecases.FreelancerShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
+import it.unibo.lss.fcla.consulting.usecases.exceptions.FreelancerShouldHaveAUniqueId
 import java.time.LocalDate
 import java.time.LocalTime
 

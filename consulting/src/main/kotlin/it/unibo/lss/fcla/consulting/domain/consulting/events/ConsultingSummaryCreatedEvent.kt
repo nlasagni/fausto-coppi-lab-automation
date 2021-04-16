@@ -10,8 +10,8 @@
 package it.unibo.lss.fcla.consulting.domain.consulting.events
 
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingType
-import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import java.time.LocalDate
 
 /**

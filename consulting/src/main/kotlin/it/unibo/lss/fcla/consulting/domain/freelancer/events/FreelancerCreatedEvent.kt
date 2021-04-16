@@ -9,9 +9,9 @@
 
 package it.unibo.lss.fcla.consulting.domain.freelancer.events
 
-import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
+import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 
 /**
  * @author Stefano Braggion
