@@ -7,11 +7,13 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.usecases.facades
+package it.unibo.lss.fcla.consulting.domain.freelancer.exceptions
+
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * @author Stefano Braggion
  *
- * Interface that each facade model must implement
+ * Thrown when a freelancer availability is created for a specific date, but another one already exist in that date
  */
-interface BaseFacade
+class FreelancerAvailabilityAlreadyExist : ConsultingException("An availability already exists for the given date")

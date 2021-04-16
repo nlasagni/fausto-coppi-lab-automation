@@ -7,11 +7,18 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.contracts
+package it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests
+
+import it.unibo.lss.fcla.consulting.application.presentation.IRequest
+import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 
 /**
  * @author Stefano Braggion
  *
- * Interface that represent a [DomainEvent]
+ * [IRequest] representing the creation of a freelancer of type Physiotherapist
  */
-interface DomainEvent : DomainMessage
+class CreatePhysiotherapistFreelancerRequest(
+    val freelancerId: FreelancerId,
+    val firstName: String,
+    val lastName: String
+) : IRequest

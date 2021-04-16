@@ -7,50 +7,44 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.application.presentation.consulting
+package it.unibo.lss.fcla.consulting.usecases.consulting.facades
 
-import it.unibo.lss.fcla.consulting.application.presentation.IResponse
+import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingType
 import it.unibo.lss.fcla.consulting.domain.consulting.MemberId
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
+import it.unibo.lss.fcla.consulting.usecases.BaseFacade
 import java.time.LocalDate
 
 /**
  * @author Stefano Braggion
+ *
+ * Represent a [Consulting] facade model
  */
-
-/**
- * Represent a consulting response object
- */
-class ConsultingResponse(
+class ConsultingFacade internal constructor(
     val consultingId: ConsultingId,
     val memberId: MemberId,
     val consultingDate: LocalDate,
     val freelancerId: FreelancerId,
     val consultingType: ConsultingType,
     val description: String
-) : IResponse {
+) : BaseFacade {
 
-    /**
-     * String representation of the [ConsultingResponse]
-     */
-    override fun toString(): String =
-        "Consulting(Id=$consultingId, Member=$memberId, Date=$consultingDate," +
-            " Freelancer=$freelancerId, Type=$consultingType) \n" +
-            "Summary($description)"
-}
+    companion object {
 
-/**
- * Represent a consulting error response
- */
-class ConsultingErrorResponse(
-    val message: String
-) : IResponse {
-
-    /**
-     * String representation of the [ConsultingErrorResponse]
-     */
-    override fun toString(): String =
-        "ConsultingError($message)"
+        /**
+         * Factory
+         */
+        fun create(consulting: Consulting): ConsultingFacade {
+            return ConsultingFacade(
+                consultingId = consulting.aggregateId,
+                memberId = consulting.getMemberId(),
+                consultingDate = consulting.getConsultingSummary().consultingDate,
+                freelancerId = consulting.getConsultingSummary().freelancerId,
+                consultingType = consulting.getConsultingSummary().consultingType,
+                description = consulting.getSummaryDescription()
+            )
+        }
+    }
 }

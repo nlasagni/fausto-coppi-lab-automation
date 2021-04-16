@@ -9,20 +9,20 @@
 
 package it.unibo.lss.fcla.consulting.application.presentation
 
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ConsultingErrorResponse
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ConsultingResponse
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerAvailabilityResponse
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerErrorResponse
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerResponse
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.MessageResponse
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.responses.ConsultingErrorResponse
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.responses.ConsultingResponse
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.responses.FreelancerAvailabilityResponse
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.responses.FreelancerErrorResponse
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.responses.FreelancerResponse
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.responses.MessageResponse
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.ui.IView
+import it.unibo.lss.fcla.consulting.usecases.BaseFacade
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
-import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
-import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
-import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerAvailabilityFacade
-import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerErrorFacade
-import it.unibo.lss.fcla.consulting.usecases.facades.FreelancerFacade
+import it.unibo.lss.fcla.consulting.usecases.consulting.facades.ConsultingFacade
+import it.unibo.lss.fcla.consulting.usecases.freelancer.facades.FreelancerAvailabilityFacade
+import it.unibo.lss.fcla.consulting.usecases.freelancer.facades.FreelancerErrorFacade
+import it.unibo.lss.fcla.consulting.usecases.freelancer.facades.FreelancerFacade
 
 /**
  * @author Stefano Braggion

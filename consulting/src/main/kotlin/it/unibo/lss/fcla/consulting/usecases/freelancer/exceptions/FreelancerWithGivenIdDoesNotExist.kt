@@ -7,18 +7,14 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.contracts
+package it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions
 
-import it.unibo.lss.fcla.consulting.common.AggregateId
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
  * @author Stefano Braggion
  *
- * Interface for event stores
+ * Thrown when the provided freelancer Id does not exist
  */
-interface IEventStore {
-
-    fun saveEvent(aggregateId: AggregateId, domainEvent: DomainEvent)
-    fun getEventsForAggregate(aggregateId: AggregateId): List<DomainEvent>
-    fun getAllEvents(): HashMap<AggregateId, List<DomainEvent>>
-}
+class FreelancerWithGivenIdDoesNotExist :
+    ConsultingException("A freelancer with the given Id does not exist")

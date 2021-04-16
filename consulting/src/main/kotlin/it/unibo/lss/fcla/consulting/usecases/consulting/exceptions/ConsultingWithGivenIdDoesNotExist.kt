@@ -7,16 +7,14 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.exceptions
+package it.unibo.lss.fcla.consulting.usecases.consulting.exceptions
+
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 
 /**
- * Thrown when a consulting summary is created without a description
+ * @author Stefano Braggion
+ *
+ * Thrown when the provided consulting Id does not exist
  */
-class ConsultingSummaryDescriptionCannotBeEmpty :
-    ConsultingException("A consulting summary must have a description")
-
-/**
- * Thrown when a consulting summary is created without a valid Freelancer Id
- */
-class ConsultingSummaryMustHaveAValidFreelancer :
-    ConsultingException("A consulting summary must have a valid freelancer")
+class ConsultingWithGivenIdDoesNotExist :
+    ConsultingException("A consulting with the given Id does not exist")

@@ -9,8 +9,8 @@
 
 package it.unibo.lss.fcla.consulting.domain.consulting
 
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryMustHaveAValidFreelancer
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingSummaryMustHaveAValidFreelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import java.time.LocalDate
 

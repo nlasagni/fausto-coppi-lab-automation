@@ -15,10 +15,10 @@ import it.unibo.lss.fcla.consulting.domain.consulting.Consulting
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingType
 import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidId
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingMustHaveAValidMember
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingSummaryMustHaveAValidFreelancer
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingMustHaveAValidId
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingMustHaveAValidMember
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingSummaryDescriptionCannotBeEmpty
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingSummaryMustHaveAValidFreelancer
 import java.time.LocalDate
 
 class ConsultingTest : FreeSpec({

@@ -9,7 +9,7 @@
 
 package it.unibo.lss.fcla.consulting.domain.freelancer
 
-import it.unibo.lss.fcla.consulting.domain.exceptions.FreelancerAvailabilityNotValidTime
+import it.unibo.lss.fcla.consulting.domain.freelancer.exceptions.FreelancerAvailabilityNotValidTime
 import java.time.LocalTime
 
 /**
