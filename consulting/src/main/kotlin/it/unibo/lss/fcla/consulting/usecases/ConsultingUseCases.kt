@@ -19,7 +19,7 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createAthleticTrainerConsu
 import it.unibo.lss.fcla.consulting.domain.consulting.createBiomechanicalConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
-import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
+import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole

@@ -7,11 +7,18 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.contracts
+package it.unibo.lss.fcla.consulting.domain.interfaces
+
+import it.unibo.lss.fcla.consulting.common.AggregateId
 
 /**
  * @author Stefano Braggion
  *
- * Interface that represent a [DomainEvent]
+ * Interface for event stores
  */
-interface DomainEvent : DomainMessage
+interface IEventStore {
+
+    fun saveEvent(aggregateId: AggregateId, domainEvent: DomainEvent)
+    fun getEventsForAggregate(aggregateId: AggregateId): List<DomainEvent>
+    fun getAllEvents(): HashMap<AggregateId, List<DomainEvent>>
+}

@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.contracts
+package it.unibo.lss.fcla.consulting.domain.interfaces
 
 /**
  * @author Stefano Braggion

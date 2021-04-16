@@ -11,7 +11,7 @@ package it.unibo.lss.fcla.consulting.domain.freelancer
 
 import it.unibo.lss.fcla.consulting.common.AbstractAggregate
 import it.unibo.lss.fcla.consulting.common.AggregateId
-import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
+import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerAvailabilityCreatedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerAvailabilityDeletedEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.events.FreelancerCreatedEvent
