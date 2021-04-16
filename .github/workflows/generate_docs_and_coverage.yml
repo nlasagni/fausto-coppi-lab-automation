@@ -63,9 +63,9 @@ jobs:
       - name: Chmode gradlew
         run: chmod +x ./gradlew
       - name: Generate Jacoco report
-        run: ./gradlew aggregateJacocoReport
+        run: ./gradlew jacocoAggregatedReport
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
-          directory: build/reports/jacoco/aggregate/
+          directory: build/reports/jacoco/jacocoAggregatedReport/
           fail_ci_if_error: true
