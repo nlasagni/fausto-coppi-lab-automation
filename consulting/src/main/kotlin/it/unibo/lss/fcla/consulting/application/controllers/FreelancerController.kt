@@ -11,14 +11,14 @@ package it.unibo.lss.fcla.consulting.application.controllers
 
 import it.unibo.lss.fcla.consulting.application.adapters.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateAthleticTrainerFreelancerRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateBiomechanicalFreelancerRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateNutritionistFreelancerRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreatePhysiotherapistFreelancerRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.DeleteFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.GetFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.UpdateFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.CreateAthleticTrainerFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.CreateBiomechanicalFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.CreateFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.CreateNutritionistFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.CreatePhysiotherapistFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.DeleteFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.GetFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.UpdateFreelancerAvailabilityForDayRequest
 import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
 import it.unibo.lss.fcla.consulting.usecases.IPresenter

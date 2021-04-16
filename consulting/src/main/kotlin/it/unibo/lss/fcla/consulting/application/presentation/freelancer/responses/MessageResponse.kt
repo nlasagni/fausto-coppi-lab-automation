@@ -7,29 +7,15 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.application.presentation.freelancer
+package it.unibo.lss.fcla.consulting.application.presentation.freelancer.responses
 
-import it.unibo.lss.fcla.consulting.application.presentation.IRequest
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
-import java.time.LocalDate
-import java.time.LocalTime
+import it.unibo.lss.fcla.consulting.application.presentation.IResponse
 
 /**
  * @author Stefano Braggion
+ *
+ * Represents a generic textual response message
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class MessageResponse(
+    val message: String
+) : IResponse

@@ -16,9 +16,9 @@ import it.unibo.lss.fcla.consulting.application.controllers.ConsultingController
 import it.unibo.lss.fcla.consulting.application.controllers.FreelancerController
 import it.unibo.lss.fcla.consulting.application.presentation.PresenterImpl
 import it.unibo.lss.fcla.consulting.application.presentation.consulting.requests.ReceiveNutritionistConsultingRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateAthleticTrainerFreelancerRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateFreelancerAvailabilityForDayRequest
-import it.unibo.lss.fcla.consulting.application.presentation.freelancer.CreateNutritionistFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.CreateAthleticTrainerFreelancerRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.CreateFreelancerAvailabilityForDayRequest
+import it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests.CreateNutritionistFreelancerRequest
 import it.unibo.lss.fcla.consulting.ui.ConsoleUI
 import it.unibo.lss.fcla.consulting.ui.MenuUtils
 import java.time.LocalDate
