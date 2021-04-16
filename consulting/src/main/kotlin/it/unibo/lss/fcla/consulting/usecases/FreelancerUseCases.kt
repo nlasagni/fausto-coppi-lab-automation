@@ -34,7 +34,7 @@ class FreelancerUseCases(
 ) {
 
     /**
-     * FLAC-14 Create new [Freelancer]
+     * FLAC-9 Create new [Freelancer]
      */
     fun createAthleticTrainer(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
 
@@ -48,7 +48,7 @@ class FreelancerUseCases(
     }
 
     /**
-     * FLAC-14 Create new [Freelancer]
+     * FLAC-9 Create new [Freelancer]
      */
     fun createPhysiotherapist(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
 
@@ -61,7 +61,7 @@ class FreelancerUseCases(
     }
 
     /**
-     * FLAC-14 Create new [Freelancer]
+     * FLAC-9 Create new [Freelancer]
      */
     fun createNutritionist(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
 
@@ -75,7 +75,7 @@ class FreelancerUseCases(
     }
 
     /**
-     * FLAC-14 Create new [Freelancer]
+     * FLAC-9 Create new [Freelancer]
      */
     fun createBiomechanical(freelancerId: FreelancerId, firstName: String, lastName: String): Freelancer {
 
@@ -89,7 +89,7 @@ class FreelancerUseCases(
     }
 
     /**
-     * FLAC-15 Manage freelancer availabilities
+     * FLAC-10 Manage freelancer availabilities
      */
     fun updateFreelancerAvailabilityForDay(
         freelancerId: FreelancerId,
@@ -109,7 +109,7 @@ class FreelancerUseCases(
     }
 
     /**
-     * FLAC-15 Manage freelancer availabilities
+     * FLAC-10 Manage freelancer availabilities
      */
     fun createFreelancerAvailabilityForDay(
         freelancerId: FreelancerId,
@@ -129,7 +129,7 @@ class FreelancerUseCases(
     }
 
     /**
-     * FLAC-15 Manage freelancer availabilities
+     * FLAC-10 Manage freelancer availabilities
      */
     fun deleteFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): Freelancer? {
 
@@ -144,7 +144,7 @@ class FreelancerUseCases(
     }
 
     /**
-     * FLAC-16 Check freelancer availabilities
+     * FLAC-11 Check freelancer availabilities
      */
     fun getFreelancerAvailabilityForDay(freelancerId: FreelancerId, day: LocalDate): AvailabilityHours? {
 
