@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (C) 2021, Stefano Braggion, Alessia Cerami, Andrea Giordano, Nicola Lasagni.
+ *
+ * This file is part of Fausto Coppi Lab Automation, and is distributed under the terms of the
+ * GNU General Public License, as described in the file LICENSE in the
+ * Fausto Coppi Lab Automation distribution's top directory.
+ *
+ ******************************************************************************/
+
 package it.unibo.lss.fcla.reservation.domain.entities.agenda
 
 import io.kotest.core.spec.style.FreeSpec
@@ -9,6 +18,11 @@ import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenConsultingR
 import it.unibo.lss.fcla.reservation.domain.entities.reservation.OpenWorkoutReservation
 import java.util.Calendar
 import java.util.UUID
+
+/**
+ * @project fausto-coppi-lab-automation
+ * @author Alessia Cerami and Andrea Giordano
+ */
 
 class AgendaTest : FreeSpec({
     val agendaId = UUID.randomUUID()
