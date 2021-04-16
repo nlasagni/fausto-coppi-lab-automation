@@ -17,4 +17,3 @@ val excludeFromCoverage = listOf(
 
 ext.set("mainclass", myMainClass)
 ext.set("excludeFromCoverage", excludeFromCoverage)
-

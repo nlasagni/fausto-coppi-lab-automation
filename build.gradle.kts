@@ -63,11 +63,13 @@ subprojects {
                 xml.isEnabled = true
                 html.isEnabled = true
             }
-            classDirectories.setFrom(classDirectories.files.map {
-                fileTree(it).matching {
-                    exclude(excludesVal)
+            classDirectories.setFrom(
+                classDirectories.files.map {
+                    fileTree(it).matching {
+                        exclude(excludesVal)
+                    }
                 }
-            })
+            )
         }
 
         tasks.jar {
@@ -135,7 +137,6 @@ subprojects {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
     }
-
 }
 
 val jacocoAggregatedReport by tasks.creating(JacocoReport::class) {
