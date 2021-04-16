@@ -46,12 +46,20 @@ subprojects {
 
     dependencies {
         implementation(kotlin("stdlib-jdk8"))
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:_")
         testImplementation(gradleTestKit())
-        testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
-        testImplementation("io.kotest:kotest-assertions-core:4.2.5")
-        testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
+        testImplementation("io.kotest:kotest-runner-junit5:_")
+        testImplementation("io.kotest:kotest-assertions-core:_")
+        testImplementation("io.kotest:kotest-assertions-core-jvm:_")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
+    }
+
+    tasks.getByName<JavaExec>("run") {
+        standardInput = System.`in`
+    }
+
+    tasks.getting(JavaExec::class) {
+        standardInput = System.`in`
     }
 
     afterEvaluate {
@@ -73,7 +81,6 @@ subprojects {
         }
 
         tasks.jar {
-
             manifest {
                 attributes(
                     // Otherwise it throws a "No main manifest attribute" error
@@ -83,7 +90,6 @@ subprojects {
                     )
                 )
             }
-
             from(sourceSets.main.get().output)
             dependsOn(configurations.runtimeClasspath)
 
