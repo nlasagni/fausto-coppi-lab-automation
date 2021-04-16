@@ -20,7 +20,7 @@ allprojects {
 }
 
 val mainClassVarName = "mainclass"
-val excludeVarName = "excludes"
+val excludeVarName = "excludeFromCoverage"
 val subprojectsDistributionDir = "${rootProject.buildDir}/all-distributions"
 
 subprojects {
