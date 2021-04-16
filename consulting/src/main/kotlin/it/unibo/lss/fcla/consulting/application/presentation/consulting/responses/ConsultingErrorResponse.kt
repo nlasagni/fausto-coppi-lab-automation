@@ -7,29 +7,22 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.application.presentation.freelancer
+package it.unibo.lss.fcla.consulting.application.presentation.consulting.responses
 
-import it.unibo.lss.fcla.consulting.application.presentation.IRequest
-import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
-import java.time.LocalDate
-import java.time.LocalTime
+import it.unibo.lss.fcla.consulting.application.presentation.IResponse
 
 /**
  * @author Stefano Braggion
+ *
+ * Represent a consulting error response
  */
+class ConsultingErrorResponse(
+    val message: String
+) : IResponse {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * String representation of the [ConsultingErrorResponse]
+     */
+    override fun toString(): String =
+        "ConsultingError($message)"
+}

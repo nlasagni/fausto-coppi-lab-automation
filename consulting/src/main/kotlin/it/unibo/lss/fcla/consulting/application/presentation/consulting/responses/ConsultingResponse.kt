@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.application.presentation.consulting
+package it.unibo.lss.fcla.consulting.application.presentation.consulting.responses
 
 import it.unibo.lss.fcla.consulting.application.presentation.IResponse
 import it.unibo.lss.fcla.consulting.domain.consulting.ConsultingId
@@ -18,9 +18,7 @@ import java.time.LocalDate
 
 /**
  * @author Stefano Braggion
- */
-
-/**
+ *
  * Represent a consulting response object
  */
 class ConsultingResponse(
@@ -37,20 +35,5 @@ class ConsultingResponse(
      */
     override fun toString(): String =
         "Consulting(Id=$consultingId, Member=$memberId, Date=$consultingDate," +
-            " Freelancer=$freelancerId, Type=$consultingType) \n" +
-            "Summary($description)"
-}
-
-/**
- * Represent a consulting error response
- */
-class ConsultingErrorResponse(
-    val message: String
-) : IResponse {
-
-    /**
-     * String representation of the [ConsultingErrorResponse]
-     */
-    override fun toString(): String =
-        "ConsultingError($message)"
+            " Freelancer=$freelancerId, Type=$consultingType) \n" + "Summary($description)"
 }

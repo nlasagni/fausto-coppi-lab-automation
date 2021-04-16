@@ -9,8 +9,8 @@
 
 package it.unibo.lss.fcla.consulting.application.presentation
 
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ConsultingErrorResponse
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ConsultingResponse
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.responses.ConsultingErrorResponse
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.responses.ConsultingResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerAvailabilityResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerErrorResponse
 import it.unibo.lss.fcla.consulting.application.presentation.freelancer.FreelancerResponse

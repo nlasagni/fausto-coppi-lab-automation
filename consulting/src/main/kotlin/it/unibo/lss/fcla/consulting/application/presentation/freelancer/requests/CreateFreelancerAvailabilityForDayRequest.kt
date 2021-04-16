@@ -7,7 +7,7 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.application.presentation.freelancer
+package it.unibo.lss.fcla.consulting.application.presentation.freelancer.requests
 
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
@@ -16,20 +16,12 @@ import java.time.LocalTime
 
 /**
  * @author Stefano Braggion
+ *
+ * [IRequest] representing the creation of a freelancer availability
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class CreateFreelancerAvailabilityForDayRequest(
+    val freelancerId: FreelancerId,
+    val availabilityDate: LocalDate,
+    val fromTime: LocalTime,
+    val toTime: LocalTime
+) : IRequest
