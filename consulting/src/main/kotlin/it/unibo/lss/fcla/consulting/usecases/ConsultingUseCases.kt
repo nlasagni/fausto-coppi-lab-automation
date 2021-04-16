@@ -19,11 +19,15 @@ import it.unibo.lss.fcla.consulting.domain.consulting.createAthleticTrainerConsu
 import it.unibo.lss.fcla.consulting.domain.consulting.createBiomechanicalConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createNutritionistConsulting
 import it.unibo.lss.fcla.consulting.domain.consulting.createPhysiotherapyConsulting
-import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
 import it.unibo.lss.fcla.consulting.domain.freelancer.Freelancer
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerId
 import it.unibo.lss.fcla.consulting.domain.freelancer.FreelancerRole
-import it.unibo.lss.fcla.consulting.usecases.facades.ConsultingFacade
+import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
+import it.unibo.lss.fcla.consulting.usecases.consulting.exceptions.ConsultingShouldHaveAUniqueId
+import it.unibo.lss.fcla.consulting.usecases.consulting.exceptions.ConsultingWithGivenIdDoesNotExist
+import it.unibo.lss.fcla.consulting.usecases.consulting.facades.ConsultingFacade
+import it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions.FreelancerWithGivenIdDoesNotExist
+import it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions.IncompatibleFreelancerRoleForConsulting
 import java.time.LocalDate
 
 /**
@@ -40,14 +44,14 @@ class ConsultingUseCases(
 ) {
 
     /**
-     * FCLAC-1 Examine consulting summaries
+     * FCLAC-2 Manage Consulting Summaries (Examine single summary)
      */
     fun examineConsultingSummaries(consultingId: ConsultingId): Consulting {
         return Consulting.rehydrateConsulting(consultingId, repository.getById(consultingId))
     }
 
     /**
-     * FCLAC-7 Receive Consulting
+     * FCLAC-1 Receive Consulting
      */
     fun receivePhysiotherapyConsulting(
         consultingId: ConsultingId,
@@ -87,7 +91,7 @@ class ConsultingUseCases(
     }
 
     /**
-     * FCLAC-7 Receive Consulting
+     * FCLAC-1 Receive Consulting
      */
     fun receiveNutritionistConsulting(
         consultingId: ConsultingId,
@@ -127,7 +131,7 @@ class ConsultingUseCases(
     }
 
     /**
-     * FCLAC-7 Receive Consulting
+     * FCLAC-1 Receive Consulting
      */
     fun receiveBiomechanicalConsulting(
         consultingId: ConsultingId,
@@ -168,7 +172,7 @@ class ConsultingUseCases(
     }
 
     /**
-     * FCLAC-7 Receive Consulting
+     * FCLAC-1 Receive Consulting
      */
     fun receiveAthleticTrainerConsulting(
         consultingId: ConsultingId,
@@ -209,7 +213,7 @@ class ConsultingUseCases(
     }
 
     /**
-     * FCLAC-8 Manage Consulting Summaries (Update)
+     * FCLAC-2 Manage Consulting Summaries (Update)
      */
     fun updateConsultingSummary(consultingId: ConsultingId, description: String): Consulting {
 
@@ -230,7 +234,7 @@ class ConsultingUseCases(
     }
 
     /**
-     * FCLAC-9 Retrieve all the summaries for a member
+     * FCLAC-3 Retrieve all the summaries for a member
      */
     fun retrieveProfile(memberId: MemberId): List<Consulting> {
         val events: Map<AggregateId, List<DomainEvent>> = repository.getAllEvents()

@@ -10,8 +10,8 @@
 package it.unibo.lss.fcla.consulting.application.adapters
 
 import it.unibo.lss.fcla.consulting.common.AggregateId
-import it.unibo.lss.fcla.consulting.domain.contracts.DomainEvent
-import it.unibo.lss.fcla.consulting.domain.contracts.IEventStore
+import it.unibo.lss.fcla.consulting.domain.interfaces.DomainEvent
+import it.unibo.lss.fcla.consulting.domain.interfaces.IEventStore
 
 /**
  * @author Stefano Braggion

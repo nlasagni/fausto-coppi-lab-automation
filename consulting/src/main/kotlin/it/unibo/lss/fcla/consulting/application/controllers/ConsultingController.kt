@@ -12,12 +12,12 @@ package it.unibo.lss.fcla.consulting.application.controllers
 import it.unibo.lss.fcla.consulting.application.adapters.ConsultingRepository
 import it.unibo.lss.fcla.consulting.application.adapters.FreelancerRepository
 import it.unibo.lss.fcla.consulting.application.presentation.IRequest
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ExamineAllSummariesForMemberRequest
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveAthleticTrainerConsultingRequest
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveBiomechanicalConsultingRequest
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceiveNutritionistConsultingRequest
-import it.unibo.lss.fcla.consulting.application.presentation.consulting.ReceivePhysiotherapyConsultingRequest
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.requests.ExamineAllSummariesForMemberRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.requests.ReceiveAthleticTrainerConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.requests.ReceiveBiomechanicalConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.requests.ReceiveNutritionistConsultingRequest
+import it.unibo.lss.fcla.consulting.application.presentation.consulting.requests.ReceivePhysiotherapyConsultingRequest
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.usecases.ConsultingUseCases
 import it.unibo.lss.fcla.consulting.usecases.IPresenter
 

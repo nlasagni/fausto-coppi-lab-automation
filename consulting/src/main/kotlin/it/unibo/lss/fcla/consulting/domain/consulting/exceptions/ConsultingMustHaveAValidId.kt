@@ -7,11 +7,11 @@
  *
  ******************************************************************************/
 
-package it.unibo.lss.fcla.consulting.domain.contracts
+package it.unibo.lss.fcla.consulting.domain.consulting.exceptions
 
 /**
  * @author Stefano Braggion
  *
- * Top level interface that define the abstraction for a message (event or command)
+ * Thrown when a consulting is created without a valid Consulting Id
  */
-interface DomainMessage
+class ConsultingMustHaveAValidId : ConsultingException("A consulting must have a valid Id")

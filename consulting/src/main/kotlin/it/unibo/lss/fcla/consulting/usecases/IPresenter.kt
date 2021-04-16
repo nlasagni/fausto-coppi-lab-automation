@@ -9,9 +9,8 @@
 
 package it.unibo.lss.fcla.consulting.usecases
 
-import it.unibo.lss.fcla.consulting.domain.exceptions.ConsultingException
+import it.unibo.lss.fcla.consulting.domain.consulting.exceptions.ConsultingException
 import it.unibo.lss.fcla.consulting.ui.IView
-import it.unibo.lss.fcla.consulting.usecases.facades.BaseFacade
 
 /**
  * @author Stefano Braggion

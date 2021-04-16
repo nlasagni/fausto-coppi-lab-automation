@@ -12,12 +12,12 @@ package it.unibo.lss.fcla.consulting
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import it.unibo.lss.fcla.consulting.application.adapters.EventStore
-import it.unibo.lss.fcla.consulting.usecases.ConsultingShouldHaveAUniqueId
 import it.unibo.lss.fcla.consulting.usecases.ConsultingUseCases
-import it.unibo.lss.fcla.consulting.usecases.ConsultingWithGivenIdDoesNotExist
 import it.unibo.lss.fcla.consulting.usecases.FreelancerUseCases
-import it.unibo.lss.fcla.consulting.usecases.FreelancerWithGivenIdDoesNotExist
-import it.unibo.lss.fcla.consulting.usecases.IncompatibleFreelancerRoleForConsulting
+import it.unibo.lss.fcla.consulting.usecases.consulting.exceptions.ConsultingShouldHaveAUniqueId
+import it.unibo.lss.fcla.consulting.usecases.consulting.exceptions.ConsultingWithGivenIdDoesNotExist
+import it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions.FreelancerWithGivenIdDoesNotExist
+import it.unibo.lss.fcla.consulting.usecases.freelancer.exceptions.IncompatibleFreelancerRoleForConsulting
 import java.time.LocalDate
 
 class UseCasesConsultingTest : FreeSpec({
