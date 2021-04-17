@@ -2,7 +2,7 @@
 
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/nlasagni/fausto-coppi-lab-automation)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nlasagni/fausto-coppi-lab-automation/workflow)
-<a href="https://nlasagni.github.io/fausto-coppi-lab-automation/-modules.html"><img src="https://img.shields.io/badge/docs%20by-Dokka-green.svg"/></a>
+<a href="https://nlasagni.github.io/fausto-coppi-lab-automation/fausto-coppi-lab-automation/"><img src="https://img.shields.io/badge/docs%20by-Dokka-green.svg"/></a>
 ![GitHub](https://img.shields.io/github/license/nlasagni/fausto-coppi-lab-automation)
 
 - Main coverage: [![maincodecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main)
@@ -35,7 +35,7 @@ Project Report and DevOps documentation reside into Confluence space.
 
 Code documentation is available through the repository GitHub Pages space.
 
-[Check out code documentation](https://nlasagni.github.io/fausto-coppi-lab-automation/-modules.html)
+[Check out code documentation](https://nlasagni.github.io/fausto-coppi-lab-automation/fausto-coppi-lab-automation/)
 
 ## Code Coverage
 
@@ -91,7 +91,7 @@ $ gradlew <microservice>:build
 Each microservice can run in interactive mode in order to demonstrate the feature that implements.
 
 ```
-gradlew <microservice>:run -q --console=plain
+$ gradlew <microservice>:run -q --console=plain
 ```
 
 #### Test
@@ -114,10 +114,10 @@ Since the project is structured in subprojects, in order to generate the documen
 it is necessary to use the following task provided by dokka.
 
 ```
-gradlew dokkaHtmlMultimodule
+$ gradlew dokkaHtmlCollector
 ```
 
-The result can be found in `build/dokka/htmlMultiModule/` inside the root folder 
+The result can be found in `build/dokka/htmlCollector/` inside the root folder 
 of the project.
 
 #### Generate coverage report
@@ -125,7 +125,7 @@ of the project.
 We created a custom Gradle task in order to generate the coverage report of the entire project.
 
 ```
-gradlew jacocoAggregatedReport
+$ gradlew jacocoAggregatedReport
 ```
 
 The result can be found in `build/reports/jacoco/jacocoAggregatedReport/` inside the root folder
