@@ -7,6 +7,8 @@
  *
  ******************************************************************************/
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     // In order to build a Kotlin project with Gradle:
     kotlin("jvm")
@@ -27,18 +29,8 @@ allprojects {
 }
 
 val mainClassVarName = "mainclass"
+val excludeVarName = "excludeFromCoverage"
 val subprojectsDistributionDir = "${rootProject.buildDir}/all-distributions"
-val subprojectsJarDir = "${rootProject.buildDir}/all-jars"
-
-val allJars by tasks.creating(Copy::class) {
-    project.subprojects.forEach {
-        from("${it.buildDir}/libs")
-        into(subprojectsJarDir)
-        it.afterEvaluate {
-            dependsOn(it.tasks.jar)
-        }
-    }
-}
 
 subprojects {
 
@@ -52,11 +44,43 @@ subprojects {
     apply(plugin = "org.gradle.distribution")
     apply(plugin = "org.gradle.application")
 
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:_")
+        testImplementation(gradleTestKit())
+        testImplementation("io.kotest:kotest-runner-junit5:_")
+        testImplementation("io.kotest:kotest-assertions-core:_")
+        testImplementation("io.kotest:kotest-assertions-core-jvm:_")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
+    }
+
+    tasks.getByName<JavaExec>("run") {
+        standardInput = System.`in`
+    }
+
+    tasks.getting(JavaExec::class) {
+        standardInput = System.`in`
+    }
+
     afterEvaluate {
         val mainClassName = ext.get(mainClassVarName) as String
+        val excludesVal = if (ext.has(excludeVarName)) ext.get(excludeVarName) as List<String> else emptyList()
+
+        tasks.jacocoTestReport {
+            reports {
+                xml.isEnabled = true
+                html.isEnabled = true
+            }
+            classDirectories.setFrom(
+                classDirectories.files.map {
+                    fileTree(it).matching {
+                        exclude(excludesVal)
+                    }
+                }
+            )
+        }
 
         tasks.jar {
-
             manifest {
                 attributes(
                     // Otherwise it throws a "No main manifest attribute" error
@@ -66,7 +90,6 @@ subprojects {
                     )
                 )
             }
-
             from(sourceSets.main.get().output)
             dependsOn(configurations.runtimeClasspath)
 
@@ -92,16 +115,6 @@ subprojects {
         }
     }
 
-    dependencies {
-        implementation(kotlin("stdlib-jdk8"))
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50")
-        testImplementation(gradleTestKit())
-        testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
-        testImplementation("io.kotest:kotest-assertions-core:4.2.5")
-        testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
-    }
-
     gitSemVer {
         version = computeGitSemVer()
     }
@@ -124,17 +137,29 @@ subprojects {
         }
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    tasks.withType<KotlinCompile> {
         kotlinOptions {
             allWarningsAsErrors = true
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
     }
+}
 
-    tasks.jacocoTestReport {
-        reports {
-            xml.isEnabled = true
-            html.isEnabled = true
-        }
+val jacocoAggregatedReport by tasks.creating(JacocoReport::class) {
+    var classDirs: FileCollection = files()
+    subprojects.forEach {
+        dependsOn(it.tasks.test)
+        dependsOn(it.tasks.jacocoTestReport)
+        sourceSets(it.sourceSets.main.get())
+        classDirs += files(it.tasks.jacocoTestReport.get().classDirectories)
+    }
+    classDirectories.setFrom(classDirs)
+    executionData.setFrom(
+        fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+    )
+    reports {
+        xml.isEnabled = true
+        html.isEnabled = true
+        csv.isEnabled = false
     }
 }

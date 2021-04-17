@@ -1,0 +1,28 @@
+name: Check on Pull Request
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  check-on-pull-request:
+    name: Check project on pull request
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-20.04, ubuntu-latest, ubuntu-16.04, macos-latest]
+        java: [ 1.8, 11, 12, 13, 14, 15 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Chmode gradlew
+        if: ${{ ! contains(matrix.os, 'windows') }}
+        run: chmod +x ./gradlew
+      - name: Check project
+        run: ./gradlew check
