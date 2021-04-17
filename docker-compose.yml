@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  consulting:
+    image: sbraggion/fausto-coppi-lab-automation:consulting
+    build: './consulting'
+  reservation:
+    image: sbraggion/fausto-coppi-lab-automation:reservation
+    build: './reservation'
+  athleticpreparation:
+    image: sbraggion/fausto-coppi-lab-automation:athletictraining
+    build: './athletictraining'

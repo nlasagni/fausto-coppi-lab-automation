@@ -1,0 +1,22 @@
+/*******************************************************************************
+ * Copyright (C) 2021, Stefano Braggion, Alessia Cerami, Andrea Giordano, Nicola Lasagni.
+ *
+ * This file is part of Fausto Coppi Lab Automation, and is distributed under the terms of the
+ * GNU General Public License, as described in the file LICENSE in the
+ * Fausto Coppi Lab Automation distribution's top directory.
+ *
+ ******************************************************************************/
+
+package it.unibo.lss.fcla.athletictraining
+
+import it.unibo.lss.fcla.athletictraining.config.AthleticTrainingApplication
+
+/**
+ * The starting point of this microservice.
+ *
+ * @author Nicola Lasagni on 05/04/2021.
+ */
+fun main() {
+    val application = AthleticTrainingApplication()
+    application.start()
+}

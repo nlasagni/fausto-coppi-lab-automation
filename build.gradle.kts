@@ -1,4 +1,13 @@
-val myMainClass = "it.unibo.lss.fcla.MainClassKt"
+/*******************************************************************************
+ * Copyright (C) 2021, Stefano Braggion, Alessia Cerami, Andrea Giordano, Nicola Lasagni.
+ *
+ * This file is part of Fausto Coppi Lab Automation, and is distributed under the terms of the
+ * GNU General Public License, as described in the file LICENSE in the
+ * Fausto Coppi Lab Automation distribution's top directory.
+ *
+ ******************************************************************************/
+
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     // In order to build a Kotlin project with Gradle:
@@ -13,86 +22,144 @@ plugins {
     application
 }
 
-gitSemVer {
-    version = computeGitSemVer()
+allprojects {
+    repositories {
+        jcenter()
+    }
 }
 
-repositories {
-    jcenter()
-}
+val mainClassVarName = "mainclass"
+val excludeVarName = "excludeFromCoverage"
+val subprojectsDistributionDir = "${rootProject.buildDir}/all-distributions"
 
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+subprojects {
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.danilopianini.git-sensitive-semantic-versioning")
+    apply(plugin = "org.gradle.jacoco")
+    apply(plugin = "pl.droidsonroids.jacoco.testkit")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+    apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "org.gradle.distribution")
+    apply(plugin = "org.gradle.application")
 
-    testImplementation(gradleTestKit())
-    testImplementation("io.kotest:kotest-runner-junit5:4.2.5")
-    testImplementation("io.kotest:kotest-assertions-core:4.2.5")
-    testImplementation("io.kotest:kotest-assertions-core-jvm:4.2.5")
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:_")
+        testImplementation(gradleTestKit())
+        testImplementation("io.kotest:kotest-runner-junit5:_")
+        testImplementation("io.kotest:kotest-assertions-core:_")
+        testImplementation("io.kotest:kotest-assertions-core-jvm:_")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
+    }
 
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.1")
-}
+    tasks.getByName<JavaExec>("run") {
+        standardInput = System.`in`
+    }
 
-detekt {
-    failFast = true
-    buildUponDefaultConfig = true
-}
+    tasks.getting(JavaExec::class) {
+        standardInput = System.`in`
+    }
 
-tasks.jar {
-    // Otherwise it throws a "No main manifest attribute" error
-    manifest {
-        attributes(
-            mapOf(
-                "Main-Class" to myMainClass,
-                "Implementation-Version" to archiveVersion
+    afterEvaluate {
+        val mainClassName = ext.get(mainClassVarName) as String
+        val excludesVal = if (ext.has(excludeVarName)) ext.get(excludeVarName) as List<String> else emptyList()
+
+        tasks.jacocoTestReport {
+            reports {
+                xml.isEnabled = true
+                html.isEnabled = true
+            }
+            classDirectories.setFrom(
+                classDirectories.files.map {
+                    fileTree(it).matching {
+                        exclude(excludesVal)
+                    }
+                }
             )
-        )
+        }
+
+        tasks.jar {
+            manifest {
+                attributes(
+                    // Otherwise it throws a "No main manifest attribute" error
+                    mapOf(
+                        "Main-Class" to mainClassName,
+                        "Implementation-Version" to archiveVersion
+                    )
+                )
+            }
+            from(sourceSets.main.get().output)
+            dependsOn(configurations.runtimeClasspath)
+
+            // Configurations.compile is a reference to the all of the artifacts defined in the compile configuration.
+            from({
+                // Wrap each of the JAR files with the zipTree() method.
+                // The result is a collection of ZIP file trees
+                configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
+            })
+        }
+
+        tasks.assembleDist {
+            doLast {
+                copy {
+                    from("$buildDir/distributions")
+                    into(subprojectsDistributionDir)
+                }
+            }
+        }
+
+        application {
+            mainClass.set(mainClassName)
+        }
     }
-    // All the dependencies needed by our application doesn't exists in the same classpath where our .jar resides.
-    // In order to make our application standalone, we must include all of its dependencies inside our application.
-    // Include all of its dependencies inside our application
 
-    // To add all of the dependencies otherwise a "NoClassDefFoundError" error
-    from(sourceSets.main.get().output)
-    dependsOn(configurations.runtimeClasspath)
+    gitSemVer {
+        version = computeGitSemVer()
+    }
 
-    // Configurations.compile is a reference to the all of the artifacts defined in the compile configuration.
-    from({
-        // Wrap each of the JAR files with the zipTree() method. The result is a collection of ZIP file trees
+    detekt {
+        failFast = true
+        buildUponDefaultConfig = true
+        config = files(project.rootDir.resolve("detektConfig.yml"))
+    }
 
-        // configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
-        configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
-    })
+    tasks.withType<Test> {
+        useJUnitPlatform() // Use JUnit 5 engine
+        testLogging.showStandardStreams = true
+        testLogging {
+            showCauses = true
+            showStackTraces = true
+            showStandardStreams = true
+            events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        }
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            allWarningsAsErrors = true
+            jvmTarget = JavaVersion.VERSION_1_8.toString()
+        }
+    }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform() // Use JUnit 5 engine
-    testLogging.showStandardStreams = true
-    testLogging {
-        showCauses = true
-        showStackTraces = true
-        showStandardStreams = true
-        events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
-        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+val jacocoAggregatedReport by tasks.creating(JacocoReport::class) {
+    var classDirs: FileCollection = files()
+    subprojects.forEach {
+        dependsOn(it.tasks.test)
+        dependsOn(it.tasks.jacocoTestReport)
+        sourceSets(it.sourceSets.main.get())
+        classDirs += files(it.tasks.jacocoTestReport.get().classDirectories)
     }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        allWarningsAsErrors = true
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-}
-
-tasks.jacocoTestReport {
+    classDirectories.setFrom(classDirs)
+    executionData.setFrom(
+        fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+    )
     reports {
         xml.isEnabled = true
         html.isEnabled = true
+        csv.isEnabled = false
     }
-}
-
-application {
-    // Define the main class for the application
-    mainClass.set(myMainClass)
 }

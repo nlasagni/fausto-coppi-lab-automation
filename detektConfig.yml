@@ -1,0 +1,11 @@
+complexity:
+  LongParameterList:
+    constructorThreshold: 8
+style:
+  active: true
+  ThrowsCount:
+    active: true
+    max: 5
+  ReturnCount:
+    active: true
+    max: 5
