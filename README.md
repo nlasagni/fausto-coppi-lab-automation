@@ -91,7 +91,7 @@ $ gradlew <microservice>:build
 Each microservice can run in interactive mode in order to demonstrate the feature that implements.
 
 ```
-gradlew <microservice>:run -q --console=plain
+$ gradlew <microservice>:run -q --console=plain
 ```
 
 #### Test
@@ -114,7 +114,7 @@ Since the project is structured in subprojects, in order to generate the documen
 it is necessary to use the following task provided by dokka.
 
 ```
-gradlew dokkaHtmlCollector
+$ gradlew dokkaHtmlCollector
 ```
 
 The result can be found in `build/dokka/htmlCollector/` inside the root folder 
@@ -125,7 +125,7 @@ of the project.
 We created a custom Gradle task in order to generate the coverage report of the entire project.
 
 ```
-gradlew jacocoAggregatedReport
+$ gradlew jacocoAggregatedReport
 ```
 
 The result can be found in `build/reports/jacoco/jacocoAggregatedReport/` inside the root folder
