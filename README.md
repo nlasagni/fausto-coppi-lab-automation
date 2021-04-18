@@ -10,7 +10,7 @@
 
 `'develop' coverage` [![developcodecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/develop/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/develop)
 
-## Disclaimer
+## Important Notice
 
 **Since it was not the purpose of the exam to develop a system in its entirety, the software released so far is still 
 to be considered in the prototype phase.**
