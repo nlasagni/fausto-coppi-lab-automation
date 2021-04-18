@@ -1,14 +1,16 @@
 # Fausto Coppi Lab Automation
 
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/nlasagni/fausto-coppi-lab-automation)
+<a href="https://hub.docker.com/r/sbraggion/fausto-coppi-lab-automation/tags?page=1&ordering=last_updated"><img src="https://img.shields.io/badge/delivery-Docker%20Hub-blue.svg"/></a>
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/nlasagni/fausto-coppi-lab-automation/workflow)
 <a href="https://nlasagni.github.io/fausto-coppi-lab-automation/fausto-coppi-lab-automation/"><img src="https://img.shields.io/badge/docs%20by-Dokka-green.svg"/></a>
 ![GitHub](https://img.shields.io/github/license/nlasagni/fausto-coppi-lab-automation)
 
-- Main coverage: [![maincodecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main)
-- Develop coverage: [![developcodecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/develop/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/develop)
+`'main' coverage` [![maincodecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/main)
 
-## Disclaimer
+`'develop' coverage` [![developcodecov](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/develop/graph/badge.svg)](https://codecov.io/gh/nlasagni/fausto-coppi-lab-automation/branch/develop)
+
+## Important Notice
 
 **Since it was not the purpose of the exam to develop a system in its entirety, the software released so far is still 
 to be considered in the prototype phase.**
@@ -28,8 +30,9 @@ company, as it provides a gym, physiotherapy, and analysis and measurement of cy
 
 Project Report and DevOps documentation reside into Confluence space.
 
-- [Check out the Project Report](https://stefanobraggion.atlassian.net/wiki/spaces/LSS/overview)
-- [Check out DevOps documentation](https://stefanobraggion.atlassian.net/l/c/qVfgiRaV "Confluence DevOps page")
+[Check out the Project Report](https://stefanobraggion.atlassian.net/wiki/spaces/LSS/overview)
+
+[Check out DevOps documentation](https://stefanobraggion.atlassian.net/l/c/qVfgiRaV "Confluence DevOps page")
 
 ## Code Documentation
 
@@ -42,6 +45,15 @@ Code documentation is available through the repository GitHub Pages space.
 Code coverage reports are made available through the Codecov service (see also badges above).
 
 [Check out code coverage](https://app.codecov.io/gh/nlasagni/fausto-coppi-lab-automation)
+
+## Release and Delivery
+
+The project has been released into the proper *Release* section of this repository and delivered to Docker Hub 
+repository linked to the project.
+
+[Check out *Release* section](https://github.com/nlasagni/deleteme-fcla/releases)
+
+[Check out Docker Hub repository](https://hub.docker.com/r/sbraggion/fausto-coppi-lab-automation/tags?page=1&ordering=last_updated)
 
 ## Project Structure
 
@@ -90,7 +102,7 @@ $ gradlew <microservice>:build
 
 Each microservice can run in interactive mode in order to demonstrate the feature that implements.
 
-```
+```bash
 $ gradlew <microservice>:run -q --console=plain
 ```
 
@@ -113,7 +125,7 @@ $ gradlew <microservice>:test
 Since the project is structured in subprojects, in order to generate the documentation of the entire project 
 it is necessary to use the following task provided by dokka.
 
-```
+```bash
 $ gradlew dokkaHtmlCollector
 ```
 
@@ -124,7 +136,7 @@ of the project.
 
 We created a custom Gradle task in order to generate the coverage report of the entire project.
 
-```
+```bash
 $ gradlew jacocoAggregatedReport
 ```
 
