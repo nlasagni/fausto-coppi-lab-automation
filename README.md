@@ -51,7 +51,7 @@ Code coverage reports are made available through the Codecov service (see also b
 The project has been released into the proper *Release* section of this repository and delivered to Docker Hub 
 repository linked to the project.
 
-[Check out *Release* section](https://github.com/nlasagni/deleteme-fcla/releases)
+[Check out *Release* section](https://github.com/nlasagni/fausto-coppi-lab-automation/releases)
 
 [Check out Docker Hub repository](https://hub.docker.com/r/sbraggion/fausto-coppi-lab-automation/tags?page=1&ordering=last_updated)
 
@@ -67,7 +67,7 @@ They relate to the homonyms [bounded context](https://stefanobraggion.atlassian.
 analysis and design phases of the project.
 
 Each microservice implement specific features which have been identified throughout the analysis phase, 
-for further information [see the related Confluence page](https://stefanobraggion.atlassian.net/l/c/1zHykXhG).
+for further information [see the related Confluence page](https://stefanobraggion.atlassian.net/l/c/0tFELKRk).
 
 In Gradle, this means that the project consists of three suitably configured subprojects.
 
